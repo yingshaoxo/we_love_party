@@ -1,2 +1,2 @@
-# we-love-party
+# We Love Party
 Let's party.
