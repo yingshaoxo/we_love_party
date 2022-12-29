@@ -1,0 +1,12 @@
+#configs/*
+configs/o365_token.txt
+configs/config.py
+configs/redis_data
+configs/user_database
+
+.vscode
+
+# macos
+.DS_Store
+.AppleDouble
+.LSOverride
