@@ -23,17 +23,30 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "./configs/traefik_dynamic_configs:/traefik_dynamic_configs" # <== Volume for dynamic conf file
 
-  dragonfly:
-    image: docker.dragonflydb.io/dragonflydb/dragonfly
-    ports:
-      - '6379:6379'
-    restart: unless-stopped
-
   # whoami:
   #   image: "traefik/whoami"
   #   expose: #expose port to other container by using http://whoami:80
   #     - "80"
   #   restart: unless-stopped
+
+  dragonfly: # the new redis
+    image: docker.dragonflydb.io/dragonflydb/dragonfly:v0.12.0
+    ports:
+      - '6379:6379'
+    volumes:
+      - "./configs/redis_data:/data"
+    restart: unless-stopped
+  
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      - POSTGRES_USER=yingshaoxo
+      - POSTGRES_PASSWORD=yingshaoxo
+    ports:
+      - '5432:5432'
+    volumes: 
+      - ./configs/postgre_sql_db:/var/lib/postgresql/data
 
   # weloveparty_account_auth_service:
   #   build: 
@@ -65,7 +78,7 @@ services:
   #   # - "traefik.http.services.gost-grpc.loadbalancer.server.scheme=h2c"
 
   # livekit:
-  #   image: livekit/livekit-server:latest
+  #   image: livekit/livekit-server:v1.3
   #   command: --config /etc/livekit.yaml
   #   network_mode: "host"
   #   ports:

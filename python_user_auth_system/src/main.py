@@ -113,6 +113,9 @@ async def v1_jwt_auth_gateway(request: Request, response: Response):
             response.status_code = status.HTTP_401_UNAUTHORIZED
         else:
             #print(f"success: valid jwt from user: {user.email}")
+            response.headers.update({
+                "user_email": email
+            })
             response.status_code = status.HTTP_202_ACCEPTED
             return "ok"
     return "error"

@@ -3,6 +3,7 @@ configs/o365_token.txt
 configs/config.py
 configs/redis_data
 configs/user_database
+configs/postgre_sql_db
 
 .vscode
 

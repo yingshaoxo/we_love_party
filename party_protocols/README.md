@@ -11,6 +11,12 @@ only traefik listens 0.0.0.0's 443 port,
 
 ## Port Design
 
+### Internal API Service
+> It is used for all those APIs that every internal service can call. Here the 'internal service' means those services that was hidden behinds the Docker Firewall.
+
+#### GRPC
+    rust: 40050 
+
 ### Account Authentication Service
 #### Restful
     python: 40051
