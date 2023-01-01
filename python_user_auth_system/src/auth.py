@@ -39,7 +39,7 @@ class MyAuthClass:
 
 
     # jwt: JSON Web Token
-    async def auth_jwt_string(self, raw_jwt_string) -> Optional[models.User]:
+    async def auth_jwt_string(self, raw_jwt_string) -> Optional[str]:
         # print("the jwt I got: ", raw_jwt_string)
         
         if not self.regex_validate_for_jwt(raw_jwt_string):
@@ -60,14 +60,17 @@ class MyAuthClass:
         if not verified:
             return None
         
-        # if it is verified in redis but not in database, we save it to database
-        user = await self.myDatabase.getAUserByEmail(email=email)
-        if user is not None:
-            return user
-        else:
-            if await self.myDatabase.addAUser(models.User(email=email)):
-                return await self.myDatabase.getAUserByEmail(email=email)
-            return None
+        # user is verified, you may want to save it to golang handled database
+        return email
+
+        # # if it is verified in redis but not in database, we save it to database
+        # user = await self.myDatabase.getAUserByEmail(email=email)
+        # if user is not None:
+        #     return user
+        # else:
+        #     if await self.myDatabase.addAUser(models.User(email=email)):
+        #         return await self.myDatabase.getAUserByEmail(email=email)
+        #     return None
 
 
     async def get_auth_jwt_string(self, email: str, random_string: str) -> str:

@@ -58,12 +58,12 @@ class RegisterConfirmReply(betterproto.Message):
 
 
 @dataclass(eq=False, repr=False)
-class JwtIsOkRequest(betterproto.Message):
+class IsJwtOkRequest(betterproto.Message):
     jwt: str = betterproto.string_field(1)
 
 
 @dataclass(eq=False, repr=False)
-class JwtIsOkReply(betterproto.Message):
+class IsJwtOkReply(betterproto.Message):
     email: str = betterproto.string_field(1)
     error: Optional[str] = betterproto.string_field(2, optional=True, group="_error")
 
@@ -120,17 +120,18 @@ class AccountAuthenticationServiceStub(betterproto.ServiceStub):
             metadata=metadata,
         )
 
-    async def jwt_is_ok(
+    async def is_jwt_ok(
         self,
+        is_jwt_ok_request: "IsJwtOkRequest",
         *,
         timeout: Optional[float] = None,
         deadline: Optional["Deadline"] = None,
         metadata: Optional["MetadataLike"] = None
-    ) -> "JwtIsOkReply":
+    ) -> "IsJwtOkReply":
         return await self._unary_unary(
-            "/account_auth_service.AccountAuthenticationService/JWTIsOK",
-            jwt_is_ok_request,
-            JwtIsOkReply,
+            "/account_auth_service.AccountAuthenticationService/IsJwtOk",
+            is_jwt_ok_request,
+            IsJwtOkReply,
             timeout=timeout,
             deadline=deadline,
             metadata=metadata,
@@ -151,7 +152,7 @@ class AccountAuthenticationServiceBase(ServiceBase):
     ) -> "RegisterConfirmReply":
         raise grpclib.GRPCError(grpclib.const.Status.UNIMPLEMENTED)
 
-    async def jwt_is_ok(self) -> "JwtIsOkReply":
+    async def is_jwt_ok(self, is_jwt_ok_request: "IsJwtOkRequest") -> "IsJwtOkReply":
         raise grpclib.GRPCError(grpclib.const.Status.UNIMPLEMENTED)
 
     async def __rpc_say_hello(
@@ -176,11 +177,11 @@ class AccountAuthenticationServiceBase(ServiceBase):
         response = await self.user_register_confirm(request)
         await stream.send_message(response)
 
-    async def __rpc_jwt_is_ok(
-        self, stream: "grpclib.server.Stream[JwtIsOkRequest, JwtIsOkReply]"
+    async def __rpc_is_jwt_ok(
+        self, stream: "grpclib.server.Stream[IsJwtOkRequest, IsJwtOkReply]"
     ) -> None:
         request = await stream.recv_message()
-        response = await self.jwt_is_ok(request)
+        response = await self.is_jwt_ok(request)
         await stream.send_message(response)
 
     def __mapping__(self) -> Dict[str, grpclib.const.Handler]:
@@ -203,10 +204,10 @@ class AccountAuthenticationServiceBase(ServiceBase):
                 RegisterConfirmRequest,
                 RegisterConfirmReply,
             ),
-            "/account_auth_service.AccountAuthenticationService/JWTIsOK": grpclib.const.Handler(
-                self.__rpc_jwt_is_ok,
+            "/account_auth_service.AccountAuthenticationService/IsJwtOk": grpclib.const.Handler(
+                self.__rpc_is_jwt_ok,
                 grpclib.const.Cardinality.UNARY_UNARY,
-                JwtIsOkRequest,
-                JwtIsOkReply,
+                IsJwtOkRequest,
+                IsJwtOkReply,
             ),
         }

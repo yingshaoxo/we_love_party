@@ -55,12 +55,12 @@ async def run(myDatabase: sqlite.MyDatabase, my_redis: MyRedis):
     jwt = await myAuthClass.get_auth_jwt_string(email=email, random_string=random_string)
 
     # auth jwt
-    user = await myAuthClass.auth_jwt_string(raw_jwt_string=jwt)
-    assert user is not None
+    email = await myAuthClass.auth_jwt_string(raw_jwt_string=jwt)
+    assert email is not None
 
     # get wrong jwt
     wrong_jwt = await myAuthClass.get_auth_jwt_string(email=email, random_string=random_string*2)
 
     # auth wrong jwt
-    user = await myAuthClass.auth_jwt_string(raw_jwt_string=wrong_jwt)
-    assert user is None
+    email = await myAuthClass.auth_jwt_string(raw_jwt_string=wrong_jwt)
+    assert email is None

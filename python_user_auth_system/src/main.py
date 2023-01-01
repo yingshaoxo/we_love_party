@@ -1,13 +1,18 @@
+import os
+import sys
+cur_path=os.path.abspath(os.path.dirname(__file__))
+sys.path.insert(0, cur_path+"/..")
+
 import asyncio
 from datetime import datetime
 from socket import timeout
-import sys
 import uvicorn
 
 import multiprocessing
 from src.grpc_service import run_service
 
 from fastapi import FastAPI
+from fastapi import Request, Response, status
 from fastapi.middleware.cors import CORSMiddleware
 
 from func_timeout import func_timeout, FunctionTimedOut
@@ -20,6 +25,12 @@ from src.utils import MyO365
 from src.auth import MyAuthClass
 from src.database.sqlite import MyDatabase
 from src.database.redis import MyRedis
+
+
+redis_network_name = os.getenv("redis_network_name")
+if redis_network_name:
+    config.REDIS_HOST_URL = redis_network_name
+
 
 my_database = MyDatabase(DATABASE_URL=config.DATABASE_URL)
 my_redis_1 = MyRedis(redis_host_URL=config.REDIS_HOST_URL, db_number=1)
@@ -87,14 +98,24 @@ async def home():
 
 
 
-@ app.post("/auth_jwt/", response_model=models.AuthJwtOutput)
-async def auth_jwt(input: models.AuthJwtInput):
-    user = await my_auth_class.auth_jwt_string(raw_jwt_string=input.jwt)
-
-    if (user is None):
-        return models.AuthJwtOutput.parse_obj({"email": "", "error": "Invalid JWT."})
-    
-    return models.AuthJwtOutput.parse_obj({"email": user.email, "error": None})
+@ app.get("/v1/jwt_auth_gateway/", response_model=str)
+async def v1_jwt_auth_gateway(request: Request, response: Response):
+    print("headers: ", request.headers)
+    raw_jwt_string = request.headers.get("jwt", None)
+    if raw_jwt_string == None:
+        response.status_code = status.HTTP_401_UNAUTHORIZED
+    else:
+        # response.status_code = status.HTTP_202_ACCEPTED
+        # return "ok"
+        email = await my_auth_class.auth_jwt_string(raw_jwt_string=raw_jwt_string)
+        if (email is None):
+            print(f"error: invalid jwt: {raw_jwt_string}")
+            response.status_code = status.HTTP_401_UNAUTHORIZED
+        else:
+            #print(f"success: valid jwt from user: {user.email}")
+            response.status_code = status.HTTP_202_ACCEPTED
+            return "ok"
+    return "error"
 
 
 
@@ -112,7 +133,7 @@ def start_grpc_service():
     print("\n\n" + "grpc service is running on: 127.0.0.1:40052" + "\n\n")
 
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(run_service(port=40052, my_o365=my_o365, my_authentication_class=my_auth_class))
+    loop.run_until_complete(run_service(host="0.0.0.0", port=40052, my_o365=my_o365, my_authentication_class=my_auth_class))
 
 
 def start_restful_service():
@@ -135,7 +156,7 @@ def start_restful_service():
     #print(f"\n\n\nThe service is running on: http://localhost:{port}\n\n")
 
     uvicorn.run("src.main:app", 
-                host="127.0.0.1",
+                host="0.0.0.0",
                 port=port, 
                 debug=True, reload=True, workers=8)
 
@@ -152,3 +173,7 @@ def start():
     # Wait processes to complete
     process_1.join()
     process_2.join()
+
+
+if __name__ == '__main__':
+    start()

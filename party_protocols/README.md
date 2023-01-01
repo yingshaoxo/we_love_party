@@ -7,6 +7,8 @@ only traefik listens 0.0.0.0's 443 port,
 
 `traefik` do a map, convert `domain(https url) request` to `localhost IP request`. And for those requests that can't pass the header JWT authentication, we drop it
 
+> Only Linux supports docker `host` mode, which is the easiest way to manage the network.
+
 ## Port Design
 
 ### Account Authentication Service
@@ -146,7 +148,9 @@ protoc \
 ```
 
 ```bash
-docker-compose up -d
+docker-compose build
+ 
+docker-compose up --force-recreate -d
 docker-compose logs -f
 
 docker-compose down --volumes    

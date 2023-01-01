@@ -1,0 +1,30 @@
+http:
+  routers:
+    grpc_auth_router:
+      entryPoints:
+        - web
+        - websecure
+      rule: "Host(`auth.weloveparty.domain.local`)"
+      # rule: PathPrefix(`/auth`) 
+      middlewares:
+        # - test-stripprefix
+        # my_jwt_auth
+      service: weloveparty_account_auth_service
+
+  middlewares:
+    test-stripprefix:
+      stripPrefix:
+        prefixes:
+          - "/auth"
+    my_jwt_auth:
+        forwardAuth:
+          # address: "http://weloveparty_account_auth_service:40051/v1/jwt_auth_gateway/"
+          address: "http://host.docker.internal:40051/v1/jwt_auth_gateway/"
+
+  services:
+    weloveparty_account_auth_service:
+      loadBalancer:
+        servers:
+          # - url: h2c://weloveparty_account_auth_service:40052
+          - url: h2c://host.docker.internal:40052
+        passHostHeader: true

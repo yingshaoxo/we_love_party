@@ -19,7 +19,7 @@ service AccountAuthenticationService {
     rpc SayHello (HelloRequest) returns (HelloReply);
     rpc UserRegisterRequest(RegisterRequest) returns (RegisterReply);
     rpc UserRegisterConfirm(RegisterConfirmRequest) returns (RegisterConfirmReply);
-    rpc JWTIsOK(JWTIsOKRequest) returns (JWTIsOKReply);
+    rpc IsJwtOk(IsJwtOkRequest) returns (IsJwtOkReply);
 }
 
 
@@ -42,11 +42,11 @@ message RegisterConfirmReply {
     optional string error = 2;
 }
 
-message JWTIsOKRequest {
+message IsJwtOkRequest {
     string jwt = 1;
 }
 
-message JWTIsOKReply {
+message IsJwtOkReply {
     string email = 1;
     optional string error = 2;
 }

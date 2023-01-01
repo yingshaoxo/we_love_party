@@ -26,14 +26,16 @@ class MyDatabase:
         self.metadata.create_all(self.engine)
 
     async def getAUserByEmail(self, email: str) -> Optional[models.User]:
-        query = self.users_table.select().where((self.users_table.c.email == email))
-        user = await self.database.fetch_one(query)
+        query = self.users_table.select().where((self.users_table.columns.email == email))
+        query = query.compile(compile_kwargs={"literal_binds": True})
+        user = await self.database.fetch_one(query=str(query))
         if user is None:
             return None
         return models.User.parse_obj(user)
 
     async def addAUser(self, aUser: models.User) -> Optional[int]:
         query = self.users_table.insert().values(**aUser.dict())
+        query = query.compile(compile_kwargs={"literal_binds": True})
         the_new_user_id = await self.database.execute(query)
         if the_new_user_id is not None:
             return the_new_user_id
@@ -51,10 +53,12 @@ class MyDatabase:
             self.users_table.c.id == id
         ).values(**old_user_dict)
 
+        query = query.compile(compile_kwargs={"literal_binds": True})
         return await self.database.execute(query) is not None
     
     async def getAUser(self, id: int) -> Optional[models.User]:
         query = self.users_table.select().where(self.users_table.c.id == id)
+        query = query.compile(compile_kwargs={"literal_binds": True})
         user = await self.database.fetch_one(query)
         if user is None:
             return None
@@ -62,13 +66,16 @@ class MyDatabase:
     
     async def listUsers(self) -> list[models.User]:
         query = self.users_table.select()
+        query = query.compile(compile_kwargs={"literal_binds": True})
         users = await self.database.fetch_all(query)
         return [models.User.parse_obj(user) for user in users]
     
     async def deleteAUser(self, id: int) -> bool:
         query = self.users_table.delete().where(self.users_table.c.id == id)
+        query = query.compile(compile_kwargs={"literal_binds": True})
         return await self.database.execute(query) is not None
 
     async def deleteAllUsers(self) -> bool:
         query = self.users_table.delete()
+        query = query.compile(compile_kwargs={"literal_binds": True})
         return await self.database.execute(query) is not None

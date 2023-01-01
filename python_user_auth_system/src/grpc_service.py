@@ -33,7 +33,7 @@ class AccountAuthenticationService(AccountAuthenticationServiceBase):
         await self.my_authentication_class.add_info_to_unverified_pool(email=email, random_string=randomString)
 
         try:
-            func_timeout(5, self.my_o365.send_email2, args=(email, "Thanks for register WeLoveParty App", "Here is your verification code: " + randomString))
+            func_timeout(20, self.my_o365.send_email2, args=(email, "Thanks for register WeLoveParty App", "Here is your verification code: " + randomString))
         except FunctionTimedOut:
             print(f"Sening email to {email} timeout!")
             return RegisterReply(result="failed", error="can't send email. timeout.")
@@ -61,23 +61,23 @@ class AccountAuthenticationService(AccountAuthenticationServiceBase):
             error=None
         )
 
-    async def jwt_is_ok(self, jwt_is_ok_request: JwtIsOkRequest) -> JwtIsOkReply:
-        user = await self.my_authentication_class.auth_jwt_string(raw_jwt_string=jwt_is_ok_request.jwt)
+    async def is_jwt_ok(self, jwt_is_ok_request: IsJwtOkRequest) -> IsJwtOkReply:
+        email = await self.my_authentication_class.auth_jwt_string(raw_jwt_string=jwt_is_ok_request.jwt)
 
-        if (user is None):
-            return JwtIsOkReply(email="", error="Invalid JWT.")
+        if (email is None):
+            return IsJwtOkReply(email="", error="Invalid JWT.")
         
-        return JwtIsOkReply(email=user.email, error=None)
+        return IsJwtOkReply(email=email, error=None)
 
 
-async def run_service(port: int, my_o365: MyO365, my_authentication_class: MyAuthClass):
+async def run_service(host: str, port: int, my_o365: MyO365, my_authentication_class: MyAuthClass):
     server = Server([
         AccountAuthenticationService(
             my_o365=my_o365, 
             my_authentication_class=my_authentication_class
         )
     ])
-    await server.start("127.0.0.1", port)
+    await server.start(host, port)
     await server.wait_closed()
 
 
