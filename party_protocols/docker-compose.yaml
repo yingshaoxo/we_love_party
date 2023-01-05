@@ -32,7 +32,7 @@ services:
   dragonfly: # the new redis
     image: docker.dragonflydb.io/dragonflydb/dragonfly:v0.12.0
     command:
-      - "--save_schedule=*:30" # save for every 1 minute
+      - "--save_schedule=*:*" # save for every 1 minute
       - "--dbfilename=/data/dump.rdb"
     ports:
       - '6379:6379'
@@ -55,7 +55,6 @@ services:
   #   build: 
   #     context: ../rust_internal_api_system
   #     dockerfile: ./Dockerfile
-  #     target: final
   #   image: yingshaoxo/weloveparty_internal_api_service
   #   expose:
   #     - "40050"
@@ -72,7 +71,6 @@ services:
     build: 
       context: ../python_user_auth_system
       dockerfile: ./Dockerfile
-      target: final
     image: yingshaoxo/weloveparty_account_auth_service
     expose:
       - "40051"
@@ -92,22 +90,21 @@ services:
       - redis_network_name=dragonfly
     restart: unless-stopped
 
-  # weloveparty_account_storage_service:
-  #   build: 
-  #     context: ../golang_user_storage_system
-  #     dockerfile: ./Dockerfile
-  #     target: final
-  #   image: yingshaoxo/weloveparty_golang_user_storage_system
-  #   expose:
-  #     - "40053"
-  #   # ports:
-  #   #   - "40053:40053"
-  #   environment: 
-  #     - redis_network_name=dragonfly
-  #     - postgres_sql_host=db
-  #     - postgres_sql_user=yingshaoxo
-  #     - postgres_sql_password=yingshaoxo
-  #   restart: unless-stopped
+  weloveparty_account_storage_service:
+    build: 
+      context: ../golang_user_storage_system
+      dockerfile: ./Dockerfile
+    image: yingshaoxo/weloveparty_golang_user_storage_system
+    expose:
+      - "40053"
+    # ports:
+    #   - "40053:40053"
+    environment: 
+      - redis_network_name=dragonfly
+      - postgres_sql_host=db
+      - postgres_sql_user=yingshaoxo
+      - postgres_sql_password=yingshaoxo
+    restart: unless-stopped
 
   # livekit:
   #   image: livekit/livekit-server:v1.3

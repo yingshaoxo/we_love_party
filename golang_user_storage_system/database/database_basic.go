@@ -41,10 +41,3 @@ func Get_postgres_sql_database() *gorm.DB {
 	db.AutoMigrate(&User{})
 	return db
 }
-
-func Add_a_new_user(db *gorm.DB, user *User) error {
-	// user := UserInDatabase{Chat_id: chat_id, User_id: user_id, Verified: verified, Register_time: timestamp_string}
-
-	operation_result := db.Create(user)
-	return operation_result.Error
-}

@@ -8,15 +8,19 @@ import (
 	"log"
 	"os"
 
+	"gorm.io/gorm"
+
 	"github.com/yingshaoxo/gopython/disk_tool"
+
 	"github.com/yingshaoxo/we_love_party/golang_user_storage_system/account_storage_service"
+	"github.com/yingshaoxo/we_love_party/golang_user_storage_system/database"
 	"github.com/yingshaoxo/we_love_party/golang_user_storage_system/store"
 )
 
 var context_ context.Context
 var err error
 
-// var db *gorm.DB
+var postgres_sql_database *gorm.DB
 
 func setup_logger(log_file_path string) {
 	// delete old log
@@ -42,47 +46,16 @@ func main() {
 		setup_logger(log_file_path)
 	}
 
-	// set up store
+	// set up store by using env variables
 	store.Init()
 
-	// // set database
-	// postgres_sql_database := database.Get_postgres_sql_database()
+	// set database
+	postgres_sql_database = database.Get_postgres_sql_database()
 
-	// your code here
-
-	// go telegram_bot_loop()
-	// my_operation_loop()
-
-	// my_livekit_controller := livekit.MyLiveKitController{
-	// 	Content:       context_,
-	// 	Host:          store.Livekit_host_https_address,
-	// 	Api_key:       store.Livekit_api_key,
-	// 	Api_secret:    store.Livekit_api_secret,
-	// 	Identity_name: "root",
-	// }
-	// my_livekit_controller.Init(&my_livekit_controller)
-
-	// the_first_room_name := "number1"
-	// room_time_out_in_seconds := 60 * 60 * 12 * 30 * 12
-	// common_room := my_livekit_controller.Create_a_room(the_first_room_name, uint32(room_time_out_in_seconds))
-
-	// token1 := my_livekit_controller.Get_room_join_token(common_room.Name, "yingshaoxo")
-	// token2 := my_livekit_controller.Get_room_join_token(common_room.Name, "others")
-
-	// fmt.Println("\n")
-	// fmt.Printf(
-	// 	"https://example.livekit.io/#/room?url=%v&token=%v&videoEnabled=1&audioEnabled=1&simulcast=1&dynacast=1&adaptiveStream=1&videoDeviceId=1\n",
-	// 	store.Livekit_host_wss_address,
-	// 	token1,
-	// )
-	// fmt.Println()
-	// fmt.Printf(
-	// 	"https://example.livekit.io/#/room?url=%v&token=%v&videoEnabled=1&audioEnabled=1&simulcast=1&dynacast=1&adaptiveStream=1&videoDeviceId=2\n",
-	// 	store.Livekit_host_wss_address,
-	// 	token2,
-	// )
-
+	// set up grpc
 	context_ = context.Background()
-	call_service := account_storage_service.GrpcAccountStorageServer{}
-	call_service.Start(&call_service, "127.0.0.1:40058", context_)
+	account_storage_service := account_storage_service.GrpcAccountStorageServer{
+		Postgres_sql_database: postgres_sql_database,
+	}
+	account_storage_service.Start(&account_storage_service, "0.0.0.0:40053", context_)
 }
