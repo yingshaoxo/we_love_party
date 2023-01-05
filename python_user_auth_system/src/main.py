@@ -158,10 +158,11 @@ def start_restful_service():
 
     #print(f"\n\n\nThe service is running on: http://localhost:{port}\n\n")
 
-    uvicorn.run("src.main:app", 
+    
+    uvicorn.run(app=app, # type: ignore #"src.main:app", 
                 host="0.0.0.0",
                 port=port, 
-                debug=True, reload=True, workers=8)
+                debug=True) #reload=True, workers=8)
 
 
 def start():

@@ -97,22 +97,18 @@ cd ..
 #build.rs
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    tonic_build::compile_protos("../party_protocals/protocols/helloworld.proto")?;
-
-    tonic_build::compile_protos("../party_protocals/protocols/account_service.proto")?;
-
-    tonic_build::compile_protos("../party_protocals/protocols/room_control_service.proto")?;
+    tonic_build::compile_protos("./protocols/internal_api_service.proto")?;
 
     Ok(())
-}
 ```
 
 ```bash
-cd rust_service
+cd ../rust_interval_api_system
+
+mkdir protocols
+cp -Rf ../party_protocols/protocols/internal_api_service.proto ./protocols/
 
 cargo build --bin server
-
-cd ..
 ```
 
 

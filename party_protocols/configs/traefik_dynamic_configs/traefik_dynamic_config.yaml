@@ -14,8 +14,8 @@ http:
         - web
         - websecure
       rule: "Host(`internal_api.weloveparty.domain.local`)"
-      middlewares:
-        - my_jwt_auth
+      # middlewares:
+      #   - my_jwt_auth
       service: weloveparty_internal_api_service
 
   middlewares:
@@ -31,15 +31,15 @@ http:
               - "user_email" # jwt_auth_gateway will put this header to the original request
 
   services:
-    weloveparty_account_auth_service:
-      loadBalancer:
-        servers:
-          # - url: h2c://weloveparty_account_auth_service:40052
-          - url: h2c://host.docker.internal:40052
-        passHostHeader: true
     weloveparty_internal_api_service:
       loadBalancer:
         servers:
-          # - url: h2c://weloveparty_internal_api_service:40052
-          - url: h2c://host.docker.internal:40050
+          - url: h2c://weloveparty_internal_api_service:40050
+          # - url: h2c://host.docker.internal:40050
+        passHostHeader: true
+    weloveparty_account_auth_service:
+      loadBalancer:
+        servers:
+          - url: h2c://weloveparty_account_auth_service:40052
+          #- url: h2c://host.docker.internal:40052
         passHostHeader: true

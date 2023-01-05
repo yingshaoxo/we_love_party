@@ -1,4 +1,4 @@
-FROM rust:1.59
+FROM rust:1.59 as temp_build_container
 
 RUN rustup component add rustfmt
 
@@ -9,10 +9,17 @@ WORKDIR /code
 COPY ./Cargo.toml /code/Cargo.toml
 COPY ./build.rs /code/build.rs
 COPY ./src /code/src
+COPY ./protocols /code/protocols
 
 RUN cargo build --bin server
 
-EXPOSE 40054
-EXPOSE 40055
 
-CMD ["cargo", "run", "--bin", "server"]
+FROM rust:1.59 as final
+
+COPY --from=temp_build_container /code/target/debug/server /code/server
+
+
+EXPOSE 40050
+
+#CMD ["cargo", "run", "--bin", "server"]
+CMD ["/code/server"]

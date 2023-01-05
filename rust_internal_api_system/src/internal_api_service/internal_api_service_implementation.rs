@@ -1,5 +1,6 @@
 use std::sync::{Arc, Mutex};
 
+use tokio_postgres::{Client, Connection, Socket};
 use tonic::{transport::Server, Request, Response, Status};
 
 pub mod grpc_internal_api_service {
@@ -11,8 +12,8 @@ pub mod grpc_internal_api_service {
 //     CreateAUserRequest, CreateAUserResponse, DeleteAUserRequest, DeleteAUserResponse
 // };
 
-use crate::internal_api_service::postgre_sql_database_handler::PostgreSqlDatabaseHandler;
-use crate::EnvironmentVariables;
+use crate::{internal_api_service::postgre_sql_database_handler::PostgreSqlDatabaseHandler, environment_module::basic::EnvironmentVariables};
+// use crate::EnvironmentVariables;
 
 // #[derive(Debug, Default)]
 #[derive(Debug)]
@@ -30,18 +31,16 @@ impl grpc_internal_api_service::internal_api_service_server::InternalApiService 
         println!("Got a request: {:?}", request);
 
         let email = request.get_ref().clone().email;
-        let email_in_header = request.metadata().get("user_email");
-        if (email_in_header != None) && (email_in_header.unwrap().to_str().unwrap().to_string() == email) {
-            println!("Got a user email from header: {:?}", email_in_header.unwrap().to_str().unwrap().to_string());
-            println!("The email from input == to the email from header !!!");
-        };
+        // let email_in_header = request.metadata().get("user_email");
+        // if (email_in_header != None) && (email_in_header.unwrap().to_str().unwrap().to_string() == email) {
+        //     println!("Got a user email from header: {:?}", email_in_header.unwrap().to_str().unwrap().to_string());
+        //     println!("The email from input == to the email from header !!!");
+        // };
 
         let reply = grpc_internal_api_service::CreateAUserResponse {
             result: format!("Hello {}!", email).into(),
             error: None,
         };
-
-        self.postgre_sql_database_handler.say_hi(email).await;
 
         Ok(Response::new(reply))
     }
@@ -50,8 +49,10 @@ impl grpc_internal_api_service::internal_api_service_server::InternalApiService 
         &self,
         request: tonic::Request<grpc_internal_api_service::DeleteAUserRequest>,
     ) -> Result<tonic::Response<grpc_internal_api_service::DeleteAUserResponse>, tonic::Status> {
+        let email = request.get_ref().clone().email;
+
         let reply = grpc_internal_api_service::DeleteAUserResponse {
-            result: format!("Hello {}!", request.into_inner().email).into(),
+            result: format!("Hello {}!", email).into(),
             error: None,
         };
 
@@ -64,15 +65,13 @@ pub async fn run(
     grpc_host: String,
     grpc_port: String,
 ) -> Result<(), Box<dyn std::error::Error>> {
+    let python_account_structure = PostgreSqlDatabaseHandler {
+        environment_variables: environment_variables.clone(),
+    };
+
     let address_string = format!("{host}:{port}", host = grpc_host, port = grpc_port);
     let addr = address_string.parse()?;
 
-    let python_account_structure = PostgreSqlDatabaseHandler {
-        postgre_sql_address: Arc::new(Mutex::new(
-            environment_variables.postgre_db_network_name,
-        ))
-        .clone(),
-    };
     let my_account_service = MyInternalApiService {
         postgre_sql_database_handler: python_account_structure,
     };

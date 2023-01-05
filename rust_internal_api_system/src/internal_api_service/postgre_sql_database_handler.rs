@@ -1,12 +1,37 @@
-use std::sync::{Arc, Mutex};
+use std::{sync::{Arc, Mutex}};
 // use std::collections::HashMap;
+
+use tokio_postgres;
+
+use crate::environment_module::basic::EnvironmentVariables;
 
 #[derive(Debug, Clone)]
 pub struct PostgreSqlDatabaseHandler {
-    pub postgre_sql_address: Arc<Mutex<String>>,
+    pub environment_variables: EnvironmentVariables,
 }
 
 impl PostgreSqlDatabaseHandler {
+    pub async fn get_postgre_sql_client(&self) -> Result<tokio_postgres::Client, tokio_postgres::Error> {
+        let config_string = format!("host={host} user={user} password={password} dbname=postgres", 
+            host = self.environment_variables.postgre_db_network_name, 
+            user = self.environment_variables.postgres_user, 
+            password = self.environment_variables.postgres_password
+        );
+
+        // println!("{}", config_string);
+
+        let (client, connection) = 
+            tokio_postgres::connect(&config_string, tokio_postgres::NoTls).await?;
+
+        tokio::spawn(async move {
+            if let Err(e) = connection.await {
+                eprintln!("connection error: {}", e);
+            }
+        });
+
+        return Ok(client);
+    }
+
     pub async fn say_hi(
         &self,
         name: String,

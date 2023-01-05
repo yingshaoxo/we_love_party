@@ -1,0 +1,27 @@
+syntax = "proto3";
+package internal_api_service;
+
+option go_package = "./internal_api_service";
+
+service InternalApiService {
+    rpc CreateAUser(CreateAUserRequest) returns (CreateAUserResponse);
+    rpc DeleteAUser(DeleteAUserRequest) returns (DeleteAUserResponse);
+}
+
+message CreateAUserRequest {
+    string email = 1;
+}
+
+message CreateAUserResponse {
+    string result = 1;
+    optional string error = 2;
+}
+
+message DeleteAUserRequest {
+    string email = 1;
+}
+
+message DeleteAUserResponse {
+    string result = 1;
+    optional string error = 2;
+}

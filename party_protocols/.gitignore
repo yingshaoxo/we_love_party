@@ -5,7 +5,8 @@ configs/redis_data
 configs/user_database
 configs/postgre_sql_db
 
-.vscode
+.pytest_cache/
+.vscode/
 
 # macos
 .DS_Store
