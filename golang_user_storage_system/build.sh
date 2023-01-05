@@ -10,7 +10,8 @@ export PATH=~/go/bin:$PATH
 
 mkdir binary
 cd binary
-gox -output="${name}_{{.OS}}_{{.Arch}}" -osarch="linux/amd64" -osarch="darwin/arm64" ../
+gox -output="${name}_{{.OS}}_{{.Arch}}" -osarch="linux/amd64" ../
+#-osarch="darwin/arm64"
 
 executable_target_path="$(pwd)/${name}_linux_amd64"
 chmod 777 $executable_target_path

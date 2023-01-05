@@ -13,9 +13,9 @@ pub struct PostgreSqlDatabaseHandler {
 impl PostgreSqlDatabaseHandler {
     pub async fn get_postgre_sql_client(&self) -> Result<tokio_postgres::Client, tokio_postgres::Error> {
         let config_string = format!("host={host} user={user} password={password} dbname=postgres", 
-            host = self.environment_variables.postgre_db_network_name, 
-            user = self.environment_variables.postgres_user, 
-            password = self.environment_variables.postgres_password
+            host = self.environment_variables.postgres_sql_host, 
+            user = self.environment_variables.postgres_sql_user, 
+            password = self.environment_variables.postgres_sql_password
         );
 
         // println!("{}", config_string);

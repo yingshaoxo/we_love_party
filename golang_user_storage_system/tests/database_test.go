@@ -4,19 +4,17 @@ import (
 	"context"
 	"fmt"
 	"os"
-	"strings"
 	"testing"
 	"time"
 
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 
 	"github.com/yingshaoxo/we_love_party/golang_user_storage_system/database"
 	"github.com/yingshaoxo/we_love_party/golang_user_storage_system/store"
-
-	"github.com/yingshaoxo/gopython/terminal_tool"
 )
 
-var db *gorm.DB
+var postgres_sql_database *gorm.DB
 var my_context context.Context
 var cancel context.CancelFunc
 
@@ -26,7 +24,8 @@ func TestMain(m *testing.M) {
 	my_context, cancel = context.WithTimeout(context.Background(), 10000*time.Second)
 	defer cancel()
 
-	db = database.Init_database(store.Sqlite_database_test_file_path)
+	store.Init()
+	postgres_sql_database = database.Get_postgres_sql_database()
 	fmt.Println("database initialized")
 	defer func() {
 	}()
@@ -38,11 +37,72 @@ func TestMain(m *testing.M) {
 	os.Exit(code)
 }
 
-func Test_if_database_exists(t *testing.T) {
-	result := terminal_tool.Run_command("ls -l")
+// func Test_if_database_exists(t *testing.T) {
+// 	result := terminal_tool.Run_command("ls -l")
 
-	// built_in_functions.Print(result)
-	if !strings.Contains(result, "test.db") {
-		t.Fatalf("There should have a file called 'test.db'")
+// 	// built_in_functions.Print(result)
+// 	if !strings.Contains(result, "test.db") {
+// 		t.Fatalf("There should have a file called 'test.db'")
+// 	}
+// }
+
+func Test_create_a_user(t *testing.T) {
+	user := database.User{
+		Email:      "1576570260@qq.com", //"yingshaoxo@gmail.com",
+		Password:   "",
+		Username:   "",
+		Head_image: "",
+		Sex:        -1,
+		Age:        -1,
+	}
+	result := postgres_sql_database.Clauses(clause.OnConflict{DoNothing: true}).Create(&user)
+	if result.Error != nil {
+		t.Fatalf(result.Error.Error())
+	}
+}
+
+func Test_update_a_user_info(t *testing.T) {
+	user := database.User{
+		Email:      "yingshaoxo@gmail.com",
+		Password:   "",
+		Username:   "",
+		Head_image: "",
+		Sex:        -1,
+		Age:        -1,
+	}
+
+	result := postgres_sql_database.Clauses(clause.OnConflict{
+		Columns: []clause.Column{{Name: "email"}}, // key colume
+		// DoUpdates: clause.AssignmentColumns([]string{"name", "age"}), // column needed to be updated
+		UpdateAll: true,
+	}).Create(&user)
+
+	// result := postgres_sql_database.Model(&user).Where("email = ?", user.Email).Updates(&user)
+
+	if result.Error != nil {
+		t.Fatalf(result.Error.Error())
+	}
+}
+
+func Test_delete_a_user(t *testing.T) {
+	user := database.User{
+		Email: "1576570260@qq.com",
+	}
+
+	result := postgres_sql_database.Unscoped().Where("email = ?", user.Email).Delete(&user)
+
+	if result.Error != nil {
+		t.Fatalf(result.Error.Error())
+	}
+}
+
+func Test_raw_sql_command(t *testing.T) {
+	rows, _ := postgres_sql_database.Raw(`select * from "user" where email = ?`, "yingshaoxo@gmail.com").Rows()
+	defer rows.Close()
+
+	var user database.User
+	for rows.Next() {
+		postgres_sql_database.ScanRows(rows, &user)
+		println(user.UpdatedAt.String())
 	}
 }

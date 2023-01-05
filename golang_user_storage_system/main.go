@@ -9,8 +9,8 @@ import (
 	"os"
 
 	"github.com/yingshaoxo/gopython/disk_tool"
-
-	"github.com/yingshaoxo/we_love_party/golang_user_storage_system/call_service"
+	"github.com/yingshaoxo/we_love_party/golang_user_storage_system/account_storage_service"
+	"github.com/yingshaoxo/we_love_party/golang_user_storage_system/store"
 )
 
 var context_ context.Context
@@ -42,8 +42,11 @@ func main() {
 		setup_logger(log_file_path)
 	}
 
-	// set database
-	// db = database.Init_database(store.Sqlite_database_file_path)
+	// set up store
+	store.Init()
+
+	// // set database
+	// postgres_sql_database := database.Get_postgres_sql_database()
 
 	// your code here
 
@@ -80,14 +83,6 @@ func main() {
 	// )
 
 	context_ = context.Background()
-	call_service := call_service.GrpcCallServer{}
+	call_service := account_storage_service.GrpcAccountStorageServer{}
 	call_service.Start(&call_service, "127.0.0.1:40058", context_)
-
-	// r := gin.Default()
-	// r.GET("/ping", func(c *gin.Context) {
-	// 	c.JSON(http.StatusOK, gin.H{
-	// 		"message": "pong",
-	// 	})
-	// })
-	// r.Run("0.0.0.0:12345") // listen and serve on 0.0.0.0:12345
 }

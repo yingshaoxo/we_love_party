@@ -70,9 +70,9 @@ python -m grpc_tools.protoc --proto_path ../party_protocols/protocols --python_b
 go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28
 go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
 
-mkdir -p ./generated_grpc/account_auth_service
+mkdir -p ./generated_grpc/
 
-protoc --go_out=generated_grpc --go-grpc_out=generated_grpc --proto_path ../party_protocols/protocols account_auth_service.proto
+protoc --go_out=generated_grpc --go-grpc_out=generated_grpc --proto_path ../party_protocols/protocols account_storage_service.proto
 
 #protoc --go_out=generated_grpc/account_auth_service --go-grpc_out=generated_grpc/account_auth_service --go_opt=paths=source_relative --go-grpc_opt=paths=source_relative --proto_path ../party_protocols/protocols account_auth_service.proto
 ```

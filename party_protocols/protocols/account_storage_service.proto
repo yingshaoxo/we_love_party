@@ -1,0 +1,43 @@
+syntax = "proto3";
+package account_storage_service;
+
+option go_package = "./account_storage_service";
+
+service AccountStorageService {
+    rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+    rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
+
+    rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
+}
+
+message CreateUserRequest {
+    string email = 1;
+}
+
+message CreateUserResponse {
+    string result = 1;
+    optional string error = 2;
+}
+
+message DeleteUserRequest {
+    string email = 1;
+}
+
+message DeleteUserResponse {
+    string result = 1;
+    optional string error = 2;
+}
+
+message UpdateUserRequest {
+    string email = 1;
+    optional string password = 2;
+    optional string username = 3;
+    optional string head_image = 4; //base64 string of an image
+    optional int32 sex = 5; //AI detect. 0: female, 1: male
+    optional int32 age = 6; //AI detect.
+}
+
+message UpdateUserResponse {
+    string result = 1;
+    optional string error = 2;
+}
