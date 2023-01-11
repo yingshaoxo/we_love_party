@@ -79,17 +79,9 @@ protoc --go_out=generated_grpc --go-grpc_out=generated_grpc --proto_path ../part
 
 ### Flutter
 ```bash
-cd flutter_client
-
 mkdir -p lib/generated_grpc
 
-protoc --dart_out=grpc:lib/generated_grpc --proto_path ../party_protocals/protocols helloworld.proto
-
-protoc --dart_out=grpc:lib/generated_grpc --proto_path ../party_protocals/protocols account_service.proto
-
-
-protoc --dart_out=grpc:lib/generated_grpc --proto_path ../party_protocals/protocols room_control_service.proto
-cd ..
+protoc --dart_out=grpc:lib/generated_grpc --proto_path ../party_protocols/protocols --experimental_allow_proto3_optional account_auth_service.proto account_storage_service.proto 
 ```
 
 ### Rust

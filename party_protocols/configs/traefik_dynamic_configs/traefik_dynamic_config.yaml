@@ -1,5 +1,15 @@
+## in /etc/hosts
+# 127.0.0.1 weloveparty.domain.local auth.weloveparty.domain.local internal_api.weloveparty.domain.local account_storage.weloveparty.domain.lo    cal whoami.weloveparty.domain.local
+
+
 http:
   routers:
+    whoami_router:
+      entryPoints:
+        - web
+        - websecure
+      rule: "Host(`whoami.weloveparty.domain.local`)"
+      service: whoami_service
     grpc_auth_router:
       entryPoints:
         - web
@@ -7,6 +17,7 @@ http:
       rule: "Host(`auth.weloveparty.domain.local`)"
       # rule: PathPrefix(`/auth`) 
       middlewares:
+        - test-grpcweb
         # - test-stripprefix
       service: weloveparty_account_auth_service
     grpc_internal_api_router:
@@ -37,8 +48,16 @@ http:
           # address: "http://host.docker.internal:40051/v1/jwt_auth_gateway/"
           authResponseHeaders:
               - "user_email" # jwt_auth_gateway will put this header to the original request
+    test-grpcweb:
+      grpcWeb:
+        allowOrigins:
+          - "*"
 
   services:
+    whoami_service:
+      loadBalancer:
+        servers:
+          - url: http://whoami:80
     weloveparty_account_auth_service:
       loadBalancer:
         servers:

@@ -1,0 +1,199 @@
+{
+  "log": {
+    "loglevel": "warning"
+  },
+  "inbounds": [
+    {
+      "listen": "0.0.0.0",
+      "port": 1111,
+      "protocol": "http",
+      "tag": "http"
+    },
+    {
+      "listen": "0.0.0.0",
+      "port": 1110,
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": true,
+        "userLevel": 8
+      },
+      "sniffing": {
+        "destOverride": [
+          "http",
+          "tls"
+        ],
+        "enabled": true
+      },
+      "tag": "socks"
+    },
+    {
+      "listen": "0.0.0.0",
+      "port": 22245, // The open port
+      "protocol": "dokodemo-door",
+      "settings": {
+        "network": "tcp,udp",
+        "followRedirect": true // Need to be set as true to accept traffic from iptables
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls"]
+      }
+    },
+    {
+      "listen": "0.0.0.0",
+      "port": 22244,
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "fe186f9d-2e99-37a2-b30f-252d11337dc2",
+            "alterId": 0,
+            "security": "none"
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws"
+      },
+      "mux": {
+        "enabled": true
+      }
+    }
+  ],
+  "dns": {
+    "hosts": { //https://www.v2fly.org/config/dns.html#dnsobject
+        "cloudflare.com": "1.1.1.1",
+        "domain:weloveparty.domain.local": "0.0.0.0",
+        "domain:googleapis.cn": "googleapis.com"
+    },
+    "servers": [
+      "8.8.8.8",
+      "1.1.1.1",
+      {
+        "address": "223.5.5.5",
+        "domains": [
+          "geosite:cn"
+        ],
+        "expectIPs": [
+          "geoip:cn"
+        ],
+        "port": 53
+      }
+    ]
+  },
+  "routing": {
+    "domainMatcher": "mph",
+    // "domainStrategy": "IPIfNonMatch",
+    "domainStrategy": "AsIs",
+    "rules": [
+      {
+        "ip": [
+          "8.8.8.8"
+        ],
+        "outboundTag": "proxy",
+        "port": "53",
+        "type": "field"
+      },
+      {
+        "ip": [
+          "1.1.1.1"
+        ],
+        "outboundTag": "proxy",
+        "port": "53",
+        "type": "field"
+      },
+      {
+        "ip": [
+          "223.5.5.5"
+        ],
+        "outboundTag": "direct",
+        "port": "53",
+        "type": "field"
+      },
+      {
+        "ip": [
+          "geoip:private"
+        ],
+        "outboundTag": "direct",
+        "type": "field"
+      }
+    ]
+  },
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "settings": {
+        "domainMatcher": "mph",
+        "domainStrategy": "UseIP"
+      },
+      "tag": "direct"
+    },
+    {
+      "protocol": "freedom",
+      "settings": {
+      },
+      "tag": "proxy"
+    },
+    // {
+    //   "mux": {
+    //     "concurrency": 8,
+    //     "enabled": false
+    //   },
+    //   "protocol": "vmess",
+    //   "settings": {
+    //     "vnext": [
+    //       {
+    //         "address": "144.202.209.163",
+    //         "port": 1310,
+    //         "users": [
+    //           {
+    //             "alterId": 0,
+    //             "encryption": "",
+    //             "flow": "",
+    //             "id": "fe786f9d-8e99-47a2-b30f-252d11337dc6",
+    //             "level": 8,
+    //             "security": "none"
+    //           }
+    //         ]
+    //       }
+    //     ]
+    //   },
+    //   "streamSettings": {
+    //     "network": "ws",
+    //     "security": "",
+    //     "wsSettings": {
+    //       "headers": {
+    //         "Host": ""
+    //       },
+    //       "path": ""
+    //     }
+    //   },
+    //   "tag": "proxy"
+    // },
+    {
+      "protocol": "blackhole",
+      "settings": {
+        "response": {
+          "type": "http"
+        }
+      },
+      "tag": "block"
+    }
+  ],
+  "policy": {
+    "levels": {
+      "8": {
+        "connIdle": 300,
+        "downlinkOnly": 1,
+        "handshake": 4,
+        "uplinkOnly": 1
+      }
+    },
+    "system": {
+      "statsOutboundUplink": true,
+      "statsOutboundDownlink": true
+    }
+  },
+  "stats": {}
+}
