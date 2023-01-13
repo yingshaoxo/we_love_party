@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_client/pages/welcome/profile_edit_page.dart';
 
 import 'package:get/get.dart';
 
@@ -31,6 +32,9 @@ void main() {
         GetPage(name: RoutesMap.register, page: () => const EmailPage()),
         GetPage(
             name: RoutesMap.registerVerifying, page: () => const VerifyPage()),
+        GetPage(
+            name: RoutesMap.profile_edit_page,
+            page: () => const ProfileEditPage()),
         GetPage(
             name: RoutesMap.roomList,
             page: () => Container(

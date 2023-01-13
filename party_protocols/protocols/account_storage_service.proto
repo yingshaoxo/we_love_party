@@ -7,6 +7,8 @@ service AccountStorageService {
     rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
     rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
 
+    // rpc IsUserProfileComplete(IsUserProfileCompleteRequest) returns (IsUserProfileCompleteResponse);
+    rpc GetUser(GetUserRequest) returns (GetUserResponse);
     rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
 }
 
@@ -30,14 +32,36 @@ message DeleteUserResponse {
 
 message UpdateUserRequest {
     string email = 1;
-    optional string password = 2;
-    optional string username = 3;
-    optional string head_image = 4; //base64 string of an image
-    optional int32 sex = 5; //AI detect. 0: female, 1: male
-    optional int32 age = 6; //AI detect.
+    optional string username = 2;
+    optional string head_image = 3; //base64 string of an image
+    optional int32 sex = 4; //AI detect. 0: female, 1: male
+    optional int32 age = 5; //AI detect.
 }
 
 message UpdateUserResponse {
     string result = 1;
     optional string error = 2;
+}
+
+// message IsUserProfileCompleteRequest {
+//     string email = 1;
+// }
+
+// message IsUserProfileCompleteResponse {
+//     bool complete = 1;
+//     optional string error = 2;
+// }
+
+message GetUserRequest {
+    string email = 1;
+}
+
+message GetUserResponse {
+    optional string error = 1;
+    bool user_exists = 2;
+    string email = 3;
+    optional string username = 4;
+    optional string head_image = 5; //base64 string of an image
+    optional int32 sex = 6; //AI detect. 0: female, 1: male
+    optional int32 age = 7; //AI detect.
 }

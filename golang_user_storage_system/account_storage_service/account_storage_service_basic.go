@@ -59,7 +59,6 @@ func (self *GrpcAccountStorageServer) CreateUser(context_ context.Context, reque
 
 	user := database.User{
 		Email:      request.Email,
-		Password:   "",
 		Username:   "",
 		Head_image: "",
 		Sex:        -1,
@@ -102,6 +101,50 @@ func (self *GrpcAccountStorageServer) DeleteUser(context_ context.Context, reque
 	return default_response, nil
 }
 
+func (self *GrpcAccountStorageServer) GetUser(context_ context.Context, request *account_storage_service.GetUserRequest) (*account_storage_service.GetUserResponse, error) {
+	error_string := "unknown error"
+	default_response := &account_storage_service.GetUserResponse{
+		Error: &error_string,
+	}
+
+	// log.Fatalf("in: %v", "GetUser")
+	var user_list []database.User
+	err := database.Get_a_user(self.Postgres_sql_database, &user_list, request.Email)
+	if err != nil {
+		// log.Fatalf("error in GetUser: %v", err.Error())
+		error_string = err.Error()
+		default_response.Error = &error_string
+		default_response.UserExists = false
+		return default_response, nil
+	}
+
+	user := user_list[0]
+	default_response.UserExists = true
+	default_response.Email = user.Email
+	default_response.HeadImage = &user.Head_image
+	default_response.Sex = &user.Sex
+	default_response.Username = &user.Username
+	default_response.Age = &user.Age
+
+	return default_response, nil
+}
+
+// func (self *GrpcAccountStorageServer) IsUserProfileComplete(context_ context.Context, request *account_storage_service.IsUserProfileCompleteRequest) (*account_storage_service.IsUserProfileCompleteResponse, error) {
+// 	error_string := "unknown error"
+// 	default_response := &account_storage_service.IsUserProfileCompleteResponse{
+// 		Complete: false,
+// 		Error:    &error_string,
+// 	}
+
+// 	user := database.User{}
+// 	err := database.Get_a_user(self.Postgres_sql_database, &user, request.Email)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+
+// 	return default_response, nil
+// }
+
 func (self *GrpcAccountStorageServer) UpdateUser(context_ context.Context, request *account_storage_service.UpdateUserRequest) (*account_storage_service.UpdateUserResponse, error) {
 	error_string := "unknown error"
 	default_response := &account_storage_service.UpdateUserResponse{
@@ -130,9 +173,6 @@ func (self *GrpcAccountStorageServer) UpdateUser(context_ context.Context, reque
 	}
 
 	user := users[0]
-	if request.Password != nil {
-		user.Password = *request.Password
-	}
 	if request.Username != nil {
 		user.Username = *request.Username
 	}

@@ -1,31 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_client/common_user_interface/loading.dart';
+import 'package:flutter_client/tools/string_tools.dart';
 import 'package:flutter_client/widgets/my_single_child_scroll_view.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:flutter_client/store/config.dart';
-import 'package:flutter_client/store/variables.dart';
 import 'package:flutter_client/utils/utils.dart';
 import 'package:flutter_client/widgets/round_button.dart';
 import 'package:flutter_client/utils/style.dart';
 import 'package:flutter_client/store/controllers.dart';
 
-class EmailPage extends StatefulWidget {
-  const EmailPage({Key? key}) : super(key: key);
+class ProfileEditPage extends StatefulWidget {
+  const ProfileEditPage({Key? key}) : super(key: key);
 
   @override
-  _EmailPageState createState() => _EmailPageState();
+  _ProfileEditPageState createState() => _ProfileEditPageState();
 }
 
-class _EmailPageState extends State<EmailPage> {
+class _ProfileEditPageState extends State<ProfileEditPage> {
   final form_key = GlobalKey<FormState>();
-  final email_inputbox_controller = TextEditingController();
+  final username_inputbox_controller = TextEditingController();
 
-  bool email_is_valid = false;
+  bool username_is_valid = false;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +60,7 @@ class _EmailPageState extends State<EmailPage> {
 
   Widget buildTitle() {
     return const Text(
-      'Enter your email #',
+      'Enter your username #',
       style: TextStyle(
         fontSize: 25,
       ),
@@ -84,27 +83,31 @@ class _EmailPageState extends State<EmailPage> {
             child: Form(
               key: form_key,
               child: TextFormField(
-                key: const Key("email_input"),
+                key: const Key("username_input"),
                 onChanged: (value) {
                   form_key.currentState?.validate();
                 },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    email_is_valid = false;
+                    username_is_valid = false;
+                    return 'Please enter some text';
                   } else {
-                    if (email_validator(value)) {
-                      email_is_valid = true;
+                    if (validate_username(value)) {
+                      username_is_valid = true;
                     } else {
-                      email_is_valid = false;
+                      username_is_valid = false;
+                      if (value.length > 3) {
+                        return "Invalid username";
+                      }
                     }
                   }
                   return null;
                 },
-                controller: email_inputbox_controller,
+                controller: username_inputbox_controller,
                 autocorrect: false,
                 autofocus: false,
                 decoration: const InputDecoration(
-                  hintText: 'Email',
+                  hintText: 'Username',
                   hintStyle: TextStyle(
                     fontSize: 20,
                   ),
@@ -114,7 +117,7 @@ class _EmailPageState extends State<EmailPage> {
                   errorBorder: InputBorder.none,
                   disabledBorder: InputBorder.none,
                 ),
-                keyboardType: TextInputType.emailAddress,
+                keyboardType: TextInputType.text,
                 style: const TextStyle(
                   fontSize: 20,
                   color: Colors.black,
@@ -131,41 +134,15 @@ class _EmailPageState extends State<EmailPage> {
   Widget buildBottom() {
     return Column(
       children: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 0.145.sw),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Text(
-                  'By entering your email, you\'re agreeing to our\nTerms or Services and Privacy Policy.',
-                  style: TextStyle(
-                    color: Colors.grey,
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Text(
-                  "Our Privacy Policy is simple: \nwe store your data and use it pravitely, and you are able to download it to your local.",
-                  style: TextStyle(color: Colors.grey, fontSize: 10),
-                ),
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(
-          height: 30,
-        ),
         RoundButton(
           color: Style.AccentBlue,
           minimumWidth: 230,
           disabledColor: Style.AccentBlue.withOpacity(0.3),
           // onPressed: onSignUpButtonClick,
           onPressed: () async {
-            if (!email_is_valid) {
+            if (!username_is_valid) {
               Fluttertoast.showToast(
-                  msg: "Please enter a valid email!",
+                  msg: "Please enter a valid username!",
                   toastLength: Toast.LENGTH_SHORT,
                   gravity: ToastGravity.CENTER,
                   timeInSecForIosWeb: 1,
@@ -173,26 +150,26 @@ class _EmailPageState extends State<EmailPage> {
                   textColor: Colors.black,
                   fontSize: 16.0);
             } else {
-              String the_email_address = email_inputbox_controller.text.trim();
+              String username = username_inputbox_controller.text.trim();
 
-              loading_start();
-              bool result = await jwtGrpcController.ask_for_registering(
-                  email: the_email_address);
-              loading_end();
+              // loading_start();
+              // bool result = await jwtGrpcController.ask_for_registering(
+              //     email: username);
+              // loading_end();
 
-              if (result) {
-                variableController.save_user_email(the_email_address);
-                Get.offNamed(RoutesMap.registerVerifying);
-              } else {
-                Fluttertoast.showToast(
-                    msg: "Something went wrong!",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.CENTER,
-                    timeInSecForIosWeb: 1,
-                    backgroundColor: Colors.white,
-                    textColor: Colors.black,
-                    fontSize: 16.0);
-              }
+              // if (result) {
+              //   variableController.save_user_email(username);
+              //   Get.offNamed(RoutesMap.registerVerifying);
+              // } else {
+              //   Fluttertoast.showToast(
+              //       msg: "Something went wrong!",
+              //       toastLength: Toast.LENGTH_SHORT,
+              //       gravity: ToastGravity.CENTER,
+              //       timeInSecForIosWeb: 1,
+              //       backgroundColor: Colors.white,
+              //       textColor: Colors.black,
+              //       fontSize: 16.0);
+              // }
             }
           },
           child: Row(

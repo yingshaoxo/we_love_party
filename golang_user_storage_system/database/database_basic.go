@@ -1,6 +1,7 @@
 package database
 
 import (
+	"errors"
 	"fmt"
 
 	"gorm.io/driver/postgres"
@@ -14,7 +15,6 @@ import (
 type User struct {
 	gorm.Model
 	Email      string
-	Password   string
 	Username   string
 	Head_image string //base64 string of an image
 	Sex        int32  //AI detect. 0: female, 1: male
@@ -40,4 +40,17 @@ func Get_postgres_sql_database() *gorm.DB {
 	}
 	db.AutoMigrate(&User{})
 	return db
+}
+
+func Get_a_user(db *gorm.DB, user_list *[]User, email string) error {
+	operation_result := db.Where("email = ?", email).Find(&user_list)
+	if operation_result.Error != nil {
+		return operation_result.Error
+	}
+
+	if len(*user_list) == 0 {
+		return errors.New("not found")
+	}
+
+	return nil
 }

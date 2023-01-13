@@ -1,10 +1,22 @@
 import 'dart:core';
+import 'dart:io';
 
 import 'package:flutter_client/generated_grpc/account_auth_service.pbgrpc.dart';
+import 'package:flutter_client/generated_grpc/account_storage_service.pbgrpc.dart';
 import 'package:flutter_client/store/config.dart';
 import 'package:flutter_client/store/controllers.dart';
 import 'package:get/get.dart';
 import 'package:grpc/grpc.dart';
+
+import '../common_user_interface/exit.dart';
+
+CallOptions get_JWT_CallOptions_for_GRPC() {
+  return CallOptions(
+    metadata: <String, String>{
+      'jwt': variableController.jwt ?? "",
+    },
+  );
+}
 
 class JWTGrpcControllr extends GetxController {
   ClientChannel channel = ClientChannel(
@@ -22,14 +34,6 @@ class JWTGrpcControllr extends GetxController {
     );
 
     return AccountAuthenticationServiceClient(channel);
-  }
-
-  CallOptions get_JWT_CallOptions_for_GRPC() {
-    return CallOptions(
-      metadata: <String, String>{
-        'jwt': variableController.jwt ?? "",
-      },
-    );
   }
 
   Future<bool> ask_for_registering({required String email}) async {
@@ -99,7 +103,6 @@ class JWTGrpcControllr extends GetxController {
         return null;
       }
     } catch (e) {
-      print(e);
       return null;
     }
   }
@@ -121,7 +124,49 @@ class JWTGrpcControllr extends GetxController {
       }
     } catch (e) {
       print(e);
+      show_exit_confirm_pop_window();
       return false;
+    }
+  }
+}
+
+class AccountStorageControllr extends GetxController {
+  // Account Controller
+  ClientChannel channel = ClientChannel(
+    GrpcConfig.account_storage_service,
+    port: GrpcConfig.port_number,
+    options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
+  );
+
+  AccountStorageServiceClient get_account_storage_service_client() {
+    channel = ClientChannel(
+      GrpcConfig.account_storage_service,
+      port: GrpcConfig.port_number,
+      options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
+    );
+
+    return AccountStorageServiceClient(channel);
+  }
+
+  Future<GetUserResponse> get_a_user(String email) async {
+    var default_response =
+        GetUserResponse(userExists: false, error: "unknown error");
+
+    try {
+      final client = get_account_storage_service_client();
+
+      final getUserRequest = GetUserRequest();
+      getUserRequest.email = email;
+
+      final response = await client.getUser(getUserRequest,
+          options: get_JWT_CallOptions_for_GRPC());
+
+      await channel.shutdown();
+
+      return response;
+    } catch (e) {
+      print(e);
+      return default_response;
     }
   }
 }

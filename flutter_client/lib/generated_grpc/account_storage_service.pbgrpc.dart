@@ -26,6 +26,12 @@ class AccountStorageServiceClient extends $grpc.Client {
           ($1.DeleteUserRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $1.DeleteUserResponse.fromBuffer(value));
+  static final _$getUser =
+      $grpc.ClientMethod<$1.GetUserRequest, $1.GetUserResponse>(
+          '/account_storage_service.AccountStorageService/GetUser',
+          ($1.GetUserRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $1.GetUserResponse.fromBuffer(value));
   static final _$updateUser =
       $grpc.ClientMethod<$1.UpdateUserRequest, $1.UpdateUserResponse>(
           '/account_storage_service.AccountStorageService/UpdateUser',
@@ -48,6 +54,11 @@ class AccountStorageServiceClient extends $grpc.Client {
       $1.DeleteUserRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$deleteUser, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.GetUserResponse> getUser($1.GetUserRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getUser, request, options: options);
   }
 
   $grpc.ResponseFuture<$1.UpdateUserResponse> updateUser(
@@ -75,6 +86,13 @@ abstract class AccountStorageServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $1.DeleteUserRequest.fromBuffer(value),
         ($1.DeleteUserResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.GetUserRequest, $1.GetUserResponse>(
+        'GetUser',
+        getUser_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $1.GetUserRequest.fromBuffer(value),
+        ($1.GetUserResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$1.UpdateUserRequest, $1.UpdateUserResponse>(
         'UpdateUser',
         updateUser_Pre,
@@ -94,6 +112,11 @@ abstract class AccountStorageServiceBase extends $grpc.Service {
     return deleteUser(call, await request);
   }
 
+  $async.Future<$1.GetUserResponse> getUser_Pre(
+      $grpc.ServiceCall call, $async.Future<$1.GetUserRequest> request) async {
+    return getUser(call, await request);
+  }
+
   $async.Future<$1.UpdateUserResponse> updateUser_Pre($grpc.ServiceCall call,
       $async.Future<$1.UpdateUserRequest> request) async {
     return updateUser(call, await request);
@@ -103,6 +126,8 @@ abstract class AccountStorageServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $1.CreateUserRequest request);
   $async.Future<$1.DeleteUserResponse> deleteUser(
       $grpc.ServiceCall call, $1.DeleteUserRequest request);
+  $async.Future<$1.GetUserResponse> getUser(
+      $grpc.ServiceCall call, $1.GetUserRequest request);
   $async.Future<$1.UpdateUserResponse> updateUser(
       $grpc.ServiceCall call, $1.UpdateUserRequest request);
 }

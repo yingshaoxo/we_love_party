@@ -1,8 +1,11 @@
 import 'dart:core';
 import 'package:cron/cron.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_client/utils/utils.dart';
+
+import 'config.dart';
 
 class LocalStorageKeys {
   static const user_email = "user_email";
@@ -11,6 +14,7 @@ class LocalStorageKeys {
 
 class VariableControllr extends GetxController {
   SharedPreferences? preferences;
+  BuildContext? global_context;
 
   String device_UUID = "";
   final cron = Cron();
@@ -28,6 +32,12 @@ class VariableControllr extends GetxController {
     user_email = preferences?.getString(LocalStorageKeys.user_email);
 
     device_UUID = await get_unique_device_id();
+
+    if (in_dev_mode) {
+      jwt =
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlpbmdzaGFveG9AZ21haWwuY29tIiwicmFuZG9tX3N0cmluZyI6IjU1ODQ0OCJ9.kcVthYPI_IL6aD7Mx9KdDCFsAEXvgsxTtAM_dYs5Qko";
+      user_email = "yingshaoxo@gmail.com";
+    }
   }
 
   Future<void> save_jwt(String? jwt) async {

@@ -228,18 +228,16 @@ class DeleteUserResponse extends $pb.GeneratedMessage {
 class UpdateUserRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UpdateUserRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'account_storage_service'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'password')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'username')
-    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'headImage')
-    ..a<$core.int>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sex', $pb.PbFieldType.O3)
-    ..a<$core.int>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'age', $pb.PbFieldType.O3)
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'username')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'headImage')
+    ..a<$core.int>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sex', $pb.PbFieldType.O3)
+    ..a<$core.int>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'age', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
   ;
 
   UpdateUserRequest._() : super();
   factory UpdateUserRequest({
     $core.String? email,
-    $core.String? password,
     $core.String? username,
     $core.String? headImage,
     $core.int? sex,
@@ -248,9 +246,6 @@ class UpdateUserRequest extends $pb.GeneratedMessage {
     final _result = create();
     if (email != null) {
       _result.email = email;
-    }
-    if (password != null) {
-      _result.password = password;
     }
     if (username != null) {
       _result.username = username;
@@ -297,49 +292,40 @@ class UpdateUserRequest extends $pb.GeneratedMessage {
   void clearEmail() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.String get password => $_getSZ(1);
+  $core.String get username => $_getSZ(1);
   @$pb.TagNumber(2)
-  set password($core.String v) { $_setString(1, v); }
+  set username($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasPassword() => $_has(1);
+  $core.bool hasUsername() => $_has(1);
   @$pb.TagNumber(2)
-  void clearPassword() => clearField(2);
+  void clearUsername() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get username => $_getSZ(2);
+  $core.String get headImage => $_getSZ(2);
   @$pb.TagNumber(3)
-  set username($core.String v) { $_setString(2, v); }
+  set headImage($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasUsername() => $_has(2);
+  $core.bool hasHeadImage() => $_has(2);
   @$pb.TagNumber(3)
-  void clearUsername() => clearField(3);
+  void clearHeadImage() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.String get headImage => $_getSZ(3);
+  $core.int get sex => $_getIZ(3);
   @$pb.TagNumber(4)
-  set headImage($core.String v) { $_setString(3, v); }
+  set sex($core.int v) { $_setSignedInt32(3, v); }
   @$pb.TagNumber(4)
-  $core.bool hasHeadImage() => $_has(3);
+  $core.bool hasSex() => $_has(3);
   @$pb.TagNumber(4)
-  void clearHeadImage() => clearField(4);
+  void clearSex() => clearField(4);
 
   @$pb.TagNumber(5)
-  $core.int get sex => $_getIZ(4);
+  $core.int get age => $_getIZ(4);
   @$pb.TagNumber(5)
-  set sex($core.int v) { $_setSignedInt32(4, v); }
+  set age($core.int v) { $_setSignedInt32(4, v); }
   @$pb.TagNumber(5)
-  $core.bool hasSex() => $_has(4);
+  $core.bool hasAge() => $_has(4);
   @$pb.TagNumber(5)
-  void clearSex() => clearField(5);
-
-  @$pb.TagNumber(6)
-  $core.int get age => $_getIZ(5);
-  @$pb.TagNumber(6)
-  set age($core.int v) { $_setSignedInt32(5, v); }
-  @$pb.TagNumber(6)
-  $core.bool hasAge() => $_has(5);
-  @$pb.TagNumber(6)
-  void clearAge() => clearField(6);
+  void clearAge() => clearField(5);
 }
 
 class UpdateUserResponse extends $pb.GeneratedMessage {
@@ -401,5 +387,183 @@ class UpdateUserResponse extends $pb.GeneratedMessage {
   $core.bool hasError() => $_has(1);
   @$pb.TagNumber(2)
   void clearError() => clearField(2);
+}
+
+class GetUserRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetUserRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'account_storage_service'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
+    ..hasRequiredFields = false
+  ;
+
+  GetUserRequest._() : super();
+  factory GetUserRequest({
+    $core.String? email,
+  }) {
+    final _result = create();
+    if (email != null) {
+      _result.email = email;
+    }
+    return _result;
+  }
+  factory GetUserRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetUserRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetUserRequest clone() => GetUserRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetUserRequest copyWith(void Function(GetUserRequest) updates) => super.copyWith((message) => updates(message as GetUserRequest)) as GetUserRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetUserRequest create() => GetUserRequest._();
+  GetUserRequest createEmptyInstance() => create();
+  static $pb.PbList<GetUserRequest> createRepeated() => $pb.PbList<GetUserRequest>();
+  @$core.pragma('dart2js:noInline')
+  static GetUserRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetUserRequest>(create);
+  static GetUserRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get email => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set email($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasEmail() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearEmail() => clearField(1);
+}
+
+class GetUserResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetUserResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'account_storage_service'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'error')
+    ..aOB(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'userExists')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'username')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'headImage')
+    ..a<$core.int>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sex', $pb.PbFieldType.O3)
+    ..a<$core.int>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'age', $pb.PbFieldType.O3)
+    ..hasRequiredFields = false
+  ;
+
+  GetUserResponse._() : super();
+  factory GetUserResponse({
+    $core.String? error,
+    $core.bool? userExists,
+    $core.String? email,
+    $core.String? username,
+    $core.String? headImage,
+    $core.int? sex,
+    $core.int? age,
+  }) {
+    final _result = create();
+    if (error != null) {
+      _result.error = error;
+    }
+    if (userExists != null) {
+      _result.userExists = userExists;
+    }
+    if (email != null) {
+      _result.email = email;
+    }
+    if (username != null) {
+      _result.username = username;
+    }
+    if (headImage != null) {
+      _result.headImage = headImage;
+    }
+    if (sex != null) {
+      _result.sex = sex;
+    }
+    if (age != null) {
+      _result.age = age;
+    }
+    return _result;
+  }
+  factory GetUserResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetUserResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetUserResponse clone() => GetUserResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetUserResponse copyWith(void Function(GetUserResponse) updates) => super.copyWith((message) => updates(message as GetUserResponse)) as GetUserResponse; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetUserResponse create() => GetUserResponse._();
+  GetUserResponse createEmptyInstance() => create();
+  static $pb.PbList<GetUserResponse> createRepeated() => $pb.PbList<GetUserResponse>();
+  @$core.pragma('dart2js:noInline')
+  static GetUserResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetUserResponse>(create);
+  static GetUserResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get error => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set error($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasError() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearError() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.bool get userExists => $_getBF(1);
+  @$pb.TagNumber(2)
+  set userExists($core.bool v) { $_setBool(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasUserExists() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearUserExists() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get email => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set email($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasEmail() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearEmail() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get username => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set username($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasUsername() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearUsername() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get headImage => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set headImage($core.String v) { $_setString(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasHeadImage() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearHeadImage() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.int get sex => $_getIZ(5);
+  @$pb.TagNumber(6)
+  set sex($core.int v) { $_setSignedInt32(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasSex() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearSex() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.int get age => $_getIZ(6);
+  @$pb.TagNumber(7)
+  set age($core.int v) { $_setSignedInt32(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasAge() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearAge() => clearField(7);
 }
 

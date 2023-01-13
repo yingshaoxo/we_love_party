@@ -1,20 +1,12 @@
-import 'dart:io';
 import 'dart:math';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:fixnum/fixnum.dart';
 import 'package:flutter/services.dart';
 import 'package:platform_device_id/platform_device_id.dart';
 
 Future<String> get_unique_device_id() async {
-  var deviceInfo = DeviceInfoPlugin();
-  String? theId = "123e4567-e89b-12d3-a456-426614174000";
-  if (Platform.isIOS) {
-    var iosDeviceInfo = await deviceInfo.iosInfo;
-    theId = iosDeviceInfo.identifierForVendor; // unique ID on iOS
-  } else {
-    theId = await PlatformDeviceId.getDeviceId ?? ""; // unique ID on Android
-  }
-  return theId!;
+  String theId = await PlatformDeviceId.getDeviceId ??
+      "123e4567-e89b-12d3-a456-426614174000"; // unique ID on Android
+  return theId;
 }
 
 Int64 get_current_time_in_milliseconds() {

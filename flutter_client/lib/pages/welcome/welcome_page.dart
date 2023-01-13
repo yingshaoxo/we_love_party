@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../common_user_interface/exit.dart';
 import '../../store/config.dart';
 import '../../store/controllers.dart';
 import '../../widgets/my_single_child_scroll_view.dart';
@@ -23,7 +24,7 @@ class _WelcomePageState extends State<WelcomePage> {
     () async {
       bool valid = await jwtGrpcController.check_if_current_JWT_is_valid();
       if (valid) {
-        Get.offNamed(RoutesMap.roomList);
+        Get.offNamed(RoutesMap.profile_edit_page);
       }
     }();
   }
@@ -121,7 +122,7 @@ class _WelcomePageState extends State<WelcomePage> {
       children: [
         RoundButton(
           color: Style.AccentBlue,
-          onPressed: () {
+          onPressed: () async {
             Get.offNamed(RoutesMap.register);
           },
           child: Container(

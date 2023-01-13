@@ -49,7 +49,6 @@ func TestMain(m *testing.M) {
 func Test_create_a_user(t *testing.T) {
 	user := database.User{
 		Email:      "1576570260@qq.com", //"yingshaoxo@gmail.com",
-		Password:   "",
 		Username:   "",
 		Head_image: "",
 		Sex:        -1,
@@ -64,7 +63,6 @@ func Test_create_a_user(t *testing.T) {
 func Test_update_a_user_info(t *testing.T) {
 	user := database.User{
 		Email:      "yingshaoxo@gmail.com",
-		Password:   "",
 		Username:   "",
 		Head_image: "",
 		Sex:        -1,
@@ -104,5 +102,17 @@ func Test_raw_sql_command(t *testing.T) {
 	for rows.Next() {
 		postgres_sql_database.ScanRows(rows, &user)
 		println(user.UpdatedAt.String())
+	}
+}
+
+func Test_get_a_user(t *testing.T) {
+	var user_list []database.User
+
+	err := database.Get_a_user(postgres_sql_database, &user_list, "yingshaoxo@gmail.com")
+	if err != nil {
+		fmt.Println(err.Error())
+	} else {
+		user := user_list[0]
+		fmt.Println(user.Email)
 	}
 }
