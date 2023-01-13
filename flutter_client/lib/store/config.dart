@@ -3,6 +3,7 @@ class RoutesMap {
   static const register = "/register";
   static const registerVerifying = "/register_verifying";
   static const profile_edit_page = "/profile_edit";
+  static const face_scan_page = "/face_scan";
   static const roomList = "/room_list";
   static const singleRoomPage = "/single_room";
 }

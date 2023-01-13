@@ -1,11 +1,11 @@
 import 'package:confirm_dialog/confirm_dialog.dart';
-import 'package:flutter_client/models/room.dart';
-import 'package:flutter_client/models/user.dart';
+import 'package:flutter_client/data_models/room.dart';
+import 'package:flutter_client/data_models/user.dart';
 import 'package:flutter_client/pages/room/widgets/my_room_profile.dart';
 import 'package:flutter_client/store/config.dart';
 import 'package:flutter_client/store/controllers.dart';
-import 'package:flutter_client/utils/style.dart';
-import 'package:flutter_client/utils/utils.dart';
+import 'package:flutter_client/tools/utils/style.dart';
+import 'package:flutter_client/tools/utils/utils.dart';
 import 'package:flutter_client/widgets/round_button.dart';
 import 'package:flutter_client/widgets/round_image.dart';
 import 'package:flutter/material.dart';

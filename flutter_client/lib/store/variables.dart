@@ -3,7 +3,7 @@ import 'package:cron/cron.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_client/utils/utils.dart';
+import 'package:flutter_client/tools/utils/utils.dart';
 
 import 'config.dart';
 

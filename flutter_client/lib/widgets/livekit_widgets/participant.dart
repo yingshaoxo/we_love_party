@@ -3,7 +3,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:livekit_client/livekit_client.dart';
-import 'package:flutter_client/utils/theme.dart';
+import 'package:flutter_client/tools/utils/theme.dart';
 
 import 'no_video.dart';
 import 'participant_info.dart';

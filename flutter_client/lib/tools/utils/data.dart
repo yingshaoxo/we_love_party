@@ -1,6 +1,6 @@
 import 'dart:math';
-import 'package:flutter_client/models/room.dart';
-import 'package:flutter_client/models/user.dart';
+import 'package:flutter_client/data_models/room.dart';
+import 'package:flutter_client/data_models/user.dart';
 
 Random random = Random();
 

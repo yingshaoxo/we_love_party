@@ -1,4 +1,4 @@
-import 'package:flutter_client/models/user.dart';
+import 'package:flutter_client/data_models/user.dart';
 
 class Room {
   final String title;

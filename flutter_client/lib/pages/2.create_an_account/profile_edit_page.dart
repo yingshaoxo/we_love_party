@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_client/common_user_interface/loading.dart';
 import 'package:flutter_client/tools/string_tools.dart';
-import 'package:flutter_client/widgets/my_single_child_scroll_view.dart';
+import 'package:flutter_client/common_user_interface/my_single_child_scroll_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:flutter_client/store/config.dart';
-import 'package:flutter_client/utils/utils.dart';
+import 'package:flutter_client/tools/utils/utils.dart';
 import 'package:flutter_client/widgets/round_button.dart';
-import 'package:flutter_client/utils/style.dart';
+import 'package:flutter_client/tools/utils/style.dart';
 import 'package:flutter_client/store/controllers.dart';
 
 class ProfileEditPage extends StatefulWidget {
@@ -135,11 +135,29 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
     return Column(
       children: [
         RoundButton(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: const [
+              Text(
+                'Next',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                ),
+              ),
+              Icon(
+                Icons.arrow_right_alt,
+                color: Colors.white,
+              ),
+            ],
+          ),
           color: Style.AccentBlue,
           minimumWidth: 230,
           disabledColor: Style.AccentBlue.withOpacity(0.3),
           // onPressed: onSignUpButtonClick,
           onPressed: () async {
+            Get.toNamed(RoutesMap.face_scan_page);
+            return;
             if (!username_is_valid) {
               Fluttertoast.showToast(
                   msg: "Please enter a valid username!",
@@ -172,22 +190,6 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
               // }
             }
           },
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: const [
-              Text(
-                'Next',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                ),
-              ),
-              Icon(
-                Icons.arrow_right_alt,
-                color: Colors.white,
-              ),
-            ],
-          ),
         ),
       ],
     );

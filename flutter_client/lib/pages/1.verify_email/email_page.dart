@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_client/common_user_interface/loading.dart';
-import 'package:flutter_client/widgets/my_single_child_scroll_view.dart';
+import 'package:flutter_client/common_user_interface/my_single_child_scroll_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:flutter_client/store/config.dart';
-import 'package:flutter_client/utils/utils.dart';
+import 'package:flutter_client/tools/utils/utils.dart';
 import 'package:flutter_client/widgets/round_button.dart';
-import 'package:flutter_client/utils/style.dart';
+import 'package:flutter_client/tools/utils/style.dart';
 import 'package:flutter_client/store/controllers.dart';
 
 class EmailPage extends StatefulWidget {

@@ -35,10 +35,20 @@ dependencies:
   flutter_screenutil: ^5.6.0
 
   platform_device_id: ^1.0.1
+  device_info_plus: ^8.0.0
 
   cron: ^0.5.1
   flutter_background: ^1.1.0
   url_launcher: ^6.0.20
+
+  image: ^4.0.8
+  camera: ^0.10.1
+  google_ml_kit: ^0.13.0
+  # tflite_flutter: ^0.9.0
+  tflite_flutter: 
+      git:
+        url: https://github.com/yingshaoxo/tflite_flutter_plugin.git
+        ref: d31b0a78ca36f21636de9c72acdf2919e8f3a1e6
 
   livekit_client: ^1.1.11
   flutter_image_compress: ^1.1.3

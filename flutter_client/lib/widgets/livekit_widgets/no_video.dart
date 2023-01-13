@@ -2,7 +2,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-import 'package:flutter_client/utils/theme.dart';
+import 'package:flutter_client/tools/utils/theme.dart';
 
 class NoVideoWidget extends StatelessWidget {
   //

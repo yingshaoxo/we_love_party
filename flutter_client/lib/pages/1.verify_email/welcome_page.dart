@@ -1,11 +1,11 @@
 import 'package:flutter_client/widgets/round_button.dart';
-import 'package:flutter_client/utils/style.dart';
+import 'package:flutter_client/tools/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../store/config.dart';
 import '../../store/controllers.dart';
-import '../../widgets/my_single_child_scroll_view.dart';
+import '../../common_user_interface/my_single_child_scroll_view.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({Key? key}) : super(key: key);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_client/pages/2.create_an_account/face_scan_page.dart';
 import 'package:flutter_client/pages/2.create_an_account/profile_edit_page.dart';
 
 import 'package:get/get.dart';
@@ -35,6 +36,8 @@ void main() {
         GetPage(
             name: RoutesMap.profile_edit_page,
             page: () => const ProfileEditPage()),
+        GetPage(
+            name: RoutesMap.face_scan_page, page: () => const FaceScanPage()),
         GetPage(
             name: RoutesMap.roomList,
             page: () => Container(

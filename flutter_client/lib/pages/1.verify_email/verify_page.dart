@@ -1,13 +1,13 @@
 import 'package:flutter_client/store/config.dart';
 import 'package:flutter_client/store/controllers.dart';
 import 'package:flutter_client/common_user_interface/loading.dart';
-import 'package:flutter_client/utils/style.dart';
+import 'package:flutter_client/tools/utils/style.dart';
 import 'package:flutter_client/widgets/round_button.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
-import '../../widgets/my_single_child_scroll_view.dart';
+import '../../common_user_interface/my_single_child_scroll_view.dart';
 
 class VerifyPage extends StatefulWidget {
   const VerifyPage({Key? key}) : super(key: key);
