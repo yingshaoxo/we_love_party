@@ -1,10 +1,8 @@
 import 'package:flutter_client/widgets/round_button.dart';
 import 'package:flutter_client/utils/style.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../common_user_interface/exit.dart';
 import '../../store/config.dart';
 import '../../store/controllers.dart';
 import '../../widgets/my_single_child_scroll_view.dart';

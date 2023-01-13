@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_client/pages/welcome/profile_edit_page.dart';
+import 'package:flutter_client/pages/2.create_an_account/profile_edit_page.dart';
 
 import 'package:get/get.dart';
 
@@ -8,9 +8,9 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 // import 'package:flutter_client/pages/room/room_list.dart';
 import 'package:flutter_client/pages/room/single_voice_room.dart';
-import 'package:flutter_client/pages/welcome/email_page.dart';
-import 'package:flutter_client/pages/welcome/verify_page.dart';
-import 'package:flutter_client/pages/welcome/welcome_page.dart';
+import 'package:flutter_client/pages/1.verify_email/email_page.dart';
+import 'package:flutter_client/pages/1.verify_email/verify_page.dart';
+import 'package:flutter_client/pages/1.verify_email/welcome_page.dart';
 import 'package:flutter_client/store/config.dart';
 import 'package:flutter_client/store/controllers.dart';
 

@@ -1,11 +1,9 @@
 import 'package:flutter_client/store/config.dart';
 import 'package:flutter_client/store/controllers.dart';
-import 'package:flutter_client/store/variables.dart';
 import 'package:flutter_client/common_user_interface/loading.dart';
 import 'package:flutter_client/utils/style.dart';
 import 'package:flutter_client/widgets/round_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
