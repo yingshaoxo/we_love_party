@@ -1,6 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_client/store/controllers.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 
@@ -19,16 +20,17 @@ class _FaceScanPageState extends State<FaceScanPage> {
   bool flash = false;
   bool isControllerInitialized = false;
   late FaceDetector _faceDetector;
-  // final MLService _mlService = MLService();
-  List<Face> facesDetected = [];
 
   CameraImage? temp_image;
+  String? gender;
+  bool detection_process_for_one_frame_is_done = true;
 
   @override
   void initState() {
     super.initState();
     () async {
       cameras = await availableCameras();
+      await face_scan_controller.mlServiceForFace.initialize();
 
       if (cameras == null) {
         return;
@@ -46,7 +48,15 @@ class _FaceScanPageState extends State<FaceScanPage> {
           enableClassification: true,
         ),
       );
+
+      // await start_face_scan_process();
     }();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _cameraController.stopImageStream();
   }
 
   Future initializeCamera() async {
@@ -70,7 +80,7 @@ class _FaceScanPageState extends State<FaceScanPage> {
     }
   }
 
-  Future<void> detectFacesFromImage(CameraImage cameraImage) async {
+  Future<List<Face>> detect_faces_from_image(CameraImage cameraImage) async {
     final WriteBuffer allBytes = WriteBuffer();
     for (final Plane plane in cameraImage.planes) {
       allBytes.putUint8List(plane.bytes);
@@ -108,9 +118,7 @@ class _FaceScanPageState extends State<FaceScanPage> {
         InputImage.fromBytes(bytes: bytes, inputImageData: inputImageData);
 
     var result = await _faceDetector.processImage(inputImage);
-    if (result.isNotEmpty) {
-      facesDetected = result;
-    }
+    return result;
   }
 
   Future<CameraImage> take_a_picture_from_camera_stream() async {
@@ -127,6 +135,29 @@ class _FaceScanPageState extends State<FaceScanPage> {
     }
     await _cameraController.stopImageStream();
     return temp_image!;
+  }
+
+  Future<void> start_face_scan_process() async {
+    await _cameraController.startImageStream((CameraImage image) async {
+      if (this.detection_process_for_one_frame_is_done == true) {
+        this.detection_process_for_one_frame_is_done = false;
+
+        var faces = await detect_faces_from_image(image);
+        if (faces.isNotEmpty) {
+          var face = faces.first;
+
+          this.gender = await face_scan_controller.mlServiceForFace
+              .get_gender_by_giving_face(cameraImage: image, face: face);
+
+          setState(() {
+            this.gender = this.gender;
+          });
+        }
+
+        this.detection_process_for_one_frame_is_done = true;
+      }
+      return null;
+    });
   }
 
   @override
@@ -170,13 +201,41 @@ class _FaceScanPageState extends State<FaceScanPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
+                        color: Colors.white,
+                        child: Text(this.gender ?? ""),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
                         width: 0.3.sw,
                         child: TextButton(
                           child: Text("Capture"),
                           onPressed: () async {
                             var image =
                                 await take_a_picture_from_camera_stream();
-                            await detectFacesFromImage(image);
+                            var faces = await detect_faces_from_image(image);
+                            if (faces.isNotEmpty) {
+                              var face = faces.first;
+
+                              // await face_scan_controller.mlServiceForFace
+                              //     .login_or_register_by_using_face(image, face,
+                              //         true, "yingshaoxo@gmail.com");
+
+                              var gender = await face_scan_controller
+                                  .mlServiceForFace
+                                  .get_gender_by_giving_face(
+                                      cameraImage: image, face: face);
+                              print(gender);
+
+                              var age = await face_scan_controller
+                                  .mlServiceForFace
+                                  .get_age_by_giving_face(
+                                      cameraImage: image, face: face);
+                              print(age);
+                            }
                           },
                           style: ButtonStyle(
                               backgroundColor:

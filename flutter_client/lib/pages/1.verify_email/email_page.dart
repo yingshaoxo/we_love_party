@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_client/common_user_interface/loading.dart';
 import 'package:flutter_client/common_user_interface/my_single_child_scroll_view.dart';
@@ -130,26 +131,27 @@ class _EmailPageState extends State<EmailPage> {
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 0.145.sw),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Text(
-                  'By entering your email, you\'re agreeing to our\nTerms or Services and Privacy Policy.',
-                  style: TextStyle(
-                    color: Colors.grey,
-                  ),
+          padding: EdgeInsets.symmetric(horizontal: 0.sw), //0.145.sw
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'By entering your email, you\'re agreeing to our\nTerms or Services and Privacy Policy.',
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  color: Colors.grey,
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Text(
-                  "Our Privacy Policy is simple: \nwe store your data and use it pravitely, and you are able to download it to your local.",
-                  style: TextStyle(color: Colors.grey, fontSize: 10),
-                ),
-              ],
-            ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                "Our Privacy Policy is simple: \nwe store your data and use it pravitely, and you are able to download it to your local.",
+                textAlign: TextAlign.left,
+                style: TextStyle(color: Colors.grey, fontSize: 10),
+              ),
+            ],
           ),
         ),
         const SizedBox(
