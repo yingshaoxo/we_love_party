@@ -20,14 +20,14 @@ void main() {
 
   () async {
     await ScreenUtil.ensureScreenSize();
-    await variableController.initilize_function();
+    await variable_controller.initilize_function();
 
     runApp(GetMaterialApp(
       builder: (context, child) {
         ScreenUtil.init(context);
         return EasyLoading.init()(context, child);
       },
-      initialRoute: RoutesMap.face_scan_page,
+      initialRoute: RoutesMap.profile_edit_page,
       getPages: [
         GetPage(name: RoutesMap.welcome, page: () => const WelcomePage()),
         GetPage(name: RoutesMap.register, page: () => const EmailPage()),

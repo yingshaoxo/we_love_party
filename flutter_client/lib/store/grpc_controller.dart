@@ -13,7 +13,7 @@ import '../common_user_interface/exit.dart';
 CallOptions get_JWT_CallOptions_for_GRPC() {
   return CallOptions(
     metadata: <String, String>{
-      'jwt': variableController.jwt ?? "",
+      'jwt': variable_controller.jwt ?? "",
     },
   );
 }
@@ -109,7 +109,7 @@ class JWTGrpcControllr extends GetxController {
 
   Future<bool> check_if_current_JWT_is_valid() async {
     try {
-      String? jwt = variableController.jwt;
+      String? jwt = variable_controller.jwt;
       if (jwt == null || jwt == "") {
         return false;
       }
@@ -164,6 +164,37 @@ class AccountStorageControllr extends GetxController {
       await channel.shutdown();
 
       return response;
+    } catch (e) {
+      print(e);
+      return default_response;
+    }
+  }
+
+  Future<UpdateUserResponse> update_a_user(
+      UpdateUserRequest updateUserRequest) async {
+    var default_response =
+        UpdateUserResponse(result: "", error: "unknown error");
+
+    try {
+      final client = get_account_storage_service_client();
+
+      CreateUserResponse response = await client.createUser(
+          CreateUserRequest()..email = updateUserRequest.email,
+          options: get_JWT_CallOptions_for_GRPC());
+      if (response.error != null && response.error != "") {
+        return default_response;
+      }
+
+      UpdateUserResponse update_response = await client.updateUser(
+          updateUserRequest,
+          options: get_JWT_CallOptions_for_GRPC());
+
+      if (update_response.error != null && update_response.error != "") {
+        return default_response;
+      }
+
+      await channel.shutdown();
+      return update_response;
     } catch (e) {
       print(e);
       return default_response;

@@ -10,6 +10,7 @@ import 'config.dart';
 class LocalStorageKeys {
   static const user_email = "user_email";
   static const jwt = "jwt";
+  static const username = "username";
 }
 
 class VariableControllr extends GetxController {
@@ -21,6 +22,7 @@ class VariableControllr extends GetxController {
 
   String? jwt;
   String? user_email;
+  String? username;
 
   String? access_token;
 
@@ -30,8 +32,7 @@ class VariableControllr extends GetxController {
 
     jwt = preferences?.getString(LocalStorageKeys.jwt);
     user_email = preferences?.getString(LocalStorageKeys.user_email);
-
-    device_UUID = await get_unique_device_id();
+    username = preferences?.getString(LocalStorageKeys.username);
 
     if (in_dev_mode) {
       jwt =
@@ -51,6 +52,13 @@ class VariableControllr extends GetxController {
     if (user_email != null && user_email != "") {
       this.user_email = user_email;
       await preferences?.setString(LocalStorageKeys.user_email, user_email);
+    }
+  }
+
+  Future<void> save_username(String? username) async {
+    if (username != null && username != "") {
+      this.username = username;
+      await preferences?.setString(LocalStorageKeys.username, username);
     }
   }
 }

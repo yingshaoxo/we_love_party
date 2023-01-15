@@ -54,8 +54,8 @@ class _SingleVoiceRoomState extends State<SingleVoiceRoom>
 
     () async {
       myProfile = User.fromJson({
-        'name': variableController.user_email,
-        'username': variableController.user_email,
+        'name': variable_controller.user_email,
+        'username': variable_controller.user_email,
         'profileImage': 'assets/images/cat2.jpg',
         'followers': '1k',
         'following': '1',
@@ -95,7 +95,7 @@ class _SingleVoiceRoomState extends State<SingleVoiceRoom>
     );
 
     theLivekitRoom = await livekit.LiveKitClient.connect(
-        LivekitConfig.url, variableController.access_token ?? '',
+        LivekitConfig.url, variable_controller.access_token ?? '',
         connectOptions: options, roomOptions: roomOptions);
 
     theLivekitRoom?.addListener(_onRoomDidUpdate);

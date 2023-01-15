@@ -131,16 +131,16 @@ class _VerifyPageState extends State<VerifyPage> {
                   fontSize: 16.0);
             } else {
               try {
-                String email_address = variableController.user_email ?? "";
+                String email_address = variable_controller.user_email ?? "";
 
                 loading_start();
-                String? jwt = await jwtGrpcController.registering_confirm(
+                String? jwt = await grpc_JWT_controller.registering_confirm(
                     email: email_address.trim(),
                     code: code_inputbox_controller.text.trim());
                 loading_end();
 
                 if (jwt != null) {
-                  await variableController.save_jwt(jwt);
+                  await variable_controller.save_jwt(jwt);
                   print("jwt: " + jwt);
                   Get.offNamed(RoutesMap.profile_edit_page);
                 } else {

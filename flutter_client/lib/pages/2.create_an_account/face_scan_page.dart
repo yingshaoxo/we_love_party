@@ -2,8 +2,16 @@ import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_client/store/controllers.dart';
+import 'package:flutter_client/tools/image_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
+
+import '../../common_user_interface/exit.dart';
+import '../../common_user_interface/loading.dart';
+import '../../common_user_interface/pop_up_window.dart';
+import '../../generated_grpc/account_storage_service.pb.dart';
+import '../../store/config.dart';
 
 class FaceScanPage extends StatefulWidget {
   const FaceScanPage({Key? key}) : super(key: key);
@@ -24,40 +32,6 @@ class _FaceScanPageState extends State<FaceScanPage> {
   CameraImage? temp_image;
   String? gender;
   bool detection_process_for_one_frame_is_done = true;
-
-  @override
-  void initState() {
-    super.initState();
-    () async {
-      cameras = await availableCameras();
-      await face_scan_controller.mlServiceForFace.initialize();
-
-      if (cameras == null) {
-        return;
-      }
-
-      _cameraController = CameraController(cameras![1], ResolutionPreset.high);
-      await initializeCamera();
-
-      _faceDetector = GoogleMlKit.vision.faceDetector(
-        FaceDetectorOptions(
-          performanceMode: FaceDetectorMode.accurate,
-          enableLandmarks: false,
-          enableContours: false,
-          enableTracking: false,
-          enableClassification: true,
-        ),
-      );
-
-      // await start_face_scan_process();
-    }();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _cameraController.stopImageStream();
-  }
 
   Future initializeCamera() async {
     await _cameraController.initialize();
@@ -161,6 +135,40 @@ class _FaceScanPageState extends State<FaceScanPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    () async {
+      cameras = await availableCameras();
+      await face_scan_controller.mlServiceForFace.initialize();
+
+      if (cameras == null) {
+        return;
+      }
+
+      _cameraController = CameraController(cameras![1], ResolutionPreset.high);
+      await initializeCamera();
+
+      _faceDetector = GoogleMlKit.vision.faceDetector(
+        FaceDetectorOptions(
+          performanceMode: FaceDetectorMode.accurate,
+          enableLandmarks: false,
+          enableContours: false,
+          enableTracking: false,
+          enableClassification: true,
+        ),
+      );
+
+      // await start_face_scan_process();
+    }();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    // _cameraController.stopImageStream();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
@@ -216,25 +224,86 @@ class _FaceScanPageState extends State<FaceScanPage> {
                           onPressed: () async {
                             var image =
                                 await take_a_picture_from_camera_stream();
+
+                            var image2 = face_scan_controller.mlServiceForFace
+                                .convert_YUV420_CameraImage_to_Image_with_color(
+                                    image);
+                            if (image2 == null) {
+                              await show_exit_confirm_pop_window(
+                                  msg:
+                                      "Unknown error, see you in the next version!");
+                              return;
+                            }
+                            String base64_image_string =
+                                ImageTools.image_to_base64(image2);
+                            face_scan_controller.createUserRequest.headImage =
+                                base64_image_string;
+
                             var faces = await detect_faces_from_image(image);
-                            if (faces.isNotEmpty) {
+                            if (faces.isEmpty) {
+                              await show_error(
+                                  msg:
+                                      "Please try to take another picture, because I didn't get your face");
+                              return;
+                            } else {
                               var face = faces.first;
 
-                              // await face_scan_controller.mlServiceForFace
-                              //     .login_or_register_by_using_face(image, face,
-                              //         true, "yingshaoxo@gmail.com");
-
-                              var gender = await face_scan_controller
+                              String? gender = await face_scan_controller
                                   .mlServiceForFace
                                   .get_gender_by_giving_face(
                                       cameraImage: image, face: face);
                               print(gender);
 
-                              var age = await face_scan_controller
+                              int? age = await face_scan_controller
                                   .mlServiceForFace
                                   .get_age_by_giving_face(
                                       cameraImage: image, face: face);
                               print(age);
+
+                              if (gender == null || age == null) {
+                                await show_error(
+                                    msg:
+                                        "Please try to take another picture, because I didn't get your age or gender");
+                                return;
+                              } else {
+                                // if ((face_scan_controller
+                                //             .createUserRequest.headImage ==
+                                //         null) ||
+                                //     (face_scan_controller
+                                //             .createUserRequest.sex ==
+                                //         null) ||
+                                //     (face_scan_controller
+                                //             .createUserRequest.age ==
+                                //         null) ||
+                                //     (face_scan_controller.got_face_info ==
+                                //         false)) {
+                                //   await show_error(
+                                //       msg:
+                                //           "Please take a picture of you to continue the journey");
+                                //   return;
+                                // }
+
+                                face_scan_controller.createUserRequest.sex =
+                                    gender == "female" ? 0 : 1;
+                                face_scan_controller.createUserRequest.age =
+                                    age;
+
+                                loading_start();
+                                UpdateUserResponse result =
+                                    await grpc_account_storage_controllr
+                                        .update_a_user(face_scan_controller
+                                            .createUserRequest);
+                                loading_end();
+                                if (result.error != null &&
+                                    result.error.isNotEmpty) {
+                                  await show_error(msg: result.error);
+                                  return;
+                                } else {
+                                  await Get.offNamed(RoutesMap.roomList);
+                                }
+
+                                return;
+                              }
                             }
                           },
                           style: ButtonStyle(

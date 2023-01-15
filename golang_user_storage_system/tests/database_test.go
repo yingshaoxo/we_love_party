@@ -69,13 +69,13 @@ func Test_update_a_user_info(t *testing.T) {
 		Age:        -1,
 	}
 
-	result := postgres_sql_database.Clauses(clause.OnConflict{
-		Columns: []clause.Column{{Name: "email"}}, // key colume
-		// DoUpdates: clause.AssignmentColumns([]string{"name", "age"}), // column needed to be updated
-		UpdateAll: true,
-	}).Create(&user)
+	// result := postgres_sql_database.Clauses(clause.OnConflict{
+	// 	Columns: []clause.Column{{Name: "email"}}, // key colume
+	// 	// DoUpdates: clause.AssignmentColumns([]string{"name", "age"}), // column needed to be updated
+	// 	UpdateAll:   true,
+	// }).Create(&user)
 
-	// result := postgres_sql_database.Model(&user).Where("email = ?", user.Email).Updates(&user)
+	result := postgres_sql_database.Model(&user).Where("email = ?", user.Email).Updates(&user)
 
 	if result.Error != nil {
 		t.Fatalf(result.Error.Error())

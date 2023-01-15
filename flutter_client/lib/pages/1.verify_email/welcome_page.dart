@@ -20,7 +20,7 @@ class _WelcomePageState extends State<WelcomePage> {
     super.initState();
 
     () async {
-      bool valid = await jwtGrpcController.check_if_current_JWT_is_valid();
+      bool valid = await grpc_JWT_controller.check_if_current_JWT_is_valid();
       if (valid) {
         Get.offNamed(RoutesMap.profile_edit_page);
       }

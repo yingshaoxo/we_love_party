@@ -176,12 +176,12 @@ class _EmailPageState extends State<EmailPage> {
               String the_email_address = email_inputbox_controller.text.trim();
 
               loading_start();
-              bool result = await jwtGrpcController.ask_for_registering(
+              bool result = await grpc_JWT_controller.ask_for_registering(
                   email: the_email_address);
               loading_end();
 
               if (result) {
-                variableController.save_user_email(the_email_address);
+                variable_controller.save_user_email(the_email_address);
                 Get.offNamed(RoutesMap.registerVerifying);
               } else {
                 Fluttertoast.showToast(

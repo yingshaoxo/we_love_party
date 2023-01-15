@@ -57,20 +57,28 @@ func (self *GrpcAccountStorageServer) CreateUser(context_ context.Context, reque
 		return default_response, nil
 	}
 
-	user := database.User{
-		Email:      request.Email,
-		Username:   "",
-		Head_image: "",
-		Sex:        -1,
-		Age:        -1,
-	}
-	result := self.Postgres_sql_database.Clauses(clause.OnConflict{DoNothing: true}).Create(&user)
-	if result.Error != nil {
-		error_string = result.Error.Error()
-		default_response.Error = &error_string
+	var user_list []database.User
+	err := database.Get_a_user(self.Postgres_sql_database, &user_list, request.Email)
+	if err != nil {
+		// no exists user
+		user := database.User{
+			Email:      request.Email,
+			Username:   "",
+			Head_image: "",
+			Sex:        -1,
+			Age:        -1,
+		}
+		result := self.Postgres_sql_database.Clauses(clause.OnConflict{DoNothing: true}).Create(&user)
+		if result.Error != nil {
+			error_string = result.Error.Error()
+			default_response.Error = &error_string
+		} else {
+			default_response.Result = "ok"
+			default_response.Error = nil
+		}
 	} else {
-		default_response.Result = "ok"
-		default_response.Error = nil
+		error_string = "User exists"
+		default_response.Error = &error_string
 	}
 
 	return default_response, nil
@@ -186,10 +194,11 @@ func (self *GrpcAccountStorageServer) UpdateUser(context_ context.Context, reque
 		user.Age = *request.Age
 	}
 
-	result := self.Postgres_sql_database.Clauses(clause.OnConflict{
-		Columns:   []clause.Column{{Name: "email"}}, // key colume
-		UpdateAll: true,
-	}).Create(&user)
+	// result := self.Postgres_sql_database.Clauses(clause.OnConflict{
+	// 	Columns:   []clause.Column{{Name: "email"}}, // key colume
+	// 	UpdateAll: true,
+	// }).Create(&user)
+	result := self.Postgres_sql_database.Model(&user).Where("email = ?", user.Email).Updates(&user)
 
 	if result.Error != nil {
 		error_string = result.Error.Error()

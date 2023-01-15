@@ -53,7 +53,7 @@ class _SingleRoomPageState extends State<SingleRoomPage> {
     );
 
     theLivekitRoom = await livekit.LiveKitClient.connect(
-        LivekitConfig.url, variableController.access_token ?? '',
+        LivekitConfig.url, variable_controller.access_token ?? '',
         connectOptions: options, roomOptions: roomOptions);
 
     theLivekitRoom?.addListener(_onRoomDidUpdate);

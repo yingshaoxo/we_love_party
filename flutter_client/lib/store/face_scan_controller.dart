@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:camera/camera.dart';
+import 'package:flutter_client/generated_grpc/account_storage_service.pbgrpc.dart';
 import 'package:get/get.dart';
 
 import 'dart:io';
@@ -12,6 +13,8 @@ import 'package:image/image.dart' as imglib;
 
 class FaceScanControllr extends GetxController {
   MLServiceForFace mlServiceForFace = MLServiceForFace();
+
+  UpdateUserRequest createUserRequest = UpdateUserRequest();
 }
 
 class MLServiceForFace {

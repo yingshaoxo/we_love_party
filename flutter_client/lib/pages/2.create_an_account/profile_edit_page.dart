@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_client/common_user_interface/loading.dart';
+import 'package:flutter_client/common_user_interface/pop_up_window.dart';
+import 'package:flutter_client/generated_grpc/account_storage_service.pb.dart';
 import 'package:flutter_client/tools/string_tools.dart';
 import 'package:flutter_client/common_user_interface/my_single_child_scroll_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,35 +28,59 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
 
   bool username_is_valid = false;
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: null,
-      body: MySingleChildScrollView(
-          child: Container(
-        alignment: Alignment.center,
-        child: Padding(
-          padding: const EdgeInsets.only(
-            top: 180,
-            bottom: 60,
-          ),
+  Widget build_take_picture_box() {
+    double top_and_left_distance_between_background_and_icon = 18;
+    double the_camera_icon_size = 74;
+    return Container(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 20),
+        child: GestureDetector(
+          onTap: () {
+            Get.toNamed(RoutesMap.face_scan_page);
+          },
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              buildTitle(),
-              const SizedBox(
-                height: 50,
+              Stack(
+                children: [
+                  Positioned(
+                      top: -top_and_left_distance_between_background_and_icon,
+                      left: -top_and_left_distance_between_background_and_icon,
+                      child: Container(
+                        height: the_camera_icon_size,
+                        width: the_camera_icon_size,
+                        color: Colors.amber,
+                      )),
+                  Positioned(
+                    top: top_and_left_distance_between_background_and_icon,
+                    left: top_and_left_distance_between_background_and_icon,
+                    child: IconButton(
+                      padding: EdgeInsets.all(0),
+                      icon: Icon(
+                        Icons.camera_alt_outlined,
+                        size: the_camera_icon_size,
+                      ),
+                      onPressed: (() {}),
+                    ),
+                  ),
+                  Container(
+                    height: the_camera_icon_size +
+                        top_and_left_distance_between_background_and_icon,
+                    width: the_camera_icon_size +
+                        top_and_left_distance_between_background_and_icon,
+                  )
+                ],
               ),
-              buildForm(),
-              Spacer(),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: 13,
               ),
-              buildBottom(),
+              Text(
+                "Please take a picture.",
+                style: TextStyle(color: Colors.grey[600]),
+              ),
             ],
           ),
         ),
-      )),
+      ),
     );
   }
 
@@ -88,6 +114,10 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                   form_key.currentState?.validate();
                 },
                 validator: (value) {
+                  if (value != null) {
+                    value = value.trim();
+                  }
+
                   if (value == null || value.isEmpty) {
                     username_is_valid = false;
                     return 'Please enter some text';
@@ -98,6 +128,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                       username_is_valid = false;
                       if (value.length > 3) {
                         return "Invalid username";
+                      } else {
+                        return "Please input chars >= 3";
                       }
                     }
                   }
@@ -156,42 +188,78 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
           disabledColor: Style.AccentBlue.withOpacity(0.3),
           // onPressed: onSignUpButtonClick,
           onPressed: () async {
-            Get.toNamed(RoutesMap.face_scan_page);
-            return;
-            if (!username_is_valid) {
-              Fluttertoast.showToast(
-                  msg: "Please enter a valid username!",
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.CENTER,
-                  timeInSecForIosWeb: 1,
-                  backgroundColor: Colors.white,
-                  textColor: Colors.black,
-                  fontSize: 16.0);
+            if (username_is_valid ||
+                (variable_controller.username != null &&
+                    variable_controller.username?.trim() != "")) {
+              await variable_controller
+                  .save_username(username_inputbox_controller.text.trim());
             } else {
-              String username = username_inputbox_controller.text.trim();
-
-              // loading_start();
-              // bool result = await jwtGrpcController.ask_for_registering(
-              //     email: username);
-              // loading_end();
-
-              // if (result) {
-              //   variableController.save_user_email(username);
-              //   Get.offNamed(RoutesMap.registerVerifying);
-              // } else {
-              //   Fluttertoast.showToast(
-              //       msg: "Something went wrong!",
-              //       toastLength: Toast.LENGTH_SHORT,
-              //       gravity: ToastGravity.CENTER,
-              //       timeInSecForIosWeb: 1,
-              //       backgroundColor: Colors.white,
-              //       textColor: Colors.black,
-              //       fontSize: 16.0);
-              // }
+              await show_error(msg: "Please give me a correct username");
+              return;
             }
+
+            if (variable_controller.user_email == null) {
+              Get.offNamed(RoutesMap.register);
+            }
+            face_scan_controller.createUserRequest.email =
+                variable_controller.user_email!;
+
+            if (variable_controller.username == null) {
+              await show_error(msg: "Please give me a correct username");
+              return;
+            }
+            face_scan_controller.createUserRequest.username =
+                variable_controller.username!;
+
+            Get.offNamed(RoutesMap.face_scan_page);
+            return;
           },
         ),
       ],
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    () async {
+      if (variable_controller.username != null) {
+        username_inputbox_controller.text = variable_controller.username!;
+      }
+    }();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: null,
+      body: MySingleChildScrollView(
+          child: Padding(
+        padding: const EdgeInsets.only(
+          top: 180,
+          bottom: 60,
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              buildTitle(),
+              const SizedBox(
+                height: 50,
+              ),
+              buildForm(),
+              // Spacer(),
+              // build_take_picture_box(),
+              Spacer(),
+              const SizedBox(
+                height: 20,
+              ),
+              buildBottom(),
+            ],
+          ),
+        ),
+      )),
     );
   }
 }
