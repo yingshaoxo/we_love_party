@@ -183,6 +183,7 @@ class _EmailPageState extends State<EmailPage> {
               if (result) {
                 variable_controller.save_user_email(the_email_address);
                 Get.offNamed(RoutesMap.registerVerifying);
+                return;
               } else {
                 Fluttertoast.showToast(
                     msg: "Something went wrong!",

@@ -143,6 +143,7 @@ class _VerifyPageState extends State<VerifyPage> {
                   await variable_controller.save_jwt(jwt);
                   print("jwt: " + jwt);
                   Get.offNamed(RoutesMap.profile_edit_page);
+                  return;
                 } else {
                   Fluttertoast.showToast(
                       msg: "Invalid code!",
@@ -153,6 +154,7 @@ class _VerifyPageState extends State<VerifyPage> {
                       textColor: Colors.black,
                       fontSize: 16.0);
                   Get.offNamed(RoutesMap.register);
+                  return;
                 }
               } catch (e) {
                 print("error: " + e.toString());

@@ -21,6 +21,8 @@ class FaceScanPage extends StatefulWidget {
 }
 
 class _FaceScanPageState extends State<FaceScanPage> {
+  bool initialization_is_done = false;
+
   TextEditingController controller = TextEditingController();
 
   List<CameraDescription>? cameras;
@@ -32,14 +34,6 @@ class _FaceScanPageState extends State<FaceScanPage> {
   CameraImage? temp_image;
   String? gender;
   bool detection_process_for_one_frame_is_done = true;
-
-  Future initializeCamera() async {
-    await _cameraController.initialize();
-    isControllerInitialized = true;
-    _cameraController.setFlashMode(FlashMode.off);
-
-    setState(() {});
-  }
 
   InputImageRotation rotationIntToImageRotation(int rotation) {
     switch (rotation) {
@@ -134,6 +128,12 @@ class _FaceScanPageState extends State<FaceScanPage> {
     });
   }
 
+  Future<void> initializeCamera() async {
+    await _cameraController.initialize();
+    isControllerInitialized = true;
+    _cameraController.setFlashMode(FlashMode.off);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -159,6 +159,10 @@ class _FaceScanPageState extends State<FaceScanPage> {
       );
 
       // await start_face_scan_process();
+
+      setState(() {
+        initialization_is_done = true;
+      });
     }();
   }
 
@@ -170,172 +174,193 @@ class _FaceScanPageState extends State<FaceScanPage> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Container(
+        child: initialization_is_done == false
+            ? Container()
+            : GestureDetector(
+                onTap: () {
+                  FocusScopeNode currentFocus = FocusScope.of(context);
 
-        if (!currentFocus.hasPrimaryFocus) {
-          currentFocus.unfocus();
-        }
-      },
-      child: Scaffold(
-        backgroundColor: Colors.black,
-        body: Stack(
-          children: [
-            SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                child: isControllerInitialized
-                    ? CameraPreview(_cameraController)
-                    : null),
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Padding(
-                        padding: const EdgeInsets.only(bottom: 100),
-                        child:
-                            //  Lottie.asset("assets/loading.json", width: MediaQuery.of(context).size.width * 0.7),
-                            // Center(child: Text("Loading...")),
-                            Container()),
-                  ),
-                  // TextField(
-                  //   controller: controller,
-                  //   decoration: const InputDecoration(
-                  //       fillColor: Colors.white, filled: true),
-                  // ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        color: Colors.white,
-                        child: Text(this.gender ?? ""),
+                  if (!currentFocus.hasPrimaryFocus) {
+                    currentFocus.unfocus();
+                  }
+                },
+                child: Stack(
+                  children: [
+                    SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height,
+                        child: isControllerInitialized
+                            ? CameraPreview(_cameraController)
+                            : null),
+                    Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Padding(
+                                padding: const EdgeInsets.only(bottom: 100),
+                                child:
+                                    //  Lottie.asset("assets/loading.json", width: MediaQuery.of(context).size.width * 0.7),
+                                    // Center(child: Text("Loading...")),
+                                    Container()),
+                          ),
+                          // TextField(
+                          //   controller: controller,
+                          //   decoration: const InputDecoration(
+                          //       fillColor: Colors.white, filled: true),
+                          // ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                color: Colors.white,
+                                child: Text(this.gender ?? ""),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 0.3.sw,
+                                child: TextButton(
+                                  child: Text("Capture"),
+                                  onPressed: () async {
+                                    if (variable_controller.user_email ==
+                                        null) {
+                                      await show_exit_confirm_pop_window(
+                                          msg:
+                                              "I think we got some problems here.\nWhat you could do is to clear the data of this app, then try it again.\nIf it is no working, you could contact the author: yingshaoxo@gamil.com");
+                                      return;
+                                    } else {
+                                      face_scan_controller
+                                              .createUserRequest.email =
+                                          variable_controller.user_email!;
+                                    }
+
+                                    var image =
+                                        await take_a_picture_from_camera_stream();
+
+                                    var image2 = ImageTools
+                                        .convert_YUV420_CameraImage_to_Image_with_color(
+                                            image);
+                                    if (image2 == null) {
+                                      await show_exit_confirm_pop_window(
+                                          msg:
+                                              "Unknown error, see you in the next version!");
+                                      return;
+                                    }
+                                    String base64_image_string =
+                                        ImageTools.image_to_base64(image2);
+                                    face_scan_controller.createUserRequest
+                                        .headImage = base64_image_string;
+
+                                    var faces =
+                                        await detect_faces_from_image(image);
+                                    if (faces.isEmpty) {
+                                      await show_error(
+                                          msg:
+                                              "Please try to take another picture, because I didn't get your face");
+                                      return;
+                                    } else {
+                                      var face = faces.first;
+
+                                      String? gender =
+                                          await face_scan_controller
+                                              .mlServiceForFace
+                                              .get_gender_by_giving_face(
+                                                  cameraImage: image,
+                                                  face: face);
+                                      print(gender);
+
+                                      int? age = await face_scan_controller
+                                          .mlServiceForFace
+                                          .get_age_by_giving_face(
+                                              cameraImage: image, face: face);
+                                      print(age);
+
+                                      if (gender == null || age == null) {
+                                        await show_error(
+                                            msg:
+                                                "Please try to take another picture, because I didn't get your age or gender");
+                                        return;
+                                      } else {
+                                        // if ((face_scan_controller
+                                        //             .createUserRequest.headImage ==
+                                        //         null) ||
+                                        //     (face_scan_controller
+                                        //             .createUserRequest.sex ==
+                                        //         null) ||
+                                        //     (face_scan_controller
+                                        //             .createUserRequest.age ==
+                                        //         null) ||
+                                        //     (face_scan_controller.got_face_info ==
+                                        //         false)) {
+                                        //   await show_error(
+                                        //       msg:
+                                        //           "Please take a picture of you to continue the journey");
+                                        //   return;
+                                        // }
+
+                                        face_scan_controller.createUserRequest
+                                            .sex = gender == "female" ? 0 : 1;
+                                        face_scan_controller
+                                            .createUserRequest.age = age;
+
+                                        loading_start();
+                                        UpdateUserResponse result =
+                                            await grpc_account_storage_controllr
+                                                .update_a_user(
+                                                    face_scan_controller
+                                                        .createUserRequest);
+                                        loading_end();
+                                        if (result.error != null &&
+                                            result.error.isNotEmpty) {
+                                          await show_error(msg: result.error);
+                                          return;
+                                        } else {
+                                          await Get.offNamed(
+                                              RoutesMap.roomList);
+                                          return;
+                                        }
+                                      }
+                                    }
+                                  },
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                              Colors.white)),
+                                ),
+                              ),
+                              // IconButton(
+                              //     icon: Icon(
+                              //       flash ? Icons.flash_on : Icons.flash_off,
+                              //       color: Colors.white,
+                              //       size: 28,
+                              //     ),
+                              //     onPressed: () {
+                              //       setState(() {
+                              //         flash = !flash;
+                              //       });
+                              //       flash
+                              //           ? _cameraController
+                              //               .setFlashMode(FlashMode.torch)
+                              //           : _cameraController.setFlashMode(FlashMode.off);
+                              //     }),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 50,
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 0.3.sw,
-                        child: TextButton(
-                          child: Text("Capture"),
-                          onPressed: () async {
-                            var image =
-                                await take_a_picture_from_camera_stream();
-
-                            var image2 = ImageTools
-                                .convert_YUV420_CameraImage_to_Image_with_color(
-                                    image);
-                            if (image2 == null) {
-                              await show_exit_confirm_pop_window(
-                                  msg:
-                                      "Unknown error, see you in the next version!");
-                              return;
-                            }
-                            String base64_image_string =
-                                ImageTools.image_to_base64(image2);
-                            face_scan_controller.createUserRequest.headImage =
-                                base64_image_string;
-
-                            var faces = await detect_faces_from_image(image);
-                            if (faces.isEmpty) {
-                              await show_error(
-                                  msg:
-                                      "Please try to take another picture, because I didn't get your face");
-                              return;
-                            } else {
-                              var face = faces.first;
-
-                              String? gender = await face_scan_controller
-                                  .mlServiceForFace
-                                  .get_gender_by_giving_face(
-                                      cameraImage: image, face: face);
-                              print(gender);
-
-                              int? age = await face_scan_controller
-                                  .mlServiceForFace
-                                  .get_age_by_giving_face(
-                                      cameraImage: image, face: face);
-                              print(age);
-
-                              if (gender == null || age == null) {
-                                await show_error(
-                                    msg:
-                                        "Please try to take another picture, because I didn't get your age or gender");
-                                return;
-                              } else {
-                                // if ((face_scan_controller
-                                //             .createUserRequest.headImage ==
-                                //         null) ||
-                                //     (face_scan_controller
-                                //             .createUserRequest.sex ==
-                                //         null) ||
-                                //     (face_scan_controller
-                                //             .createUserRequest.age ==
-                                //         null) ||
-                                //     (face_scan_controller.got_face_info ==
-                                //         false)) {
-                                //   await show_error(
-                                //       msg:
-                                //           "Please take a picture of you to continue the journey");
-                                //   return;
-                                // }
-
-                                face_scan_controller.createUserRequest.sex =
-                                    gender == "female" ? 0 : 1;
-                                face_scan_controller.createUserRequest.age =
-                                    age;
-
-                                loading_start();
-                                UpdateUserResponse result =
-                                    await grpc_account_storage_controllr
-                                        .update_a_user(face_scan_controller
-                                            .createUserRequest);
-                                loading_end();
-                                if (result.error != null &&
-                                    result.error.isNotEmpty) {
-                                  await show_error(msg: result.error);
-                                  return;
-                                } else {
-                                  await Get.offNamed(RoutesMap.roomList);
-                                }
-
-                                return;
-                              }
-                            }
-                          },
-                          style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(Colors.white)),
-                        ),
-                      ),
-                      // IconButton(
-                      //     icon: Icon(
-                      //       flash ? Icons.flash_on : Icons.flash_off,
-                      //       color: Colors.white,
-                      //       size: 28,
-                      //     ),
-                      //     onPressed: () {
-                      //       setState(() {
-                      //         flash = !flash;
-                      //       });
-                      //       flash
-                      //           ? _cameraController
-                      //               .setFlashMode(FlashMode.torch)
-                      //           : _cameraController.setFlashMode(FlashMode.off);
-                      //     }),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
       ),
     );
   }

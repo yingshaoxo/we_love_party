@@ -60,9 +60,11 @@ func (self *GrpcAccountStorageServer) CreateUser(context_ context.Context, reque
 		return default_response, *an_error
 	}
 
-	user, err := database.Get_a_user(self.Postgres_sql_database, request.Email)
+	var user database.User
+	err := database.Get_a_user(self.Postgres_sql_database, &user, request.Email)
 	if err != nil {
 		// user no exists
+		user.Email = request.Email
 		result := self.Postgres_sql_database.Clauses(clause.OnConflict{DoNothing: true}).Create(&user)
 		if result.Error != nil {
 			*default_response.Error = result.Error.Error()
@@ -109,7 +111,8 @@ func (self *GrpcAccountStorageServer) GetUser(context_ context.Context, request 
 	}
 
 	// log.Fatalf("in: %v", "GetUser")
-	user, err := database.Get_a_user(self.Postgres_sql_database, request.Email)
+	var user database.User
+	err := database.Get_a_user(self.Postgres_sql_database, &user, request.Email)
 	if err != nil {
 		// log.Fatalf("error in GetUser: %v", err.Error())
 		*default_response.Error = err.Error()
@@ -144,6 +147,7 @@ func (self *GrpcAccountStorageServer) GetUser(context_ context.Context, request 
 // }
 
 func (self *GrpcAccountStorageServer) UpdateUser(context_ context.Context, request *account_storage_service.UpdateUserRequest) (*account_storage_service.UpdateUserResponse, error) {
+
 	error_string := "unknown error"
 	default_response := &account_storage_service.UpdateUserResponse{
 		Result: "",
@@ -156,21 +160,14 @@ func (self *GrpcAccountStorageServer) UpdateUser(context_ context.Context, reque
 		return default_response, nil
 	}
 
-	var users []database.User
-	operation_result := self.Postgres_sql_database.Where("email = ?", request.Email).Find(&users)
-	if operation_result.Error != nil {
-		error_string = operation_result.Error.Error()
-		default_response.Error = &error_string
-		return default_response, nil
+	var user database.User
+	err := database.Get_a_user(self.Postgres_sql_database, &user, request.Email)
+	if err != nil {
+		// log.Fatalf("error in GetUser: %v", err.Error())
+		*default_response.Error = err.Error()
+		return default_response, err
 	}
 
-	if len(users) == 0 {
-		error_string = "not found"
-		default_response.Error = &error_string
-		return default_response, nil
-	}
-
-	user := users[0]
 	if request.Username != nil {
 		user.Username = *request.Username
 	}
@@ -188,7 +185,7 @@ func (self *GrpcAccountStorageServer) UpdateUser(context_ context.Context, reque
 	// 	Columns:   []clause.Column{{Name: "email"}}, // key colume
 	// 	UpdateAll: true,
 	// }).Create(&user)
-	result := self.Postgres_sql_database.Model(&user).Where("email = ?", user.Email).Updates(&user)
+	result := self.Postgres_sql_database.Model(&user).Where("email = ?", request.Email).Updates(&user)
 
 	if result.Error != nil {
 		error_string = result.Error.Error()

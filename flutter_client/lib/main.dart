@@ -27,7 +27,7 @@ void main() {
         ScreenUtil.init(context);
         return EasyLoading.init()(context, child);
       },
-      initialRoute: RoutesMap.profile_edit_page,
+      initialRoute: RoutesMap.welcome,
       getPages: [
         GetPage(name: RoutesMap.welcome, page: () => const WelcomePage()),
         GetPage(name: RoutesMap.register, page: () => const EmailPage()),

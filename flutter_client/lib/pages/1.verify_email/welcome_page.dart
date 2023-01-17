@@ -15,6 +15,8 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
+  bool initialization_is_done = false;
+
   @override
   void initState() {
     super.initState();
@@ -23,7 +25,12 @@ class _WelcomePageState extends State<WelcomePage> {
       bool valid = await grpc_JWT_controller.check_if_current_JWT_is_valid();
       if (valid) {
         Get.offNamed(RoutesMap.profile_edit_page);
+        return;
       }
+
+      setState(() {
+        initialization_is_done = true;
+      });
     }();
   }
 
@@ -31,32 +38,34 @@ class _WelcomePageState extends State<WelcomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: null,
-      body: MySingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.only(
-            top: 120,
-            left: 50,
-            right: 50,
-            bottom: 60,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              buildTitle(),
-              SizedBox(
-                height: 80, //0.12.sh,
+      body: initialization_is_done == false
+          ? Container()
+          : MySingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.only(
+                  top: 120,
+                  left: 50,
+                  right: 50,
+                  bottom: 60,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    buildTitle(),
+                    SizedBox(
+                      height: 80, //0.12.sh,
+                    ),
+                    buildContents(),
+                    // SizedBox(
+                    //   height: 0.17.sh,
+                    // ),
+                    Spacer(),
+                    Center(child: buildBottom(context)),
+                  ],
+                ),
               ),
-              buildContents(),
-              // SizedBox(
-              //   height: 0.17.sh,
-              // ),
-              Spacer(),
-              Center(child: buildBottom(context)),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 
@@ -122,6 +131,7 @@ class _WelcomePageState extends State<WelcomePage> {
           color: Style.AccentBlue,
           onPressed: () async {
             Get.offNamed(RoutesMap.register);
+            return;
           },
           child: Container(
             child: Row(

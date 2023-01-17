@@ -42,17 +42,19 @@ func Get_postgres_sql_database() *gorm.DB {
 	return db
 }
 
-func Get_a_user(db *gorm.DB, email string) (*User, error) {
+func Get_a_user(db *gorm.DB, user *User, email string) error {
 	var user_list []User
 
 	operation_result := db.Where("email = ?", email).Find(&user_list)
 	if operation_result.Error != nil {
-		return nil, operation_result.Error
+		return operation_result.Error
 	}
 
 	if len(user_list) == 0 {
-		return nil, errors.New("not found")
+		return errors.New("not found")
 	}
 
-	return &user_list[0], nil
+	user = &user_list[0]
+
+	return nil
 }

@@ -106,7 +106,8 @@ func Test_raw_sql_command(t *testing.T) {
 }
 
 func Test_get_a_user(t *testing.T) {
-	user, err := database.Get_a_user(postgres_sql_database, "yingshaoxo@gmail.com")
+	var user database.User
+	err := database.Get_a_user(postgres_sql_database, &user, "yingshaoxo@gmail.com")
 	if err != nil {
 		fmt.Println(err.Error())
 	} else {

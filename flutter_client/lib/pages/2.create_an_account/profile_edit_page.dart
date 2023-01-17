@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_client/common_user_interface/exit.dart';
 import 'package:flutter_client/common_user_interface/loading.dart';
 import 'package:flutter_client/common_user_interface/pop_up_window.dart';
 import 'package:flutter_client/generated_grpc/account_storage_service.pb.dart';
@@ -23,6 +24,8 @@ class ProfileEditPage extends StatefulWidget {
 }
 
 class _ProfileEditPageState extends State<ProfileEditPage> {
+  bool initialization_is_done = false;
+
   final form_key = GlobalKey<FormState>();
   final username_inputbox_controller = TextEditingController();
 
@@ -200,6 +203,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
 
             if (variable_controller.user_email == null) {
               Get.offNamed(RoutesMap.register);
+              return;
             }
             face_scan_controller.createUserRequest.email =
                 variable_controller.user_email!;
@@ -222,10 +226,28 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   @override
   void initState() {
     super.initState();
+
     () async {
+      if (variable_controller.user_email == null) {
+        await show_exit_confirm_pop_window(
+            msg:
+                "I think we got some problems here, you might want to clear the data of this app and try it again.\nIf it doesn't work, I suggest you contact the author: yingshaoxo@gmail.com");
+      }
+      GetUserResponse getUserResponse = await grpc_account_storage_controllr
+          .get_a_user(variable_controller.user_email);
+
+      if (getUserResponse.userExists) {
+        Get.offNamed(RoutesMap.roomList);
+        return;
+      }
+
       if (variable_controller.username != null) {
         username_inputbox_controller.text = variable_controller.username!;
       }
+
+      setState(() {
+        initialization_is_done = true;
+      });
     }();
   }
 
@@ -233,33 +255,35 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: null,
-      body: MySingleChildScrollView(
-          child: Padding(
-        padding: const EdgeInsets.only(
-          top: 180,
-          bottom: 60,
-        ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              buildTitle(),
-              const SizedBox(
-                height: 50,
+      body: initialization_is_done == false
+          ? Container()
+          : MySingleChildScrollView(
+              child: Padding(
+              padding: const EdgeInsets.only(
+                top: 180,
+                bottom: 60,
               ),
-              buildForm(),
-              // Spacer(),
-              // build_take_picture_box(),
-              Spacer(),
-              const SizedBox(
-                height: 20,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    buildTitle(),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    buildForm(),
+                    // Spacer(),
+                    // build_take_picture_box(),
+                    Spacer(),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    buildBottom(),
+                  ],
+                ),
               ),
-              buildBottom(),
-            ],
-          ),
-        ),
-      )),
+            )),
     );
   }
 }

@@ -1,5 +1,4 @@
 import 'dart:core';
-import 'dart:io';
 
 import 'package:flutter_client/generated_grpc/account_auth_service.pbgrpc.dart';
 import 'package:flutter_client/generated_grpc/account_storage_service.pbgrpc.dart';
@@ -148,8 +147,12 @@ class AccountStorageControllr extends GetxController {
     return AccountStorageServiceClient(channel);
   }
 
-  Future<GetUserResponse> get_a_user(String email) async {
+  Future<GetUserResponse> get_a_user(String? email) async {
     var default_response = GetUserResponse(userExists: false);
+
+    if (email == null) {
+      return default_response;
+    }
 
     try {
       final client = get_account_storage_service_client();
@@ -180,19 +183,12 @@ class AccountStorageControllr extends GetxController {
       CreateUserRequest createUserRequest = CreateUserRequest();
       createUserRequest.email = updateUserRequest.email;
 
-      CreateUserResponse response = await client.createUser(createUserRequest,
+      var create_response = await client.createUser(createUserRequest,
           options: get_JWT_CallOptions_for_GRPC());
-      if (response.error != null && response.error != "") {
-        return default_response;
-      }
 
       UpdateUserResponse update_response = await client.updateUser(
           updateUserRequest,
           options: get_JWT_CallOptions_for_GRPC());
-
-      if (update_response.error != null && update_response.error != "") {
-        return default_response;
-      }
 
       await channel.shutdown();
       return update_response;
