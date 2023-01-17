@@ -225,7 +225,7 @@ class _FaceScanPageState extends State<FaceScanPage> {
                             var image =
                                 await take_a_picture_from_camera_stream();
 
-                            var image2 = face_scan_controller.mlServiceForFace
+                            var image2 = ImageTools
                                 .convert_YUV420_CameraImage_to_Image_with_color(
                                     image);
                             if (image2 == null) {

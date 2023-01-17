@@ -149,8 +149,7 @@ class AccountStorageControllr extends GetxController {
   }
 
   Future<GetUserResponse> get_a_user(String email) async {
-    var default_response =
-        GetUserResponse(userExists: false, error: "unknown error");
+    var default_response = GetUserResponse(userExists: false);
 
     try {
       final client = get_account_storage_service_client();
@@ -178,8 +177,10 @@ class AccountStorageControllr extends GetxController {
     try {
       final client = get_account_storage_service_client();
 
-      CreateUserResponse response = await client.createUser(
-          CreateUserRequest()..email = updateUserRequest.email,
+      CreateUserRequest createUserRequest = CreateUserRequest();
+      createUserRequest.email = updateUserRequest.email;
+
+      CreateUserResponse response = await client.createUser(createUserRequest,
           options: get_JWT_CallOptions_for_GRPC());
       if (response.error != null && response.error != "") {
         return default_response;
