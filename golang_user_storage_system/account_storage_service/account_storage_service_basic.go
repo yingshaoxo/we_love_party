@@ -13,30 +13,33 @@ import (
 
 	"github.com/yingshaoxo/we_love_party/golang_user_storage_system/database"
 	"github.com/yingshaoxo/we_love_party/golang_user_storage_system/generated_grpc/account_storage_service"
+
+	"github.com/yingshaoxo/gopython/error_tool"
 )
 
 // if success, return nil, if no, return error_string
-func return_nil_if_header_user_email_matchs_target_email(request_context context.Context, email string) *string {
-	error_string := "unknown error"
-
+func return_error_if_header_user_email_not_match_target_email(request_context context.Context, email string) *error {
 	headers, ok := metadata.FromIncomingContext(request_context)
 	if !ok {
-		error_string = "Can't read Matadata from grpc requests"
-		return &error_string
+		return error_tool.Get_error_memory_pointer_from_string("Can't read Matadata from grpc requests")
 	}
 
 	user_email_list := headers.Get("user_email")
 	if len(user_email_list) == 0 {
-		error_string = "No valid JWT, no user_email in matadata"
-		return &error_string
+		return error_tool.Get_error_memory_pointer_from_string("No valid JWT, no user_email in matadata")
 	}
 
 	if user_email_list[0] == email {
 		return nil
 	} else {
-		error_string = "You can't handle others account.\nTarget email do not match the email in JWT(matadata)"
-		return &error_string
+		return error_tool.Get_error_memory_pointer_from_string("You can't handle others account.\nTarget email do not match the email in JWT(matadata)")
 	}
+
+	// return error_tool.Get_error_memory_pointer_from_string("unknown error")
+}
+
+func Get_error_memory_pointer_from_string() {
+	panic("unimplemented")
 }
 
 type GrpcAccountStorageServer struct {
@@ -51,34 +54,25 @@ func (self *GrpcAccountStorageServer) CreateUser(context_ context.Context, reque
 		Error:  &error_string,
 	}
 
-	an_error := return_nil_if_header_user_email_matchs_target_email(context_, request.Email)
+	an_error := return_error_if_header_user_email_not_match_target_email(context_, request.Email)
 	if an_error != nil {
-		default_response.Error = an_error
-		return default_response, nil
+		*default_response.Error = (*an_error).Error()
+		return default_response, *an_error
 	}
 
-	var user_list []database.User
-	err := database.Get_a_user(self.Postgres_sql_database, &user_list, request.Email)
+	user, err := database.Get_a_user(self.Postgres_sql_database, request.Email)
 	if err != nil {
-		// no exists user
-		user := database.User{
-			Email:      request.Email,
-			Username:   "",
-			Head_image: "",
-			Sex:        -1,
-			Age:        -1,
-		}
+		// user no exists
 		result := self.Postgres_sql_database.Clauses(clause.OnConflict{DoNothing: true}).Create(&user)
 		if result.Error != nil {
-			error_string = result.Error.Error()
-			default_response.Error = &error_string
+			*default_response.Error = result.Error.Error()
 		} else {
-			default_response.Result = "ok"
 			default_response.Error = nil
+			default_response.Result = "ok"
 		}
 	} else {
-		error_string = "User exists"
-		default_response.Error = &error_string
+		// user exists
+		*default_response.Error = "User exists"
 	}
 
 	return default_response, nil
@@ -91,19 +85,18 @@ func (self *GrpcAccountStorageServer) DeleteUser(context_ context.Context, reque
 		Error:  &error_string,
 	}
 
-	an_error := return_nil_if_header_user_email_matchs_target_email(context_, request.Email)
+	an_error := return_error_if_header_user_email_not_match_target_email(context_, request.Email)
 	if an_error != nil {
-		default_response.Error = an_error
+		*default_response.Error = (*an_error).Error()
 		return default_response, nil
 	}
 
 	result := self.Postgres_sql_database.Unscoped().Where("email = ?", request.Email).Delete(&database.User{})
 	if result.Error != nil {
-		error_string = result.Error.Error()
-		default_response.Error = &error_string
+		*default_response.Error = result.Error.Error()
 	} else {
-		default_response.Result = "ok"
 		default_response.Error = nil
+		default_response.Result = "ok"
 	}
 
 	return default_response, nil
@@ -116,17 +109,14 @@ func (self *GrpcAccountStorageServer) GetUser(context_ context.Context, request 
 	}
 
 	// log.Fatalf("in: %v", "GetUser")
-	var user_list []database.User
-	err := database.Get_a_user(self.Postgres_sql_database, &user_list, request.Email)
+	user, err := database.Get_a_user(self.Postgres_sql_database, request.Email)
 	if err != nil {
 		// log.Fatalf("error in GetUser: %v", err.Error())
-		error_string = err.Error()
-		default_response.Error = &error_string
+		*default_response.Error = err.Error()
 		default_response.UserExists = false
 		return default_response, nil
 	}
 
-	user := user_list[0]
 	default_response.UserExists = true
 	default_response.Email = user.Email
 	default_response.HeadImage = &user.Head_image
@@ -160,9 +150,9 @@ func (self *GrpcAccountStorageServer) UpdateUser(context_ context.Context, reque
 		Error:  &error_string,
 	}
 
-	an_error := return_nil_if_header_user_email_matchs_target_email(context_, request.Email)
+	an_error := return_error_if_header_user_email_not_match_target_email(context_, request.Email)
 	if an_error != nil {
-		default_response.Error = an_error
+		*default_response.Error = (*an_error).Error()
 		return default_response, nil
 	}
 

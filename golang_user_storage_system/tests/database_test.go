@@ -106,13 +106,10 @@ func Test_raw_sql_command(t *testing.T) {
 }
 
 func Test_get_a_user(t *testing.T) {
-	var user_list []database.User
-
-	err := database.Get_a_user(postgres_sql_database, &user_list, "yingshaoxo@gmail.com")
+	user, err := database.Get_a_user(postgres_sql_database, "yingshaoxo@gmail.com")
 	if err != nil {
 		fmt.Println(err.Error())
 	} else {
-		user := user_list[0]
 		fmt.Println(user.Email)
 	}
 }

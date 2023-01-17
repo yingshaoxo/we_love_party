@@ -9,7 +9,7 @@ require (
 	github.com/livekit/server-sdk-go v1.0.6
 	github.com/remyoudompheng/bigfft v0.0.0-20220927061507-ef77025ab5aa // indirect
 	github.com/rogpeppe/go-internal v1.8.0 // indirect
-	github.com/yingshaoxo/gopython v0.0.0-20221206031235-819b2323eebe
+	github.com/yingshaoxo/gopython v0.0.0-20230117063701-f763b49529e5
 	golang.org/x/sys v0.3.0 // indirect
 	google.golang.org/grpc v1.51.0
 	google.golang.org/protobuf v1.28.1
