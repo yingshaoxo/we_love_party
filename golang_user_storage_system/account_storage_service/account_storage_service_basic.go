@@ -61,20 +61,21 @@ func (self *GrpcAccountStorageServer) CreateUser(context_ context.Context, reque
 	}
 
 	user, err := database.Get_a_user(self.Postgres_sql_database, request.Email)
-	if err != nil {
-		// user no exists
-		user.Email = request.Email
-		result := self.Postgres_sql_database.Clauses(clause.OnConflict{DoNothing: true}).Create(&user)
-		if result.Error != nil {
-			*default_response.Error = result.Error.Error()
-		} else {
-			default_response.Error = nil
-			default_response.Result = "ok"
-		}
-	} else {
+	if err == nil {
 		// user exists
 		*default_response.Error = "User exists"
 	}
+
+	// user no exists
+	user.Email = request.Email
+	result := self.Postgres_sql_database.Clauses(clause.OnConflict{DoNothing: true}).Create(&user)
+	if result.Error != nil {
+		*default_response.Error = result.Error.Error()
+		default_response.Result = ""
+		return default_response, nil
+	}
+	default_response.Error = nil
+	default_response.Result = "ok"
 
 	return default_response, nil
 }
@@ -95,11 +96,12 @@ func (self *GrpcAccountStorageServer) DeleteUser(context_ context.Context, reque
 	result := self.Postgres_sql_database.Unscoped().Where("email = ?", request.Email).Delete(&database.User{})
 	if result.Error != nil {
 		*default_response.Error = result.Error.Error()
-	} else {
-		default_response.Error = nil
-		default_response.Result = "ok"
+		default_response.Result = ""
+		return default_response, nil
 	}
 
+	default_response.Error = nil
+	default_response.Result = "ok"
 	return default_response, nil
 }
 
@@ -117,6 +119,7 @@ func (self *GrpcAccountStorageServer) GetUser(context_ context.Context, request 
 		default_response.UserExists = false
 		return default_response, nil
 	}
+	default_response.Error = nil
 
 	default_response.UserExists = true
 	default_response.Email = user.Email
@@ -187,11 +190,12 @@ func (self *GrpcAccountStorageServer) UpdateUser(context_ context.Context, reque
 	if result.Error != nil {
 		error_string = result.Error.Error()
 		default_response.Error = &error_string
-	} else {
-		default_response.Result = "ok"
-		default_response.Error = nil
+		default_response.Result = ""
+		return default_response, nil
 	}
 
+	default_response.Result = "ok"
+	default_response.Error = nil
 	return default_response, nil
 }
 
