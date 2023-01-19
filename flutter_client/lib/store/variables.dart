@@ -1,6 +1,7 @@
 import 'dart:core';
 import 'package:cron/cron.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_client/generated_grpc/account_storage_service.pbgrpc.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_client/tools/utils/utils.dart';
@@ -23,6 +24,8 @@ class VariableControllr extends GetxController {
   String? jwt;
   String? user_email;
   String? username;
+
+  UserModel userModel = UserModel();
 
   String? access_token;
 

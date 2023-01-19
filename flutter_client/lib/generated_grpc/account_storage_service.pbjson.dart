@@ -123,3 +123,23 @@ const GetUserResponse$json = const {
 
 /// Descriptor for `GetUserResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getUserResponseDescriptor = $convert.base64Decode('Cg9HZXRVc2VyUmVzcG9uc2USGQoFZXJyb3IYASABKAlIAFIFZXJyb3KIAQESHwoLdXNlcl9leGlzdHMYAiABKAhSCnVzZXJFeGlzdHMSFAoFZW1haWwYAyABKAlSBWVtYWlsEh8KCHVzZXJuYW1lGAQgASgJSAFSCHVzZXJuYW1liAEBEiIKCmhlYWRfaW1hZ2UYBSABKAlIAlIJaGVhZEltYWdliAEBEhUKA3NleBgGIAEoBUgDUgNzZXiIAQESFQoDYWdlGAcgASgFSARSA2FnZYgBAUIICgZfZXJyb3JCCwoJX3VzZXJuYW1lQg0KC19oZWFkX2ltYWdlQgYKBF9zZXhCBgoEX2FnZQ==');
+@$core.Deprecated('Use userModelDescriptor instead')
+const UserModel$json = const {
+  '1': 'UserModel',
+  '2': const [
+    const {'1': 'email', '3': 1, '4': 1, '5': 9, '10': 'email'},
+    const {'1': 'username', '3': 2, '4': 1, '5': 9, '9': 0, '10': 'username', '17': true},
+    const {'1': 'head_image', '3': 3, '4': 1, '5': 9, '9': 1, '10': 'headImage', '17': true},
+    const {'1': 'sex', '3': 4, '4': 1, '5': 5, '9': 2, '10': 'sex', '17': true},
+    const {'1': 'age', '3': 5, '4': 1, '5': 5, '9': 3, '10': 'age', '17': true},
+  ],
+  '8': const [
+    const {'1': '_username'},
+    const {'1': '_head_image'},
+    const {'1': '_sex'},
+    const {'1': '_age'},
+  ],
+};
+
+/// Descriptor for `UserModel`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List userModelDescriptor = $convert.base64Decode('CglVc2VyTW9kZWwSFAoFZW1haWwYASABKAlSBWVtYWlsEh8KCHVzZXJuYW1lGAIgASgJSABSCHVzZXJuYW1liAEBEiIKCmhlYWRfaW1hZ2UYAyABKAlIAVIJaGVhZEltYWdliAEBEhUKA3NleBgEIAEoBUgCUgNzZXiIAQESFQoDYWdlGAUgASgFSANSA2FnZYgBAUILCglfdXNlcm5hbWVCDQoLX2hlYWRfaW1hZ2VCBgoEX3NleEIGCgRfYWdl');

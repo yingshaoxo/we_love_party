@@ -567,3 +567,106 @@ class GetUserResponse extends $pb.GeneratedMessage {
   void clearAge() => clearField(7);
 }
 
+class UserModel extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UserModel', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'account_storage_service'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'username')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'headImage')
+    ..a<$core.int>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sex', $pb.PbFieldType.O3)
+    ..a<$core.int>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'age', $pb.PbFieldType.O3)
+    ..hasRequiredFields = false
+  ;
+
+  UserModel._() : super();
+  factory UserModel({
+    $core.String? email,
+    $core.String? username,
+    $core.String? headImage,
+    $core.int? sex,
+    $core.int? age,
+  }) {
+    final _result = create();
+    if (email != null) {
+      _result.email = email;
+    }
+    if (username != null) {
+      _result.username = username;
+    }
+    if (headImage != null) {
+      _result.headImage = headImage;
+    }
+    if (sex != null) {
+      _result.sex = sex;
+    }
+    if (age != null) {
+      _result.age = age;
+    }
+    return _result;
+  }
+  factory UserModel.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UserModel.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  UserModel clone() => UserModel()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  UserModel copyWith(void Function(UserModel) updates) => super.copyWith((message) => updates(message as UserModel)) as UserModel; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UserModel create() => UserModel._();
+  UserModel createEmptyInstance() => create();
+  static $pb.PbList<UserModel> createRepeated() => $pb.PbList<UserModel>();
+  @$core.pragma('dart2js:noInline')
+  static UserModel getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UserModel>(create);
+  static UserModel? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get email => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set email($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasEmail() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearEmail() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get username => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set username($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasUsername() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearUsername() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get headImage => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set headImage($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasHeadImage() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearHeadImage() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.int get sex => $_getIZ(3);
+  @$pb.TagNumber(4)
+  set sex($core.int v) { $_setSignedInt32(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasSex() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearSex() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.int get age => $_getIZ(4);
+  @$pb.TagNumber(5)
+  set age($core.int v) { $_setSignedInt32(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasAge() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearAge() => clearField(5);
+}
+
