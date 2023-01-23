@@ -67,8 +67,8 @@ http:
     weloveparty_internal_api_service:
       loadBalancer:
         servers:
-          - url: h2c://weloveparty_internal_api_service:40050
-          # - url: h2c://host.docker.internal:40050
+          # - url: h2c://weloveparty_internal_api_service:40050
+          - url: h2c://host.docker.internal:40050
         passHostHeader: true
     weloveparty_account_storage_service:
       loadBalancer:

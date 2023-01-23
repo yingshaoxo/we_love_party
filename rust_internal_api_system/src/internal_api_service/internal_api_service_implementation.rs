@@ -1,6 +1,10 @@
 use std::sync::{Arc, Mutex};
 
-use tokio_postgres::{Client, Connection, Socket};
+use futures::TryStreamExt;
+use futures::pin_mut;
+// use tokio_postgres::types::FromSql;
+// use tokio_postgres::types::ToSql;
+// use tokio_postgres::{Client, Connection, Socket};
 use tonic::{transport::Server, Request, Response, Status};
 
 pub mod grpc_internal_api_service {
@@ -14,6 +18,7 @@ pub mod grpc_internal_api_service {
 
 use crate::{internal_api_service::postgre_sql_database_handler::PostgreSqlDatabaseHandler, environment_module::basic::EnvironmentVariables};
 // use crate::EnvironmentVariables;
+use crate::grpc_key_string_maps::data_model;
 
 // #[derive(Debug, Default)]
 #[derive(Debug)]
@@ -57,6 +62,78 @@ impl grpc_internal_api_service::internal_api_service_server::InternalApiService 
         };
 
         Ok(Response::new(reply))
+    }
+
+    async fn check_if_user_exists(
+        &self,
+        request: tonic::Request<grpc_internal_api_service::CheckIfUserExistsRequest>,
+    ) -> Result<tonic::Response<grpc_internal_api_service::CheckIfUserExistsResponse>, tonic::Status> {
+        let email = request.get_ref().clone().email;
+        let mut default_reply = grpc_internal_api_service::CheckIfUserExistsResponse {
+            user_exists: false,
+            error: Some("Unknonw error".to_string()),
+        };
+
+        let client = self.postgre_sql_database_handler.get_postgre_sql_client().await.unwrap();
+        let rows = client
+        .query(
+            r#"SELECT (email) FROM "user" WHERE email = $1;"#, 
+            &[
+                &email
+            ]
+        )
+        .await.unwrap();
+        if rows.len() == 0 {
+            default_reply.user_exists = false;
+            default_reply.error = None;
+            return Ok(Response::new(default_reply));
+        }
+
+        default_reply.error = None;
+        default_reply.user_exists = true;
+
+        return Ok(Response::new(default_reply));
+    }
+
+    async fn get_user(
+        &self,
+        request: tonic::Request<grpc_internal_api_service::GetUserRequest>,
+    ) -> Result<tonic::Response<grpc_internal_api_service::GetUserResponse>, tonic::Status> {
+        let email = request.get_ref().clone().email;
+        let mut default_reply = grpc_internal_api_service::GetUserResponse {
+            user_exists: false,
+            email: "".to_string(),
+            username: Some("".to_string()),
+            head_image: Some("".to_string()),
+            sex: Some(1),
+            age: Some(24),
+            error: Some("Unknonw error".to_string()),
+        };
+
+        let client = self.postgre_sql_database_handler.get_postgre_sql_client().await.unwrap();
+        let rows = client
+        .query(
+            r#"SELECT * FROM "user" WHERE email = $1;"#, 
+            &[
+                &email
+            ]
+        )
+        .await.unwrap();
+        if rows.len() == 0 {
+            default_reply.user_exists = false;
+            default_reply.error = None;
+            return Ok(Response::new(default_reply));
+        }
+
+        default_reply.error = None;
+        default_reply.user_exists = true;
+        default_reply.email = rows[0].get::<_, &str>(data_model::User::email).to_string();
+        default_reply.username = Some(rows[0].get::<_, &str>(data_model::User::username).to_string());
+        default_reply.sex = Some(rows[0].get::<&str, i32>(data_model::User::sex));
+        default_reply.age = Some(rows[0].get::<&str, i32>(data_model::User::age));
+        default_reply.head_image = Some(rows[0].get::<_, &str>(data_model::User::head_image).to_string());
+
+        return Ok(Response::new(default_reply));
     }
 }
 

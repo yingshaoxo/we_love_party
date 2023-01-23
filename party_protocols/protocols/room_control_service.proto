@@ -1,21 +1,7 @@
 syntax = "proto3";
 package room_control_service;
 
-
-message HelloRequest {
-   string name = 1;
-}
-
-message HelloReply {
-    string message = 1;
-}
-
-message Empty {
-}
-
-
 service RoomControlService {
-    rpc SayHello (HelloRequest) returns (HelloReply);
     rpc CreateRoom (CreateRoomRequest) returns (CreateRoomResponse);
     rpc AllowJoin (AllowJoinRequest) returns (AllowJoinResponse);
     rpc ListRooms (ListRoomsRequest) returns (ListRoomsResponse);
@@ -28,6 +14,7 @@ message CreateRoomRequest {
 
 message CreateRoomResponse {
     bool success = 1;
+    optional string error = 2;
 }
 
 message AllowJoinRequest {
@@ -37,6 +24,7 @@ message AllowJoinRequest {
 
 message AllowJoinResponse {
     string accessToken = 1;
+    optional string error = 2;
 }
 
 message ListRoomsRequest {
@@ -49,6 +37,7 @@ message RoomInfo {
 
 message ListRoomsResponse {
     repeated RoomInfo rooms = 1;
+    optional string error = 2;
 }
 
 message DeleteRoomRequest {
@@ -57,4 +46,5 @@ message DeleteRoomRequest {
 
 message DeleteRoomResponse {
     bool success = 1;
+    optional string error = 2;
 }

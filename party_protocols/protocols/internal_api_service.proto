@@ -6,6 +6,9 @@ option go_package = "./internal_api_service";
 service InternalApiService {
     rpc CreateAUser(CreateAUserRequest) returns (CreateAUserResponse);
     rpc DeleteAUser(DeleteAUserRequest) returns (DeleteAUserResponse);
+
+    rpc CheckIfUserExists(CheckIfUserExistsRequest) returns (CheckIfUserExistsResponse);
+    rpc GetUser(GetUserRequest) returns (GetUserResponse);
 }
 
 message CreateAUserRequest {
@@ -24,4 +27,27 @@ message DeleteAUserRequest {
 message DeleteAUserResponse {
     string result = 1;
     optional string error = 2;
+}
+
+message GetUserRequest {
+    string email = 1;
+}
+
+message GetUserResponse {
+    optional string error = 1;
+    bool user_exists = 2;
+    string email = 3;
+    optional string username = 4;
+    optional string head_image = 5; //base64 string of an image
+    optional int32 sex = 6; //AI detect. 0: female, 1: male
+    optional int32 age = 7; //AI detect.
+}
+
+message CheckIfUserExistsRequest {
+    string email = 1;
+}
+
+message CheckIfUserExistsResponse {
+    optional string error = 1;
+    bool user_exists = 2;
 }

@@ -1,0 +1,12 @@
+syntax = "proto3";
+package data_model;
+
+option go_package = "./data_model";
+
+message User {
+    string email = 1;
+    optional string username = 2;
+    optional string head_image = 3; //base64 string of an image
+    optional int32 sex = 4; //AI detect. 0: female, 1: male
+    optional int32 age = 5; //AI detect.
+}
