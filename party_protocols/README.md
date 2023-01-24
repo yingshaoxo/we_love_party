@@ -14,10 +14,15 @@ only traefik listens 0.0.0.0's 443 port,
 ### Internal API Service
 > It is used for all those APIs that every internal service can call. Here the 'internal service' means those services that was hidden behinds the Docker Firewall.
 
+> internal_api.weloveparty.domain.local
+
 #### GRPC
     rust: 40050 
 
 ### Account Authentication Service
+
+> auth.weloveparty.domain.local
+
 #### Restful
     python: 40051
 
@@ -25,10 +30,16 @@ only traefik listens 0.0.0.0's 443 port,
     python: 40052
 
 ### Account Storage Service
+
+> account_storage.weloveparty.domain.local
+
 #### GRPC
     golang: 40053
 
-<!-- ### Room Control Service
+### Room Control Service
+
+> room_control.weloveparty.domain.local
+
 #### GRPC
     typescript: 40054
 
@@ -36,9 +47,29 @@ only traefik listens 0.0.0.0's 443 port,
 
     livekit_user_direct_connect_port: 
         * 7881 tcp
-        * 7882 udp
+    
+    livekit_other_port:
+        * tcp: 5349
+        * udp: 443
+        * tcp: 50000 - 60000
 
-### gateway (grpc)
+    > `docker run --rm -it -v $PWD/livekit_config:/output livekit/generate`
+
+    ```
+    * 443 - primary HTTPS and TURN/TLS
+    * 80 - for TLS issuance
+    * 7881 - for WebRTC over TCP
+    * 443/UDP - for TURN/UDP
+    * 50000-60000/UDP - for WebRTC over UDP
+
+    Server URL: wss://livekit.weloveparty.domain.local
+    API Key: APIDtk2LyAaZPWA
+    API Secret: LXo3sftMbII4YqV4bawJu1MrsfL1oOfjexZkqrGm1pkA
+
+    Here's a test token generated with your keys: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTA1NTgwNTgsImlzcyI6IkFQSUR0azJMeUFhWlBXQSIsImp0aSI6InRvbnlfc3RhcmsiLCJuYW1lIjoiVG9ueSBTdGFyayIsIm5iZiI6MTY3NDU1ODA1OCwic3ViIjoidG9ueV9zdGFyayIsInZpZGVvIjp7InJvb20iOiJzdGFyay10b3dlciIsInJvb21Kb2luIjp0cnVlfX0._jFBec7bBrHWm8SHG-vUCyiK5ym58RcKAOycKSRHMp4
+    ```
+
+<!-- ### gateway (grpc)
     account service: 40054
     room controller: 40055
 

@@ -1,5 +1,5 @@
 ## in /etc/hosts
-# 127.0.0.1 weloveparty.domain.local auth.weloveparty.domain.local internal_api.weloveparty.domain.local account_storage.weloveparty.domain.lo    cal whoami.weloveparty.domain.local
+# 127.0.0.1 weloveparty.domain.local auth.weloveparty.domain.local whoami.weloveparty.domain.local internal_api.weloveparty.domain.local account_storage.weloveparty.domain.local livekit.weloveparty.domain.local livekit_turn.weloveparty.domain.local 
 
 
 http:
@@ -36,6 +36,20 @@ http:
       middlewares:
         - my_jwt_auth
       service: weloveparty_account_storage_service
+    grpc_room_control_service_router:
+      entryPoints:
+        - web
+        - websecure
+      rule: "Host(`room_control.weloveparty.domain.local`)"
+      middlewares:
+        - my_jwt_auth
+      service: weloveparty_room_control_service
+    livekit:
+      entryPoints:
+        - web
+        - websecure
+      rule: "Host(`livekit.weloveparty.domain.local`)"
+      service: livekit_service
 
   middlewares:
     test-stripprefix:
@@ -75,4 +89,15 @@ http:
         servers:
           # - url: h2c://weloveparty_account_storage_service:40053
           - url: h2c://host.docker.internal:40053
+        passHostHeader: true
+    weloveparty_room_control_service:
+      loadBalancer:
+        servers:
+          # - url: h2c://livekit:40054
+          - url: h2c://host.docker.internal:40054
+        passHostHeader: true
+    livekit_service:
+      loadBalancer:
+        servers:
+          - url: http://livekit:7880
         passHostHeader: true
