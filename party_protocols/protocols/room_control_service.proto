@@ -13,8 +13,8 @@ message CreateRoomRequest {
 }
 
 message CreateRoomResponse {
-    bool success = 1;
-    optional string error = 2;
+    optional string error = 1;
+    bool success = 2;
 }
 
 message AllowJoinRequest {
@@ -23,8 +23,8 @@ message AllowJoinRequest {
 }
 
 message AllowJoinResponse {
-    string accessToken = 1;
-    optional string error = 2;
+    optional string error = 1;
+    string accessToken = 2;
 }
 
 message ListRoomsRequest {
@@ -36,8 +36,8 @@ message RoomInfo {
 }
 
 message ListRoomsResponse {
-    repeated RoomInfo rooms = 1;
-    optional string error = 2;
+    optional string error = 1;
+    repeated RoomInfo rooms = 2;
 }
 
 message DeleteRoomRequest {
@@ -45,6 +45,6 @@ message DeleteRoomRequest {
 }
 
 message DeleteRoomResponse {
-    bool success = 1;
-    optional string error = 2;
+    optional string error = 1;
+    bool success = 2;
 }

@@ -43,39 +43,28 @@ only traefik listens 0.0.0.0's 443 port,
 #### GRPC
     typescript: 40054
 
-    livekit_control_service: 7880
+    livekit_built-in_control_service: 7880
 
-    livekit_user_direct_connect_port: 
-        * 7881 tcp
-    
-    livekit_other_port:
-        * tcp: 5349
-        * udp: 443
-        * tcp: 50000 - 60000
+    livekit_webRTC_ports:
+        * tcp: 7881
+        * udp: 50000 - 60000
 
     > `docker run --rm -it -v $PWD/livekit_config:/output livekit/generate`
 
     ```
-    * 443 - primary HTTPS and TURN/TLS
-    * 80 - for TLS issuance
+    * 7880 - builtin_livekit_control_service
     * 7881 - for WebRTC over TCP
-    * 443/UDP - for TURN/UDP
     * 50000-60000/UDP - for WebRTC over UDP
+
+    > It'll try UDP first, then TCP
 
     Server URL: wss://livekit.weloveparty.domain.local
     API Key: APIDtk2LyAaZPWA
     API Secret: LXo3sftMbII4YqV4bawJu1MrsfL1oOfjexZkqrGm1pkA
 
-    Here's a test token generated with your keys: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTA1NTgwNTgsImlzcyI6IkFQSUR0azJMeUFhWlBXQSIsImp0aSI6InRvbnlfc3RhcmsiLCJuYW1lIjoiVG9ueSBTdGFyayIsIm5iZiI6MTY3NDU1ODA1OCwic3ViIjoidG9ueV9zdGFyayIsInZpZGVvIjp7InJvb20iOiJzdGFyay10b3dlciIsInJvb21Kb2luIjp0cnVlfX0._jFBec7bBrHWm8SHG-vUCyiK5ym58RcKAOycKSRHMp4
+    Here's a test token generated with your keys:
+    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTA1NTgwNTgsImlzcyI6IkFQSUR0azJMeUFhWlBXQSIsImp0aSI6InRvbnlfc3RhcmsiLCJuYW1lIjoiVG9ueSBTdGFyayIsIm5iZiI6MTY3NDU1ODA1OCwic3ViIjoidG9ueV9zdGFyayIsInZpZGVvIjp7InJvb20iOiJzdGFyay10b3dlciIsInJvb21Kb2luIjp0cnVlfX0._jFBec7bBrHWm8SHG-vUCyiK5ym58RcKAOycKSRHMp4
     ```
-
-<!-- ### gateway (grpc)
-    account service: 40054
-    room controller: 40055
-
-    web proxy:
-        account service: 40056
-        room controller: 40057 -->
 
 ## Generate GRPC Code (It's just for example, don't run it directly!)
 
