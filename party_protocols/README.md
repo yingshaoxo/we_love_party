@@ -126,6 +126,39 @@ cargo build --bin server
 
 ### Typescript For Node.js
 ```bash
+yarn add protobufjs long
+
+yarn add -D grpc-tools --ignore-scripts
+pushd node_modules/grpc-tools
+node_modules/.bin/node-pre-gyp install --target_arch=x64
+popd
+
+yarn add -D grpc-tools ts-proto
+
+INPUT_DIR="../party_protocols/protocols"
+OUT_DIR="./src/generated_grpc"
+
+PROTO_FILE="room_control_service.proto"
+./node_modules/.bin/grpc_tools_node_protoc \
+  --plugin=protoc-gen-ts_proto=./node_modules/.bin/protoc-gen-ts_proto \
+  --ts_proto_out="${OUT_DIR}" \
+  --ts_proto_opt=outputServices=nice-grpc,outputServices=generic-definitions,useExactTypes=false \
+  --proto_path="${INPUT_DIR}" \
+  "${PROTO_FILE}"
+
+PROTO_FILE="internal_api_service.proto"
+./node_modules/.bin/grpc_tools_node_protoc \
+  --plugin=protoc-gen-ts_proto=./node_modules/.bin/protoc-gen-ts_proto \
+  --ts_proto_out="${OUT_DIR}" \
+  --ts_proto_opt=outputServices=nice-grpc,outputServices=generic-definitions,useExactTypes=false \
+  --proto_path="${INPUT_DIR}" \
+  "${PROTO_FILE}"
+```
+
+```bash
+brew install protobuf@3
+brew link --overwrite protobuf@3
+
 yarn add ts-protoc-gen@next -D
 
 yarn add grpc-tools --ignore-scripts
@@ -142,13 +175,13 @@ PROTOC_GEN_GRPC_PATH="./node_modules/.bin/grpc_tools_node_protoc_plugin"
 OUT_DIR="./src/generated_grpc"
 
 protoc \
-    --proto_path ../party_protocals/protocols \
+    --proto_path ../party_protocols/protocols \
     --plugin="protoc-gen-ts=${PROTOC_GEN_TS_PATH}" \
     --plugin=protoc-gen-grpc=${PROTOC_GEN_GRPC_PATH} \
     --js_out="import_style=commonjs,binary:${OUT_DIR}" \
     --ts_out="service=grpc-node,mode=grpc-js:${OUT_DIR}" \
     --grpc_out="grpc_js:${OUT_DIR}" \
-    room_control_service.proto
+    room_control_service.proto internal_api_service.proto
 ```
 
 ## Run the service

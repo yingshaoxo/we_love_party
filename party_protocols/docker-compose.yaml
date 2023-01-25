@@ -127,3 +127,20 @@ services:
     volumes:
       - ./configs/livekit.yaml:/etc/livekit.yaml
     restart: unless-stopped
+
+  weloveparty_room_control_service:
+    build: 
+      context: ../typescript_room_controller
+      dockerfile: ./Dockerfile
+    image: yingshaoxo/weloveparty_room_control_service
+    # expose:
+    #   - "40054"
+    ports:
+      - "40054"
+    environment: 
+      - redis_network_name=dragonfly
+      - livekit_NETWORK_NAME=livekit
+      - weloveparty_internal_api_service_NETWORK_NAME=weloveparty_internal_api_service
+      - livekit_key=APIDtk2LyAaZPWA
+      - livekit_value=LXo3sftMbII4YqV4bawJu1MrsfL1oOfjexZkqrGm1pkA
+    restart: unless-stopped

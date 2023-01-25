@@ -93,8 +93,8 @@ http:
     weloveparty_room_control_service:
       loadBalancer:
         servers:
-          # - url: h2c://livekit:40054
-          - url: h2c://host.docker.internal:40054
+          - url: h2c://weloveparty_room_control_service:40054
+          # - url: h2c://host.docker.internal:40054
         passHostHeader: true
     livekit_service:
       loadBalancer:

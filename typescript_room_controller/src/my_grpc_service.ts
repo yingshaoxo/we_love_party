@@ -1,110 +1,146 @@
 import * as grpc from "@grpc/grpc-js";
 
-import * as room_control_service_grpc_pb from './generated_grpc/room_control_service_grpc_pb';
-import * as room_control_service_pb from './generated_grpc/room_control_service_pb';
+// import * as room_control_service_grpc_pb from './generated_grpc/room_control_service_grpc_pb';
+// import * as room_control_service_pb from './generated_grpc/room_control_service_pb';
+
+import * as room_control_service_grpc from './generated_grpc/room_control_service';
+import {isAbortError} from 'abort-controller-x';
 
 import { AccessToken, RoomServiceClient, Room } from 'livekit-server-sdk';
 
-import { apiKeyAndValueObject } from './store';
+import { CallContext, createServer, ServerError, ServerMiddlewareCall, Status } from "nice-grpc";
+
+
+const apiKeyAndValueObject = {
+    apiKey: process?.env?.livekit_key??"",
+    apiValue: process?.env?.livekit_value??""
+}
+
 
 const theLiveKitControlPort = '7880';
 let livekitHost = `http://0.0.0.0:${theLiveKitControlPort}`;
 if (process?.env?.livekit_NETWORK_NAME) {
     livekitHost = `http://${process.env.livekit_NETWORK_NAME}:${theLiveKitControlPort}`;
 }
-console.log(livekitHost)
 const svc = new RoomServiceClient(livekitHost, apiKeyAndValueObject.apiKey, apiKeyAndValueObject.apiValue);
 
-const MyRoomControlService: room_control_service_grpc_pb.IRoomControlServiceServer = {
-    // sayHello: function (call: grpc.ServerUnaryCall<room_control_service_pb.HelloRequest, room_control_service_pb.HelloReply>,
-    //     callback: grpc.sendUnaryData<room_control_service_pb.HelloReply>): void {
-    //     const reply = new room_control_service_pb.HelloReply();
-    //     reply.setMessage('Hello ' + call.request.getName());
-    //     callback(null, reply);
-    // },
 
-    createRoom: function (call: grpc.ServerUnaryCall<room_control_service_pb.CreateRoomRequest, room_control_service_pb.CreateRoomResponse>, callback: grpc.sendUnaryData<room_control_service_pb.CreateRoomResponse>): void {
-        const response = new room_control_service_pb.CreateRoomResponse();
+const the_internal_api_port = "40050"
+let the_internal_api_host = `http://0.0.0.0:${the_internal_api_port}`;
+if (process?.env?.weloveparty_internal_api_service_NETWORK_NAME) {
+    the_internal_api_host = `http://${process.env.weloveparty_internal_api_service_NETWORK_NAME}:${the_internal_api_port}`;
+}
 
-        console.log(call.request);
 
-        svc.createRoom({
-            name: call.request.getRoomname(),
-            emptyTimeout: 60,
-            maxParticipants: 5
-        }).then((room: Room) => {
+class MyRoomControlService implements room_control_service_grpc.RoomControlServiceImplementation {
+  async createRoom(request: room_control_service_grpc.CreateRoomRequest, context: CallContext): Promise<{ error?: string | undefined; success?: boolean | undefined; }> {
+        const response = {} as room_control_service_grpc.CreateRoomResponse;
+
+        console.log(request);
+
+        try {
+            let room = await svc.createRoom({
+                name: request.roomName,
+                emptyTimeout: 60,
+                maxParticipants: 5
+            })
             console.log(`room created: ${room.name}`);
-            response.setSuccess(true);
-        }).catch((err: Error) => {
-            console.log(`room create got error: ${err}`);
-            response.setSuccess(false);
-        }).finally(() => {
-            callback(null, response);
-        });
-    },
-    allowJoin: function (call: grpc.ServerUnaryCall<room_control_service_pb.AllowJoinRequest, room_control_service_pb.AllowJoinResponse>, callback: grpc.sendUnaryData<room_control_service_pb.AllowJoinResponse>): void {
-        const response = new room_control_service_pb.AllowJoinResponse();
+            response.success = true;
+        } catch (e) {
+            console.log(`error: ${String(e)}`);
+            response.success = false;
+            response.error = String(e);
+        }
 
-        console.log(call.request);
+        return response;
+  }
+  async allowJoin(request: room_control_service_grpc.AllowJoinRequest, context: CallContext): Promise<{
+      error?: string | undefined; 
+      accessToken?: string | undefined;
+  }> {
+        const response = {} as room_control_service_grpc.AllowJoinResponse;
+
+        console.log(request);
 
         try {
             const at = new AccessToken(apiKeyAndValueObject.apiKey, apiKeyAndValueObject.apiValue, {
-                identity: call.request.getIdentity(),
+                identity: request.identity,
                 // name: call.request.getIdentity()
             });
-            at.addGrant({ roomJoin: true, room: call.request.getRoomname(), canPublish: true, canSubscribe: true });
-            response.setAccesstoken(at.toJwt());
+            at.addGrant({ roomJoin: true, room: request.roomName, canPublish: true, canSubscribe: true });
+            response.accessToken = at.toJwt()
         } catch (err) {
             console.log(err);
-            response.setAccesstoken('');
-        } finally {
-            callback(null, response);
-        }
-    },
-    listRooms: function (call: grpc.ServerUnaryCall<room_control_service_pb.ListRoomsRequest, room_control_service_pb.ListRoomsResponse>, callback: grpc.sendUnaryData<room_control_service_pb.ListRoomsResponse>): void {
-        const response = new room_control_service_pb.ListRoomsResponse();
+            response.error = String(err)
+            response.accessToken = ""
+        } 
 
-        console.log(call.request);
+        return response
+  }
+  async listRooms(request: room_control_service_grpc.ListRoomsRequest, context: CallContext): Promise<{ error?: string | undefined; rooms?: { roomName?: string | undefined; numberOfParticipants?: number | undefined; }[] | undefined; }> {
+        const response = {} as room_control_service_grpc.ListRoomsResponse;
 
-        svc.listRooms().then((rooms: Room[]) => {
-            // console.log(rooms);
-            response.setRoomsList(rooms.map((room: Room) => {
-                const roomInfo = new room_control_service_pb.RoomInfo();
-                roomInfo.setRoomname(room.name);
-                roomInfo.setNumberofparticipants(room.numParticipants);
+        console.log(request);
+
+        try {
+            let rooms = await svc.listRooms()
+            response.rooms = rooms.map((room: Room) => {
+                const roomInfo = {} as room_control_service_grpc.RoomInfo;
+                roomInfo.roomName = room.name;
+                roomInfo.numberOfParticipants = room.numParticipants
                 return roomInfo;
-            }));
-        }).finally(() => {
-            callback(null, response);
-        });
-    },
-    deleteRoom: function (call: grpc.ServerUnaryCall<room_control_service_pb.DeleteRoomRequest, room_control_service_pb.DeleteRoomResponse>, callback: grpc.sendUnaryData<room_control_service_pb.DeleteRoomResponse>): void {
-        const response = new room_control_service_pb.DeleteRoomResponse();
+            })
+        } catch (e) {
+            response.error = String(e)
+        }
 
-        console.log(call.request);
+        return response
+  }
+  async deleteRoom(request: room_control_service_grpc.DeleteRoomRequest, context: CallContext): Promise<{ error?: string | undefined; success?: boolean | undefined; }> {
+    const response = {} as room_control_service_grpc.DeleteRoomResponse;
 
-        svc.deleteRoom(call.request.getRoomname()).then(() => {
-            console.log(`room deleted: ${call.request.getRoomname()}`);
-            response.setSuccess(true);
-        }).catch((err: Error) => {
-            console.log(`room delete got error: ${err}`);
-            response.setSuccess(false);
-        }).finally(() => {
-            callback(null, response);
-        });
+    console.log(request);
+
+    try {
+        await svc.deleteRoom(request.roomName)
+        response.success = true
+    } catch (e) {
+        response.error = String(e)
+        response.success = false
     }
+
+    return response
+  }
+}
+
+async function* account_check_middleware<Request, Response>(
+  call: ServerMiddlewareCall<Request, Response>,
+  context: CallContext,
+) {
+  try {
+     const result = yield* call.next(call.request, context);
+     return  result
+  } catch (error: unknown) {
+    if (error instanceof ServerError || isAbortError(error)) {
+      throw error;
+    }
+
+    let details = 'Unknown server error occurred';
+
+    throw new ServerError(Status.UNKNOWN, details);
+  }
 }
 
 export const run = () => {
-    const server = new grpc.Server();
+    const server = createServer(); //.use(middleware1).use(middleware2);
 
-    server.addService(room_control_service_grpc_pb.RoomControlServiceService, MyRoomControlService);
-    server.bindAsync("0.0.0.0:40053", grpc.ServerCredentials.createInsecure(), (err, port) => {
-        if (err) throw err;
+    server
+    .with(account_check_middleware)
+    .add(room_control_service_grpc.RoomControlServiceDefinition, new MyRoomControlService())
 
+    server.listen("0.0.0.0:40054").then((port)=>{
         console.log(`\nServer started, listening on port ${port}`);
-        server.start();
-    });
+    })
 }
 
 export default run;
