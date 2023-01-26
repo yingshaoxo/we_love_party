@@ -90,23 +90,23 @@ services:
       - redis_network_name=dragonfly
     restart: unless-stopped
 
-  # weloveparty_account_storage_service:
-  #   build: 
-  #     context: ../golang_user_storage_system
-  #     dockerfile: ./Dockerfile
-  #   image: yingshaoxo/weloveparty_golang_user_storage_system
-  #   expose:
-  #     - "40053"
-  #   # ports:
-  #   #   - "40053:40053"
-  #   environment: 
-  #     - redis_network_name=dragonfly
-  #     - postgres_sql_host=db
-  #     - postgres_sql_user=yingshaoxo
-  #     - postgres_sql_password=yingshaoxo
-  #     - GRPC_GO_LOG_SEVERITY_LEVEL=info
-  #     - GRPC_GO_LOG_VERBOSITY_LEVEL=0
-  #   restart: unless-stopped
+  weloveparty_account_storage_service:
+    build: 
+      context: ../golang_user_storage_system
+      dockerfile: ./Dockerfile
+    image: yingshaoxo/weloveparty_golang_user_storage_system
+    expose:
+      - "40053"
+    # ports:
+    #   - "40053:40053"
+    environment: 
+      - redis_network_name=dragonfly
+      - postgres_sql_host=db
+      - postgres_sql_user=yingshaoxo
+      - postgres_sql_password=yingshaoxo
+      - GRPC_GO_LOG_SEVERITY_LEVEL=info
+      - GRPC_GO_LOG_VERBOSITY_LEVEL=0
+    restart: unless-stopped
 
   livekit:
     image: livekit/livekit-server:v1.3

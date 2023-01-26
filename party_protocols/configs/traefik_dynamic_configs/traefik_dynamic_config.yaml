@@ -87,8 +87,8 @@ http:
     weloveparty_account_storage_service:
       loadBalancer:
         servers:
-          # - url: h2c://weloveparty_account_storage_service:40053
-          - url: h2c://host.docker.internal:40053
+          - url: h2c://weloveparty_account_storage_service:40053
+          # - url: h2c://host.docker.internal:40053
         passHostHeader: true
     weloveparty_room_control_service:
       loadBalancer:
