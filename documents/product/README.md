@@ -18,3 +18,10 @@ WeLoveParty
 ## future needs
 1. User can open video room, join video room
 2. Support blockchain wallet, so that user can transfering money between each other, for example, send to the room creator
+
+## user interface design
+### 3 tabs
+* audio chat room list page | 参考 网易云聊天房 + twitter 语音室
+* public service location search page (for free stuff, allow users to give scores and change labels(whether 24hours open, have free WiFi or not, have place to shit or not, have free drink or not)) | 评分参考豆瓣，基础设施信息 icons 参考 飞猪酒店/高德酒店
+* `Friend_List and Chat_List` Page
+* More feature entry page (have seting entry here) | 参考 `TIM 我的` page
