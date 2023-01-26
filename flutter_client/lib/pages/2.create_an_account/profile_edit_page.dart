@@ -236,13 +236,18 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
       GetUserResponse getUserResponse = await grpc_account_storage_controllr
           .get_a_user(variable_controller.user_email);
 
-      if (getUserResponse.userExists) {
-        Get.offNamed(RoutesMap.roomList);
-        return;
-      }
+      if (getUserResponse.error != null && getUserResponse.error.isNotEmpty) {
+        await show_message(msg: getUserResponse.error);
+        await show_exit_confirm_pop_window();
+      } else {
+        if (getUserResponse.userExists) {
+          Get.offNamed(RoutesMap.roomList);
+          return;
+        }
 
-      if (variable_controller.username != null) {
-        username_inputbox_controller.text = variable_controller.username!;
+        if (variable_controller.username != null) {
+          username_inputbox_controller.text = variable_controller.username!;
+        }
       }
 
       setState(() {

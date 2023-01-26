@@ -16,10 +16,11 @@ class GrpcConfig {
   static const account_auth_service = "auth.weloveparty.domain.local";
   static const account_storage_service =
       "account_storage.weloveparty.domain.local";
+  static const room_control_service = "room_control.weloveparty.domain.local";
 }
 
 class LivekitConfig {
-  static const url = 'ws://106.52.12.33:7880';
+  static const url = 'ws://livekit.weloveparty.domain.local';
 }
 
 bool in_dev_mode = true;

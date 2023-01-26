@@ -38,3 +38,4 @@ linter:
     avoid_print: false
     library_private_types_in_public_api: false
     unnecessary_null_comparison: false
+    prefer_conditional_assignment: false

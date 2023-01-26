@@ -1,16 +1,19 @@
 import 'dart:io';
 
+import 'package:flutter_client/common_user_interface/pop_up_window.dart';
 import 'package:flutter_client/generated_grpc/room_control_service.pb.dart';
 import 'package:flutter_client/store/config.dart';
-import 'package:flutter_client/store/controllers.dart';
 import 'package:flutter_client/widgets/round_button.dart';
-import 'package:flutter_client/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:device_info_plus/device_info_plus.dart';
+
+import '../../store/controllers.dart';
+import '../../tools/utils/style.dart';
 
 class RoomListPage extends StatefulWidget {
   const RoomListPage({Key? key}) : super(key: key);
@@ -24,6 +27,8 @@ class _RoomListPageState extends State<RoomListPage> {
       RefreshController(initialRefresh: false);
 
   List<RoomInfo> rooms = [];
+
+  Alert? the_alert;
 
   Future<void> updateRooms() async {
     rooms = (await roomControlGrpcControllr.getRoomList())
@@ -39,12 +44,21 @@ class _RoomListPageState extends State<RoomListPage> {
     () async {
       await updateRooms();
 
+      // await show_message(
+      //     msg:
+      //         (await DeviceInfoPlugin().androidInfo).version.sdkInt.toString());
+
       Map<Permission, PermissionStatus> statuses = await [
         // Permission.camera,
         Permission.microphone,
         Permission.bluetooth,
+        Permission.bluetoothAdvertise,
+        Permission.bluetoothConnect,
+        Permission.bluetoothScan,
       ].request();
-      if (statuses.values.any((status) => status != PermissionStatus.granted)) {
+      // DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+      if (statuses.values
+          .every((status) => status != PermissionStatus.granted)) {
         await Alert(
           context: context,
           title: 'Permission denied',
@@ -97,8 +111,8 @@ class _RoomListPageState extends State<RoomListPage> {
               children: [
                 RoundButton(
                   color: Style.AccentBlue,
-                  onPressed: () {
-                    showCreateRoomDialog(context: context);
+                  onPressed: () async {
+                    await showCreateRoomDialog(context: context);
                   },
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -161,24 +175,27 @@ class _RoomListPageState extends State<RoomListPage> {
           style: ListTileStyle.list,
           tileColor: const Color.fromARGB(80, 223, 230, 240),
           onTap: () async {
-            String? accessToken =
+            AllowJoinResponse allowJoinResponse =
                 await roomControlGrpcControllr.getAccessToARoom(
               roomName: rooms[index].roomName,
             );
-            variableController.accessToken = accessToken;
-            if (accessToken != null) {
+            if (allowJoinResponse.error == null ||
+                allowJoinResponse.error.isEmpty) {
+              variable_controller.access_token = allowJoinResponse.accessToken;
               Get.toNamed(RoutesMap.singleRoomPage);
               return;
             } else {
-              Fluttertoast.showToast(
-                msg: 'Failed to join room',
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.BOTTOM,
-                timeInSecForIosWeb: 1,
-                backgroundColor: Colors.red,
-                textColor: Colors.white,
-                fontSize: 16.0,
-              );
+              await show_message(msg: 'Failed to join room');
+              await show_message(msg: allowJoinResponse.error);
+              // Fluttertoast.showToast(
+              //   msg: 'Failed to join room',
+              //   toastLength: Toast.LENGTH_SHORT,
+              //   gravity: ToastGravity.BOTTOM,
+              //   timeInSecForIosWeb: 1,
+              //   backgroundColor: Colors.red,
+              //   textColor: Colors.white,
+              //   fontSize: 16.0,
+              // );
               return;
             }
           },
@@ -230,10 +247,10 @@ class _RoomListPageState extends State<RoomListPage> {
     );
   }
 
-  void showCreateRoomDialog({required BuildContext context}) {
+  Future<void> showCreateRoomDialog({required BuildContext context}) async {
     TextEditingController roomNameInputController = TextEditingController();
 
-    Alert(
+    the_alert = Alert(
         context: context,
         title: "Create a room",
         content: Column(
@@ -272,19 +289,25 @@ class _RoomListPageState extends State<RoomListPage> {
                 return;
               }
 
-              bool success =
+              CreateRoomResponse createRoomResponse =
                   await roomControlGrpcControllr.createRoom(roomName: roomName);
-              if (success) {
-                String? accessToken = await roomControlGrpcControllr
-                    .getAccessToARoom(roomName: roomName);
-                if (accessToken != null) {
-                  variableController.accessToken = accessToken;
+              if (createRoomResponse.error == null ||
+                  createRoomResponse.error.isEmpty) {
+                AllowJoinResponse allowJoinResponse =
+                    await roomControlGrpcControllr.getAccessToARoom(
+                        roomName: roomName);
+                if (allowJoinResponse.error == null ||
+                    allowJoinResponse.error.isEmpty) {
+                  variable_controller.access_token =
+                      allowJoinResponse.accessToken;
 
-                  Navigator.pop(context);
+                  // Navigator.pop(context);
+                  await the_alert?.dismiss();
 
                   updateRooms();
 
                   Get.toNamed(RoutesMap.singleRoomPage);
+
                   // Fluttertoast.showToast(
                   //     msg: "You just created a room: $roomName",
                   //     toastLength: Toast.LENGTH_SHORT,
@@ -293,11 +316,20 @@ class _RoomListPageState extends State<RoomListPage> {
                   //     backgroundColor: Colors.red,
                   //     textColor: Colors.white,
                   //     fontSize: 16.0);
+
                   return;
                 }
               } else {
                 Fluttertoast.showToast(
                     msg: "Fail to create a room: $roomName",
+                    toastLength: Toast.LENGTH_LONG,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white,
+                    fontSize: 16.0);
+                Fluttertoast.showToast(
+                    msg: createRoomResponse.error.toString(),
                     toastLength: Toast.LENGTH_LONG,
                     gravity: ToastGravity.CENTER,
                     timeInSecForIosWeb: 1,
@@ -313,6 +345,8 @@ class _RoomListPageState extends State<RoomListPage> {
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
           )
-        ]).show();
+        ]);
+
+    await the_alert?.show();
   }
 }

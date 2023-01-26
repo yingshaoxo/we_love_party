@@ -1,8 +1,12 @@
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter_client/common_user_interface/exit.dart';
+import 'package:flutter_client/common_user_interface/pop_up_window.dart';
 import 'package:flutter_client/widgets/round_button.dart';
 import 'package:flutter_client/tools/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../generated_grpc/account_auth_service.pb.dart';
 import '../../store/config.dart';
 import '../../store/controllers.dart';
 import '../../common_user_interface/my_single_child_scroll_view.dart';
@@ -22,10 +26,17 @@ class _WelcomePageState extends State<WelcomePage> {
     super.initState();
 
     () async {
-      bool valid = await grpc_JWT_controller.check_if_current_JWT_is_valid();
-      if (valid) {
+      IsJwtOkReply isJwtOkReply = await grpc_JWT_controller.check_if_jwt_is_ok(
+          jwt: variable_controller.jwt);
+      if (isJwtOkReply.error == null || isJwtOkReply.error.isEmpty) {
         Get.offNamed(RoutesMap.profile_edit_page);
         return;
+      } else {
+        await show_message(msg: isJwtOkReply.error);
+        await show_exit_confirm_pop_window(
+          msg:
+              "I think something is wrong with the connection.\n\nI'll exit for now.\n\nYou can open me later.",
+        );
       }
 
       setState(() {

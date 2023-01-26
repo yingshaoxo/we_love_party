@@ -40,10 +40,12 @@ class SingleVoiceRoom extends StatefulWidget {
 
 class _SingleVoiceRoomState extends State<SingleVoiceRoom>
     with TickerProviderStateMixin {
+  AnimationController? loading_animation_controller;
+
   User? myProfile;
   Room? room;
 
-  livekit.Room? theLivekitRoom;
+  livekit.Room theLivekitRoom = livekit.Room();
 
   List<livekit.Participant> participants = [];
   livekit.EventsListener<livekit.RoomEvent>? roomListener;
@@ -69,11 +71,12 @@ class _SingleVoiceRoomState extends State<SingleVoiceRoom>
   @override
   void dispose() {
     () async {
-      // always dispose listener
-      theLivekitRoom?.removeListener(_onRoomDidUpdate);
-      await disconnectLiveKit();
+      loading_animation_controller?.dispose();
+
+      theLivekitRoom.removeListener(_onRoomDidUpdate);
+      // await theLivekitRoom.disconnect();
       await roomListener?.dispose();
-      await theLivekitRoom?.dispose();
+      await theLivekitRoom.dispose();
     }();
 
     super.dispose();
@@ -81,7 +84,7 @@ class _SingleVoiceRoomState extends State<SingleVoiceRoom>
 
   Future<void> connectLiveKit() async {
     var options = const livekit.ConnectOptions(
-        autoSubscribe: true, protocolVersion: livekit.ProtocolVersion.v6);
+        autoSubscribe: true, protocolVersion: livekit.ProtocolVersion.v8);
 
     var roomOptions = const livekit.RoomOptions(
       defaultVideoPublishOptions: livekit.VideoPublishOptions(
@@ -90,34 +93,22 @@ class _SingleVoiceRoomState extends State<SingleVoiceRoom>
       defaultAudioCaptureOptions: livekit.AudioCaptureOptions(
         echoCancellation: true,
         noiseSuppression: true,
-        autoGainControl: true,
+        autoGainControl: false,
       ),
     );
 
-    theLivekitRoom = await livekit.LiveKitClient.connect(
+    await theLivekitRoom.connect(
         LivekitConfig.url, variable_controller.access_token ?? '',
-        connectOptions: options, roomOptions: roomOptions);
+        connectOptions: options,
+        fastConnectOptions: livekit.FastConnectOptions(
+            microphone: livekit.TrackOption(enabled: true),
+            camera: livekit.TrackOption(enabled: true)),
+        roomOptions: roomOptions);
 
-    theLivekitRoom?.addListener(_onRoomDidUpdate);
-    roomListener = theLivekitRoom?.createListener();
+    theLivekitRoom.addListener(_onRoomDidUpdate);
+    roomListener = theLivekitRoom.createListener();
 
-    // try {
-    //   // video will fail when running in ios simulator
-    //   await theLivekitRoom?.localParticipant?.setCameraEnabled(true);
-    // } catch (e) {
-    //   print('could not publish video: $e');
-    // }
-
-    // await theLivekitRoom?.localParticipant?.setMicrophoneEnabled(true);
-
-    print('Joined room: ${theLivekitRoom?.name ?? ""}');
-  }
-
-  Future<void> disconnectLiveKit() async {
-    if (theLivekitRoom != null) {
-      await theLivekitRoom?.disconnect();
-      theLivekitRoom = null;
-    }
+    print('Joined room: ${theLivekitRoom.name ?? ""}');
   }
 
   void _onRoomDidUpdate() {
@@ -165,7 +156,7 @@ class _SingleVoiceRoomState extends State<SingleVoiceRoom>
     }
 
     if (theLivekitRoom != null) {
-      final tempLocalParticipant = theLivekitRoom?.localParticipant;
+      final tempLocalParticipant = theLivekitRoom.localParticipant;
       if (tempLocalParticipant != null) {
         if (tempParticipants.length > 1) {
           tempParticipants.insert(1, tempLocalParticipant);
@@ -177,7 +168,7 @@ class _SingleVoiceRoomState extends State<SingleVoiceRoom>
 
     // update room
     Room? tempRoom = Room.fromJson({
-      'title': theLivekitRoom?.name ?? '',
+      'title': theLivekitRoom.name ?? '',
       "users": participants
           .map((participant) => User.fromJson({
                 'username': participant.identity,
@@ -198,7 +189,7 @@ class _SingleVoiceRoomState extends State<SingleVoiceRoom>
   }
 
   bool doesLocalParticipantMicrophoneEnabled() {
-    final localParticipant = theLivekitRoom?.localParticipant;
+    final localParticipant = theLivekitRoom.localParticipant;
     if (localParticipant == null) return false;
     return localParticipant.isMicrophoneEnabled();
   }
@@ -206,6 +197,11 @@ class _SingleVoiceRoomState extends State<SingleVoiceRoom>
   @override
   Widget build(BuildContext context) {
     var realUsers = room?.users.sublist(0, room?.speakerCount ?? 0) ?? [];
+
+    if (loading_animation_controller == null) {
+      loading_animation_controller = AnimationController(
+          vsync: this, duration: const Duration(milliseconds: 1200));
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -262,8 +258,7 @@ class _SingleVoiceRoomState extends State<SingleVoiceRoom>
               child: SpinKitThreeBounce(
               color: Colors.green[100],
               size: 60.0,
-              controller: AnimationController(
-                  vsync: this, duration: const Duration(milliseconds: 1200)),
+              controller: loading_animation_controller,
             ))
           : Container(
               padding: const EdgeInsets.only(
@@ -403,13 +398,13 @@ class _SingleVoiceRoomState extends State<SingleVoiceRoom>
           ),
           RoundButton(
             onPressed: () async {
-              var localParticipant = theLivekitRoom?.localParticipant;
+              var localParticipant = theLivekitRoom.localParticipant;
               if (localParticipant != null) {
                 if (localParticipant.isMuted) {
-                  await theLivekitRoom?.localParticipant
+                  await theLivekitRoom.localParticipant
                       ?.setMicrophoneEnabled(true);
                 } else {
-                  await theLivekitRoom?.localParticipant
+                  await theLivekitRoom.localParticipant
                       ?.setMicrophoneEnabled(false);
                 }
               }

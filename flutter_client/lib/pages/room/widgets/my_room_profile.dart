@@ -30,20 +30,13 @@ class MyRoomProfile extends StatefulWidget {
 }
 
 class _MyRoomProfileState extends State<MyRoomProfile> {
-  Timer? timer;
-
   @override
   void initState() {
     super.initState();
-
-    // timer = Timer.periodic(const Duration(seconds: 1), (Timer t) async {
-    //   setState(() {});
-    // });
   }
 
   @override
   void dispose() {
-    // timer?.cancel();
     super.dispose();
   }
 

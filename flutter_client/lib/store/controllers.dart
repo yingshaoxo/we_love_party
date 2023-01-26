@@ -12,5 +12,5 @@ final grpc_JWT_controller = Get.put(JWTGrpcControllr(), permanent: true);
 
 final face_scan_controller = Get.put(FaceScanControllr(), permanent: true);
 
-// final roomControlGrpcControllr =
-//     Get.put(RoomControlGrpcControllr(), permanent: true);
+final roomControlGrpcControllr =
+    Get.put(RoomControlGrpcControllr(), permanent: true);

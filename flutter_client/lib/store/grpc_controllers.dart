@@ -2,6 +2,7 @@ import 'dart:core';
 
 import 'package:flutter_client/generated_grpc/account_auth_service.pbgrpc.dart';
 import 'package:flutter_client/generated_grpc/account_storage_service.pbgrpc.dart';
+import 'package:flutter_client/generated_grpc/room_control_service.pbgrpc.dart';
 import 'package:flutter_client/store/config.dart';
 import 'package:flutter_client/store/controllers.dart';
 import 'package:get/get.dart';
@@ -83,8 +84,14 @@ class JWTGrpcControllr extends GetxController {
     }
   }
 
-  Future<String?> get_email_address_from_JWT_if_it_is_valid(
-      {required String jwt}) async {
+  Future<IsJwtOkReply> check_if_jwt_is_ok({required String? jwt}) async {
+    IsJwtOkReply default_response = IsJwtOkReply();
+
+    if (jwt == null || jwt == "") {
+      default_response.error = "jwt is empty or null";
+      return default_response;
+    }
+
     try {
       final client = get_account_authentication_service_client();
 
@@ -94,37 +101,12 @@ class JWTGrpcControllr extends GetxController {
       final response = await client.isJwtOk(isJwtOkRequest,
           options: get_JWT_CallOptions_for_GRPC());
 
-      if (response.email != null && response.email.isNotEmpty) {
-        await channel.shutdown();
-        return response.email;
-      } else {
-        print('jwt is not ok');
-        return null;
-      }
+      return response;
     } catch (e) {
-      return null;
-    }
-  }
-
-  Future<bool> check_if_current_JWT_is_valid() async {
-    try {
-      String? jwt = variable_controller.jwt;
-      if (jwt == null || jwt == "") {
-        return false;
-      }
-
-      String? email = await get_email_address_from_JWT_if_it_is_valid(jwt: jwt);
-
-      if (email != null && email.isNotEmpty) {
-        return true;
-      } else {
-        print('jwt is not ok');
-        return false;
-      }
-    } catch (e) {
-      print(e);
-      show_exit_confirm_pop_window();
-      return false;
+      default_response.error = e.toString();
+      return default_response;
+    } finally {
+      await channel.shutdown();
     }
   }
 }
@@ -163,12 +145,13 @@ class AccountStorageControllr extends GetxController {
       final response = await client.getUser(getUserRequest,
           options: get_JWT_CallOptions_for_GRPC());
 
-      await channel.shutdown();
-
       return response;
     } catch (e) {
       print(e);
+      default_response.error = e.toString();
       return default_response;
+    } finally {
+      await channel.shutdown();
     }
   }
 
@@ -199,84 +182,81 @@ class AccountStorageControllr extends GetxController {
   }
 }
 
-// class RoomControlGrpcControllr extends GetxController {
-//   ClientChannel channel = ClientChannel(
-//     GrpcConfig.hostIPAddress,
-//     port: GrpcConfig.roomcontrolservicePortNumber,
-//     options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
-//   );
+class RoomControlGrpcControllr extends GetxController {
+  ClientChannel channel = ClientChannel(
+    GrpcConfig.room_control_service,
+    port: GrpcConfig.port_number,
+    options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
+  );
 
-//   CallOptions getJWTCallOptionsForGRPC() {
-//     return CallOptions(
-//       metadata: <String, String>{'jwt': variableController.jwt ?? ""},
-//       // metadata: <String, String>{'jwt': ""},
-//     );
-//   }
+  RoomControlServiceClient get_room_control_service_client() {
+    channel = ClientChannel(
+      GrpcConfig.room_control_service,
+      port: GrpcConfig.port_number,
+      options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
+    );
 
-//   void recreateChannel() {
-//     channel = ClientChannel(
-//       GrpcConfig.hostIPAddress,
-//       port: GrpcConfig.roomcontrolservicePortNumber,
-//       options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
-//     );
-//   }
+    return RoomControlServiceClient(channel);
+  }
 
-//   Future<List<room_control_service.RoomInfo>> getRoomList() async {
-//     recreateChannel();
+  Future<List<RoomInfo>> getRoomList() async {
+    List<RoomInfo> default_response = [];
 
-//     try {
-//       final stub = room_control_service.RoomControlServiceClient(channel);
-//       final response = await stub.listRooms(
-//           room_control_service.ListRoomsRequest(),
-//           options: getJWTCallOptionsForGRPC());
-//       print('room list received: ${response.rooms}');
-//       return response.rooms;
-//     } catch (e) {
-//       print(e);
-//       return [];
-//     } finally {
-//       await channel.shutdown();
-//     }
-//   }
+    try {
+      final client = get_room_control_service_client();
+      final response = await client.listRooms(ListRoomsRequest(),
+          options: get_JWT_CallOptions_for_GRPC());
+      print('room list received: ${response.rooms}');
 
-//   Future<bool> createRoom({required String roomName}) async {
-//     recreateChannel();
+      return response.rooms;
+    } catch (e) {
+      print(e);
+      return default_response;
+    } finally {
+      await channel.shutdown();
+    }
+  }
 
-//     try {
-//       final stub = room_control_service.RoomControlServiceClient(channel);
-//       final response = await stub.createRoom(
-//           room_control_service.CreateRoomRequest(roomName: roomName),
-//           options: getJWTCallOptionsForGRPC());
-//       if (response.success) {
-//         print('room created: $roomName');
-//         return true;
-//       }
-//       return false;
-//     } catch (e) {
-//       print(e);
-//       return false;
-//     } finally {
-//       await channel.shutdown();
-//     }
-//   }
+  Future<CreateRoomResponse> createRoom({required String roomName}) async {
+    CreateRoomResponse default_response =
+        CreateRoomResponse(error: "Unknown Error", success: false);
 
-//   Future<String?> getAccessToARoom({required String roomName}) async {
-//     recreateChannel();
+    try {
+      final client = get_room_control_service_client();
+      final response = await client.createRoom(
+          CreateRoomRequest(roomName: roomName),
+          options: get_JWT_CallOptions_for_GRPC());
 
-//     try {
-//       final stub = room_control_service.RoomControlServiceClient(channel);
-//       final response = await stub.allowJoin(
-//           room_control_service.AllowJoinRequest(roomName: roomName),
-//           options: getJWTCallOptionsForGRPC());
-//       if (response.accessToken != "") {
-//         return response.accessToken;
-//       }
-//       return null;
-//     } catch (e) {
-//       print(e);
-//       return null;
-//     } finally {
-//       await channel.shutdown();
-//     }
-//   }
-// }
+      if (response.success) {
+        print('room created: $roomName');
+      }
+      return response;
+    } catch (e) {
+      print(e);
+      default_response.error = e.toString();
+      return default_response;
+    } finally {
+      await channel.shutdown();
+    }
+  }
+
+  Future<AllowJoinResponse> getAccessToARoom({required String roomName}) async {
+    AllowJoinResponse default_response = AllowJoinResponse();
+
+    try {
+      final client = get_room_control_service_client();
+      final response = await client.allowJoin(
+          AllowJoinRequest(
+              roomName: roomName, identity: variable_controller.user_email),
+          options: get_JWT_CallOptions_for_GRPC());
+
+      return response;
+    } catch (e) {
+      print(e);
+      default_response.error = e.toString();
+      return default_response;
+    } finally {
+      await channel.shutdown();
+    }
+  }
+}
