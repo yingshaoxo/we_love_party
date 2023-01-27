@@ -16,7 +16,6 @@ class LocalStorageKeys {
 
 class VariableControllr extends GetxController {
   SharedPreferences? preferences;
-  BuildContext? global_context;
 
   String device_UUID = "";
   final cron = Cron();

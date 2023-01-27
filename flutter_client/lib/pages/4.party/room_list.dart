@@ -34,6 +34,14 @@ class _RoomListPageState extends State<RoomListPage> {
     rooms = (await roomControlGrpcControllr.getRoomList())
         .where((room) => room.hasRoomName())
         .toList();
+
+    Iterable<RoomInfo> temp_rooms =
+        List<int>.generate(10, (i) => i + 1).map((e) => RoomInfo(
+              roomName: "hello world: ${e}",
+              numberOfParticipants: 1,
+            ));
+    rooms.addAll(temp_rooms);
+
     setState(() {});
   }
 
@@ -98,13 +106,13 @@ class _RoomListPageState extends State<RoomListPage> {
           children: [
             buildTitle(),
             const SizedBox(
-              height: 70,
+              height: 60,
             ),
             Expanded(
               child: buildContents(),
             ),
             const SizedBox(
-              height: 80,
+              height: 65,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -159,15 +167,12 @@ class _RoomListPageState extends State<RoomListPage> {
     );
 
     var listView = ListView.separated(
+      padding: EdgeInsets.zero,
       physics: const ClampingScrollPhysics(),
       shrinkWrap: false,
       itemCount: rooms.length,
       itemBuilder: (context, index) {
         return ListTile(
-          // shape: RoundedRectangleBorder(
-          //     side: const BorderSide(
-          //         color: Colors.transparent, width: 1),
-          //     borderRadius: BorderRadius.circular(0)),
           title: Text(
             rooms[index].roomName,
             style: const TextStyle(fontSize: 18),
@@ -182,7 +187,7 @@ class _RoomListPageState extends State<RoomListPage> {
             if (allowJoinResponse.error == null ||
                 allowJoinResponse.error.isEmpty) {
               variable_controller.access_token = allowJoinResponse.accessToken;
-              Get.toNamed(RoutesMap.singleRoomPage);
+              Get.toNamed(RoutesMap.single_room_page);
               return;
             } else {
               await show_message(msg: 'Failed to join room');
@@ -216,7 +221,7 @@ class _RoomListPageState extends State<RoomListPage> {
         child: rooms.isEmpty
             ? const Center(
                 child: Text(
-                  'Nice, you are the first one here!',
+                  'Hi, you are the last one here!',
                   style: TextStyle(
                     fontSize: 15,
                   ),
@@ -227,6 +232,7 @@ class _RoomListPageState extends State<RoomListPage> {
                 borderOnForeground: true,
                 shape: border,
                 child: Card(
+                  // margin: EdgeInsets.zero,
                   borderOnForeground: true,
                   shape: border,
                   child: listView,
@@ -306,7 +312,7 @@ class _RoomListPageState extends State<RoomListPage> {
 
                   updateRooms();
 
-                  Get.toNamed(RoutesMap.singleRoomPage);
+                  Get.toNamed(RoutesMap.single_room_page);
 
                   // Fluttertoast.showToast(
                   //     msg: "You just created a room: $roomName",

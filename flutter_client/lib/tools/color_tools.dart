@@ -1,6 +1,12 @@
 import 'dart:math';
 import 'dart:ui';
 
+extension ColorConvert on String {
+  Color get color {
+    return ColorTools.hex_to_color(this);
+  }
+}
+
 class ColorTools {
   static Color hex_to_color(String code) {
     return Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);

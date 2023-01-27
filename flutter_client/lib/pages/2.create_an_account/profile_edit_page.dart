@@ -241,7 +241,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
         await show_exit_confirm_pop_window();
       } else {
         if (getUserResponse.userExists) {
-          Get.offNamed(RoutesMap.roomList);
+          Get.offNamed(RoutesMap.my_tabs);
           return;
         }
 

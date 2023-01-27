@@ -9,14 +9,14 @@ import 'package:get/get.dart';
 
 import '../../common_user_interface/my_single_child_scroll_view.dart';
 
-class VerifyPage extends StatefulWidget {
-  const VerifyPage({Key? key}) : super(key: key);
+class RegisterConfirmPage extends StatefulWidget {
+  const RegisterConfirmPage({Key? key}) : super(key: key);
 
   @override
-  _VerifyPageState createState() => _VerifyPageState();
+  _RegisterConfirmPageState createState() => _RegisterConfirmPageState();
 }
 
-class _VerifyPageState extends State<VerifyPage> {
+class _RegisterConfirmPageState extends State<RegisterConfirmPage> {
   final form_key = GlobalKey<FormState>();
   final code_inputbox_controller = TextEditingController();
 

@@ -13,14 +13,14 @@ import 'package:flutter_client/widgets/round_button.dart';
 import 'package:flutter_client/tools/utils/style.dart';
 import 'package:flutter_client/store/controllers.dart';
 
-class EmailPage extends StatefulWidget {
-  const EmailPage({Key? key}) : super(key: key);
+class EmailRegisterPage extends StatefulWidget {
+  const EmailRegisterPage({Key? key}) : super(key: key);
 
   @override
-  _EmailPageState createState() => _EmailPageState();
+  _EmailRegisterPageState createState() => _EmailRegisterPageState();
 }
 
-class _EmailPageState extends State<EmailPage> {
+class _EmailRegisterPageState extends State<EmailRegisterPage> {
   final form_key = GlobalKey<FormState>();
   final email_inputbox_controller = TextEditingController();
 
@@ -182,7 +182,7 @@ class _EmailPageState extends State<EmailPage> {
 
               if (result) {
                 variable_controller.save_user_email(the_email_address);
-                Get.offNamed(RoutesMap.registerVerifying);
+                Get.offNamed(RoutesMap.register_confirming);
                 return;
               } else {
                 Fluttertoast.showToast(

@@ -25,3 +25,4 @@ WeLoveParty
 * public service location search page (for free stuff, allow users to give scores and change labels(whether 24hours open, have free WiFi or not, have place to shit or not, have free drink or not)) | 评分参考豆瓣，基础设施信息 icons 参考 飞猪酒店/高德酒店
 * `Friend_List and Chat_List` Page
 * More feature entry page (have seting entry here) | 参考 `TIM 我的` page
+    * Find Users that you might be interested in by looking at photos. (like or not like. We could use finger movement to do this. Move right means like, move left means not like). You can reference Tantan or Tinder.

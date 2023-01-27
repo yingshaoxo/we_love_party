@@ -322,8 +322,7 @@ class _FaceScanPageState extends State<FaceScanPage> {
                                           await show_error(msg: result.error);
                                           return;
                                         } else {
-                                          await Get.offNamed(
-                                              RoutesMap.roomList);
+                                          await Get.offNamed(RoutesMap.my_tabs);
                                           return;
                                         }
                                       }

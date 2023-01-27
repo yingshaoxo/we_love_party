@@ -1,12 +1,13 @@
 class RoutesMap {
   static const welcome = "/welcome";
   static const register = "/register";
-  static const registerVerifying = "/register_verifying";
+  static const register_confirming = "/register_confirming";
   static const profile_edit_page = "/profile_edit";
   static const profile_view_page = "/profile_view";
   static const face_scan_page = "/face_scan";
-  static const roomList = "/room_list";
-  static const singleRoomPage = "/single_room";
+  static const my_tabs = "/my_tabs";
+  static const room_list = "/room_list";
+  static const single_room_page = "/single_room";
 }
 
 class GrpcConfig {
