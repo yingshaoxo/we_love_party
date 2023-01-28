@@ -223,18 +223,18 @@ class _SingleVoiceRoomState extends State<SingleVoiceRoom>
               },
               child: Row(
                 children: [
-                  IconButton(
-                    iconSize: 30,
-                    icon: const Icon(Icons.keyboard_arrow_down),
-                    onPressed: () async {},
-                  ),
-                  const Text(
-                    'All rooms',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                    ),
-                  ),
+                  // IconButton(
+                  //   iconSize: 30,
+                  //   icon: const Icon(Icons.keyboard_arrow_down),
+                  //   onPressed: () async {},
+                  // ),
+                  // const Text(
+                  //   'All rooms',
+                  //   style: TextStyle(
+                  //     color: Colors.black,
+                  //     fontSize: 15,
+                  //   ),
+                  // ),
                 ],
               ),
             ),

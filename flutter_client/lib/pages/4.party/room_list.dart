@@ -10,7 +10,6 @@ import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 
 import '../../store/controllers.dart';
 import '../../tools/utils/style.dart';
@@ -35,12 +34,12 @@ class _RoomListPageState extends State<RoomListPage> {
         .where((room) => room.hasRoomName())
         .toList();
 
-    Iterable<RoomInfo> temp_rooms =
-        List<int>.generate(10, (i) => i + 1).map((e) => RoomInfo(
-              roomName: "hello world: ${e}",
-              numberOfParticipants: 1,
-            ));
-    rooms.addAll(temp_rooms);
+    // Iterable<RoomInfo> temp_rooms =
+    //     List<int>.generate(10, (i) => i + 1).map((e) => RoomInfo(
+    //           roomName: "hello world: ${e}",
+    //           numberOfParticipants: 1,
+    //         ));
+    // rooms.addAll(temp_rooms);
 
     setState(() {});
   }
@@ -259,6 +258,8 @@ class _RoomListPageState extends State<RoomListPage> {
     the_alert = Alert(
         context: context,
         title: "Create a room",
+        style: AlertStyle(
+            isOverlayTapDismiss: false, overlayColor: Colors.black45),
         content: Column(
           children: <Widget>[
             Padding(

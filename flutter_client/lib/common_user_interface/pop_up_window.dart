@@ -8,7 +8,9 @@ Future<void> show_message({required String msg}) async {
       context: Get.context!,
       type: AlertType.info,
       style: AlertStyle(
-          titleStyle: TextStyle(), descStyle: TextStyle(fontSize: 16)),
+          titleStyle: TextStyle(),
+          descStyle: TextStyle(fontSize: 16),
+          isOverlayTapDismiss: false),
       title: "Note",
       desc: msg,
       buttons: [
@@ -30,7 +32,9 @@ Future<void> show_error({required String msg}) async {
       context: Get.context!,
       type: AlertType.error,
       style: AlertStyle(
-          titleStyle: TextStyle(), descStyle: TextStyle(fontSize: 16)),
+          titleStyle: TextStyle(),
+          descStyle: TextStyle(fontSize: 16),
+          isOverlayTapDismiss: false),
       title: "Error",
       desc: msg,
       buttons: [

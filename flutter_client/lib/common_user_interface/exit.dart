@@ -13,7 +13,9 @@ Future<void> show_exit_confirm_pop_window({
       context: Get.context!,
       type: AlertType.error,
       style: AlertStyle(
-          titleStyle: TextStyle(), descStyle: TextStyle(fontSize: 16)),
+          titleStyle: TextStyle(),
+          descStyle: TextStyle(fontSize: 16),
+          isOverlayTapDismiss: false),
       title: "Error",
       desc: msg,
       buttons: [

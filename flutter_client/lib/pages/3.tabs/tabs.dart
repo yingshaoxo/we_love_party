@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_client/pages/4.party/room_list.dart';
 
 class MyTabs extends StatefulWidget {
   const MyTabs({Key? key}) : super(key: key);
@@ -9,6 +10,18 @@ class MyTabs extends StatefulWidget {
 
 class _MyTabsState extends State<MyTabs> {
   int current_tab_index = 0;
+  List<Widget> tab_widget_list = [
+    RoomListPage(),
+    Container(
+      child: Center(child: Text("Free Map")),
+    ),
+    Container(
+      child: Center(child: Text("Friends")),
+    ),
+    Container(
+      child: Center(child: Text("Me")),
+    ),
+  ];
   List<BottomNavigationBarItem> tab_list = const [
     BottomNavigationBarItem(
       label: 'Party',
@@ -45,7 +58,7 @@ class _MyTabsState extends State<MyTabs> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: null,
-      body: Container(),
+      body: tab_widget_list[current_tab_index],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: current_tab_index,
         backgroundColor: Colors.white,
