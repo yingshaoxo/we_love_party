@@ -26,3 +26,23 @@ WeLoveParty
 * `Friend_List and Chat_List` Page
 * More feature entry page (have seting entry here) | 参考 `TIM 我的` page
     * Find Users that you might be interested in by looking at photos. (like or not like. We could use finger movement to do this. Move right means like, move left means not like). You can reference Tantan or Tinder.
+
+### party_room tab
+...
+
+### free_map tab
+We want to make it as simple as possible. 
+
+So we'll only use “latitude(y) and longitude(x)”.
+
+Where user is located, where has (x,y). GPS will tell you the information.
+
+And all those target position has their own (x,y,z) location information.
+
+What we have to do is to draw a picture where user is in the center, some targets are inside of a range, let's say, inside of a circle.
+
+Anyway, it's similar to `radar graph` in `seven dragon ball`(an animation: https://dragonball.fandom.com/wiki/Dragon_Radar)
+
+The distance is changeable by finger gesture (two finger zoom up or zoom out).
+
+> It can also be: where user click, where is the center (x,y)
