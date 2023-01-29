@@ -18,7 +18,7 @@ CallOptions get_JWT_CallOptions_for_GRPC() {
   );
 }
 
-class JWTGrpcControllr extends GetxController {
+class AuthGrpcControllr extends GetxController {
   ClientChannel channel = ClientChannel(
     GrpcConfig.account_auth_service,
     port: GrpcConfig.port_number,
@@ -111,7 +111,7 @@ class JWTGrpcControllr extends GetxController {
   }
 }
 
-class AccountStorageControllr extends GetxController {
+class AccountStorageGrpcControllr extends GetxController {
   // Account Controller
   ClientChannel channel = ClientChannel(
     GrpcConfig.account_storage_service,

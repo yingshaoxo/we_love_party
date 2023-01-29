@@ -60,8 +60,8 @@ func (self *GrpcAccountStorageServer) CreateUser(context_ context.Context, reque
 		return default_response, *an_error
 	}
 
-	user, err := database.Get_a_user(self.Postgres_sql_database, request.Email)
-	if err == nil {
+	user, exists, _ := database.Get_a_user(self.Postgres_sql_database, request.Email)
+	if exists == true {
 		// user exists
 		*default_response.Error = "User exists"
 	}
@@ -112,16 +112,16 @@ func (self *GrpcAccountStorageServer) GetUser(context_ context.Context, request 
 	}
 
 	// log.Fatalf("in: %v", "GetUser")
-	user, err := database.Get_a_user(self.Postgres_sql_database, request.Email)
+	user, exists, err := database.Get_a_user(self.Postgres_sql_database, request.Email)
 	if err != nil {
 		// log.Fatalf("error in GetUser: %v", err.Error())
 		*default_response.Error = err.Error()
-		default_response.UserExists = false
+		default_response.UserExists = exists
 		return default_response, nil
 	}
 	default_response.Error = nil
 
-	default_response.UserExists = true
+	default_response.UserExists = exists
 	default_response.Email = user.Email
 	default_response.HeadImage = &user.Head_image
 	default_response.Sex = &user.Sex
@@ -161,8 +161,8 @@ func (self *GrpcAccountStorageServer) UpdateUser(context_ context.Context, reque
 		return default_response, nil
 	}
 
-	user, err := database.Get_a_user(self.Postgres_sql_database, request.Email)
-	if err != nil {
+	user, exists, err := database.Get_a_user(self.Postgres_sql_database, request.Email)
+	if exists == false {
 		// log.Fatalf("error in GetUser: %v", err.Error())
 		*default_response.Error = err.Error()
 		return default_response, err

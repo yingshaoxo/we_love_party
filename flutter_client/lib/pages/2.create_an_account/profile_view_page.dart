@@ -120,7 +120,7 @@ class _ProfileViewPageState extends State<ProfileViewPage> {
             msg:
                 "I think we got some problems here, you might want to clear the data of this app and try it again.\nIf it doesn't work, I suggest you contact the author: yingshaoxo@gmail.com");
       }
-      GetUserResponse getUserResponse = await grpc_account_storage_controllr
+      GetUserResponse getUserResponse = await account_storage_grpc_controllr
           .get_a_user(variable_controller.user_email);
 
       if (!getUserResponse.userExists) {

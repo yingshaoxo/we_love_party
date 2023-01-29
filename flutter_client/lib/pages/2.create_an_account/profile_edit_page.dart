@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_client/common_user_interface/exit.dart';
-import 'package:flutter_client/common_user_interface/loading.dart';
 import 'package:flutter_client/common_user_interface/pop_up_window.dart';
 import 'package:flutter_client/generated_grpc/account_storage_service.pb.dart';
 import 'package:flutter_client/tools/string_tools.dart';
 import 'package:flutter_client/common_user_interface/my_single_child_scroll_view.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import 'package:fluttertoast/fluttertoast.dart';
-
 import 'package:flutter_client/store/config.dart';
-import 'package:flutter_client/tools/utils/utils.dart';
 import 'package:flutter_client/widgets/round_button.dart';
 import 'package:flutter_client/tools/utils/style.dart';
 import 'package:flutter_client/store/controllers.dart';
+
+import '../../tools/internet_tools.dart';
 
 class ProfileEditPage extends StatefulWidget {
   const ProfileEditPage({Key? key}) : super(key: key);
@@ -191,6 +188,10 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
           disabledColor: Style.AccentBlue.withOpacity(0.3),
           // onPressed: onSignUpButtonClick,
           onPressed: () async {
+            if (await has_internet() == false) {
+              return;
+            }
+
             if (username_is_valid ||
                 (variable_controller.username != null &&
                     variable_controller.username?.trim() != "")) {
@@ -233,13 +234,12 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
             msg:
                 "I think we got some problems here, you might want to clear the data of this app and try it again.\nIf it doesn't work, I suggest you contact the author: yingshaoxo@gmail.com");
       }
-      GetUserResponse getUserResponse = await grpc_account_storage_controllr
+
+      GetUserResponse getUserResponse = await account_storage_grpc_controllr
           .get_a_user(variable_controller.user_email);
 
-      if (getUserResponse.error != null && getUserResponse.error.isNotEmpty) {
-        await show_message(msg: getUserResponse.error);
-        await show_exit_confirm_pop_window();
-      } else {
+      if (getUserResponse.userExists != null &&
+          getUserResponse.userExists == true) {
         if (getUserResponse.userExists) {
           Get.offNamed(RoutesMap.my_tabs);
           return;
@@ -248,6 +248,13 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
         if (variable_controller.username != null) {
           username_inputbox_controller.text = variable_controller.username!;
         }
+      }
+
+      if (getUserResponse.error != null && getUserResponse.error.isNotEmpty) {
+        await show_message(msg: getUserResponse.error);
+        await show_exit_confirm_pop_window(
+            msg: "I think we got some problem with the service. Bye.");
+        return;
       }
 
       setState(() {

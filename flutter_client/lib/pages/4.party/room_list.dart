@@ -30,7 +30,7 @@ class _RoomListPageState extends State<RoomListPage> {
   Alert? the_alert;
 
   Future<void> updateRooms() async {
-    rooms = (await roomControlGrpcControllr.getRoomList())
+    rooms = (await room_control_grpc_controllr.getRoomList())
         .where((room) => room.hasRoomName())
         .toList();
 
@@ -180,7 +180,7 @@ class _RoomListPageState extends State<RoomListPage> {
           tileColor: const Color.fromARGB(80, 223, 230, 240),
           onTap: () async {
             AllowJoinResponse allowJoinResponse =
-                await roomControlGrpcControllr.getAccessToARoom(
+                await room_control_grpc_controllr.getAccessToARoom(
               roomName: rooms[index].roomName,
             );
             if (allowJoinResponse.error == null ||
@@ -297,11 +297,12 @@ class _RoomListPageState extends State<RoomListPage> {
               }
 
               CreateRoomResponse createRoomResponse =
-                  await roomControlGrpcControllr.createRoom(roomName: roomName);
+                  await room_control_grpc_controllr.createRoom(
+                      roomName: roomName);
               if (createRoomResponse.error == null ||
                   createRoomResponse.error.isEmpty) {
                 AllowJoinResponse allowJoinResponse =
-                    await roomControlGrpcControllr.getAccessToARoom(
+                    await room_control_grpc_controllr.getAccessToARoom(
                         roomName: roomName);
                 if (allowJoinResponse.error == null ||
                     allowJoinResponse.error.isEmpty) {

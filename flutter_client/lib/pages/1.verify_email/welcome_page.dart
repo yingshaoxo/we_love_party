@@ -1,4 +1,3 @@
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_client/common_user_interface/exit.dart';
 import 'package:flutter_client/common_user_interface/pop_up_window.dart';
 import 'package:flutter_client/widgets/round_button.dart';
@@ -10,6 +9,7 @@ import '../../generated_grpc/account_auth_service.pb.dart';
 import '../../store/config.dart';
 import '../../store/controllers.dart';
 import '../../common_user_interface/my_single_child_scroll_view.dart';
+import '../../tools/internet_tools.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -26,17 +26,24 @@ class _WelcomePageState extends State<WelcomePage> {
     super.initState();
 
     () async {
-      IsJwtOkReply isJwtOkReply = await grpc_JWT_controller.check_if_jwt_is_ok(
-          jwt: variable_controller.jwt);
-      if (isJwtOkReply.error == null || isJwtOkReply.error.isEmpty) {
-        Get.offNamed(RoutesMap.profile_edit_page);
-        return;
-      } else {
-        await show_message(msg: isJwtOkReply.error);
+      try {
+        await auth_grpc_controller
+            .get_account_authentication_service_client()
+            .isOnline(IsOnlineRequest());
+      } catch (e) {
+        await show_message(msg: e.toString());
         await show_exit_confirm_pop_window(
           msg:
-              "I think something is wrong with the connection.\n\nI'll exit for now.\n\nYou can open me later.",
+              "I think something is wrong with the connection.\n\nMight because of the Internet Error.\n\nI'll exit for now.\n\nYou can open me later.",
         );
+      }
+
+      IsJwtOkReply isJwtOkReply = await auth_grpc_controller.check_if_jwt_is_ok(
+          jwt: variable_controller.jwt);
+
+      if (isJwtOkReply.email != null && isJwtOkReply.email.isNotEmpty) {
+        Get.offNamed(RoutesMap.profile_edit_page);
+        return;
       }
 
       setState(() {
@@ -141,8 +148,11 @@ class _WelcomePageState extends State<WelcomePage> {
         RoundButton(
           color: Style.AccentBlue,
           onPressed: () async {
+            if (await has_internet() == false) {
+              return;
+            }
+
             Get.offNamed(RoutesMap.register);
-            return;
           },
           child: Container(
             child: Row(

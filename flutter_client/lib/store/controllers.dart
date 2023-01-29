@@ -5,12 +5,12 @@ import 'package:get/get.dart';
 
 final variable_controller = Get.put(VariableControllr(), permanent: true);
 
-final grpc_account_storage_controllr =
-    Get.put(AccountStorageControllr(), permanent: true);
+final account_storage_grpc_controllr =
+    Get.put(AccountStorageGrpcControllr(), permanent: true);
 
-final grpc_JWT_controller = Get.put(JWTGrpcControllr(), permanent: true);
+final auth_grpc_controller = Get.put(AuthGrpcControllr(), permanent: true);
 
 final face_scan_controller = Get.put(FaceScanControllr(), permanent: true);
 
-final roomControlGrpcControllr =
+final room_control_grpc_controllr =
     Get.put(RoomControlGrpcControllr(), permanent: true);

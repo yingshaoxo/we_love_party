@@ -1,7 +1,6 @@
 package database
 
 import (
-	"errors"
 	"fmt"
 
 	"gorm.io/driver/postgres"
@@ -42,20 +41,20 @@ func Get_postgres_sql_database() *gorm.DB {
 	return db
 }
 
-func Get_a_user(db *gorm.DB, email string) (User, error) {
+func Get_a_user(db *gorm.DB, email string) (User, bool, error) {
 	var user_list []User
 	var the_user User
 
 	operation_result := db.Where("email = ?", email).Find(&user_list)
 	if operation_result.Error != nil {
-		return the_user, operation_result.Error
+		return the_user, false, operation_result.Error
 	}
 
 	if len(user_list) == 0 {
-		return the_user, errors.New("not found")
+		return the_user, false, nil
 	}
 
 	the_user = user_list[0]
 
-	return the_user, nil
+	return the_user, true, nil
 }

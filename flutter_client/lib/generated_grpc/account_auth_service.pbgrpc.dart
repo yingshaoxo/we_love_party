@@ -34,6 +34,12 @@ class AccountAuthenticationServiceClient extends $grpc.Client {
           '/account_auth_service.AccountAuthenticationService/IsJwtOk',
           ($0.IsJwtOkRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $0.IsJwtOkReply.fromBuffer(value));
+  static final _$isOnline =
+      $grpc.ClientMethod<$0.IsOnlineRequest, $0.IsOnlineResponse>(
+          '/account_auth_service.AccountAuthenticationService/IsOnline',
+          ($0.IsOnlineRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.IsOnlineResponse.fromBuffer(value));
 
   AccountAuthenticationServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -60,6 +66,11 @@ class AccountAuthenticationServiceClient extends $grpc.Client {
   $grpc.ResponseFuture<$0.IsJwtOkReply> isJwtOk($0.IsJwtOkRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$isJwtOk, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.IsOnlineResponse> isOnline($0.IsOnlineRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$isOnline, request, options: options);
   }
 }
 
@@ -97,6 +108,13 @@ abstract class AccountAuthenticationServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.IsJwtOkRequest.fromBuffer(value),
         ($0.IsJwtOkReply value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.IsOnlineRequest, $0.IsOnlineResponse>(
+        'IsOnline',
+        isOnline_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.IsOnlineRequest.fromBuffer(value),
+        ($0.IsOnlineResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.HelloReply> sayHello_Pre(
@@ -120,6 +138,11 @@ abstract class AccountAuthenticationServiceBase extends $grpc.Service {
     return isJwtOk(call, await request);
   }
 
+  $async.Future<$0.IsOnlineResponse> isOnline_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.IsOnlineRequest> request) async {
+    return isOnline(call, await request);
+  }
+
   $async.Future<$0.HelloReply> sayHello(
       $grpc.ServiceCall call, $0.HelloRequest request);
   $async.Future<$0.RegisterReply> userRegisterRequest(
@@ -128,4 +151,6 @@ abstract class AccountAuthenticationServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.RegisterConfirmRequest request);
   $async.Future<$0.IsJwtOkReply> isJwtOk(
       $grpc.ServiceCall call, $0.IsJwtOkRequest request);
+  $async.Future<$0.IsOnlineResponse> isOnline(
+      $grpc.ServiceCall call, $0.IsOnlineRequest request);
 }

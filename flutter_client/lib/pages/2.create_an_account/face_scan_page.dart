@@ -12,6 +12,7 @@ import '../../common_user_interface/loading.dart';
 import '../../common_user_interface/pop_up_window.dart';
 import '../../generated_grpc/account_storage_service.pb.dart';
 import '../../store/config.dart';
+import '../../tools/internet_tools.dart';
 
 class FaceScanPage extends StatefulWidget {
   const FaceScanPage({Key? key}) : super(key: key);
@@ -229,6 +230,10 @@ class _FaceScanPageState extends State<FaceScanPage> {
                                 child: TextButton(
                                   child: Text("Capture"),
                                   onPressed: () async {
+                                    if (await has_internet() == false) {
+                                      return;
+                                    }
+
                                     if (variable_controller.user_email ==
                                         null) {
                                       await show_exit_confirm_pop_window(
@@ -312,7 +317,7 @@ class _FaceScanPageState extends State<FaceScanPage> {
 
                                         loading_start();
                                         UpdateUserResponse result =
-                                            await grpc_account_storage_controllr
+                                            await account_storage_grpc_controllr
                                                 .update_a_user(
                                                     face_scan_controller
                                                         .createUserRequest);

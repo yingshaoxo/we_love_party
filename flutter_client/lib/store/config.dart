@@ -24,4 +24,4 @@ class LivekitConfig {
   static const url = 'ws://livekit.weloveparty.domain.local';
 }
 
-bool in_dev_mode = true;
+bool in_dev_mode = false;

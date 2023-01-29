@@ -1,7 +1,7 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_client/common_user_interface/loading.dart';
 import 'package:flutter_client/common_user_interface/my_single_child_scroll_view.dart';
+import 'package:flutter_client/tools/internet_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -173,10 +173,14 @@ class _EmailRegisterPageState extends State<EmailRegisterPage> {
                   textColor: Colors.black,
                   fontSize: 16.0);
             } else {
+              if (await has_internet() == false) {
+                return;
+              }
+
               String the_email_address = email_inputbox_controller.text.trim();
 
               loading_start();
-              bool result = await grpc_JWT_controller.ask_for_registering(
+              bool result = await auth_grpc_controller.ask_for_registering(
                   email: the_email_address);
               loading_end();
 

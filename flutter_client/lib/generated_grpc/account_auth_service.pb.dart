@@ -470,3 +470,111 @@ class IsJwtOkReply extends $pb.GeneratedMessage {
   void clearError() => clearField(2);
 }
 
+class IsOnlineRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'IsOnlineRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'account_auth_service'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
+    ..hasRequiredFields = false
+  ;
+
+  IsOnlineRequest._() : super();
+  factory IsOnlineRequest({
+    $core.String? email,
+  }) {
+    final _result = create();
+    if (email != null) {
+      _result.email = email;
+    }
+    return _result;
+  }
+  factory IsOnlineRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory IsOnlineRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  IsOnlineRequest clone() => IsOnlineRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  IsOnlineRequest copyWith(void Function(IsOnlineRequest) updates) => super.copyWith((message) => updates(message as IsOnlineRequest)) as IsOnlineRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static IsOnlineRequest create() => IsOnlineRequest._();
+  IsOnlineRequest createEmptyInstance() => create();
+  static $pb.PbList<IsOnlineRequest> createRepeated() => $pb.PbList<IsOnlineRequest>();
+  @$core.pragma('dart2js:noInline')
+  static IsOnlineRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<IsOnlineRequest>(create);
+  static IsOnlineRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get email => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set email($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasEmail() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearEmail() => clearField(1);
+}
+
+class IsOnlineResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'IsOnlineResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'account_auth_service'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'error')
+    ..aOB(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'online')
+    ..hasRequiredFields = false
+  ;
+
+  IsOnlineResponse._() : super();
+  factory IsOnlineResponse({
+    $core.String? error,
+    $core.bool? online,
+  }) {
+    final _result = create();
+    if (error != null) {
+      _result.error = error;
+    }
+    if (online != null) {
+      _result.online = online;
+    }
+    return _result;
+  }
+  factory IsOnlineResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory IsOnlineResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  IsOnlineResponse clone() => IsOnlineResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  IsOnlineResponse copyWith(void Function(IsOnlineResponse) updates) => super.copyWith((message) => updates(message as IsOnlineResponse)) as IsOnlineResponse; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static IsOnlineResponse create() => IsOnlineResponse._();
+  IsOnlineResponse createEmptyInstance() => create();
+  static $pb.PbList<IsOnlineResponse> createRepeated() => $pb.PbList<IsOnlineResponse>();
+  @$core.pragma('dart2js:noInline')
+  static IsOnlineResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<IsOnlineResponse>(create);
+  static IsOnlineResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get error => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set error($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasError() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearError() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.bool get online => $_getBF(1);
+  @$pb.TagNumber(2)
+  set online($core.bool v) { $_setBool(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasOnline() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearOnline() => clearField(2);
+}
+

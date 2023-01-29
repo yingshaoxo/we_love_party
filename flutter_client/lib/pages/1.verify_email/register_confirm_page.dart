@@ -8,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '../../common_user_interface/my_single_child_scroll_view.dart';
+import '../../tools/internet_tools.dart';
 
 class RegisterConfirmPage extends StatefulWidget {
   const RegisterConfirmPage({Key? key}) : super(key: key);
@@ -130,11 +131,15 @@ class _RegisterConfirmPageState extends State<RegisterConfirmPage> {
                   textColor: Colors.black,
                   fontSize: 16.0);
             } else {
+              if (await has_internet() == false) {
+                return;
+              }
+
               try {
                 String email_address = variable_controller.user_email ?? "";
 
                 loading_start();
-                String? jwt = await grpc_JWT_controller.registering_confirm(
+                String? jwt = await auth_grpc_controller.registering_confirm(
                     email: email_address.trim(),
                     code: code_inputbox_controller.text.trim());
                 loading_end();

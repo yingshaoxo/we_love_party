@@ -58,8 +58,8 @@ http:
           - "/auth"
     my_jwt_auth:
         forwardAuth:
-          address: "http://weloveparty_account_auth_service:40051/v1/jwt_auth_gateway/"
-          # address: "http://host.docker.internal:40051/v1/jwt_auth_gateway/"
+          # address: "http://weloveparty_account_auth_service:40051/v1/jwt_auth_gateway/"
+          address: "http://host.docker.internal:40051/v1/jwt_auth_gateway/"
           authResponseHeaders:
               - "user_email" # jwt_auth_gateway will put this header to the original request
     test-grpcweb:
@@ -75,8 +75,8 @@ http:
     weloveparty_account_auth_service:
       loadBalancer:
         servers:
-          - url: h2c://weloveparty_account_auth_service:40052
-          #- url: h2c://host.docker.internal:40052
+          # - url: h2c://weloveparty_account_auth_service:40052
+          - url: h2c://host.docker.internal:40052
         passHostHeader: true
     weloveparty_internal_api_service:
       loadBalancer:
@@ -87,8 +87,8 @@ http:
     weloveparty_account_storage_service:
       loadBalancer:
         servers:
-          - url: h2c://weloveparty_account_storage_service:40053
-          # - url: h2c://host.docker.internal:40053
+          # - url: h2c://weloveparty_account_storage_service:40053
+          - url: h2c://host.docker.internal:40053
         passHostHeader: true
     weloveparty_room_control_service:
       loadBalancer:

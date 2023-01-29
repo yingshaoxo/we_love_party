@@ -108,3 +108,30 @@ const IsJwtOkReply$json = const {
 
 /// Descriptor for `IsJwtOkReply`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List isJwtOkReplyDescriptor = $convert.base64Decode('CgxJc0p3dE9rUmVwbHkSFAoFZW1haWwYASABKAlSBWVtYWlsEhkKBWVycm9yGAIgASgJSABSBWVycm9yiAEBQggKBl9lcnJvcg==');
+@$core.Deprecated('Use isOnlineRequestDescriptor instead')
+const IsOnlineRequest$json = const {
+  '1': 'IsOnlineRequest',
+  '2': const [
+    const {'1': 'email', '3': 1, '4': 1, '5': 9, '9': 0, '10': 'email', '17': true},
+  ],
+  '8': const [
+    const {'1': '_email'},
+  ],
+};
+
+/// Descriptor for `IsOnlineRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List isOnlineRequestDescriptor = $convert.base64Decode('Cg9Jc09ubGluZVJlcXVlc3QSGQoFZW1haWwYASABKAlIAFIFZW1haWyIAQFCCAoGX2VtYWls');
+@$core.Deprecated('Use isOnlineResponseDescriptor instead')
+const IsOnlineResponse$json = const {
+  '1': 'IsOnlineResponse',
+  '2': const [
+    const {'1': 'error', '3': 1, '4': 1, '5': 9, '9': 0, '10': 'error', '17': true},
+    const {'1': 'online', '3': 2, '4': 1, '5': 8, '10': 'online'},
+  ],
+  '8': const [
+    const {'1': '_error'},
+  ],
+};
+
+/// Descriptor for `IsOnlineResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List isOnlineResponseDescriptor = $convert.base64Decode('ChBJc09ubGluZVJlc3BvbnNlEhkKBWVycm9yGAEgASgJSABSBWVycm9yiAEBEhYKBm9ubGluZRgCIAEoCFIGb25saW5lQggKBl9lcnJvcg==');
