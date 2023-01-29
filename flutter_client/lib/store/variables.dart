@@ -26,6 +26,9 @@ class VariableControllr extends GetxController {
 
   String? access_token;
 
+  int current_tab_index = 0;
+  Rx<bool> online = RxBool(true);
+
   Future<void> initilize_function() async {
     final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     preferences = await _prefs;

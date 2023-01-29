@@ -1,5 +1,12 @@
+import 'package:cron/cron.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_client/pages/4.party/room_list.dart';
+import 'package:flutter_client/pages/network_error_page.dart';
+import 'package:flutter_client/store/controllers.dart';
+import 'package:flutter_client/tools/internet_tools.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+
+import '../../generated_grpc/account_auth_service.pb.dart';
 
 class MyTabs extends StatefulWidget {
   const MyTabs({Key? key}) : super(key: key);
@@ -9,7 +16,6 @@ class MyTabs extends StatefulWidget {
 }
 
 class _MyTabsState extends State<MyTabs> {
-  int current_tab_index = 0;
   List<Widget> tab_widget_list = [
     RoomListPage(),
     Container(
@@ -54,26 +60,56 @@ class _MyTabsState extends State<MyTabs> {
     ),
   ];
 
+  final crontab = Cron();
+
+  @override
+  void initState() {
+    super.initState();
+
+    () async {
+      crontab.schedule(Schedule.parse('*/10 * * * * *'), () async {
+        if (variable_controller.user_email == null) {
+          return false;
+        }
+
+        await has_internet_check_in_the_background();
+
+        return true;
+      });
+    }();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: null,
-      body: tab_widget_list[current_tab_index],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: current_tab_index,
-        backgroundColor: Colors.white,
-        unselectedItemColor: Colors.black45,
-        type: BottomNavigationBarType.fixed,
-        selectedFontSize: 14,
-        unselectedFontSize: 14,
-        iconSize: 25,
-        items: tab_list,
-        onTap: (value) {
-          setState(() {
-            current_tab_index = value;
-          });
-        },
-      ),
+    return Stack(
+      children: [
+        Scaffold(
+          appBar: null,
+          body: tab_widget_list[variable_controller.current_tab_index],
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: variable_controller.current_tab_index,
+            backgroundColor: Colors.white,
+            unselectedItemColor: Colors.black45,
+            type: BottomNavigationBarType.fixed,
+            selectedFontSize: 14,
+            unselectedFontSize: 14,
+            iconSize: 25,
+            items: tab_list,
+            onTap: (value) {
+              setState(() {
+                variable_controller.current_tab_index = value;
+              });
+            },
+          ),
+        ),
+        Obx(() {
+          return Offstage(
+            offstage:
+                variable_controller.online.value, //variable_controller.online,
+            child: NetworkErrorPage(),
+          );
+        })
+      ],
     );
   }
 }

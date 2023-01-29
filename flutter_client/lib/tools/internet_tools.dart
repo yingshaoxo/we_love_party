@@ -14,3 +14,24 @@ Future<bool> has_internet() async {
   }
   return true;
 }
+
+Future<void> has_internet_check_in_the_background() async {
+  bool is_online = false;
+
+  try {
+    if (variable_controller.user_email == null) {
+      await auth_grpc_controller
+          .get_account_authentication_service_client()
+          .isOnline(IsOnlineRequest());
+    } else {
+      await auth_grpc_controller
+          .get_account_authentication_service_client()
+          .isOnline(IsOnlineRequest()..email = variable_controller.user_email!);
+    }
+    is_online = true;
+  } catch (e) {
+    is_online = false;
+  }
+
+  variable_controller.online.trigger(is_online);
+}

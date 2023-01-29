@@ -34,7 +34,7 @@ class _WelcomePageState extends State<WelcomePage> {
         await show_message(msg: e.toString());
         await show_exit_confirm_pop_window(
           msg:
-              "I think something is wrong with the connection.\n\nMight because of the Internet Error.\n\nI'll exit for now.\n\nYou can open me later.",
+              "I think something is wrong with the connection.\n\nMaybe Internet error.\n\nI'll exit for now.",
         );
       }
 
