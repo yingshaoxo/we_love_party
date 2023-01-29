@@ -20,6 +20,8 @@ service AccountAuthenticationService {
     rpc UserRegisterRequest(RegisterRequest) returns (RegisterReply);
     rpc UserRegisterConfirm(RegisterConfirmRequest) returns (RegisterConfirmReply);
     rpc IsJwtOk(IsJwtOkRequest) returns (IsJwtOkReply);
+
+    rpc IsOnline(IsOnlineRequest) returns (IsOnlineResponse);
 }
 
 
@@ -49,4 +51,13 @@ message IsJwtOkRequest {
 message IsJwtOkReply {
     string email = 1;
     optional string error = 2;
+}
+
+message IsOnlineRequest {
+    optional string email = 1;
+}
+
+message IsOnlineResponse {
+    optional string error = 1;
+    bool online = 2;
 }

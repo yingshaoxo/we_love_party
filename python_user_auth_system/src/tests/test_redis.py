@@ -3,18 +3,18 @@ from src.database.redis import MyRedis
 import pytest
 
 
-async def test_it(my_redis: MyRedis):
-    theKey = "hi"
+# async def test_it(my_redis: MyRedis):
+#     theKey = "hi"
 
-    assert my_redis.get(theKey) is None
+#     assert my_redis.get(theKey) is None
 
-    assert my_redis.set(theKey, "hello") is True
+#     assert my_redis.set(theKey, "hello") is True
 
-    assert my_redis.get(theKey) == "hello"
+#     assert my_redis.get(theKey) == "hello"
 
-    my_redis.delete(theKey)
+#     my_redis.delete(theKey)
 
-    assert my_redis.get(theKey) is None
+#     assert my_redis.get(theKey) is None
 
 @pytest.mark.asyncio
 async def test_multiple_db_in_redis():

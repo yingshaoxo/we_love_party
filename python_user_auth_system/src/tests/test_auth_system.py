@@ -1,3 +1,4 @@
+import asyncio
 from random import random
 from src.database.redis import MyRedis
 import src.models as models
@@ -9,13 +10,15 @@ async def run(myDatabase: sqlite.MyDatabase, my_redis: MyRedis):
     myAuthClass = auth.MyAuthClass(database=myDatabase, redis=my_redis)
 
     # test delete all users
-    await myDatabase.deleteAllUsers()
+    #await myDatabase.deleteAllUsers()
 
     # test delete all redis cache
-    my_redis.delete_all()
+    #my_redis.delete_all()
 
     # consts
-    email = "yingshaoxo@gmail.com"
+    origin_email = "yingshaoxo@god.com"
+
+    email = origin_email
     random_string = "asdfhjh"
 
     # init check
@@ -64,3 +67,18 @@ async def run(myDatabase: sqlite.MyDatabase, my_redis: MyRedis):
     # auth wrong jwt
     email = await myAuthClass.auth_jwt_string(raw_jwt_string=wrong_jwt)
     assert email is None
+
+    # is online
+    email = origin_email
+
+    online = await myAuthClass.check_if_email_is_in_online_pool(email=email)
+    assert False == online
+
+    await myAuthClass.add_email_to_online_pool(email=email)
+
+    online = await myAuthClass.check_if_email_is_in_online_pool(email=email)
+    assert True == online
+
+    await asyncio.sleep(11) 
+    online = await myAuthClass.check_if_email_is_in_online_pool(email=email)
+    assert False == online

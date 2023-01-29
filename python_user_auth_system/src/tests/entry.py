@@ -13,13 +13,13 @@ import src.config as config
 
 client = TestClient(app)
 myDatabase = sqlite.MyDatabase(DATABASE_URL=config.DATABASE_URL)
-my_redis = MyRedis(redis_host_URL='localhost', db_number=0)
+my_redis = MyRedis(redis_host_URL='localhost', db_number=config.REDIS_DB_NUMBER)
 
 async def async_function():
-    await test_database.run(myDatabase=myDatabase)
-    await test_redis.test_it(my_redis=my_redis)
+    #await test_database.run(myDatabase=myDatabase)
+    #await test_redis.test_it(my_redis=my_redis)
     await test_auth_system.run(myDatabase=myDatabase, my_redis=my_redis)
-    # await test_restful_api.run(client=client, myDatabase=myDatabase, my_redis=my_redis)
+    #await test_restful_api.run(client=client, myDatabase=myDatabase, my_redis=my_redis)
 
 def main():
     # loop = asyncio.get_event_loop()

@@ -12,8 +12,8 @@ class MyRedis:
         else:
             return data.decode('utf-8')
 
-    def set(self, key: str, value: str) -> bool:
-        result = self.redis.set(key, value)
+    def set(self, key: str, value: str, expire_time_in_seconds: float | None = None) -> bool:
+        result = self.redis.set(key, value, ex=expire_time_in_seconds)
         if result is None:
             return False
         else:

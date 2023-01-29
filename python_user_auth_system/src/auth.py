@@ -11,6 +11,7 @@ from typing import Optional, Any
 
 REDIS_VERIFY_ACTION_KEY = 'verify'
 REDIS_JWT_ACTION_KEY = 'jwt'
+REDIS_IS_ONLINE_ACTION_KEY = 'online'
 
 
 class MyAuthClass:
@@ -81,12 +82,14 @@ class MyAuthClass:
         key = f"{email}.{REDIS_VERIFY_ACTION_KEY}"
         value = f"{random_string}.deviceID"
         self.myRedis.set(key, value)
+
     
     async def check_if_any_info_matchs_in_unverified_pool(self, email: str, random_string: str) -> bool:
         key = f"{email}.{REDIS_VERIFY_ACTION_KEY}"
         value = f"{random_string}.deviceID"
         return self.myRedis.get(key) == value
     
+
     async def add_info_to_verified_pool(self, email: str, random_string: str) -> None:
         key = f"{email}.{REDIS_JWT_ACTION_KEY}"
         value = f"{random_string}.deviceID"
@@ -96,4 +99,17 @@ class MyAuthClass:
     async def check_if_the_info_is_in_verified_pool(self, email: str, random_string: str) -> bool:
         key = f"{email}.{REDIS_JWT_ACTION_KEY}"
         value = f"{random_string}.deviceID"
+        return self.myRedis.get(key) == value
+
+
+    async def add_email_to_online_pool(self, email: str) -> None:
+        key = f"{email}.{REDIS_IS_ONLINE_ACTION_KEY}"
+        value = "1"
+        self.myRedis.set(key, value, expire_time_in_seconds=10)
+        # self.myRedis.redis.set(key, value, ex=10)
+    
+
+    async def check_if_email_is_in_online_pool(self, email: str) -> bool:
+        key = f"{email}.{REDIS_IS_ONLINE_ACTION_KEY}"
+        value = "1"
         return self.myRedis.get(key) == value

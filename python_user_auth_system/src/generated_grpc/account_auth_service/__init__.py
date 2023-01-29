@@ -68,6 +68,17 @@ class IsJwtOkReply(betterproto.Message):
     error: Optional[str] = betterproto.string_field(2, optional=True, group="_error")
 
 
+@dataclass(eq=False, repr=False)
+class IsOnlineRequest(betterproto.Message):
+    email: Optional[str] = betterproto.string_field(1, optional=True, group="_email")
+
+
+@dataclass(eq=False, repr=False)
+class IsOnlineResponse(betterproto.Message):
+    error: Optional[str] = betterproto.string_field(1, optional=True, group="_error")
+    online: bool = betterproto.bool_field(2)
+
+
 class AccountAuthenticationServiceStub(betterproto.ServiceStub):
     async def say_hello(
         self,
@@ -137,6 +148,23 @@ class AccountAuthenticationServiceStub(betterproto.ServiceStub):
             metadata=metadata,
         )
 
+    async def is_online(
+        self,
+        is_online_request: "IsOnlineRequest",
+        *,
+        timeout: Optional[float] = None,
+        deadline: Optional["Deadline"] = None,
+        metadata: Optional["MetadataLike"] = None
+    ) -> "IsOnlineResponse":
+        return await self._unary_unary(
+            "/account_auth_service.AccountAuthenticationService/IsOnline",
+            is_online_request,
+            IsOnlineResponse,
+            timeout=timeout,
+            deadline=deadline,
+            metadata=metadata,
+        )
+
 
 class AccountAuthenticationServiceBase(ServiceBase):
     async def say_hello(self, hello_request: "HelloRequest") -> "HelloReply":
@@ -153,6 +181,11 @@ class AccountAuthenticationServiceBase(ServiceBase):
         raise grpclib.GRPCError(grpclib.const.Status.UNIMPLEMENTED)
 
     async def is_jwt_ok(self, is_jwt_ok_request: "IsJwtOkRequest") -> "IsJwtOkReply":
+        raise grpclib.GRPCError(grpclib.const.Status.UNIMPLEMENTED)
+
+    async def is_online(
+        self, is_online_request: "IsOnlineRequest"
+    ) -> "IsOnlineResponse":
         raise grpclib.GRPCError(grpclib.const.Status.UNIMPLEMENTED)
 
     async def __rpc_say_hello(
@@ -184,6 +217,13 @@ class AccountAuthenticationServiceBase(ServiceBase):
         response = await self.is_jwt_ok(request)
         await stream.send_message(response)
 
+    async def __rpc_is_online(
+        self, stream: "grpclib.server.Stream[IsOnlineRequest, IsOnlineResponse]"
+    ) -> None:
+        request = await stream.recv_message()
+        response = await self.is_online(request)
+        await stream.send_message(response)
+
     def __mapping__(self) -> Dict[str, grpclib.const.Handler]:
         return {
             "/account_auth_service.AccountAuthenticationService/SayHello": grpclib.const.Handler(
@@ -209,5 +249,11 @@ class AccountAuthenticationServiceBase(ServiceBase):
                 grpclib.const.Cardinality.UNARY_UNARY,
                 IsJwtOkRequest,
                 IsJwtOkReply,
+            ),
+            "/account_auth_service.AccountAuthenticationService/IsOnline": grpclib.const.Handler(
+                self.__rpc_is_online,
+                grpclib.const.Cardinality.UNARY_UNARY,
+                IsOnlineRequest,
+                IsOnlineResponse,
             ),
         }

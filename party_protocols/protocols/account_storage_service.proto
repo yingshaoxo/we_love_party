@@ -7,7 +7,6 @@ service AccountStorageService {
     rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
     rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
 
-    // rpc IsUserProfileComplete(IsUserProfileCompleteRequest) returns (IsUserProfileCompleteResponse);
     rpc GetUser(GetUserRequest) returns (GetUserResponse);
     rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
 }
@@ -42,15 +41,6 @@ message UpdateUserResponse {
     string result = 1;
     optional string error = 2;
 }
-
-// message IsUserProfileCompleteRequest {
-//     string email = 1;
-// }
-
-// message IsUserProfileCompleteResponse {
-//     bool complete = 1;
-//     optional string error = 2;
-// }
 
 message GetUserRequest {
     string email = 1;

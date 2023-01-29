@@ -69,6 +69,16 @@ class AccountAuthenticationService(AccountAuthenticationServiceBase):
         
         return IsJwtOkReply(email=email, error=None)
 
+    async def is_online(
+        self, is_online_request: IsOnlineRequest
+    ) -> IsOnlineResponse:
+        if is_online_request.email != None:
+            try:
+                await self.my_authentication_class.add_email_to_online_pool(email=is_online_request.email)
+            except Exception as e:
+                print(e)
+                return IsOnlineResponse(error=str(e), online=False)
+        return IsOnlineResponse(error=None, online=True)
 
 async def run_service(host: str, port: int, my_o365: MyO365, my_authentication_class: MyAuthClass):
     server = Server([

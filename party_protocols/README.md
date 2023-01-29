@@ -11,6 +11,10 @@ only traefik listens 0.0.0.0's 443 port,
 
 ## Port Design
 
+### redis
+* livekit: 0
+* account authentication service: 1
+
 ### Internal API Service
 > It is used for all those APIs that every internal service can call. Here the 'internal service' means those services that was hidden behinds the Docker Firewall.
 
