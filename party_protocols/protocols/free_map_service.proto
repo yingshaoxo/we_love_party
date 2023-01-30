@@ -1,0 +1,63 @@
+syntax = "proto3";
+package free_map_service;
+
+option go_package = "./free_map_service";
+
+service FreeMapService {
+    rpc SearchPlaces(SearchPlacesRequest) returns (SearchPlacesResponse);
+
+    rpc AddPlace(AddPlaceRequest) returns (AddPlaceResponse);
+    rpc DeletePlace(DeleteRequest) returns (DeleteResponse);
+}
+
+message SearchPlacesRequest {
+    string key_words = 1;
+    double y_latitude = 2;
+    double x_longitude = 3;
+    double radius_distance = 4;
+}
+
+message LocationOfFreeMap {
+    optional int32 location_id = 1;
+    double name = 2;
+    double y_latitude = 3;
+    double x_longitude = 4;
+    double scores = 5;
+    bool open_all_day = 6;
+    bool has_charger = 7;
+    bool has_wifi = 8;
+    bool has_water = 9;
+    bool has_hot_water = 10;
+    bool has_desk = 11;
+    bool has_chair = 12;
+    bool has_toilet = 13;
+    bool has_showering = 14; // must make sure there can take showering
+    bool has_package_receiving_station = 15;
+    bool has_kfc = 16;
+    bool has_mcdonald = 17;
+    bool has_store = 18;
+    // string open_and_close_time = 19;
+}
+
+message SearchPlacesResponse {
+    optional string error = 1;
+    repeated LocationOfFreeMap location_of_free_map = 2;
+}
+
+message AddPlaceRequest {
+    LocationOfFreeMap location_of_free_map = 1;
+}
+
+message AddPlaceResponse {
+    optional string error = 1;
+    bool success = 2;
+}
+
+message DeleteRequest {
+    int32 location_id = 1;
+}
+
+message DeleteResponse {
+    optional string error = 1;
+    bool success = 2;
+}
