@@ -206,15 +206,6 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
               Get.offNamed(RoutesMap.register);
               return;
             }
-            face_scan_controller.createUserRequest.email =
-                variable_controller.user_email!;
-
-            if (variable_controller.username == null) {
-              await show_error(msg: "Please give me a correct username");
-              return;
-            }
-            face_scan_controller.createUserRequest.username =
-                variable_controller.username!;
 
             Get.offNamed(RoutesMap.face_scan_page);
             return;

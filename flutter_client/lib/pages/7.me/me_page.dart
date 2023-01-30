@@ -9,7 +9,7 @@ import 'package:flutter_client/store/controllers.dart';
 
 import '../../tools/color_tools.dart';
 import '../../tools/disk_tools.dart';
-import '../full_screen_image.dart';
+import '../../common_user_interface/full_screen_image.dart';
 
 class MePage extends StatefulWidget {
   const MePage({Key? key}) : super(key: key);
@@ -169,7 +169,7 @@ class _MePageState extends State<MePage> {
               GestureDetector(
                 child: Icon(Icons.settings),
                 onTap: () async {
-                  // Get.toNamed(RoutesMap.profile_edit_page);
+                  Get.toNamed(RoutesMap.face_scan_page);
                 },
               ),
             ],

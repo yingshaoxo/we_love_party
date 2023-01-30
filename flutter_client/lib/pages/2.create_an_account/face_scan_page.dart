@@ -234,6 +234,17 @@ class _FaceScanPageState extends State<FaceScanPage> {
                                       return;
                                     }
 
+                                    if (variable_controller.username == null) {
+                                      await show_exit_confirm_pop_window(
+                                          msg:
+                                              "I think we got some problems here.\nWhat you could do is to clear the data of this app, then try it again.\nIf it is no working, you could contact the author: yingshaoxo@gamil.com");
+                                      return;
+                                    } else {
+                                      face_scan_controller
+                                              .createUserRequest.username =
+                                          variable_controller.username!;
+                                    }
+
                                     if (variable_controller.user_email ==
                                         null) {
                                       await show_exit_confirm_pop_window(
