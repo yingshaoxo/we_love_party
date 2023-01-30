@@ -1,12 +1,11 @@
 import 'package:cron/cron.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_client/pages/4.party/room_list.dart';
+import 'package:flutter_client/pages/7.me/me_page.dart';
 import 'package:flutter_client/pages/network_error_page.dart';
 import 'package:flutter_client/store/controllers.dart';
 import 'package:flutter_client/tools/internet_tools.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-
-import '../../generated_grpc/account_auth_service.pb.dart';
 
 class MyTabs extends StatefulWidget {
   const MyTabs({Key? key}) : super(key: key);
@@ -24,9 +23,7 @@ class _MyTabsState extends State<MyTabs> {
     Container(
       child: Center(child: Text("Friends")),
     ),
-    Container(
-      child: Center(child: Text("Me")),
-    ),
+    MePage()
   ];
   List<BottomNavigationBarItem> tab_list = const [
     BottomNavigationBarItem(
@@ -95,10 +92,14 @@ class _MyTabsState extends State<MyTabs> {
             unselectedFontSize: 14,
             iconSize: 25,
             items: tab_list,
-            onTap: (value) {
-              setState(() {
-                variable_controller.current_tab_index = value;
-              });
+            onTap: (value) async {
+              bool is_online = await has_internet_check_in_the_background();
+              if (is_online == false) {
+                return;
+              }
+
+              variable_controller.current_tab_index = value;
+              setState(() {});
             },
           ),
         ),

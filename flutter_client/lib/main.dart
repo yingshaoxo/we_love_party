@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_client/pages/2.create_an_account/face_scan_page.dart';
 import 'package:flutter_client/pages/2.create_an_account/profile_edit_page.dart';
-import 'package:flutter_client/pages/2.create_an_account/profile_view_page.dart';
+import 'package:flutter_client/pages/7.me/me_page.dart';
 import 'package:flutter_client/pages/4.party/room_list.dart';
 import 'package:flutter_client/pages/3.tabs/tabs.dart';
 
@@ -46,15 +46,13 @@ void main() {
             name: RoutesMap.profile_edit_page,
             page: () => const ProfileEditPage()),
         GetPage(
-            name: RoutesMap.profile_view_page,
-            page: () => const ProfileViewPage()),
-        GetPage(
             name: RoutesMap.face_scan_page, page: () => const FaceScanPage()),
         GetPage(name: RoutesMap.my_tabs, page: () => const MyTabs()),
         GetPage(name: RoutesMap.room_list, page: () => const RoomListPage()),
         GetPage(
             name: RoutesMap.single_room_page,
             page: () => const SingleVoiceRoom()),
+        GetPage(name: RoutesMap.me_page, page: () => const MePage()),
       ],
     ));
   }();

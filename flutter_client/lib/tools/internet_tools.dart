@@ -15,7 +15,7 @@ Future<bool> has_internet() async {
   return true;
 }
 
-Future<void> has_internet_check_in_the_background() async {
+Future<bool> has_internet_check_in_the_background() async {
   bool is_online = false;
 
   try {
@@ -34,4 +34,6 @@ Future<void> has_internet_check_in_the_background() async {
   }
 
   variable_controller.online.trigger(is_online);
+
+  return is_online;
 }
