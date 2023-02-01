@@ -50,6 +50,12 @@ http:
         - websecure
       rule: "Host(`livekit.weloveparty.domain.local`)"
       service: livekit_service
+    free_map_service_router:
+      entryPoints:
+        - web
+        - websecure
+      rule: "Host(`free_map.weloveparty.domain.local`)"
+      service: weloveparty_free_map_service
 
   middlewares:
     test-stripprefix:
@@ -100,4 +106,10 @@ http:
       loadBalancer:
         servers:
           - url: http://livekit:7880
+        passHostHeader: true
+    weloveparty_free_map_service:
+      loadBalancer:
+        servers:
+          # - url: h2c://weloveparty_room_control_service:40055
+          - url: h2c://host.docker.internal:40055
         passHostHeader: true

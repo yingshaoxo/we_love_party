@@ -70,6 +70,13 @@ only traefik listens 0.0.0.0's 443 port,
     eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTA1NTgwNTgsImlzcyI6IkFQSUR0azJMeUFhWlBXQSIsImp0aSI6InRvbnlfc3RhcmsiLCJuYW1lIjoiVG9ueSBTdGFyayIsIm5iZiI6MTY3NDU1ODA1OCwic3ViIjoidG9ueV9zdGFyayIsInZpZGVvIjp7InJvb20iOiJzdGFyay10b3dlciIsInJvb21Kb2luIjp0cnVlfX0._jFBec7bBrHWm8SHG-vUCyiK5ym58RcKAOycKSRHMp4
     ```
 
+### Free Map Service
+> free_map.weloveparty.domain.local
+
+#### GRPC
+    typescript: 40055
+
+
 ## Generate GRPC Code (It's just for example, don't run it directly!)
 
 ### Python
@@ -186,6 +193,21 @@ protoc \
     --ts_out="service=grpc-node,mode=grpc-js:${OUT_DIR}" \
     --grpc_out="grpc_js:${OUT_DIR}" \
     room_control_service.proto internal_api_service.proto
+```
+
+### Java/Kotlin
+
+```bash
+cd .gradle
+wget https://repo1.maven.org/maven2/io/grpc/protoc-gen-grpc-java/1.46.0/protoc-gen-grpc-java-1.46.0-osx-x86_64.exe
+chmod 777 protoc-gen-grpc-java-1.46.0-osx-x86_64.exe
+cd ..
+
+mkdir -p app/src/main/java/generated_grpc
+
+protoc --plugin=protoc-gen-grpc-java=.gradle/protoc-gen-grpc-java-1.46.0-osx-x86_64.exe \
+--java_out=app/src/main/java --grpc-java_out=app/src/main/java \
+--proto_path=../party_protocols/protocols free_map_service.proto
 ```
 
 ## Run the service

@@ -3,6 +3,9 @@ package free_map_service;
 
 option go_package = "./free_map_service";
 
+option java_package = "generated_grpc.free_map_service_grpc";
+option java_outer_classname = "free_map_service_grpc_types";
+
 service FreeMapService {
     rpc SearchPlaces(SearchPlacesRequest) returns (SearchPlacesResponse);
 
