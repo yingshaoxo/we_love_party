@@ -26,7 +26,7 @@ dependencies {
     // Use JUnit Jupiter for testing.
     testImplementation("org.junit.jupiter:junit-jupiter:5.7.2")
 
-    // This dependency is used by the application.
+    // grpc
     implementation("com.google.guava:guava:30.1.1-jre")
     implementation("io.grpc:grpc-netty:1.46.0")
     implementation("io.grpc:grpc-stub:1.46.0")
@@ -34,6 +34,9 @@ dependencies {
     implementation("io.grpc:grpc-protobuf:1.39.0")
     implementation("com.google.protobuf:protobuf-kotlin:3.20.3")
     implementation("com.google.protobuf:protobuf-java:3.20.3")
+
+    // database
+    implementation("org.postgresql:postgresql:42.5.2")
 }
 
 application {

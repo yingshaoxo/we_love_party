@@ -1,7 +1,6 @@
 package kotlin_free_map_backend_system;
 
 import io.grpc.ServerBuilder
-import kotlin_free_map_backend_system.KotlinApp
 
 class KotlinApp {
     public fun getGreeting(): String {
@@ -10,9 +9,16 @@ class KotlinApp {
 
     companion object {
         @JvmStatic
+        fun init() {
+            Configs.init()
+        }
+
+        @JvmStatic
         fun main(args: Array<String>) {
             var value = KotlinApp().getGreeting()
             println(value)
+
+            init()
 
             val port = 40055
 

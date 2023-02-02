@@ -3,12 +3,22 @@
  */
 package java_free_map_backend_system;
 
+import kotlin_free_map_backend_system.FreeMapDatabaseHandler;
+import kotlin_free_map_backend_system.KotlinApp;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
-    @Test void appHasAGreeting() {
-        // App classUnderTest = new App();
-        // assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
+    @Test
+    void appHasAGreeting() {
+//        KotlinApp classUnderTest = new KotlinApp();
+//        assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
+
+//        String empty_list[] = new String[0];
+//        KotlinApp.main(empty_list);
+
+        KotlinApp.init();
+        FreeMapDatabaseHandler freeMapDatabaseHandler = new FreeMapDatabaseHandler();
     }
 }

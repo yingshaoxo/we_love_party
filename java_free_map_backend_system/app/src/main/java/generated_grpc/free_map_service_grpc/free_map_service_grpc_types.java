@@ -795,73 +795,96 @@ public final class free_map_service_grpc_types {
     int getLocationId();
 
     /**
-     * <code>double name = 2;</code>
-     * @return The name.
+     * <code>optional string uploader_username = 2;</code>
+     * @return Whether the uploaderUsername field is set.
      */
-    double getName();
+    boolean hasUploaderUsername();
+    /**
+     * <code>optional string uploader_username = 2;</code>
+     * @return The uploaderUsername.
+     */
+    java.lang.String getUploaderUsername();
+    /**
+     * <code>optional string uploader_username = 2;</code>
+     * @return The bytes for uploaderUsername.
+     */
+    com.google.protobuf.ByteString
+        getUploaderUsernameBytes();
 
     /**
-     * <code>double y_latitude = 3;</code>
+     * <code>string name = 3;</code>
+     * @return The name.
+     */
+    java.lang.String getName();
+    /**
+     * <code>string name = 3;</code>
+     * @return The bytes for name.
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
+    /**
+     * <code>double y_latitude = 4;</code>
      * @return The yLatitude.
      */
     double getYLatitude();
 
     /**
-     * <code>double x_longitude = 4;</code>
+     * <code>double x_longitude = 5;</code>
      * @return The xLongitude.
      */
     double getXLongitude();
 
     /**
-     * <code>double scores = 5;</code>
+     * <code>double scores = 6;</code>
      * @return The scores.
      */
     double getScores();
 
     /**
-     * <code>bool open_all_day = 6;</code>
+     * <code>bool open_all_day = 7;</code>
      * @return The openAllDay.
      */
     boolean getOpenAllDay();
 
     /**
-     * <code>bool has_charger = 7;</code>
+     * <code>bool has_charger = 8;</code>
      * @return The hasCharger.
      */
     boolean getHasCharger();
 
     /**
-     * <code>bool has_wifi = 8;</code>
+     * <code>bool has_wifi = 9;</code>
      * @return The hasWifi.
      */
     boolean getHasWifi();
 
     /**
-     * <code>bool has_water = 9;</code>
+     * <code>bool has_water = 10;</code>
      * @return The hasWater.
      */
     boolean getHasWater();
 
     /**
-     * <code>bool has_hot_water = 10;</code>
+     * <code>bool has_hot_water = 11;</code>
      * @return The hasHotWater.
      */
     boolean getHasHotWater();
 
     /**
-     * <code>bool has_desk = 11;</code>
+     * <code>bool has_desk = 12;</code>
      * @return The hasDesk.
      */
     boolean getHasDesk();
 
     /**
-     * <code>bool has_chair = 12;</code>
+     * <code>bool has_chair = 13;</code>
      * @return The hasChair.
      */
     boolean getHasChair();
 
     /**
-     * <code>bool has_toilet = 13;</code>
+     * <code>bool has_toilet = 14;</code>
      * @return The hasToilet.
      */
     boolean getHasToilet();
@@ -871,40 +894,45 @@ public final class free_map_service_grpc_types {
      * must make sure there can take showering
      * </pre>
      *
-     * <code>bool has_showering = 14;</code>
+     * <code>bool has_showering = 15;</code>
      * @return The hasShowering.
      */
     boolean getHasShowering();
 
     /**
-     * <code>bool has_package_receiving_station = 15;</code>
+     * <code>bool has_package_receiving_station = 16;</code>
      * @return The hasPackageReceivingStation.
      */
     boolean getHasPackageReceivingStation();
 
     /**
-     * <code>bool has_kfc = 16;</code>
+     * <code>bool has_kfc = 17;</code>
      * @return The hasKfc.
      */
     boolean getHasKfc();
 
     /**
-     * <code>bool has_mcdonald = 17;</code>
+     * <code>bool has_mcdonald = 18;</code>
      * @return The hasMcdonald.
      */
     boolean getHasMcdonald();
 
     /**
      * <pre>
-     * string open_and_close_time = 19;
+     * string open_and_close_time = 20;
      * </pre>
      *
-     * <code>bool has_store = 18;</code>
+     * <code>bool has_store = 19;</code>
      * @return The hasStore.
      */
     boolean getHasStore();
   }
   /**
+   * <pre>
+   * we'll use this table to create two tables, one is global average data, for example, average scores for each location distinguished by location_id. this table won't include the 'uploader_username'
+   * another is a big table that contains all those data uploaded by users, we'll use this table to generate the first table
+   * </pre>
+   *
    * Protobuf type {@code free_map_service.LocationOfFreeMap}
    */
   public static final class LocationOfFreeMap extends
@@ -917,6 +945,8 @@ public final class free_map_service_grpc_types {
       super(builder);
     }
     private LocationOfFreeMap() {
+      uploaderUsername_ = "";
+      name_ = "";
     }
 
     @java.lang.Override
@@ -964,21 +994,94 @@ public final class free_map_service_grpc_types {
       return locationId_;
     }
 
-    public static final int NAME_FIELD_NUMBER = 2;
-    private double name_;
+    public static final int UPLOADER_USERNAME_FIELD_NUMBER = 2;
+    private volatile java.lang.Object uploaderUsername_;
     /**
-     * <code>double name = 2;</code>
+     * <code>optional string uploader_username = 2;</code>
+     * @return Whether the uploaderUsername field is set.
+     */
+    @java.lang.Override
+    public boolean hasUploaderUsername() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <code>optional string uploader_username = 2;</code>
+     * @return The uploaderUsername.
+     */
+    @java.lang.Override
+    public java.lang.String getUploaderUsername() {
+      java.lang.Object ref = uploaderUsername_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        uploaderUsername_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string uploader_username = 2;</code>
+     * @return The bytes for uploaderUsername.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getUploaderUsernameBytes() {
+      java.lang.Object ref = uploaderUsername_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        uploaderUsername_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int NAME_FIELD_NUMBER = 3;
+    private volatile java.lang.Object name_;
+    /**
+     * <code>string name = 3;</code>
      * @return The name.
      */
     @java.lang.Override
-    public double getName() {
-      return name_;
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        name_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string name = 3;</code>
+     * @return The bytes for name.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
-    public static final int Y_LATITUDE_FIELD_NUMBER = 3;
+    public static final int Y_LATITUDE_FIELD_NUMBER = 4;
     private double yLatitude_;
     /**
-     * <code>double y_latitude = 3;</code>
+     * <code>double y_latitude = 4;</code>
      * @return The yLatitude.
      */
     @java.lang.Override
@@ -986,10 +1089,10 @@ public final class free_map_service_grpc_types {
       return yLatitude_;
     }
 
-    public static final int X_LONGITUDE_FIELD_NUMBER = 4;
+    public static final int X_LONGITUDE_FIELD_NUMBER = 5;
     private double xLongitude_;
     /**
-     * <code>double x_longitude = 4;</code>
+     * <code>double x_longitude = 5;</code>
      * @return The xLongitude.
      */
     @java.lang.Override
@@ -997,10 +1100,10 @@ public final class free_map_service_grpc_types {
       return xLongitude_;
     }
 
-    public static final int SCORES_FIELD_NUMBER = 5;
+    public static final int SCORES_FIELD_NUMBER = 6;
     private double scores_;
     /**
-     * <code>double scores = 5;</code>
+     * <code>double scores = 6;</code>
      * @return The scores.
      */
     @java.lang.Override
@@ -1008,10 +1111,10 @@ public final class free_map_service_grpc_types {
       return scores_;
     }
 
-    public static final int OPEN_ALL_DAY_FIELD_NUMBER = 6;
+    public static final int OPEN_ALL_DAY_FIELD_NUMBER = 7;
     private boolean openAllDay_;
     /**
-     * <code>bool open_all_day = 6;</code>
+     * <code>bool open_all_day = 7;</code>
      * @return The openAllDay.
      */
     @java.lang.Override
@@ -1019,10 +1122,10 @@ public final class free_map_service_grpc_types {
       return openAllDay_;
     }
 
-    public static final int HAS_CHARGER_FIELD_NUMBER = 7;
+    public static final int HAS_CHARGER_FIELD_NUMBER = 8;
     private boolean hasCharger_;
     /**
-     * <code>bool has_charger = 7;</code>
+     * <code>bool has_charger = 8;</code>
      * @return The hasCharger.
      */
     @java.lang.Override
@@ -1030,10 +1133,10 @@ public final class free_map_service_grpc_types {
       return hasCharger_;
     }
 
-    public static final int HAS_WIFI_FIELD_NUMBER = 8;
+    public static final int HAS_WIFI_FIELD_NUMBER = 9;
     private boolean hasWifi_;
     /**
-     * <code>bool has_wifi = 8;</code>
+     * <code>bool has_wifi = 9;</code>
      * @return The hasWifi.
      */
     @java.lang.Override
@@ -1041,10 +1144,10 @@ public final class free_map_service_grpc_types {
       return hasWifi_;
     }
 
-    public static final int HAS_WATER_FIELD_NUMBER = 9;
+    public static final int HAS_WATER_FIELD_NUMBER = 10;
     private boolean hasWater_;
     /**
-     * <code>bool has_water = 9;</code>
+     * <code>bool has_water = 10;</code>
      * @return The hasWater.
      */
     @java.lang.Override
@@ -1052,10 +1155,10 @@ public final class free_map_service_grpc_types {
       return hasWater_;
     }
 
-    public static final int HAS_HOT_WATER_FIELD_NUMBER = 10;
+    public static final int HAS_HOT_WATER_FIELD_NUMBER = 11;
     private boolean hasHotWater_;
     /**
-     * <code>bool has_hot_water = 10;</code>
+     * <code>bool has_hot_water = 11;</code>
      * @return The hasHotWater.
      */
     @java.lang.Override
@@ -1063,10 +1166,10 @@ public final class free_map_service_grpc_types {
       return hasHotWater_;
     }
 
-    public static final int HAS_DESK_FIELD_NUMBER = 11;
+    public static final int HAS_DESK_FIELD_NUMBER = 12;
     private boolean hasDesk_;
     /**
-     * <code>bool has_desk = 11;</code>
+     * <code>bool has_desk = 12;</code>
      * @return The hasDesk.
      */
     @java.lang.Override
@@ -1074,10 +1177,10 @@ public final class free_map_service_grpc_types {
       return hasDesk_;
     }
 
-    public static final int HAS_CHAIR_FIELD_NUMBER = 12;
+    public static final int HAS_CHAIR_FIELD_NUMBER = 13;
     private boolean hasChair_;
     /**
-     * <code>bool has_chair = 12;</code>
+     * <code>bool has_chair = 13;</code>
      * @return The hasChair.
      */
     @java.lang.Override
@@ -1085,10 +1188,10 @@ public final class free_map_service_grpc_types {
       return hasChair_;
     }
 
-    public static final int HAS_TOILET_FIELD_NUMBER = 13;
+    public static final int HAS_TOILET_FIELD_NUMBER = 14;
     private boolean hasToilet_;
     /**
-     * <code>bool has_toilet = 13;</code>
+     * <code>bool has_toilet = 14;</code>
      * @return The hasToilet.
      */
     @java.lang.Override
@@ -1096,14 +1199,14 @@ public final class free_map_service_grpc_types {
       return hasToilet_;
     }
 
-    public static final int HAS_SHOWERING_FIELD_NUMBER = 14;
+    public static final int HAS_SHOWERING_FIELD_NUMBER = 15;
     private boolean hasShowering_;
     /**
      * <pre>
      * must make sure there can take showering
      * </pre>
      *
-     * <code>bool has_showering = 14;</code>
+     * <code>bool has_showering = 15;</code>
      * @return The hasShowering.
      */
     @java.lang.Override
@@ -1111,10 +1214,10 @@ public final class free_map_service_grpc_types {
       return hasShowering_;
     }
 
-    public static final int HAS_PACKAGE_RECEIVING_STATION_FIELD_NUMBER = 15;
+    public static final int HAS_PACKAGE_RECEIVING_STATION_FIELD_NUMBER = 16;
     private boolean hasPackageReceivingStation_;
     /**
-     * <code>bool has_package_receiving_station = 15;</code>
+     * <code>bool has_package_receiving_station = 16;</code>
      * @return The hasPackageReceivingStation.
      */
     @java.lang.Override
@@ -1122,10 +1225,10 @@ public final class free_map_service_grpc_types {
       return hasPackageReceivingStation_;
     }
 
-    public static final int HAS_KFC_FIELD_NUMBER = 16;
+    public static final int HAS_KFC_FIELD_NUMBER = 17;
     private boolean hasKfc_;
     /**
-     * <code>bool has_kfc = 16;</code>
+     * <code>bool has_kfc = 17;</code>
      * @return The hasKfc.
      */
     @java.lang.Override
@@ -1133,10 +1236,10 @@ public final class free_map_service_grpc_types {
       return hasKfc_;
     }
 
-    public static final int HAS_MCDONALD_FIELD_NUMBER = 17;
+    public static final int HAS_MCDONALD_FIELD_NUMBER = 18;
     private boolean hasMcdonald_;
     /**
-     * <code>bool has_mcdonald = 17;</code>
+     * <code>bool has_mcdonald = 18;</code>
      * @return The hasMcdonald.
      */
     @java.lang.Override
@@ -1144,14 +1247,14 @@ public final class free_map_service_grpc_types {
       return hasMcdonald_;
     }
 
-    public static final int HAS_STORE_FIELD_NUMBER = 18;
+    public static final int HAS_STORE_FIELD_NUMBER = 19;
     private boolean hasStore_;
     /**
      * <pre>
-     * string open_and_close_time = 19;
+     * string open_and_close_time = 20;
      * </pre>
      *
-     * <code>bool has_store = 18;</code>
+     * <code>bool has_store = 19;</code>
      * @return The hasStore.
      */
     @java.lang.Override
@@ -1176,56 +1279,59 @@ public final class free_map_service_grpc_types {
       if (((bitField0_ & 0x00000001) != 0)) {
         output.writeInt32(1, locationId_);
       }
-      if (java.lang.Double.doubleToRawLongBits(name_) != 0) {
-        output.writeDouble(2, name_);
+      if (((bitField0_ & 0x00000002) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, uploaderUsername_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, name_);
       }
       if (java.lang.Double.doubleToRawLongBits(yLatitude_) != 0) {
-        output.writeDouble(3, yLatitude_);
+        output.writeDouble(4, yLatitude_);
       }
       if (java.lang.Double.doubleToRawLongBits(xLongitude_) != 0) {
-        output.writeDouble(4, xLongitude_);
+        output.writeDouble(5, xLongitude_);
       }
       if (java.lang.Double.doubleToRawLongBits(scores_) != 0) {
-        output.writeDouble(5, scores_);
+        output.writeDouble(6, scores_);
       }
       if (openAllDay_ != false) {
-        output.writeBool(6, openAllDay_);
+        output.writeBool(7, openAllDay_);
       }
       if (hasCharger_ != false) {
-        output.writeBool(7, hasCharger_);
+        output.writeBool(8, hasCharger_);
       }
       if (hasWifi_ != false) {
-        output.writeBool(8, hasWifi_);
+        output.writeBool(9, hasWifi_);
       }
       if (hasWater_ != false) {
-        output.writeBool(9, hasWater_);
+        output.writeBool(10, hasWater_);
       }
       if (hasHotWater_ != false) {
-        output.writeBool(10, hasHotWater_);
+        output.writeBool(11, hasHotWater_);
       }
       if (hasDesk_ != false) {
-        output.writeBool(11, hasDesk_);
+        output.writeBool(12, hasDesk_);
       }
       if (hasChair_ != false) {
-        output.writeBool(12, hasChair_);
+        output.writeBool(13, hasChair_);
       }
       if (hasToilet_ != false) {
-        output.writeBool(13, hasToilet_);
+        output.writeBool(14, hasToilet_);
       }
       if (hasShowering_ != false) {
-        output.writeBool(14, hasShowering_);
+        output.writeBool(15, hasShowering_);
       }
       if (hasPackageReceivingStation_ != false) {
-        output.writeBool(15, hasPackageReceivingStation_);
+        output.writeBool(16, hasPackageReceivingStation_);
       }
       if (hasKfc_ != false) {
-        output.writeBool(16, hasKfc_);
+        output.writeBool(17, hasKfc_);
       }
       if (hasMcdonald_ != false) {
-        output.writeBool(17, hasMcdonald_);
+        output.writeBool(18, hasMcdonald_);
       }
       if (hasStore_ != false) {
-        output.writeBool(18, hasStore_);
+        output.writeBool(19, hasStore_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -1240,73 +1346,75 @@ public final class free_map_service_grpc_types {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(1, locationId_);
       }
-      if (java.lang.Double.doubleToRawLongBits(name_) != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(2, name_);
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, uploaderUsername_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, name_);
       }
       if (java.lang.Double.doubleToRawLongBits(yLatitude_) != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(3, yLatitude_);
+          .computeDoubleSize(4, yLatitude_);
       }
       if (java.lang.Double.doubleToRawLongBits(xLongitude_) != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(4, xLongitude_);
+          .computeDoubleSize(5, xLongitude_);
       }
       if (java.lang.Double.doubleToRawLongBits(scores_) != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(5, scores_);
+          .computeDoubleSize(6, scores_);
       }
       if (openAllDay_ != false) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(6, openAllDay_);
+          .computeBoolSize(7, openAllDay_);
       }
       if (hasCharger_ != false) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(7, hasCharger_);
+          .computeBoolSize(8, hasCharger_);
       }
       if (hasWifi_ != false) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(8, hasWifi_);
+          .computeBoolSize(9, hasWifi_);
       }
       if (hasWater_ != false) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(9, hasWater_);
+          .computeBoolSize(10, hasWater_);
       }
       if (hasHotWater_ != false) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(10, hasHotWater_);
+          .computeBoolSize(11, hasHotWater_);
       }
       if (hasDesk_ != false) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(11, hasDesk_);
+          .computeBoolSize(12, hasDesk_);
       }
       if (hasChair_ != false) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(12, hasChair_);
+          .computeBoolSize(13, hasChair_);
       }
       if (hasToilet_ != false) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(13, hasToilet_);
+          .computeBoolSize(14, hasToilet_);
       }
       if (hasShowering_ != false) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(14, hasShowering_);
+          .computeBoolSize(15, hasShowering_);
       }
       if (hasPackageReceivingStation_ != false) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(15, hasPackageReceivingStation_);
+          .computeBoolSize(16, hasPackageReceivingStation_);
       }
       if (hasKfc_ != false) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(16, hasKfc_);
+          .computeBoolSize(17, hasKfc_);
       }
       if (hasMcdonald_ != false) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(17, hasMcdonald_);
+          .computeBoolSize(18, hasMcdonald_);
       }
       if (hasStore_ != false) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(18, hasStore_);
+          .computeBoolSize(19, hasStore_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -1328,9 +1436,13 @@ public final class free_map_service_grpc_types {
         if (getLocationId()
             != other.getLocationId()) return false;
       }
-      if (java.lang.Double.doubleToLongBits(getName())
-          != java.lang.Double.doubleToLongBits(
-              other.getName())) return false;
+      if (hasUploaderUsername() != other.hasUploaderUsername()) return false;
+      if (hasUploaderUsername()) {
+        if (!getUploaderUsername()
+            .equals(other.getUploaderUsername())) return false;
+      }
+      if (!getName()
+          .equals(other.getName())) return false;
       if (java.lang.Double.doubleToLongBits(getYLatitude())
           != java.lang.Double.doubleToLongBits(
               other.getYLatitude())) return false;
@@ -1381,9 +1493,12 @@ public final class free_map_service_grpc_types {
         hash = (37 * hash) + LOCATION_ID_FIELD_NUMBER;
         hash = (53 * hash) + getLocationId();
       }
+      if (hasUploaderUsername()) {
+        hash = (37 * hash) + UPLOADER_USERNAME_FIELD_NUMBER;
+        hash = (53 * hash) + getUploaderUsername().hashCode();
+      }
       hash = (37 * hash) + NAME_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          java.lang.Double.doubleToLongBits(getName()));
+      hash = (53 * hash) + getName().hashCode();
       hash = (37 * hash) + Y_LATITUDE_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           java.lang.Double.doubleToLongBits(getYLatitude()));
@@ -1528,6 +1643,11 @@ public final class free_map_service_grpc_types {
       return builder;
     }
     /**
+     * <pre>
+     * we'll use this table to create two tables, one is global average data, for example, average scores for each location distinguished by location_id. this table won't include the 'uploader_username'
+     * another is a big table that contains all those data uploaded by users, we'll use this table to generate the first table
+     * </pre>
+     *
      * Protobuf type {@code free_map_service.LocationOfFreeMap}
      */
     public static final class Builder extends
@@ -1562,7 +1682,9 @@ public final class free_map_service_grpc_types {
         super.clear();
         locationId_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
-        name_ = 0D;
+        uploaderUsername_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        name_ = "";
 
         yLatitude_ = 0D;
 
@@ -1628,6 +1750,10 @@ public final class free_map_service_grpc_types {
           result.locationId_ = locationId_;
           to_bitField0_ |= 0x00000001;
         }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.uploaderUsername_ = uploaderUsername_;
         result.name_ = name_;
         result.yLatitude_ = yLatitude_;
         result.xLongitude_ = xLongitude_;
@@ -1697,8 +1823,14 @@ public final class free_map_service_grpc_types {
         if (other.hasLocationId()) {
           setLocationId(other.getLocationId());
         }
-        if (other.getName() != 0D) {
-          setName(other.getName());
+        if (other.hasUploaderUsername()) {
+          bitField0_ |= 0x00000002;
+          uploaderUsername_ = other.uploaderUsername_;
+          onChanged();
+        }
+        if (!other.getName().isEmpty()) {
+          name_ = other.name_;
+          onChanged();
         }
         if (other.getYLatitude() != 0D) {
           setYLatitude(other.getYLatitude());
@@ -1779,91 +1911,96 @@ public final class free_map_service_grpc_types {
                 bitField0_ |= 0x00000001;
                 break;
               } // case 8
-              case 17: {
-                name_ = input.readDouble();
+              case 18: {
+                uploaderUsername_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 18
+              case 26: {
+                name_ = input.readStringRequireUtf8();
 
                 break;
-              } // case 17
-              case 25: {
-                yLatitude_ = input.readDouble();
-
-                break;
-              } // case 25
+              } // case 26
               case 33: {
-                xLongitude_ = input.readDouble();
+                yLatitude_ = input.readDouble();
 
                 break;
               } // case 33
               case 41: {
-                scores_ = input.readDouble();
+                xLongitude_ = input.readDouble();
 
                 break;
               } // case 41
-              case 48: {
-                openAllDay_ = input.readBool();
+              case 49: {
+                scores_ = input.readDouble();
 
                 break;
-              } // case 48
+              } // case 49
               case 56: {
-                hasCharger_ = input.readBool();
+                openAllDay_ = input.readBool();
 
                 break;
               } // case 56
               case 64: {
-                hasWifi_ = input.readBool();
+                hasCharger_ = input.readBool();
 
                 break;
               } // case 64
               case 72: {
-                hasWater_ = input.readBool();
+                hasWifi_ = input.readBool();
 
                 break;
               } // case 72
               case 80: {
-                hasHotWater_ = input.readBool();
+                hasWater_ = input.readBool();
 
                 break;
               } // case 80
               case 88: {
-                hasDesk_ = input.readBool();
+                hasHotWater_ = input.readBool();
 
                 break;
               } // case 88
               case 96: {
-                hasChair_ = input.readBool();
+                hasDesk_ = input.readBool();
 
                 break;
               } // case 96
               case 104: {
-                hasToilet_ = input.readBool();
+                hasChair_ = input.readBool();
 
                 break;
               } // case 104
               case 112: {
-                hasShowering_ = input.readBool();
+                hasToilet_ = input.readBool();
 
                 break;
               } // case 112
               case 120: {
-                hasPackageReceivingStation_ = input.readBool();
+                hasShowering_ = input.readBool();
 
                 break;
               } // case 120
               case 128: {
-                hasKfc_ = input.readBool();
+                hasPackageReceivingStation_ = input.readBool();
 
                 break;
               } // case 128
               case 136: {
-                hasMcdonald_ = input.readBool();
+                hasKfc_ = input.readBool();
 
                 break;
               } // case 136
               case 144: {
-                hasStore_ = input.readBool();
+                hasMcdonald_ = input.readBool();
 
                 break;
               } // case 144
+              case 152: {
+                hasStore_ = input.readBool();
+
+                break;
+              } // case 152
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -1920,40 +2057,168 @@ public final class free_map_service_grpc_types {
         return this;
       }
 
-      private double name_ ;
+      private java.lang.Object uploaderUsername_ = "";
       /**
-       * <code>double name = 2;</code>
-       * @return The name.
+       * <code>optional string uploader_username = 2;</code>
+       * @return Whether the uploaderUsername field is set.
        */
-      @java.lang.Override
-      public double getName() {
-        return name_;
+      public boolean hasUploaderUsername() {
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
-       * <code>double name = 2;</code>
+       * <code>optional string uploader_username = 2;</code>
+       * @return The uploaderUsername.
+       */
+      public java.lang.String getUploaderUsername() {
+        java.lang.Object ref = uploaderUsername_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          uploaderUsername_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string uploader_username = 2;</code>
+       * @return The bytes for uploaderUsername.
+       */
+      public com.google.protobuf.ByteString
+          getUploaderUsernameBytes() {
+        java.lang.Object ref = uploaderUsername_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          uploaderUsername_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string uploader_username = 2;</code>
+       * @param value The uploaderUsername to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUploaderUsername(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        uploaderUsername_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string uploader_username = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUploaderUsername() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        uploaderUsername_ = getDefaultInstance().getUploaderUsername();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string uploader_username = 2;</code>
+       * @param value The bytes for uploaderUsername to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUploaderUsernameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        bitField0_ |= 0x00000002;
+        uploaderUsername_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object name_ = "";
+      /**
+       * <code>string name = 3;</code>
+       * @return The name.
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          name_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string name = 3;</code>
+       * @return The bytes for name.
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string name = 3;</code>
        * @param value The name to set.
        * @return This builder for chaining.
        */
-      public Builder setName(double value) {
-        
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
         name_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>double name = 2;</code>
+       * <code>string name = 3;</code>
        * @return This builder for chaining.
        */
       public Builder clearName() {
         
-        name_ = 0D;
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string name = 3;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        name_ = value;
         onChanged();
         return this;
       }
 
       private double yLatitude_ ;
       /**
-       * <code>double y_latitude = 3;</code>
+       * <code>double y_latitude = 4;</code>
        * @return The yLatitude.
        */
       @java.lang.Override
@@ -1961,7 +2226,7 @@ public final class free_map_service_grpc_types {
         return yLatitude_;
       }
       /**
-       * <code>double y_latitude = 3;</code>
+       * <code>double y_latitude = 4;</code>
        * @param value The yLatitude to set.
        * @return This builder for chaining.
        */
@@ -1972,7 +2237,7 @@ public final class free_map_service_grpc_types {
         return this;
       }
       /**
-       * <code>double y_latitude = 3;</code>
+       * <code>double y_latitude = 4;</code>
        * @return This builder for chaining.
        */
       public Builder clearYLatitude() {
@@ -1984,7 +2249,7 @@ public final class free_map_service_grpc_types {
 
       private double xLongitude_ ;
       /**
-       * <code>double x_longitude = 4;</code>
+       * <code>double x_longitude = 5;</code>
        * @return The xLongitude.
        */
       @java.lang.Override
@@ -1992,7 +2257,7 @@ public final class free_map_service_grpc_types {
         return xLongitude_;
       }
       /**
-       * <code>double x_longitude = 4;</code>
+       * <code>double x_longitude = 5;</code>
        * @param value The xLongitude to set.
        * @return This builder for chaining.
        */
@@ -2003,7 +2268,7 @@ public final class free_map_service_grpc_types {
         return this;
       }
       /**
-       * <code>double x_longitude = 4;</code>
+       * <code>double x_longitude = 5;</code>
        * @return This builder for chaining.
        */
       public Builder clearXLongitude() {
@@ -2015,7 +2280,7 @@ public final class free_map_service_grpc_types {
 
       private double scores_ ;
       /**
-       * <code>double scores = 5;</code>
+       * <code>double scores = 6;</code>
        * @return The scores.
        */
       @java.lang.Override
@@ -2023,7 +2288,7 @@ public final class free_map_service_grpc_types {
         return scores_;
       }
       /**
-       * <code>double scores = 5;</code>
+       * <code>double scores = 6;</code>
        * @param value The scores to set.
        * @return This builder for chaining.
        */
@@ -2034,7 +2299,7 @@ public final class free_map_service_grpc_types {
         return this;
       }
       /**
-       * <code>double scores = 5;</code>
+       * <code>double scores = 6;</code>
        * @return This builder for chaining.
        */
       public Builder clearScores() {
@@ -2046,7 +2311,7 @@ public final class free_map_service_grpc_types {
 
       private boolean openAllDay_ ;
       /**
-       * <code>bool open_all_day = 6;</code>
+       * <code>bool open_all_day = 7;</code>
        * @return The openAllDay.
        */
       @java.lang.Override
@@ -2054,7 +2319,7 @@ public final class free_map_service_grpc_types {
         return openAllDay_;
       }
       /**
-       * <code>bool open_all_day = 6;</code>
+       * <code>bool open_all_day = 7;</code>
        * @param value The openAllDay to set.
        * @return This builder for chaining.
        */
@@ -2065,7 +2330,7 @@ public final class free_map_service_grpc_types {
         return this;
       }
       /**
-       * <code>bool open_all_day = 6;</code>
+       * <code>bool open_all_day = 7;</code>
        * @return This builder for chaining.
        */
       public Builder clearOpenAllDay() {
@@ -2077,7 +2342,7 @@ public final class free_map_service_grpc_types {
 
       private boolean hasCharger_ ;
       /**
-       * <code>bool has_charger = 7;</code>
+       * <code>bool has_charger = 8;</code>
        * @return The hasCharger.
        */
       @java.lang.Override
@@ -2085,7 +2350,7 @@ public final class free_map_service_grpc_types {
         return hasCharger_;
       }
       /**
-       * <code>bool has_charger = 7;</code>
+       * <code>bool has_charger = 8;</code>
        * @param value The hasCharger to set.
        * @return This builder for chaining.
        */
@@ -2096,7 +2361,7 @@ public final class free_map_service_grpc_types {
         return this;
       }
       /**
-       * <code>bool has_charger = 7;</code>
+       * <code>bool has_charger = 8;</code>
        * @return This builder for chaining.
        */
       public Builder clearHasCharger() {
@@ -2108,7 +2373,7 @@ public final class free_map_service_grpc_types {
 
       private boolean hasWifi_ ;
       /**
-       * <code>bool has_wifi = 8;</code>
+       * <code>bool has_wifi = 9;</code>
        * @return The hasWifi.
        */
       @java.lang.Override
@@ -2116,7 +2381,7 @@ public final class free_map_service_grpc_types {
         return hasWifi_;
       }
       /**
-       * <code>bool has_wifi = 8;</code>
+       * <code>bool has_wifi = 9;</code>
        * @param value The hasWifi to set.
        * @return This builder for chaining.
        */
@@ -2127,7 +2392,7 @@ public final class free_map_service_grpc_types {
         return this;
       }
       /**
-       * <code>bool has_wifi = 8;</code>
+       * <code>bool has_wifi = 9;</code>
        * @return This builder for chaining.
        */
       public Builder clearHasWifi() {
@@ -2139,7 +2404,7 @@ public final class free_map_service_grpc_types {
 
       private boolean hasWater_ ;
       /**
-       * <code>bool has_water = 9;</code>
+       * <code>bool has_water = 10;</code>
        * @return The hasWater.
        */
       @java.lang.Override
@@ -2147,7 +2412,7 @@ public final class free_map_service_grpc_types {
         return hasWater_;
       }
       /**
-       * <code>bool has_water = 9;</code>
+       * <code>bool has_water = 10;</code>
        * @param value The hasWater to set.
        * @return This builder for chaining.
        */
@@ -2158,7 +2423,7 @@ public final class free_map_service_grpc_types {
         return this;
       }
       /**
-       * <code>bool has_water = 9;</code>
+       * <code>bool has_water = 10;</code>
        * @return This builder for chaining.
        */
       public Builder clearHasWater() {
@@ -2170,7 +2435,7 @@ public final class free_map_service_grpc_types {
 
       private boolean hasHotWater_ ;
       /**
-       * <code>bool has_hot_water = 10;</code>
+       * <code>bool has_hot_water = 11;</code>
        * @return The hasHotWater.
        */
       @java.lang.Override
@@ -2178,7 +2443,7 @@ public final class free_map_service_grpc_types {
         return hasHotWater_;
       }
       /**
-       * <code>bool has_hot_water = 10;</code>
+       * <code>bool has_hot_water = 11;</code>
        * @param value The hasHotWater to set.
        * @return This builder for chaining.
        */
@@ -2189,7 +2454,7 @@ public final class free_map_service_grpc_types {
         return this;
       }
       /**
-       * <code>bool has_hot_water = 10;</code>
+       * <code>bool has_hot_water = 11;</code>
        * @return This builder for chaining.
        */
       public Builder clearHasHotWater() {
@@ -2201,7 +2466,7 @@ public final class free_map_service_grpc_types {
 
       private boolean hasDesk_ ;
       /**
-       * <code>bool has_desk = 11;</code>
+       * <code>bool has_desk = 12;</code>
        * @return The hasDesk.
        */
       @java.lang.Override
@@ -2209,7 +2474,7 @@ public final class free_map_service_grpc_types {
         return hasDesk_;
       }
       /**
-       * <code>bool has_desk = 11;</code>
+       * <code>bool has_desk = 12;</code>
        * @param value The hasDesk to set.
        * @return This builder for chaining.
        */
@@ -2220,7 +2485,7 @@ public final class free_map_service_grpc_types {
         return this;
       }
       /**
-       * <code>bool has_desk = 11;</code>
+       * <code>bool has_desk = 12;</code>
        * @return This builder for chaining.
        */
       public Builder clearHasDesk() {
@@ -2232,7 +2497,7 @@ public final class free_map_service_grpc_types {
 
       private boolean hasChair_ ;
       /**
-       * <code>bool has_chair = 12;</code>
+       * <code>bool has_chair = 13;</code>
        * @return The hasChair.
        */
       @java.lang.Override
@@ -2240,7 +2505,7 @@ public final class free_map_service_grpc_types {
         return hasChair_;
       }
       /**
-       * <code>bool has_chair = 12;</code>
+       * <code>bool has_chair = 13;</code>
        * @param value The hasChair to set.
        * @return This builder for chaining.
        */
@@ -2251,7 +2516,7 @@ public final class free_map_service_grpc_types {
         return this;
       }
       /**
-       * <code>bool has_chair = 12;</code>
+       * <code>bool has_chair = 13;</code>
        * @return This builder for chaining.
        */
       public Builder clearHasChair() {
@@ -2263,7 +2528,7 @@ public final class free_map_service_grpc_types {
 
       private boolean hasToilet_ ;
       /**
-       * <code>bool has_toilet = 13;</code>
+       * <code>bool has_toilet = 14;</code>
        * @return The hasToilet.
        */
       @java.lang.Override
@@ -2271,7 +2536,7 @@ public final class free_map_service_grpc_types {
         return hasToilet_;
       }
       /**
-       * <code>bool has_toilet = 13;</code>
+       * <code>bool has_toilet = 14;</code>
        * @param value The hasToilet to set.
        * @return This builder for chaining.
        */
@@ -2282,7 +2547,7 @@ public final class free_map_service_grpc_types {
         return this;
       }
       /**
-       * <code>bool has_toilet = 13;</code>
+       * <code>bool has_toilet = 14;</code>
        * @return This builder for chaining.
        */
       public Builder clearHasToilet() {
@@ -2298,7 +2563,7 @@ public final class free_map_service_grpc_types {
        * must make sure there can take showering
        * </pre>
        *
-       * <code>bool has_showering = 14;</code>
+       * <code>bool has_showering = 15;</code>
        * @return The hasShowering.
        */
       @java.lang.Override
@@ -2310,7 +2575,7 @@ public final class free_map_service_grpc_types {
        * must make sure there can take showering
        * </pre>
        *
-       * <code>bool has_showering = 14;</code>
+       * <code>bool has_showering = 15;</code>
        * @param value The hasShowering to set.
        * @return This builder for chaining.
        */
@@ -2325,7 +2590,7 @@ public final class free_map_service_grpc_types {
        * must make sure there can take showering
        * </pre>
        *
-       * <code>bool has_showering = 14;</code>
+       * <code>bool has_showering = 15;</code>
        * @return This builder for chaining.
        */
       public Builder clearHasShowering() {
@@ -2337,7 +2602,7 @@ public final class free_map_service_grpc_types {
 
       private boolean hasPackageReceivingStation_ ;
       /**
-       * <code>bool has_package_receiving_station = 15;</code>
+       * <code>bool has_package_receiving_station = 16;</code>
        * @return The hasPackageReceivingStation.
        */
       @java.lang.Override
@@ -2345,7 +2610,7 @@ public final class free_map_service_grpc_types {
         return hasPackageReceivingStation_;
       }
       /**
-       * <code>bool has_package_receiving_station = 15;</code>
+       * <code>bool has_package_receiving_station = 16;</code>
        * @param value The hasPackageReceivingStation to set.
        * @return This builder for chaining.
        */
@@ -2356,7 +2621,7 @@ public final class free_map_service_grpc_types {
         return this;
       }
       /**
-       * <code>bool has_package_receiving_station = 15;</code>
+       * <code>bool has_package_receiving_station = 16;</code>
        * @return This builder for chaining.
        */
       public Builder clearHasPackageReceivingStation() {
@@ -2368,7 +2633,7 @@ public final class free_map_service_grpc_types {
 
       private boolean hasKfc_ ;
       /**
-       * <code>bool has_kfc = 16;</code>
+       * <code>bool has_kfc = 17;</code>
        * @return The hasKfc.
        */
       @java.lang.Override
@@ -2376,7 +2641,7 @@ public final class free_map_service_grpc_types {
         return hasKfc_;
       }
       /**
-       * <code>bool has_kfc = 16;</code>
+       * <code>bool has_kfc = 17;</code>
        * @param value The hasKfc to set.
        * @return This builder for chaining.
        */
@@ -2387,7 +2652,7 @@ public final class free_map_service_grpc_types {
         return this;
       }
       /**
-       * <code>bool has_kfc = 16;</code>
+       * <code>bool has_kfc = 17;</code>
        * @return This builder for chaining.
        */
       public Builder clearHasKfc() {
@@ -2399,7 +2664,7 @@ public final class free_map_service_grpc_types {
 
       private boolean hasMcdonald_ ;
       /**
-       * <code>bool has_mcdonald = 17;</code>
+       * <code>bool has_mcdonald = 18;</code>
        * @return The hasMcdonald.
        */
       @java.lang.Override
@@ -2407,7 +2672,7 @@ public final class free_map_service_grpc_types {
         return hasMcdonald_;
       }
       /**
-       * <code>bool has_mcdonald = 17;</code>
+       * <code>bool has_mcdonald = 18;</code>
        * @param value The hasMcdonald to set.
        * @return This builder for chaining.
        */
@@ -2418,7 +2683,7 @@ public final class free_map_service_grpc_types {
         return this;
       }
       /**
-       * <code>bool has_mcdonald = 17;</code>
+       * <code>bool has_mcdonald = 18;</code>
        * @return This builder for chaining.
        */
       public Builder clearHasMcdonald() {
@@ -2431,10 +2696,10 @@ public final class free_map_service_grpc_types {
       private boolean hasStore_ ;
       /**
        * <pre>
-       * string open_and_close_time = 19;
+       * string open_and_close_time = 20;
        * </pre>
        *
-       * <code>bool has_store = 18;</code>
+       * <code>bool has_store = 19;</code>
        * @return The hasStore.
        */
       @java.lang.Override
@@ -2443,10 +2708,10 @@ public final class free_map_service_grpc_types {
       }
       /**
        * <pre>
-       * string open_and_close_time = 19;
+       * string open_and_close_time = 20;
        * </pre>
        *
-       * <code>bool has_store = 18;</code>
+       * <code>bool has_store = 19;</code>
        * @param value The hasStore to set.
        * @return This builder for chaining.
        */
@@ -2458,10 +2723,10 @@ public final class free_map_service_grpc_types {
       }
       /**
        * <pre>
-       * string open_and_close_time = 19;
+       * string open_and_close_time = 20;
        * </pre>
        *
-       * <code>bool has_store = 18;</code>
+       * <code>bool has_store = 19;</code>
        * @return This builder for chaining.
        */
       public Builder clearHasStore() {
@@ -5912,36 +6177,38 @@ public final class free_map_service_grpc_types {
       "\n\026free_map_service.proto\022\020free_map_servi" +
       "ce\"j\n\023SearchPlacesRequest\022\021\n\tkey_words\030\001" +
       " \001(\t\022\022\n\ny_latitude\030\002 \001(\001\022\023\n\013x_longitude\030" +
-      "\003 \001(\001\022\027\n\017radius_distance\030\004 \001(\001\"\234\003\n\021Locat" +
-      "ionOfFreeMap\022\030\n\013location_id\030\001 \001(\005H\000\210\001\001\022\014" +
-      "\n\004name\030\002 \001(\001\022\022\n\ny_latitude\030\003 \001(\001\022\023\n\013x_lo" +
-      "ngitude\030\004 \001(\001\022\016\n\006scores\030\005 \001(\001\022\024\n\014open_al" +
-      "l_day\030\006 \001(\010\022\023\n\013has_charger\030\007 \001(\010\022\020\n\010has_" +
-      "wifi\030\010 \001(\010\022\021\n\thas_water\030\t \001(\010\022\025\n\rhas_hot" +
-      "_water\030\n \001(\010\022\020\n\010has_desk\030\013 \001(\010\022\021\n\thas_ch" +
-      "air\030\014 \001(\010\022\022\n\nhas_toilet\030\r \001(\010\022\025\n\rhas_sho" +
-      "wering\030\016 \001(\010\022%\n\035has_package_receiving_st" +
-      "ation\030\017 \001(\010\022\017\n\007has_kfc\030\020 \001(\010\022\024\n\014has_mcdo" +
-      "nald\030\021 \001(\010\022\021\n\thas_store\030\022 \001(\010B\016\n\014_locati" +
-      "on_id\"w\n\024SearchPlacesResponse\022\022\n\005error\030\001" +
-      " \001(\tH\000\210\001\001\022A\n\024location_of_free_map\030\002 \003(\0132" +
-      "#.free_map_service.LocationOfFreeMapB\010\n\006" +
-      "_error\"T\n\017AddPlaceRequest\022A\n\024location_of" +
-      "_free_map\030\001 \001(\0132#.free_map_service.Locat" +
-      "ionOfFreeMap\"A\n\020AddPlaceResponse\022\022\n\005erro" +
-      "r\030\001 \001(\tH\000\210\001\001\022\017\n\007success\030\002 \001(\010B\010\n\006_error\"" +
-      "$\n\rDeleteRequest\022\023\n\013location_id\030\001 \001(\005\"?\n" +
-      "\016DeleteResponse\022\022\n\005error\030\001 \001(\tH\000\210\001\001\022\017\n\007s" +
-      "uccess\030\002 \001(\010B\010\n\006_error2\224\002\n\016FreeMapServic" +
-      "e\022]\n\014SearchPlaces\022%.free_map_service.Sea" +
-      "rchPlacesRequest\032&.free_map_service.Sear" +
-      "chPlacesResponse\022Q\n\010AddPlace\022!.free_map_" +
-      "service.AddPlaceRequest\032\".free_map_servi" +
-      "ce.AddPlaceResponse\022P\n\013DeletePlace\022\037.fre" +
-      "e_map_service.DeleteRequest\032 .free_map_s" +
-      "ervice.DeleteResponseBW\n$generated_grpc." +
-      "free_map_service_grpcB\033free_map_service_" +
-      "grpc_typesZ\022./free_map_serviceb\006proto3"
+      "\003 \001(\001\022\027\n\017radius_distance\030\004 \001(\001\"\322\003\n\021Locat" +
+      "ionOfFreeMap\022\030\n\013location_id\030\001 \001(\005H\000\210\001\001\022\036" +
+      "\n\021uploader_username\030\002 \001(\tH\001\210\001\001\022\014\n\004name\030\003" +
+      " \001(\t\022\022\n\ny_latitude\030\004 \001(\001\022\023\n\013x_longitude\030" +
+      "\005 \001(\001\022\016\n\006scores\030\006 \001(\001\022\024\n\014open_all_day\030\007 " +
+      "\001(\010\022\023\n\013has_charger\030\010 \001(\010\022\020\n\010has_wifi\030\t \001" +
+      "(\010\022\021\n\thas_water\030\n \001(\010\022\025\n\rhas_hot_water\030\013" +
+      " \001(\010\022\020\n\010has_desk\030\014 \001(\010\022\021\n\thas_chair\030\r \001(" +
+      "\010\022\022\n\nhas_toilet\030\016 \001(\010\022\025\n\rhas_showering\030\017" +
+      " \001(\010\022%\n\035has_package_receiving_station\030\020 " +
+      "\001(\010\022\017\n\007has_kfc\030\021 \001(\010\022\024\n\014has_mcdonald\030\022 \001" +
+      "(\010\022\021\n\thas_store\030\023 \001(\010B\016\n\014_location_idB\024\n" +
+      "\022_uploader_username\"w\n\024SearchPlacesRespo" +
+      "nse\022\022\n\005error\030\001 \001(\tH\000\210\001\001\022A\n\024location_of_f" +
+      "ree_map\030\002 \003(\0132#.free_map_service.Locatio" +
+      "nOfFreeMapB\010\n\006_error\"T\n\017AddPlaceRequest\022" +
+      "A\n\024location_of_free_map\030\001 \001(\0132#.free_map" +
+      "_service.LocationOfFreeMap\"A\n\020AddPlaceRe" +
+      "sponse\022\022\n\005error\030\001 \001(\tH\000\210\001\001\022\017\n\007success\030\002 " +
+      "\001(\010B\010\n\006_error\"$\n\rDeleteRequest\022\023\n\013locati" +
+      "on_id\030\001 \001(\005\"?\n\016DeleteResponse\022\022\n\005error\030\001" +
+      " \001(\tH\000\210\001\001\022\017\n\007success\030\002 \001(\010B\010\n\006_error2\224\002\n" +
+      "\016FreeMapService\022]\n\014SearchPlaces\022%.free_m" +
+      "ap_service.SearchPlacesRequest\032&.free_ma" +
+      "p_service.SearchPlacesResponse\022Q\n\010AddPla" +
+      "ce\022!.free_map_service.AddPlaceRequest\032\"." +
+      "free_map_service.AddPlaceResponse\022P\n\013Del" +
+      "etePlace\022\037.free_map_service.DeleteReques" +
+      "t\032 .free_map_service.DeleteResponseBW\n$g" +
+      "enerated_grpc.free_map_service_grpcB\033fre" +
+      "e_map_service_grpc_typesZ\022./free_map_ser" +
+      "viceb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -5958,7 +6225,7 @@ public final class free_map_service_grpc_types {
     internal_static_free_map_service_LocationOfFreeMap_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_free_map_service_LocationOfFreeMap_descriptor,
-        new java.lang.String[] { "LocationId", "Name", "YLatitude", "XLongitude", "Scores", "OpenAllDay", "HasCharger", "HasWifi", "HasWater", "HasHotWater", "HasDesk", "HasChair", "HasToilet", "HasShowering", "HasPackageReceivingStation", "HasKfc", "HasMcdonald", "HasStore", "LocationId", });
+        new java.lang.String[] { "LocationId", "UploaderUsername", "Name", "YLatitude", "XLongitude", "Scores", "OpenAllDay", "HasCharger", "HasWifi", "HasWater", "HasHotWater", "HasDesk", "HasChair", "HasToilet", "HasShowering", "HasPackageReceivingStation", "HasKfc", "HasMcdonald", "HasStore", "LocationId", "UploaderUsername", });
     internal_static_free_map_service_SearchPlacesResponse_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_free_map_service_SearchPlacesResponse_fieldAccessorTable = new

@@ -199,13 +199,13 @@ protoc \
 
 ```bash
 cd .gradle
-wget https://repo1.maven.org/maven2/io/grpc/protoc-gen-grpc-java/1.46.0/protoc-gen-grpc-java-1.46.0-osx-x86_64.exe
-chmod 777 protoc-gen-grpc-java-1.46.0-osx-x86_64.exe
+wget https://repo1.maven.org/maven2/io/grpc/protoc-gen-grpc-java/1.52.1/protoc-gen-grpc-java-1.52.1-osx-x86_64.exe
+chmod 777 protoc-gen-grpc-java-1.52.1-osx-x86_64.exe
 cd ..
 
 mkdir -p app/src/main/java/generated_grpc
 
-protoc --plugin=protoc-gen-grpc-java=.gradle/protoc-gen-grpc-java-1.46.0-osx-x86_64.exe \
+protoc --plugin=protoc-gen-grpc-java=.gradle/protoc-gen-grpc-java-1.52.1-osx-x86_64.exe \
 --java_out=app/src/main/java --grpc-java_out=app/src/main/java \
 --proto_path=../party_protocols/protocols free_map_service.proto
 ```
