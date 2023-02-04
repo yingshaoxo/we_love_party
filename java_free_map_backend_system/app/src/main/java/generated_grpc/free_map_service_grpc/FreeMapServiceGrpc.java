@@ -77,29 +77,60 @@ public final class FreeMapServiceGrpc {
     return getAddPlaceMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest,
-      generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse> getDeletePlaceMethod;
+  private static volatile io.grpc.MethodDescriptor<generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest,
+      generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse> getUpdatePlaceMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "UpdatePlace",
+      requestType = generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest.class,
+      responseType = generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest,
+      generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse> getUpdatePlaceMethod() {
+    io.grpc.MethodDescriptor<generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest, generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse> getUpdatePlaceMethod;
+    if ((getUpdatePlaceMethod = FreeMapServiceGrpc.getUpdatePlaceMethod) == null) {
+      synchronized (FreeMapServiceGrpc.class) {
+        if ((getUpdatePlaceMethod = FreeMapServiceGrpc.getUpdatePlaceMethod) == null) {
+          FreeMapServiceGrpc.getUpdatePlaceMethod = getUpdatePlaceMethod =
+              io.grpc.MethodDescriptor.<generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest, generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpdatePlace"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new FreeMapServiceMethodDescriptorSupplier("UpdatePlace"))
+              .build();
+        }
+      }
+    }
+    return getUpdatePlaceMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest,
+      generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse> getDeletePlaceMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "DeletePlace",
-      requestType = generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest.class,
-      responseType = generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse.class,
+      requestType = generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest.class,
+      responseType = generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest,
-      generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse> getDeletePlaceMethod() {
-    io.grpc.MethodDescriptor<generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest, generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse> getDeletePlaceMethod;
+  public static io.grpc.MethodDescriptor<generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest,
+      generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse> getDeletePlaceMethod() {
+    io.grpc.MethodDescriptor<generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest, generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse> getDeletePlaceMethod;
     if ((getDeletePlaceMethod = FreeMapServiceGrpc.getDeletePlaceMethod) == null) {
       synchronized (FreeMapServiceGrpc.class) {
         if ((getDeletePlaceMethod = FreeMapServiceGrpc.getDeletePlaceMethod) == null) {
           FreeMapServiceGrpc.getDeletePlaceMethod = getDeletePlaceMethod =
-              io.grpc.MethodDescriptor.<generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest, generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse>newBuilder()
+              io.grpc.MethodDescriptor.<generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest, generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "DeletePlace"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest.getDefaultInstance()))
+                  generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse.getDefaultInstance()))
+                  generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse.getDefaultInstance()))
               .setSchemaDescriptor(new FreeMapServiceMethodDescriptorSupplier("DeletePlace"))
               .build();
         }
@@ -172,8 +203,15 @@ public final class FreeMapServiceGrpc {
 
     /**
      */
-    public void deletePlace(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest request,
-        io.grpc.stub.StreamObserver<generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse> responseObserver) {
+    public void updatePlace(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest request,
+        io.grpc.stub.StreamObserver<generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdatePlaceMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void deletePlace(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest request,
+        io.grpc.stub.StreamObserver<generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeletePlaceMethod(), responseObserver);
     }
 
@@ -194,11 +232,18 @@ public final class FreeMapServiceGrpc {
                 generated_grpc.free_map_service_grpc.free_map_service_grpc_types.AddPlaceResponse>(
                   this, METHODID_ADD_PLACE)))
           .addMethod(
+            getUpdatePlaceMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest,
+                generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse>(
+                  this, METHODID_UPDATE_PLACE)))
+          .addMethod(
             getDeletePlaceMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest,
-                generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse>(
+                generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest,
+                generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse>(
                   this, METHODID_DELETE_PLACE)))
           .build();
     }
@@ -236,8 +281,16 @@ public final class FreeMapServiceGrpc {
 
     /**
      */
-    public void deletePlace(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest request,
-        io.grpc.stub.StreamObserver<generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse> responseObserver) {
+    public void updatePlace(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest request,
+        io.grpc.stub.StreamObserver<generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getUpdatePlaceMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void deletePlace(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest request,
+        io.grpc.stub.StreamObserver<generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getDeletePlaceMethod(), getCallOptions()), request, responseObserver);
     }
@@ -273,7 +326,14 @@ public final class FreeMapServiceGrpc {
 
     /**
      */
-    public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse deletePlace(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest request) {
+    public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse updatePlace(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getUpdatePlaceMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse deletePlace(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getDeletePlaceMethod(), getCallOptions(), request);
     }
@@ -311,8 +371,16 @@ public final class FreeMapServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse> deletePlace(
-        generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse> updatePlace(
+        generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getUpdatePlaceMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse> deletePlace(
+        generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getDeletePlaceMethod(), getCallOptions()), request);
     }
@@ -320,7 +388,8 @@ public final class FreeMapServiceGrpc {
 
   private static final int METHODID_SEARCH_PLACES = 0;
   private static final int METHODID_ADD_PLACE = 1;
-  private static final int METHODID_DELETE_PLACE = 2;
+  private static final int METHODID_UPDATE_PLACE = 2;
+  private static final int METHODID_DELETE_PLACE = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -347,9 +416,13 @@ public final class FreeMapServiceGrpc {
           serviceImpl.addPlace((generated_grpc.free_map_service_grpc.free_map_service_grpc_types.AddPlaceRequest) request,
               (io.grpc.stub.StreamObserver<generated_grpc.free_map_service_grpc.free_map_service_grpc_types.AddPlaceResponse>) responseObserver);
           break;
+        case METHODID_UPDATE_PLACE:
+          serviceImpl.updatePlace((generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest) request,
+              (io.grpc.stub.StreamObserver<generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse>) responseObserver);
+          break;
         case METHODID_DELETE_PLACE:
-          serviceImpl.deletePlace((generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest) request,
-              (io.grpc.stub.StreamObserver<generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse>) responseObserver);
+          serviceImpl.deletePlace((generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest) request,
+              (io.grpc.stub.StreamObserver<generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -414,6 +487,7 @@ public final class FreeMapServiceGrpc {
               .setSchemaDescriptor(new FreeMapServiceFileDescriptorSupplier())
               .addMethod(getSearchPlacesMethod())
               .addMethod(getAddPlaceMethod())
+              .addMethod(getUpdatePlaceMethod())
               .addMethod(getDeletePlaceMethod())
               .build();
         }

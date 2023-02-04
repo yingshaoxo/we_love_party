@@ -90,7 +90,8 @@ public final class free_map_service_grpc_types {
     }
 
     public static final int KEY_WORDS_FIELD_NUMBER = 1;
-    private volatile java.lang.Object keyWords_;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object keyWords_ = "";
     /**
      * <code>string key_words = 1;</code>
      * @return The keyWords.
@@ -128,7 +129,7 @@ public final class free_map_service_grpc_types {
     }
 
     public static final int Y_LATITUDE_FIELD_NUMBER = 2;
-    private double yLatitude_;
+    private double yLatitude_ = 0D;
     /**
      * <code>double y_latitude = 2;</code>
      * @return The yLatitude.
@@ -139,7 +140,7 @@ public final class free_map_service_grpc_types {
     }
 
     public static final int X_LONGITUDE_FIELD_NUMBER = 3;
-    private double xLongitude_;
+    private double xLongitude_ = 0D;
     /**
      * <code>double x_longitude = 3;</code>
      * @return The xLongitude.
@@ -150,7 +151,7 @@ public final class free_map_service_grpc_types {
     }
 
     public static final int RADIUS_DISTANCE_FIELD_NUMBER = 4;
-    private double radiusDistance_;
+    private double radiusDistance_ = 0D;
     /**
      * <code>double radius_distance = 4;</code>
      * @return The radiusDistance.
@@ -386,14 +387,11 @@ public final class free_map_service_grpc_types {
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        bitField0_ = 0;
         keyWords_ = "";
-
         yLatitude_ = 0D;
-
         xLongitude_ = 0D;
-
         radiusDistance_ = 0D;
-
         return this;
       }
 
@@ -420,12 +418,25 @@ public final class free_map_service_grpc_types {
       @java.lang.Override
       public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.SearchPlacesRequest buildPartial() {
         generated_grpc.free_map_service_grpc.free_map_service_grpc_types.SearchPlacesRequest result = new generated_grpc.free_map_service_grpc.free_map_service_grpc_types.SearchPlacesRequest(this);
-        result.keyWords_ = keyWords_;
-        result.yLatitude_ = yLatitude_;
-        result.xLongitude_ = xLongitude_;
-        result.radiusDistance_ = radiusDistance_;
+        if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
+      }
+
+      private void buildPartial0(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.SearchPlacesRequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.keyWords_ = keyWords_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.yLatitude_ = yLatitude_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.xLongitude_ = xLongitude_;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.radiusDistance_ = radiusDistance_;
+        }
       }
 
       @java.lang.Override
@@ -474,6 +485,7 @@ public final class free_map_service_grpc_types {
         if (other == generated_grpc.free_map_service_grpc.free_map_service_grpc_types.SearchPlacesRequest.getDefaultInstance()) return this;
         if (!other.getKeyWords().isEmpty()) {
           keyWords_ = other.keyWords_;
+          bitField0_ |= 0x00000001;
           onChanged();
         }
         if (other.getYLatitude() != 0D) {
@@ -513,22 +525,22 @@ public final class free_map_service_grpc_types {
                 break;
               case 10: {
                 keyWords_ = input.readStringRequireUtf8();
-
+                bitField0_ |= 0x00000001;
                 break;
               } // case 10
               case 17: {
                 yLatitude_ = input.readDouble();
-
+                bitField0_ |= 0x00000002;
                 break;
               } // case 17
               case 25: {
                 xLongitude_ = input.readDouble();
-
+                bitField0_ |= 0x00000004;
                 break;
               } // case 25
               case 33: {
                 radiusDistance_ = input.readDouble();
-
+                bitField0_ |= 0x00000008;
                 break;
               } // case 33
               default: {
@@ -546,6 +558,7 @@ public final class free_map_service_grpc_types {
         } // finally
         return this;
       }
+      private int bitField0_;
 
       private java.lang.Object keyWords_ = "";
       /**
@@ -588,11 +601,9 @@ public final class free_map_service_grpc_types {
        */
       public Builder setKeyWords(
           java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
+        if (value == null) { throw new NullPointerException(); }
         keyWords_ = value;
+        bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
@@ -601,8 +612,8 @@ public final class free_map_service_grpc_types {
        * @return This builder for chaining.
        */
       public Builder clearKeyWords() {
-        
         keyWords_ = getDefaultInstance().getKeyWords();
+        bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
@@ -613,12 +624,10 @@ public final class free_map_service_grpc_types {
        */
       public Builder setKeyWordsBytes(
           com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
         keyWords_ = value;
+        bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
@@ -640,6 +649,7 @@ public final class free_map_service_grpc_types {
       public Builder setYLatitude(double value) {
         
         yLatitude_ = value;
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
@@ -648,7 +658,7 @@ public final class free_map_service_grpc_types {
        * @return This builder for chaining.
        */
       public Builder clearYLatitude() {
-        
+        bitField0_ = (bitField0_ & ~0x00000002);
         yLatitude_ = 0D;
         onChanged();
         return this;
@@ -671,6 +681,7 @@ public final class free_map_service_grpc_types {
       public Builder setXLongitude(double value) {
         
         xLongitude_ = value;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
@@ -679,7 +690,7 @@ public final class free_map_service_grpc_types {
        * @return This builder for chaining.
        */
       public Builder clearXLongitude() {
-        
+        bitField0_ = (bitField0_ & ~0x00000004);
         xLongitude_ = 0D;
         onChanged();
         return this;
@@ -702,6 +713,7 @@ public final class free_map_service_grpc_types {
       public Builder setRadiusDistance(double value) {
         
         radiusDistance_ = value;
+        bitField0_ |= 0x00000008;
         onChanged();
         return this;
       }
@@ -710,7 +722,7 @@ public final class free_map_service_grpc_types {
        * @return This builder for chaining.
        */
       public Builder clearRadiusDistance() {
-        
+        bitField0_ = (bitField0_ & ~0x00000008);
         radiusDistance_ = 0D;
         onChanged();
         return this;
@@ -976,7 +988,7 @@ public final class free_map_service_grpc_types {
 
     private int bitField0_;
     public static final int LOCATION_ID_FIELD_NUMBER = 1;
-    private int locationId_;
+    private int locationId_ = 0;
     /**
      * <code>optional int32 location_id = 1;</code>
      * @return Whether the locationId field is set.
@@ -995,7 +1007,8 @@ public final class free_map_service_grpc_types {
     }
 
     public static final int UPLOADER_USERNAME_FIELD_NUMBER = 2;
-    private volatile java.lang.Object uploaderUsername_;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object uploaderUsername_ = "";
     /**
      * <code>optional string uploader_username = 2;</code>
      * @return Whether the uploaderUsername field is set.
@@ -1041,7 +1054,8 @@ public final class free_map_service_grpc_types {
     }
 
     public static final int NAME_FIELD_NUMBER = 3;
-    private volatile java.lang.Object name_;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object name_ = "";
     /**
      * <code>string name = 3;</code>
      * @return The name.
@@ -1079,7 +1093,7 @@ public final class free_map_service_grpc_types {
     }
 
     public static final int Y_LATITUDE_FIELD_NUMBER = 4;
-    private double yLatitude_;
+    private double yLatitude_ = 0D;
     /**
      * <code>double y_latitude = 4;</code>
      * @return The yLatitude.
@@ -1090,7 +1104,7 @@ public final class free_map_service_grpc_types {
     }
 
     public static final int X_LONGITUDE_FIELD_NUMBER = 5;
-    private double xLongitude_;
+    private double xLongitude_ = 0D;
     /**
      * <code>double x_longitude = 5;</code>
      * @return The xLongitude.
@@ -1101,7 +1115,7 @@ public final class free_map_service_grpc_types {
     }
 
     public static final int SCORES_FIELD_NUMBER = 6;
-    private double scores_;
+    private double scores_ = 0D;
     /**
      * <code>double scores = 6;</code>
      * @return The scores.
@@ -1112,7 +1126,7 @@ public final class free_map_service_grpc_types {
     }
 
     public static final int OPEN_ALL_DAY_FIELD_NUMBER = 7;
-    private boolean openAllDay_;
+    private boolean openAllDay_ = false;
     /**
      * <code>bool open_all_day = 7;</code>
      * @return The openAllDay.
@@ -1123,7 +1137,7 @@ public final class free_map_service_grpc_types {
     }
 
     public static final int HAS_CHARGER_FIELD_NUMBER = 8;
-    private boolean hasCharger_;
+    private boolean hasCharger_ = false;
     /**
      * <code>bool has_charger = 8;</code>
      * @return The hasCharger.
@@ -1134,7 +1148,7 @@ public final class free_map_service_grpc_types {
     }
 
     public static final int HAS_WIFI_FIELD_NUMBER = 9;
-    private boolean hasWifi_;
+    private boolean hasWifi_ = false;
     /**
      * <code>bool has_wifi = 9;</code>
      * @return The hasWifi.
@@ -1145,7 +1159,7 @@ public final class free_map_service_grpc_types {
     }
 
     public static final int HAS_WATER_FIELD_NUMBER = 10;
-    private boolean hasWater_;
+    private boolean hasWater_ = false;
     /**
      * <code>bool has_water = 10;</code>
      * @return The hasWater.
@@ -1156,7 +1170,7 @@ public final class free_map_service_grpc_types {
     }
 
     public static final int HAS_HOT_WATER_FIELD_NUMBER = 11;
-    private boolean hasHotWater_;
+    private boolean hasHotWater_ = false;
     /**
      * <code>bool has_hot_water = 11;</code>
      * @return The hasHotWater.
@@ -1167,7 +1181,7 @@ public final class free_map_service_grpc_types {
     }
 
     public static final int HAS_DESK_FIELD_NUMBER = 12;
-    private boolean hasDesk_;
+    private boolean hasDesk_ = false;
     /**
      * <code>bool has_desk = 12;</code>
      * @return The hasDesk.
@@ -1178,7 +1192,7 @@ public final class free_map_service_grpc_types {
     }
 
     public static final int HAS_CHAIR_FIELD_NUMBER = 13;
-    private boolean hasChair_;
+    private boolean hasChair_ = false;
     /**
      * <code>bool has_chair = 13;</code>
      * @return The hasChair.
@@ -1189,7 +1203,7 @@ public final class free_map_service_grpc_types {
     }
 
     public static final int HAS_TOILET_FIELD_NUMBER = 14;
-    private boolean hasToilet_;
+    private boolean hasToilet_ = false;
     /**
      * <code>bool has_toilet = 14;</code>
      * @return The hasToilet.
@@ -1200,7 +1214,7 @@ public final class free_map_service_grpc_types {
     }
 
     public static final int HAS_SHOWERING_FIELD_NUMBER = 15;
-    private boolean hasShowering_;
+    private boolean hasShowering_ = false;
     /**
      * <pre>
      * must make sure there can take showering
@@ -1215,7 +1229,7 @@ public final class free_map_service_grpc_types {
     }
 
     public static final int HAS_PACKAGE_RECEIVING_STATION_FIELD_NUMBER = 16;
-    private boolean hasPackageReceivingStation_;
+    private boolean hasPackageReceivingStation_ = false;
     /**
      * <code>bool has_package_receiving_station = 16;</code>
      * @return The hasPackageReceivingStation.
@@ -1226,7 +1240,7 @@ public final class free_map_service_grpc_types {
     }
 
     public static final int HAS_KFC_FIELD_NUMBER = 17;
-    private boolean hasKfc_;
+    private boolean hasKfc_ = false;
     /**
      * <code>bool has_kfc = 17;</code>
      * @return The hasKfc.
@@ -1237,7 +1251,7 @@ public final class free_map_service_grpc_types {
     }
 
     public static final int HAS_MCDONALD_FIELD_NUMBER = 18;
-    private boolean hasMcdonald_;
+    private boolean hasMcdonald_ = false;
     /**
      * <code>bool has_mcdonald = 18;</code>
      * @return The hasMcdonald.
@@ -1248,7 +1262,7 @@ public final class free_map_service_grpc_types {
     }
 
     public static final int HAS_STORE_FIELD_NUMBER = 19;
-    private boolean hasStore_;
+    private boolean hasStore_ = false;
     /**
      * <pre>
      * string open_and_close_time = 20;
@@ -1680,44 +1694,26 @@ public final class free_map_service_grpc_types {
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        bitField0_ = 0;
         locationId_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000001);
         uploaderUsername_ = "";
-        bitField0_ = (bitField0_ & ~0x00000002);
         name_ = "";
-
         yLatitude_ = 0D;
-
         xLongitude_ = 0D;
-
         scores_ = 0D;
-
         openAllDay_ = false;
-
         hasCharger_ = false;
-
         hasWifi_ = false;
-
         hasWater_ = false;
-
         hasHotWater_ = false;
-
         hasDesk_ = false;
-
         hasChair_ = false;
-
         hasToilet_ = false;
-
         hasShowering_ = false;
-
         hasPackageReceivingStation_ = false;
-
         hasKfc_ = false;
-
         hasMcdonald_ = false;
-
         hasStore_ = false;
-
         return this;
       }
 
@@ -1744,6 +1740,12 @@ public final class free_map_service_grpc_types {
       @java.lang.Override
       public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap buildPartial() {
         generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap result = new generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap result) {
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) != 0)) {
@@ -1751,29 +1753,61 @@ public final class free_map_service_grpc_types {
           to_bitField0_ |= 0x00000001;
         }
         if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.uploaderUsername_ = uploaderUsername_;
           to_bitField0_ |= 0x00000002;
         }
-        result.uploaderUsername_ = uploaderUsername_;
-        result.name_ = name_;
-        result.yLatitude_ = yLatitude_;
-        result.xLongitude_ = xLongitude_;
-        result.scores_ = scores_;
-        result.openAllDay_ = openAllDay_;
-        result.hasCharger_ = hasCharger_;
-        result.hasWifi_ = hasWifi_;
-        result.hasWater_ = hasWater_;
-        result.hasHotWater_ = hasHotWater_;
-        result.hasDesk_ = hasDesk_;
-        result.hasChair_ = hasChair_;
-        result.hasToilet_ = hasToilet_;
-        result.hasShowering_ = hasShowering_;
-        result.hasPackageReceivingStation_ = hasPackageReceivingStation_;
-        result.hasKfc_ = hasKfc_;
-        result.hasMcdonald_ = hasMcdonald_;
-        result.hasStore_ = hasStore_;
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.name_ = name_;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.yLatitude_ = yLatitude_;
+        }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.xLongitude_ = xLongitude_;
+        }
+        if (((from_bitField0_ & 0x00000020) != 0)) {
+          result.scores_ = scores_;
+        }
+        if (((from_bitField0_ & 0x00000040) != 0)) {
+          result.openAllDay_ = openAllDay_;
+        }
+        if (((from_bitField0_ & 0x00000080) != 0)) {
+          result.hasCharger_ = hasCharger_;
+        }
+        if (((from_bitField0_ & 0x00000100) != 0)) {
+          result.hasWifi_ = hasWifi_;
+        }
+        if (((from_bitField0_ & 0x00000200) != 0)) {
+          result.hasWater_ = hasWater_;
+        }
+        if (((from_bitField0_ & 0x00000400) != 0)) {
+          result.hasHotWater_ = hasHotWater_;
+        }
+        if (((from_bitField0_ & 0x00000800) != 0)) {
+          result.hasDesk_ = hasDesk_;
+        }
+        if (((from_bitField0_ & 0x00001000) != 0)) {
+          result.hasChair_ = hasChair_;
+        }
+        if (((from_bitField0_ & 0x00002000) != 0)) {
+          result.hasToilet_ = hasToilet_;
+        }
+        if (((from_bitField0_ & 0x00004000) != 0)) {
+          result.hasShowering_ = hasShowering_;
+        }
+        if (((from_bitField0_ & 0x00008000) != 0)) {
+          result.hasPackageReceivingStation_ = hasPackageReceivingStation_;
+        }
+        if (((from_bitField0_ & 0x00010000) != 0)) {
+          result.hasKfc_ = hasKfc_;
+        }
+        if (((from_bitField0_ & 0x00020000) != 0)) {
+          result.hasMcdonald_ = hasMcdonald_;
+        }
+        if (((from_bitField0_ & 0x00040000) != 0)) {
+          result.hasStore_ = hasStore_;
+        }
+        result.bitField0_ |= to_bitField0_;
       }
 
       @java.lang.Override
@@ -1824,12 +1858,13 @@ public final class free_map_service_grpc_types {
           setLocationId(other.getLocationId());
         }
         if (other.hasUploaderUsername()) {
-          bitField0_ |= 0x00000002;
           uploaderUsername_ = other.uploaderUsername_;
+          bitField0_ |= 0x00000002;
           onChanged();
         }
         if (!other.getName().isEmpty()) {
           name_ = other.name_;
+          bitField0_ |= 0x00000004;
           onChanged();
         }
         if (other.getYLatitude() != 0D) {
@@ -1918,87 +1953,87 @@ public final class free_map_service_grpc_types {
               } // case 18
               case 26: {
                 name_ = input.readStringRequireUtf8();
-
+                bitField0_ |= 0x00000004;
                 break;
               } // case 26
               case 33: {
                 yLatitude_ = input.readDouble();
-
+                bitField0_ |= 0x00000008;
                 break;
               } // case 33
               case 41: {
                 xLongitude_ = input.readDouble();
-
+                bitField0_ |= 0x00000010;
                 break;
               } // case 41
               case 49: {
                 scores_ = input.readDouble();
-
+                bitField0_ |= 0x00000020;
                 break;
               } // case 49
               case 56: {
                 openAllDay_ = input.readBool();
-
+                bitField0_ |= 0x00000040;
                 break;
               } // case 56
               case 64: {
                 hasCharger_ = input.readBool();
-
+                bitField0_ |= 0x00000080;
                 break;
               } // case 64
               case 72: {
                 hasWifi_ = input.readBool();
-
+                bitField0_ |= 0x00000100;
                 break;
               } // case 72
               case 80: {
                 hasWater_ = input.readBool();
-
+                bitField0_ |= 0x00000200;
                 break;
               } // case 80
               case 88: {
                 hasHotWater_ = input.readBool();
-
+                bitField0_ |= 0x00000400;
                 break;
               } // case 88
               case 96: {
                 hasDesk_ = input.readBool();
-
+                bitField0_ |= 0x00000800;
                 break;
               } // case 96
               case 104: {
                 hasChair_ = input.readBool();
-
+                bitField0_ |= 0x00001000;
                 break;
               } // case 104
               case 112: {
                 hasToilet_ = input.readBool();
-
+                bitField0_ |= 0x00002000;
                 break;
               } // case 112
               case 120: {
                 hasShowering_ = input.readBool();
-
+                bitField0_ |= 0x00004000;
                 break;
               } // case 120
               case 128: {
                 hasPackageReceivingStation_ = input.readBool();
-
+                bitField0_ |= 0x00008000;
                 break;
               } // case 128
               case 136: {
                 hasKfc_ = input.readBool();
-
+                bitField0_ |= 0x00010000;
                 break;
               } // case 136
               case 144: {
                 hasMcdonald_ = input.readBool();
-
+                bitField0_ |= 0x00020000;
                 break;
               } // case 144
               case 152: {
                 hasStore_ = input.readBool();
-
+                bitField0_ |= 0x00040000;
                 break;
               } // case 152
               default: {
@@ -2041,8 +2076,9 @@ public final class free_map_service_grpc_types {
        * @return This builder for chaining.
        */
       public Builder setLocationId(int value) {
-        bitField0_ |= 0x00000001;
+        
         locationId_ = value;
+        bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
@@ -2105,11 +2141,9 @@ public final class free_map_service_grpc_types {
        */
       public Builder setUploaderUsername(
           java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
+        if (value == null) { throw new NullPointerException(); }
         uploaderUsername_ = value;
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
@@ -2118,8 +2152,8 @@ public final class free_map_service_grpc_types {
        * @return This builder for chaining.
        */
       public Builder clearUploaderUsername() {
-        bitField0_ = (bitField0_ & ~0x00000002);
         uploaderUsername_ = getDefaultInstance().getUploaderUsername();
+        bitField0_ = (bitField0_ & ~0x00000002);
         onChanged();
         return this;
       }
@@ -2130,12 +2164,10 @@ public final class free_map_service_grpc_types {
        */
       public Builder setUploaderUsernameBytes(
           com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        bitField0_ |= 0x00000002;
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
         uploaderUsername_ = value;
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
@@ -2181,11 +2213,9 @@ public final class free_map_service_grpc_types {
        */
       public Builder setName(
           java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
+        if (value == null) { throw new NullPointerException(); }
         name_ = value;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
@@ -2194,8 +2224,8 @@ public final class free_map_service_grpc_types {
        * @return This builder for chaining.
        */
       public Builder clearName() {
-        
         name_ = getDefaultInstance().getName();
+        bitField0_ = (bitField0_ & ~0x00000004);
         onChanged();
         return this;
       }
@@ -2206,12 +2236,10 @@ public final class free_map_service_grpc_types {
        */
       public Builder setNameBytes(
           com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
         name_ = value;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
@@ -2233,6 +2261,7 @@ public final class free_map_service_grpc_types {
       public Builder setYLatitude(double value) {
         
         yLatitude_ = value;
+        bitField0_ |= 0x00000008;
         onChanged();
         return this;
       }
@@ -2241,7 +2270,7 @@ public final class free_map_service_grpc_types {
        * @return This builder for chaining.
        */
       public Builder clearYLatitude() {
-        
+        bitField0_ = (bitField0_ & ~0x00000008);
         yLatitude_ = 0D;
         onChanged();
         return this;
@@ -2264,6 +2293,7 @@ public final class free_map_service_grpc_types {
       public Builder setXLongitude(double value) {
         
         xLongitude_ = value;
+        bitField0_ |= 0x00000010;
         onChanged();
         return this;
       }
@@ -2272,7 +2302,7 @@ public final class free_map_service_grpc_types {
        * @return This builder for chaining.
        */
       public Builder clearXLongitude() {
-        
+        bitField0_ = (bitField0_ & ~0x00000010);
         xLongitude_ = 0D;
         onChanged();
         return this;
@@ -2295,6 +2325,7 @@ public final class free_map_service_grpc_types {
       public Builder setScores(double value) {
         
         scores_ = value;
+        bitField0_ |= 0x00000020;
         onChanged();
         return this;
       }
@@ -2303,7 +2334,7 @@ public final class free_map_service_grpc_types {
        * @return This builder for chaining.
        */
       public Builder clearScores() {
-        
+        bitField0_ = (bitField0_ & ~0x00000020);
         scores_ = 0D;
         onChanged();
         return this;
@@ -2326,6 +2357,7 @@ public final class free_map_service_grpc_types {
       public Builder setOpenAllDay(boolean value) {
         
         openAllDay_ = value;
+        bitField0_ |= 0x00000040;
         onChanged();
         return this;
       }
@@ -2334,7 +2366,7 @@ public final class free_map_service_grpc_types {
        * @return This builder for chaining.
        */
       public Builder clearOpenAllDay() {
-        
+        bitField0_ = (bitField0_ & ~0x00000040);
         openAllDay_ = false;
         onChanged();
         return this;
@@ -2357,6 +2389,7 @@ public final class free_map_service_grpc_types {
       public Builder setHasCharger(boolean value) {
         
         hasCharger_ = value;
+        bitField0_ |= 0x00000080;
         onChanged();
         return this;
       }
@@ -2365,7 +2398,7 @@ public final class free_map_service_grpc_types {
        * @return This builder for chaining.
        */
       public Builder clearHasCharger() {
-        
+        bitField0_ = (bitField0_ & ~0x00000080);
         hasCharger_ = false;
         onChanged();
         return this;
@@ -2388,6 +2421,7 @@ public final class free_map_service_grpc_types {
       public Builder setHasWifi(boolean value) {
         
         hasWifi_ = value;
+        bitField0_ |= 0x00000100;
         onChanged();
         return this;
       }
@@ -2396,7 +2430,7 @@ public final class free_map_service_grpc_types {
        * @return This builder for chaining.
        */
       public Builder clearHasWifi() {
-        
+        bitField0_ = (bitField0_ & ~0x00000100);
         hasWifi_ = false;
         onChanged();
         return this;
@@ -2419,6 +2453,7 @@ public final class free_map_service_grpc_types {
       public Builder setHasWater(boolean value) {
         
         hasWater_ = value;
+        bitField0_ |= 0x00000200;
         onChanged();
         return this;
       }
@@ -2427,7 +2462,7 @@ public final class free_map_service_grpc_types {
        * @return This builder for chaining.
        */
       public Builder clearHasWater() {
-        
+        bitField0_ = (bitField0_ & ~0x00000200);
         hasWater_ = false;
         onChanged();
         return this;
@@ -2450,6 +2485,7 @@ public final class free_map_service_grpc_types {
       public Builder setHasHotWater(boolean value) {
         
         hasHotWater_ = value;
+        bitField0_ |= 0x00000400;
         onChanged();
         return this;
       }
@@ -2458,7 +2494,7 @@ public final class free_map_service_grpc_types {
        * @return This builder for chaining.
        */
       public Builder clearHasHotWater() {
-        
+        bitField0_ = (bitField0_ & ~0x00000400);
         hasHotWater_ = false;
         onChanged();
         return this;
@@ -2481,6 +2517,7 @@ public final class free_map_service_grpc_types {
       public Builder setHasDesk(boolean value) {
         
         hasDesk_ = value;
+        bitField0_ |= 0x00000800;
         onChanged();
         return this;
       }
@@ -2489,7 +2526,7 @@ public final class free_map_service_grpc_types {
        * @return This builder for chaining.
        */
       public Builder clearHasDesk() {
-        
+        bitField0_ = (bitField0_ & ~0x00000800);
         hasDesk_ = false;
         onChanged();
         return this;
@@ -2512,6 +2549,7 @@ public final class free_map_service_grpc_types {
       public Builder setHasChair(boolean value) {
         
         hasChair_ = value;
+        bitField0_ |= 0x00001000;
         onChanged();
         return this;
       }
@@ -2520,7 +2558,7 @@ public final class free_map_service_grpc_types {
        * @return This builder for chaining.
        */
       public Builder clearHasChair() {
-        
+        bitField0_ = (bitField0_ & ~0x00001000);
         hasChair_ = false;
         onChanged();
         return this;
@@ -2543,6 +2581,7 @@ public final class free_map_service_grpc_types {
       public Builder setHasToilet(boolean value) {
         
         hasToilet_ = value;
+        bitField0_ |= 0x00002000;
         onChanged();
         return this;
       }
@@ -2551,7 +2590,7 @@ public final class free_map_service_grpc_types {
        * @return This builder for chaining.
        */
       public Builder clearHasToilet() {
-        
+        bitField0_ = (bitField0_ & ~0x00002000);
         hasToilet_ = false;
         onChanged();
         return this;
@@ -2582,6 +2621,7 @@ public final class free_map_service_grpc_types {
       public Builder setHasShowering(boolean value) {
         
         hasShowering_ = value;
+        bitField0_ |= 0x00004000;
         onChanged();
         return this;
       }
@@ -2594,7 +2634,7 @@ public final class free_map_service_grpc_types {
        * @return This builder for chaining.
        */
       public Builder clearHasShowering() {
-        
+        bitField0_ = (bitField0_ & ~0x00004000);
         hasShowering_ = false;
         onChanged();
         return this;
@@ -2617,6 +2657,7 @@ public final class free_map_service_grpc_types {
       public Builder setHasPackageReceivingStation(boolean value) {
         
         hasPackageReceivingStation_ = value;
+        bitField0_ |= 0x00008000;
         onChanged();
         return this;
       }
@@ -2625,7 +2666,7 @@ public final class free_map_service_grpc_types {
        * @return This builder for chaining.
        */
       public Builder clearHasPackageReceivingStation() {
-        
+        bitField0_ = (bitField0_ & ~0x00008000);
         hasPackageReceivingStation_ = false;
         onChanged();
         return this;
@@ -2648,6 +2689,7 @@ public final class free_map_service_grpc_types {
       public Builder setHasKfc(boolean value) {
         
         hasKfc_ = value;
+        bitField0_ |= 0x00010000;
         onChanged();
         return this;
       }
@@ -2656,7 +2698,7 @@ public final class free_map_service_grpc_types {
        * @return This builder for chaining.
        */
       public Builder clearHasKfc() {
-        
+        bitField0_ = (bitField0_ & ~0x00010000);
         hasKfc_ = false;
         onChanged();
         return this;
@@ -2679,6 +2721,7 @@ public final class free_map_service_grpc_types {
       public Builder setHasMcdonald(boolean value) {
         
         hasMcdonald_ = value;
+        bitField0_ |= 0x00020000;
         onChanged();
         return this;
       }
@@ -2687,7 +2730,7 @@ public final class free_map_service_grpc_types {
        * @return This builder for chaining.
        */
       public Builder clearHasMcdonald() {
-        
+        bitField0_ = (bitField0_ & ~0x00020000);
         hasMcdonald_ = false;
         onChanged();
         return this;
@@ -2718,6 +2761,7 @@ public final class free_map_service_grpc_types {
       public Builder setHasStore(boolean value) {
         
         hasStore_ = value;
+        bitField0_ |= 0x00040000;
         onChanged();
         return this;
       }
@@ -2730,7 +2774,7 @@ public final class free_map_service_grpc_types {
        * @return This builder for chaining.
        */
       public Builder clearHasStore() {
-        
+        bitField0_ = (bitField0_ & ~0x00040000);
         hasStore_ = false;
         onChanged();
         return this;
@@ -2888,7 +2932,8 @@ public final class free_map_service_grpc_types {
 
     private int bitField0_;
     public static final int ERROR_FIELD_NUMBER = 1;
-    private volatile java.lang.Object error_;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object error_ = "";
     /**
      * <code>optional string error = 1;</code>
      * @return Whether the error field is set.
@@ -2934,6 +2979,7 @@ public final class free_map_service_grpc_types {
     }
 
     public static final int LOCATION_OF_FREE_MAP_FIELD_NUMBER = 2;
+    @SuppressWarnings("serial")
     private java.util.List<generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap> locationOfFreeMap_;
     /**
      * <code>repeated .free_map_service.LocationOfFreeMap location_of_free_map = 2;</code>
@@ -3178,8 +3224,8 @@ public final class free_map_service_grpc_types {
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        bitField0_ = 0;
         error_ = "";
-        bitField0_ = (bitField0_ & ~0x00000001);
         if (locationOfFreeMapBuilder_ == null) {
           locationOfFreeMap_ = java.util.Collections.emptyList();
         } else {
@@ -3213,12 +3259,13 @@ public final class free_map_service_grpc_types {
       @java.lang.Override
       public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.SearchPlacesResponse buildPartial() {
         generated_grpc.free_map_service_grpc.free_map_service_grpc_types.SearchPlacesResponse result = new generated_grpc.free_map_service_grpc.free_map_service_grpc_types.SearchPlacesResponse(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          to_bitField0_ |= 0x00000001;
-        }
-        result.error_ = error_;
+        buildPartialRepeatedFields(result);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartialRepeatedFields(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.SearchPlacesResponse result) {
         if (locationOfFreeMapBuilder_ == null) {
           if (((bitField0_ & 0x00000002) != 0)) {
             locationOfFreeMap_ = java.util.Collections.unmodifiableList(locationOfFreeMap_);
@@ -3228,9 +3275,16 @@ public final class free_map_service_grpc_types {
         } else {
           result.locationOfFreeMap_ = locationOfFreeMapBuilder_.build();
         }
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
+      }
+
+      private void buildPartial0(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.SearchPlacesResponse result) {
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.error_ = error_;
+          to_bitField0_ |= 0x00000001;
+        }
+        result.bitField0_ |= to_bitField0_;
       }
 
       @java.lang.Override
@@ -3278,8 +3332,8 @@ public final class free_map_service_grpc_types {
       public Builder mergeFrom(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.SearchPlacesResponse other) {
         if (other == generated_grpc.free_map_service_grpc.free_map_service_grpc_types.SearchPlacesResponse.getDefaultInstance()) return this;
         if (other.hasError()) {
-          bitField0_ |= 0x00000001;
           error_ = other.error_;
+          bitField0_ |= 0x00000001;
           onChanged();
         }
         if (locationOfFreeMapBuilder_ == null) {
@@ -3417,11 +3471,9 @@ public final class free_map_service_grpc_types {
        */
       public Builder setError(
           java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+        if (value == null) { throw new NullPointerException(); }
         error_ = value;
+        bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
@@ -3430,8 +3482,8 @@ public final class free_map_service_grpc_types {
        * @return This builder for chaining.
        */
       public Builder clearError() {
-        bitField0_ = (bitField0_ & ~0x00000001);
         error_ = getDefaultInstance().getError();
+        bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
@@ -3442,12 +3494,10 @@ public final class free_map_service_grpc_types {
        */
       public Builder setErrorBytes(
           com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        bitField0_ |= 0x00000001;
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
         error_ = value;
+        bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
@@ -3837,7 +3887,7 @@ public final class free_map_service_grpc_types {
      */
     @java.lang.Override
     public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMapOrBuilder getLocationOfFreeMapOrBuilder() {
-      return getLocationOfFreeMap();
+      return locationOfFreeMap_ == null ? generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap.getDefaultInstance() : locationOfFreeMap_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -4033,10 +4083,10 @@ public final class free_map_service_grpc_types {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        if (locationOfFreeMapBuilder_ == null) {
-          locationOfFreeMap_ = null;
-        } else {
-          locationOfFreeMap_ = null;
+        bitField0_ = 0;
+        locationOfFreeMap_ = null;
+        if (locationOfFreeMapBuilder_ != null) {
+          locationOfFreeMapBuilder_.dispose();
           locationOfFreeMapBuilder_ = null;
         }
         return this;
@@ -4065,13 +4115,18 @@ public final class free_map_service_grpc_types {
       @java.lang.Override
       public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.AddPlaceRequest buildPartial() {
         generated_grpc.free_map_service_grpc.free_map_service_grpc_types.AddPlaceRequest result = new generated_grpc.free_map_service_grpc.free_map_service_grpc_types.AddPlaceRequest(this);
-        if (locationOfFreeMapBuilder_ == null) {
-          result.locationOfFreeMap_ = locationOfFreeMap_;
-        } else {
-          result.locationOfFreeMap_ = locationOfFreeMapBuilder_.build();
-        }
+        if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
+      }
+
+      private void buildPartial0(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.AddPlaceRequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.locationOfFreeMap_ = locationOfFreeMapBuilder_ == null
+              ? locationOfFreeMap_
+              : locationOfFreeMapBuilder_.build();
+        }
       }
 
       @java.lang.Override
@@ -4151,7 +4206,7 @@ public final class free_map_service_grpc_types {
                 input.readMessage(
                     getLocationOfFreeMapFieldBuilder().getBuilder(),
                     extensionRegistry);
-
+                bitField0_ |= 0x00000001;
                 break;
               } // case 10
               default: {
@@ -4169,6 +4224,7 @@ public final class free_map_service_grpc_types {
         } // finally
         return this;
       }
+      private int bitField0_;
 
       private generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap locationOfFreeMap_;
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -4178,7 +4234,7 @@ public final class free_map_service_grpc_types {
        * @return Whether the locationOfFreeMap field is set.
        */
       public boolean hasLocationOfFreeMap() {
-        return locationOfFreeMapBuilder_ != null || locationOfFreeMap_ != null;
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
        * <code>.free_map_service.LocationOfFreeMap location_of_free_map = 1;</code>
@@ -4200,11 +4256,11 @@ public final class free_map_service_grpc_types {
             throw new NullPointerException();
           }
           locationOfFreeMap_ = value;
-          onChanged();
         } else {
           locationOfFreeMapBuilder_.setMessage(value);
         }
-
+        bitField0_ |= 0x00000001;
+        onChanged();
         return this;
       }
       /**
@@ -4214,11 +4270,11 @@ public final class free_map_service_grpc_types {
           generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap.Builder builderForValue) {
         if (locationOfFreeMapBuilder_ == null) {
           locationOfFreeMap_ = builderForValue.build();
-          onChanged();
         } else {
           locationOfFreeMapBuilder_.setMessage(builderForValue.build());
         }
-
+        bitField0_ |= 0x00000001;
+        onChanged();
         return this;
       }
       /**
@@ -4226,38 +4282,38 @@ public final class free_map_service_grpc_types {
        */
       public Builder mergeLocationOfFreeMap(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap value) {
         if (locationOfFreeMapBuilder_ == null) {
-          if (locationOfFreeMap_ != null) {
-            locationOfFreeMap_ =
-              generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap.newBuilder(locationOfFreeMap_).mergeFrom(value).buildPartial();
+          if (((bitField0_ & 0x00000001) != 0) &&
+            locationOfFreeMap_ != null &&
+            locationOfFreeMap_ != generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap.getDefaultInstance()) {
+            getLocationOfFreeMapBuilder().mergeFrom(value);
           } else {
             locationOfFreeMap_ = value;
           }
-          onChanged();
         } else {
           locationOfFreeMapBuilder_.mergeFrom(value);
         }
-
+        bitField0_ |= 0x00000001;
+        onChanged();
         return this;
       }
       /**
        * <code>.free_map_service.LocationOfFreeMap location_of_free_map = 1;</code>
        */
       public Builder clearLocationOfFreeMap() {
-        if (locationOfFreeMapBuilder_ == null) {
-          locationOfFreeMap_ = null;
-          onChanged();
-        } else {
-          locationOfFreeMap_ = null;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        locationOfFreeMap_ = null;
+        if (locationOfFreeMapBuilder_ != null) {
+          locationOfFreeMapBuilder_.dispose();
           locationOfFreeMapBuilder_ = null;
         }
-
+        onChanged();
         return this;
       }
       /**
        * <code>.free_map_service.LocationOfFreeMap location_of_free_map = 1;</code>
        */
       public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap.Builder getLocationOfFreeMapBuilder() {
-        
+        bitField0_ |= 0x00000001;
         onChanged();
         return getLocationOfFreeMapFieldBuilder().getBuilder();
       }
@@ -4422,7 +4478,8 @@ public final class free_map_service_grpc_types {
 
     private int bitField0_;
     public static final int ERROR_FIELD_NUMBER = 1;
-    private volatile java.lang.Object error_;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object error_ = "";
     /**
      * <code>optional string error = 1;</code>
      * @return Whether the error field is set.
@@ -4468,7 +4525,7 @@ public final class free_map_service_grpc_types {
     }
 
     public static final int SUCCESS_FIELD_NUMBER = 2;
-    private boolean success_;
+    private boolean success_ = false;
     /**
      * <code>bool success = 2;</code>
      * @return The success.
@@ -4682,10 +4739,9 @@ public final class free_map_service_grpc_types {
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        bitField0_ = 0;
         error_ = "";
-        bitField0_ = (bitField0_ & ~0x00000001);
         success_ = false;
-
         return this;
       }
 
@@ -4712,16 +4768,22 @@ public final class free_map_service_grpc_types {
       @java.lang.Override
       public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.AddPlaceResponse buildPartial() {
         generated_grpc.free_map_service_grpc.free_map_service_grpc_types.AddPlaceResponse result = new generated_grpc.free_map_service_grpc.free_map_service_grpc_types.AddPlaceResponse(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.AddPlaceResponse result) {
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.error_ = error_;
           to_bitField0_ |= 0x00000001;
         }
-        result.error_ = error_;
-        result.success_ = success_;
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.success_ = success_;
+        }
+        result.bitField0_ |= to_bitField0_;
       }
 
       @java.lang.Override
@@ -4769,8 +4831,8 @@ public final class free_map_service_grpc_types {
       public Builder mergeFrom(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.AddPlaceResponse other) {
         if (other == generated_grpc.free_map_service_grpc.free_map_service_grpc_types.AddPlaceResponse.getDefaultInstance()) return this;
         if (other.hasError()) {
-          bitField0_ |= 0x00000001;
           error_ = other.error_;
+          bitField0_ |= 0x00000001;
           onChanged();
         }
         if (other.getSuccess() != false) {
@@ -4809,7 +4871,7 @@ public final class free_map_service_grpc_types {
               } // case 10
               case 16: {
                 success_ = input.readBool();
-
+                bitField0_ |= 0x00000002;
                 break;
               } // case 16
               default: {
@@ -4877,11 +4939,9 @@ public final class free_map_service_grpc_types {
        */
       public Builder setError(
           java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+        if (value == null) { throw new NullPointerException(); }
         error_ = value;
+        bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
@@ -4890,8 +4950,8 @@ public final class free_map_service_grpc_types {
        * @return This builder for chaining.
        */
       public Builder clearError() {
-        bitField0_ = (bitField0_ & ~0x00000001);
         error_ = getDefaultInstance().getError();
+        bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
@@ -4902,12 +4962,10 @@ public final class free_map_service_grpc_types {
        */
       public Builder setErrorBytes(
           com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        bitField0_ |= 0x00000001;
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
         error_ = value;
+        bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
@@ -4929,6 +4987,7 @@ public final class free_map_service_grpc_types {
       public Builder setSuccess(boolean value) {
         
         success_ = value;
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
@@ -4937,7 +4996,7 @@ public final class free_map_service_grpc_types {
        * @return This builder for chaining.
        */
       public Builder clearSuccess() {
-        
+        bitField0_ = (bitField0_ & ~0x00000002);
         success_ = false;
         onChanged();
         return this;
@@ -5006,36 +5065,45 @@ public final class free_map_service_grpc_types {
 
   }
 
-  public interface DeleteRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:free_map_service.DeleteRequest)
+  public interface UpdatePlaceRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:free_map_service.UpdatePlaceRequest)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>int32 location_id = 1;</code>
-     * @return The locationId.
+     * <code>.free_map_service.LocationOfFreeMap location_of_free_map = 1;</code>
+     * @return Whether the locationOfFreeMap field is set.
      */
-    int getLocationId();
+    boolean hasLocationOfFreeMap();
+    /**
+     * <code>.free_map_service.LocationOfFreeMap location_of_free_map = 1;</code>
+     * @return The locationOfFreeMap.
+     */
+    generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap getLocationOfFreeMap();
+    /**
+     * <code>.free_map_service.LocationOfFreeMap location_of_free_map = 1;</code>
+     */
+    generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMapOrBuilder getLocationOfFreeMapOrBuilder();
   }
   /**
-   * Protobuf type {@code free_map_service.DeleteRequest}
+   * Protobuf type {@code free_map_service.UpdatePlaceRequest}
    */
-  public static final class DeleteRequest extends
+  public static final class UpdatePlaceRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:free_map_service.DeleteRequest)
-      DeleteRequestOrBuilder {
+      // @@protoc_insertion_point(message_implements:free_map_service.UpdatePlaceRequest)
+      UpdatePlaceRequestOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use DeleteRequest.newBuilder() to construct.
-    private DeleteRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use UpdatePlaceRequest.newBuilder() to construct.
+    private UpdatePlaceRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private DeleteRequest() {
+    private UpdatePlaceRequest() {
     }
 
     @java.lang.Override
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new DeleteRequest();
+      return new UpdatePlaceRequest();
     }
 
     @java.lang.Override
@@ -5045,26 +5113,41 @@ public final class free_map_service_grpc_types {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.internal_static_free_map_service_DeleteRequest_descriptor;
+      return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.internal_static_free_map_service_UpdatePlaceRequest_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.internal_static_free_map_service_DeleteRequest_fieldAccessorTable
+      return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.internal_static_free_map_service_UpdatePlaceRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest.class, generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest.Builder.class);
+              generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest.class, generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest.Builder.class);
     }
 
-    public static final int LOCATION_ID_FIELD_NUMBER = 1;
-    private int locationId_;
+    public static final int LOCATION_OF_FREE_MAP_FIELD_NUMBER = 1;
+    private generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap locationOfFreeMap_;
     /**
-     * <code>int32 location_id = 1;</code>
-     * @return The locationId.
+     * <code>.free_map_service.LocationOfFreeMap location_of_free_map = 1;</code>
+     * @return Whether the locationOfFreeMap field is set.
      */
     @java.lang.Override
-    public int getLocationId() {
-      return locationId_;
+    public boolean hasLocationOfFreeMap() {
+      return locationOfFreeMap_ != null;
+    }
+    /**
+     * <code>.free_map_service.LocationOfFreeMap location_of_free_map = 1;</code>
+     * @return The locationOfFreeMap.
+     */
+    @java.lang.Override
+    public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap getLocationOfFreeMap() {
+      return locationOfFreeMap_ == null ? generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap.getDefaultInstance() : locationOfFreeMap_;
+    }
+    /**
+     * <code>.free_map_service.LocationOfFreeMap location_of_free_map = 1;</code>
+     */
+    @java.lang.Override
+    public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMapOrBuilder getLocationOfFreeMapOrBuilder() {
+      return locationOfFreeMap_ == null ? generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap.getDefaultInstance() : locationOfFreeMap_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -5081,8 +5164,8 @@ public final class free_map_service_grpc_types {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (locationId_ != 0) {
-        output.writeInt32(1, locationId_);
+      if (locationOfFreeMap_ != null) {
+        output.writeMessage(1, getLocationOfFreeMap());
       }
       getUnknownFields().writeTo(output);
     }
@@ -5093,9 +5176,9 @@ public final class free_map_service_grpc_types {
       if (size != -1) return size;
 
       size = 0;
-      if (locationId_ != 0) {
+      if (locationOfFreeMap_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, locationId_);
+          .computeMessageSize(1, getLocationOfFreeMap());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -5107,13 +5190,16 @@ public final class free_map_service_grpc_types {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest)) {
+      if (!(obj instanceof generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest)) {
         return super.equals(obj);
       }
-      generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest other = (generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest) obj;
+      generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest other = (generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest) obj;
 
-      if (getLocationId()
-          != other.getLocationId()) return false;
+      if (hasLocationOfFreeMap() != other.hasLocationOfFreeMap()) return false;
+      if (hasLocationOfFreeMap()) {
+        if (!getLocationOfFreeMap()
+            .equals(other.getLocationOfFreeMap())) return false;
+      }
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -5125,76 +5211,78 @@ public final class free_map_service_grpc_types {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + LOCATION_ID_FIELD_NUMBER;
-      hash = (53 * hash) + getLocationId();
+      if (hasLocationOfFreeMap()) {
+        hash = (37 * hash) + LOCATION_OF_FREE_MAP_FIELD_NUMBER;
+        hash = (53 * hash) + getLocationOfFreeMap().hashCode();
+      }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest parseFrom(
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest parseFrom(
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest parseFrom(
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest parseFrom(
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest parseFrom(byte[] data)
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest parseFrom(
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest parseFrom(java.io.InputStream input)
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest parseFrom(
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest parseDelimitedFrom(java.io.InputStream input)
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest parseDelimitedFrom(
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest parseFrom(
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest parseFrom(
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -5207,7 +5295,7 @@ public final class free_map_service_grpc_types {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest prototype) {
+    public static Builder newBuilder(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -5223,26 +5311,26 @@ public final class free_map_service_grpc_types {
       return builder;
     }
     /**
-     * Protobuf type {@code free_map_service.DeleteRequest}
+     * Protobuf type {@code free_map_service.UpdatePlaceRequest}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:free_map_service.DeleteRequest)
-        generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequestOrBuilder {
+        // @@protoc_insertion_point(builder_implements:free_map_service.UpdatePlaceRequest)
+        generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.internal_static_free_map_service_DeleteRequest_descriptor;
+        return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.internal_static_free_map_service_UpdatePlaceRequest_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.internal_static_free_map_service_DeleteRequest_fieldAccessorTable
+        return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.internal_static_free_map_service_UpdatePlaceRequest_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest.class, generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest.Builder.class);
+                generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest.class, generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest.Builder.class);
       }
 
-      // Construct using generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest.newBuilder()
+      // Construct using generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest.newBuilder()
       private Builder() {
 
       }
@@ -5255,25 +5343,29 @@ public final class free_map_service_grpc_types {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        locationId_ = 0;
-
+        bitField0_ = 0;
+        locationOfFreeMap_ = null;
+        if (locationOfFreeMapBuilder_ != null) {
+          locationOfFreeMapBuilder_.dispose();
+          locationOfFreeMapBuilder_ = null;
+        }
         return this;
       }
 
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.internal_static_free_map_service_DeleteRequest_descriptor;
+        return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.internal_static_free_map_service_UpdatePlaceRequest_descriptor;
       }
 
       @java.lang.Override
-      public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest getDefaultInstanceForType() {
-        return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest.getDefaultInstance();
+      public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest getDefaultInstanceForType() {
+        return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest.getDefaultInstance();
       }
 
       @java.lang.Override
-      public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest build() {
-        generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest result = buildPartial();
+      public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest build() {
+        generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -5281,11 +5373,20 @@ public final class free_map_service_grpc_types {
       }
 
       @java.lang.Override
-      public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest buildPartial() {
-        generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest result = new generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest(this);
-        result.locationId_ = locationId_;
+      public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest buildPartial() {
+        generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest result = new generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
         onBuilt();
         return result;
+      }
+
+      private void buildPartial0(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.locationOfFreeMap_ = locationOfFreeMapBuilder_ == null
+              ? locationOfFreeMap_
+              : locationOfFreeMapBuilder_.build();
+        }
       }
 
       @java.lang.Override
@@ -5322,18 +5423,18 @@ public final class free_map_service_grpc_types {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest) {
-          return mergeFrom((generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest)other);
+        if (other instanceof generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest) {
+          return mergeFrom((generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest other) {
-        if (other == generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest.getDefaultInstance()) return this;
-        if (other.getLocationId() != 0) {
-          setLocationId(other.getLocationId());
+      public Builder mergeFrom(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest other) {
+        if (other == generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest.getDefaultInstance()) return this;
+        if (other.hasLocationOfFreeMap()) {
+          mergeLocationOfFreeMap(other.getLocationOfFreeMap());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -5361,11 +5462,13 @@ public final class free_map_service_grpc_types {
               case 0:
                 done = true;
                 break;
-              case 8: {
-                locationId_ = input.readInt32();
-
+              case 10: {
+                input.readMessage(
+                    getLocationOfFreeMapFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000001;
                 break;
-              } // case 8
+              } // case 10
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -5381,36 +5484,125 @@ public final class free_map_service_grpc_types {
         } // finally
         return this;
       }
+      private int bitField0_;
 
-      private int locationId_ ;
+      private generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap locationOfFreeMap_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap, generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap.Builder, generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMapOrBuilder> locationOfFreeMapBuilder_;
       /**
-       * <code>int32 location_id = 1;</code>
-       * @return The locationId.
+       * <code>.free_map_service.LocationOfFreeMap location_of_free_map = 1;</code>
+       * @return Whether the locationOfFreeMap field is set.
        */
-      @java.lang.Override
-      public int getLocationId() {
-        return locationId_;
+      public boolean hasLocationOfFreeMap() {
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
-       * <code>int32 location_id = 1;</code>
-       * @param value The locationId to set.
-       * @return This builder for chaining.
+       * <code>.free_map_service.LocationOfFreeMap location_of_free_map = 1;</code>
+       * @return The locationOfFreeMap.
        */
-      public Builder setLocationId(int value) {
-        
-        locationId_ = value;
+      public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap getLocationOfFreeMap() {
+        if (locationOfFreeMapBuilder_ == null) {
+          return locationOfFreeMap_ == null ? generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap.getDefaultInstance() : locationOfFreeMap_;
+        } else {
+          return locationOfFreeMapBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.free_map_service.LocationOfFreeMap location_of_free_map = 1;</code>
+       */
+      public Builder setLocationOfFreeMap(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap value) {
+        if (locationOfFreeMapBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          locationOfFreeMap_ = value;
+        } else {
+          locationOfFreeMapBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
       /**
-       * <code>int32 location_id = 1;</code>
-       * @return This builder for chaining.
+       * <code>.free_map_service.LocationOfFreeMap location_of_free_map = 1;</code>
        */
-      public Builder clearLocationId() {
-        
-        locationId_ = 0;
+      public Builder setLocationOfFreeMap(
+          generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap.Builder builderForValue) {
+        if (locationOfFreeMapBuilder_ == null) {
+          locationOfFreeMap_ = builderForValue.build();
+        } else {
+          locationOfFreeMapBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
         onChanged();
         return this;
+      }
+      /**
+       * <code>.free_map_service.LocationOfFreeMap location_of_free_map = 1;</code>
+       */
+      public Builder mergeLocationOfFreeMap(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap value) {
+        if (locationOfFreeMapBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0) &&
+            locationOfFreeMap_ != null &&
+            locationOfFreeMap_ != generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap.getDefaultInstance()) {
+            getLocationOfFreeMapBuilder().mergeFrom(value);
+          } else {
+            locationOfFreeMap_ = value;
+          }
+        } else {
+          locationOfFreeMapBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.free_map_service.LocationOfFreeMap location_of_free_map = 1;</code>
+       */
+      public Builder clearLocationOfFreeMap() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        locationOfFreeMap_ = null;
+        if (locationOfFreeMapBuilder_ != null) {
+          locationOfFreeMapBuilder_.dispose();
+          locationOfFreeMapBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.free_map_service.LocationOfFreeMap location_of_free_map = 1;</code>
+       */
+      public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap.Builder getLocationOfFreeMapBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getLocationOfFreeMapFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.free_map_service.LocationOfFreeMap location_of_free_map = 1;</code>
+       */
+      public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMapOrBuilder getLocationOfFreeMapOrBuilder() {
+        if (locationOfFreeMapBuilder_ != null) {
+          return locationOfFreeMapBuilder_.getMessageOrBuilder();
+        } else {
+          return locationOfFreeMap_ == null ?
+              generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap.getDefaultInstance() : locationOfFreeMap_;
+        }
+      }
+      /**
+       * <code>.free_map_service.LocationOfFreeMap location_of_free_map = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap, generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap.Builder, generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMapOrBuilder> 
+          getLocationOfFreeMapFieldBuilder() {
+        if (locationOfFreeMapBuilder_ == null) {
+          locationOfFreeMapBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap, generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMap.Builder, generated_grpc.free_map_service_grpc.free_map_service_grpc_types.LocationOfFreeMapOrBuilder>(
+                  getLocationOfFreeMap(),
+                  getParentForChildren(),
+                  isClean());
+          locationOfFreeMap_ = null;
+        }
+        return locationOfFreeMapBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -5425,23 +5617,23 @@ public final class free_map_service_grpc_types {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:free_map_service.DeleteRequest)
+      // @@protoc_insertion_point(builder_scope:free_map_service.UpdatePlaceRequest)
     }
 
-    // @@protoc_insertion_point(class_scope:free_map_service.DeleteRequest)
-    private static final generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:free_map_service.UpdatePlaceRequest)
+    private static final generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest();
+      DEFAULT_INSTANCE = new generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest();
     }
 
-    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest getDefaultInstance() {
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<DeleteRequest>
-        PARSER = new com.google.protobuf.AbstractParser<DeleteRequest>() {
+    private static final com.google.protobuf.Parser<UpdatePlaceRequest>
+        PARSER = new com.google.protobuf.AbstractParser<UpdatePlaceRequest>() {
       @java.lang.Override
-      public DeleteRequest parsePartialFrom(
+      public UpdatePlaceRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
@@ -5460,24 +5652,24 @@ public final class free_map_service_grpc_types {
       }
     };
 
-    public static com.google.protobuf.Parser<DeleteRequest> parser() {
+    public static com.google.protobuf.Parser<UpdatePlaceRequest> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<DeleteRequest> getParserForType() {
+    public com.google.protobuf.Parser<UpdatePlaceRequest> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteRequest getDefaultInstanceForType() {
+    public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface DeleteResponseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:free_map_service.DeleteResponse)
+  public interface UpdatePlaceResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:free_map_service.UpdatePlaceResponse)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -5504,18 +5696,18 @@ public final class free_map_service_grpc_types {
     boolean getSuccess();
   }
   /**
-   * Protobuf type {@code free_map_service.DeleteResponse}
+   * Protobuf type {@code free_map_service.UpdatePlaceResponse}
    */
-  public static final class DeleteResponse extends
+  public static final class UpdatePlaceResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:free_map_service.DeleteResponse)
-      DeleteResponseOrBuilder {
+      // @@protoc_insertion_point(message_implements:free_map_service.UpdatePlaceResponse)
+      UpdatePlaceResponseOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use DeleteResponse.newBuilder() to construct.
-    private DeleteResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use UpdatePlaceResponse.newBuilder() to construct.
+    private UpdatePlaceResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private DeleteResponse() {
+    private UpdatePlaceResponse() {
       error_ = "";
     }
 
@@ -5523,7 +5715,7 @@ public final class free_map_service_grpc_types {
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new DeleteResponse();
+      return new UpdatePlaceResponse();
     }
 
     @java.lang.Override
@@ -5533,20 +5725,21 @@ public final class free_map_service_grpc_types {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.internal_static_free_map_service_DeleteResponse_descriptor;
+      return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.internal_static_free_map_service_UpdatePlaceResponse_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.internal_static_free_map_service_DeleteResponse_fieldAccessorTable
+      return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.internal_static_free_map_service_UpdatePlaceResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse.class, generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse.Builder.class);
+              generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse.class, generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse.Builder.class);
     }
 
     private int bitField0_;
     public static final int ERROR_FIELD_NUMBER = 1;
-    private volatile java.lang.Object error_;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object error_ = "";
     /**
      * <code>optional string error = 1;</code>
      * @return Whether the error field is set.
@@ -5592,7 +5785,7 @@ public final class free_map_service_grpc_types {
     }
 
     public static final int SUCCESS_FIELD_NUMBER = 2;
-    private boolean success_;
+    private boolean success_ = false;
     /**
      * <code>bool success = 2;</code>
      * @return The success.
@@ -5648,10 +5841,10 @@ public final class free_map_service_grpc_types {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse)) {
+      if (!(obj instanceof generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse)) {
         return super.equals(obj);
       }
-      generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse other = (generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse) obj;
+      generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse other = (generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse) obj;
 
       if (hasError() != other.hasError()) return false;
       if (hasError()) {
@@ -5683,69 +5876,69 @@ public final class free_map_service_grpc_types {
       return hash;
     }
 
-    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse parseFrom(
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse parseFrom(
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse parseFrom(
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse parseFrom(
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse parseFrom(byte[] data)
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse parseFrom(
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse parseFrom(java.io.InputStream input)
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse parseFrom(
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse parseDelimitedFrom(java.io.InputStream input)
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse parseDelimitedFrom(
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse parseFrom(
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse parseFrom(
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -5758,7 +5951,7 @@ public final class free_map_service_grpc_types {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse prototype) {
+    public static Builder newBuilder(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -5774,26 +5967,26 @@ public final class free_map_service_grpc_types {
       return builder;
     }
     /**
-     * Protobuf type {@code free_map_service.DeleteResponse}
+     * Protobuf type {@code free_map_service.UpdatePlaceResponse}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:free_map_service.DeleteResponse)
-        generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponseOrBuilder {
+        // @@protoc_insertion_point(builder_implements:free_map_service.UpdatePlaceResponse)
+        generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.internal_static_free_map_service_DeleteResponse_descriptor;
+        return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.internal_static_free_map_service_UpdatePlaceResponse_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.internal_static_free_map_service_DeleteResponse_fieldAccessorTable
+        return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.internal_static_free_map_service_UpdatePlaceResponse_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse.class, generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse.Builder.class);
+                generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse.class, generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse.Builder.class);
       }
 
-      // Construct using generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse.newBuilder()
+      // Construct using generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse.newBuilder()
       private Builder() {
 
       }
@@ -5806,27 +5999,26 @@ public final class free_map_service_grpc_types {
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        bitField0_ = 0;
         error_ = "";
-        bitField0_ = (bitField0_ & ~0x00000001);
         success_ = false;
-
         return this;
       }
 
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.internal_static_free_map_service_DeleteResponse_descriptor;
+        return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.internal_static_free_map_service_UpdatePlaceResponse_descriptor;
       }
 
       @java.lang.Override
-      public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse getDefaultInstanceForType() {
-        return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse.getDefaultInstance();
+      public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse getDefaultInstanceForType() {
+        return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse.getDefaultInstance();
       }
 
       @java.lang.Override
-      public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse build() {
-        generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse result = buildPartial();
+      public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse build() {
+        generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -5834,18 +6026,24 @@ public final class free_map_service_grpc_types {
       }
 
       @java.lang.Override
-      public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse buildPartial() {
-        generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse result = new generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse(this);
+      public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse buildPartial() {
+        generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse result = new generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse result) {
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.error_ = error_;
           to_bitField0_ |= 0x00000001;
         }
-        result.error_ = error_;
-        result.success_ = success_;
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.success_ = success_;
+        }
+        result.bitField0_ |= to_bitField0_;
       }
 
       @java.lang.Override
@@ -5882,19 +6080,19 @@ public final class free_map_service_grpc_types {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse) {
-          return mergeFrom((generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse)other);
+        if (other instanceof generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse) {
+          return mergeFrom((generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse other) {
-        if (other == generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse.getDefaultInstance()) return this;
+      public Builder mergeFrom(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse other) {
+        if (other == generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse.getDefaultInstance()) return this;
         if (other.hasError()) {
-          bitField0_ |= 0x00000001;
           error_ = other.error_;
+          bitField0_ |= 0x00000001;
           onChanged();
         }
         if (other.getSuccess() != false) {
@@ -5933,7 +6131,7 @@ public final class free_map_service_grpc_types {
               } // case 10
               case 16: {
                 success_ = input.readBool();
-
+                bitField0_ |= 0x00000002;
                 break;
               } // case 16
               default: {
@@ -6001,11 +6199,9 @@ public final class free_map_service_grpc_types {
        */
       public Builder setError(
           java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+        if (value == null) { throw new NullPointerException(); }
         error_ = value;
+        bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
@@ -6014,8 +6210,8 @@ public final class free_map_service_grpc_types {
        * @return This builder for chaining.
        */
       public Builder clearError() {
-        bitField0_ = (bitField0_ & ~0x00000001);
         error_ = getDefaultInstance().getError();
+        bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
         return this;
       }
@@ -6026,12 +6222,10 @@ public final class free_map_service_grpc_types {
        */
       public Builder setErrorBytes(
           com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        bitField0_ |= 0x00000001;
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
         error_ = value;
+        bitField0_ |= 0x00000001;
         onChanged();
         return this;
       }
@@ -6053,6 +6247,7 @@ public final class free_map_service_grpc_types {
       public Builder setSuccess(boolean value) {
         
         success_ = value;
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
@@ -6061,7 +6256,7 @@ public final class free_map_service_grpc_types {
        * @return This builder for chaining.
        */
       public Builder clearSuccess() {
-        
+        bitField0_ = (bitField0_ & ~0x00000002);
         success_ = false;
         onChanged();
         return this;
@@ -6079,23 +6274,23 @@ public final class free_map_service_grpc_types {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:free_map_service.DeleteResponse)
+      // @@protoc_insertion_point(builder_scope:free_map_service.UpdatePlaceResponse)
     }
 
-    // @@protoc_insertion_point(class_scope:free_map_service.DeleteResponse)
-    private static final generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:free_map_service.UpdatePlaceResponse)
+    private static final generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse();
+      DEFAULT_INSTANCE = new generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse();
     }
 
-    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse getDefaultInstance() {
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<DeleteResponse>
-        PARSER = new com.google.protobuf.AbstractParser<DeleteResponse>() {
+    private static final com.google.protobuf.Parser<UpdatePlaceResponse>
+        PARSER = new com.google.protobuf.AbstractParser<UpdatePlaceResponse>() {
       @java.lang.Override
-      public DeleteResponse parsePartialFrom(
+      public UpdatePlaceResponse parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
@@ -6114,17 +6309,1153 @@ public final class free_map_service_grpc_types {
       }
     };
 
-    public static com.google.protobuf.Parser<DeleteResponse> parser() {
+    public static com.google.protobuf.Parser<UpdatePlaceResponse> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<DeleteResponse> getParserForType() {
+    public com.google.protobuf.Parser<UpdatePlaceResponse> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeleteResponse getDefaultInstanceForType() {
+    public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.UpdatePlaceResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface DeletePlaceRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:free_map_service.DeletePlaceRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int32 location_id = 1;</code>
+     * @return The locationId.
+     */
+    int getLocationId();
+  }
+  /**
+   * Protobuf type {@code free_map_service.DeletePlaceRequest}
+   */
+  public static final class DeletePlaceRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:free_map_service.DeletePlaceRequest)
+      DeletePlaceRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use DeletePlaceRequest.newBuilder() to construct.
+    private DeletePlaceRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private DeletePlaceRequest() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new DeletePlaceRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.internal_static_free_map_service_DeletePlaceRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.internal_static_free_map_service_DeletePlaceRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest.class, generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest.Builder.class);
+    }
+
+    public static final int LOCATION_ID_FIELD_NUMBER = 1;
+    private int locationId_ = 0;
+    /**
+     * <code>int32 location_id = 1;</code>
+     * @return The locationId.
+     */
+    @java.lang.Override
+    public int getLocationId() {
+      return locationId_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (locationId_ != 0) {
+        output.writeInt32(1, locationId_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (locationId_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, locationId_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest)) {
+        return super.equals(obj);
+      }
+      generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest other = (generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest) obj;
+
+      if (getLocationId()
+          != other.getLocationId()) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + LOCATION_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getLocationId();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code free_map_service.DeletePlaceRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:free_map_service.DeletePlaceRequest)
+        generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.internal_static_free_map_service_DeletePlaceRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.internal_static_free_map_service_DeletePlaceRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest.class, generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest.Builder.class);
+      }
+
+      // Construct using generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        locationId_ = 0;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.internal_static_free_map_service_DeletePlaceRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest getDefaultInstanceForType() {
+        return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest build() {
+        generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest buildPartial() {
+        generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest result = new generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.locationId_ = locationId_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest) {
+          return mergeFrom((generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest other) {
+        if (other == generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest.getDefaultInstance()) return this;
+        if (other.getLocationId() != 0) {
+          setLocationId(other.getLocationId());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 8: {
+                locationId_ = input.readInt32();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 8
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private int locationId_ ;
+      /**
+       * <code>int32 location_id = 1;</code>
+       * @return The locationId.
+       */
+      @java.lang.Override
+      public int getLocationId() {
+        return locationId_;
+      }
+      /**
+       * <code>int32 location_id = 1;</code>
+       * @param value The locationId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setLocationId(int value) {
+        
+        locationId_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 location_id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearLocationId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        locationId_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:free_map_service.DeletePlaceRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:free_map_service.DeletePlaceRequest)
+    private static final generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest();
+    }
+
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<DeletePlaceRequest>
+        PARSER = new com.google.protobuf.AbstractParser<DeletePlaceRequest>() {
+      @java.lang.Override
+      public DeletePlaceRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<DeletePlaceRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<DeletePlaceRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface DeletePlaceResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:free_map_service.DeletePlaceResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string error = 1;</code>
+     * @return Whether the error field is set.
+     */
+    boolean hasError();
+    /**
+     * <code>optional string error = 1;</code>
+     * @return The error.
+     */
+    java.lang.String getError();
+    /**
+     * <code>optional string error = 1;</code>
+     * @return The bytes for error.
+     */
+    com.google.protobuf.ByteString
+        getErrorBytes();
+
+    /**
+     * <code>bool success = 2;</code>
+     * @return The success.
+     */
+    boolean getSuccess();
+  }
+  /**
+   * Protobuf type {@code free_map_service.DeletePlaceResponse}
+   */
+  public static final class DeletePlaceResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:free_map_service.DeletePlaceResponse)
+      DeletePlaceResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use DeletePlaceResponse.newBuilder() to construct.
+    private DeletePlaceResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private DeletePlaceResponse() {
+      error_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new DeletePlaceResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.internal_static_free_map_service_DeletePlaceResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.internal_static_free_map_service_DeletePlaceResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse.class, generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int ERROR_FIELD_NUMBER = 1;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object error_ = "";
+    /**
+     * <code>optional string error = 1;</code>
+     * @return Whether the error field is set.
+     */
+    @java.lang.Override
+    public boolean hasError() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>optional string error = 1;</code>
+     * @return The error.
+     */
+    @java.lang.Override
+    public java.lang.String getError() {
+      java.lang.Object ref = error_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        error_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string error = 1;</code>
+     * @return The bytes for error.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getErrorBytes() {
+      java.lang.Object ref = error_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        error_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SUCCESS_FIELD_NUMBER = 2;
+    private boolean success_ = false;
+    /**
+     * <code>bool success = 2;</code>
+     * @return The success.
+     */
+    @java.lang.Override
+    public boolean getSuccess() {
+      return success_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, error_);
+      }
+      if (success_ != false) {
+        output.writeBool(2, success_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, error_);
+      }
+      if (success_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(2, success_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse)) {
+        return super.equals(obj);
+      }
+      generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse other = (generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse) obj;
+
+      if (hasError() != other.hasError()) return false;
+      if (hasError()) {
+        if (!getError()
+            .equals(other.getError())) return false;
+      }
+      if (getSuccess()
+          != other.getSuccess()) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasError()) {
+        hash = (37 * hash) + ERROR_FIELD_NUMBER;
+        hash = (53 * hash) + getError().hashCode();
+      }
+      hash = (37 * hash) + SUCCESS_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getSuccess());
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code free_map_service.DeletePlaceResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:free_map_service.DeletePlaceResponse)
+        generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.internal_static_free_map_service_DeletePlaceResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.internal_static_free_map_service_DeletePlaceResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse.class, generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse.Builder.class);
+      }
+
+      // Construct using generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        error_ = "";
+        success_ = false;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.internal_static_free_map_service_DeletePlaceResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse getDefaultInstanceForType() {
+        return generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse build() {
+        generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse buildPartial() {
+        generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse result = new generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse result) {
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.error_ = error_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.success_ = success_;
+        }
+        result.bitField0_ |= to_bitField0_;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse) {
+          return mergeFrom((generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse other) {
+        if (other == generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse.getDefaultInstance()) return this;
+        if (other.hasError()) {
+          error_ = other.error_;
+          bitField0_ |= 0x00000001;
+          onChanged();
+        }
+        if (other.getSuccess() != false) {
+          setSuccess(other.getSuccess());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                error_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 10
+              case 16: {
+                success_ = input.readBool();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 16
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object error_ = "";
+      /**
+       * <code>optional string error = 1;</code>
+       * @return Whether the error field is set.
+       */
+      public boolean hasError() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <code>optional string error = 1;</code>
+       * @return The error.
+       */
+      public java.lang.String getError() {
+        java.lang.Object ref = error_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          error_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string error = 1;</code>
+       * @return The bytes for error.
+       */
+      public com.google.protobuf.ByteString
+          getErrorBytes() {
+        java.lang.Object ref = error_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          error_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string error = 1;</code>
+       * @param value The error to set.
+       * @return This builder for chaining.
+       */
+      public Builder setError(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        error_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string error = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearError() {
+        error_ = getDefaultInstance().getError();
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string error = 1;</code>
+       * @param value The bytes for error to set.
+       * @return This builder for chaining.
+       */
+      public Builder setErrorBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        error_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+
+      private boolean success_ ;
+      /**
+       * <code>bool success = 2;</code>
+       * @return The success.
+       */
+      @java.lang.Override
+      public boolean getSuccess() {
+        return success_;
+      }
+      /**
+       * <code>bool success = 2;</code>
+       * @param value The success to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSuccess(boolean value) {
+        
+        success_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool success = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSuccess() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        success_ = false;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:free_map_service.DeletePlaceResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:free_map_service.DeletePlaceResponse)
+    private static final generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse();
+    }
+
+    public static generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<DeletePlaceResponse>
+        PARSER = new com.google.protobuf.AbstractParser<DeletePlaceResponse>() {
+      @java.lang.Override
+      public DeletePlaceResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<DeletePlaceResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<DeletePlaceResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public generated_grpc.free_map_service_grpc.free_map_service_grpc_types.DeletePlaceResponse getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -6156,15 +7487,25 @@ public final class free_map_service_grpc_types {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_free_map_service_AddPlaceResponse_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_free_map_service_DeleteRequest_descriptor;
+    internal_static_free_map_service_UpdatePlaceRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_free_map_service_DeleteRequest_fieldAccessorTable;
+      internal_static_free_map_service_UpdatePlaceRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_free_map_service_DeleteResponse_descriptor;
+    internal_static_free_map_service_UpdatePlaceResponse_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_free_map_service_DeleteResponse_fieldAccessorTable;
+      internal_static_free_map_service_UpdatePlaceResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_free_map_service_DeletePlaceRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_free_map_service_DeletePlaceRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_free_map_service_DeletePlaceResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_free_map_service_DeletePlaceResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -6196,19 +7537,26 @@ public final class free_map_service_grpc_types {
       "A\n\024location_of_free_map\030\001 \001(\0132#.free_map" +
       "_service.LocationOfFreeMap\"A\n\020AddPlaceRe" +
       "sponse\022\022\n\005error\030\001 \001(\tH\000\210\001\001\022\017\n\007success\030\002 " +
-      "\001(\010B\010\n\006_error\"$\n\rDeleteRequest\022\023\n\013locati" +
-      "on_id\030\001 \001(\005\"?\n\016DeleteResponse\022\022\n\005error\030\001" +
-      " \001(\tH\000\210\001\001\022\017\n\007success\030\002 \001(\010B\010\n\006_error2\224\002\n" +
-      "\016FreeMapService\022]\n\014SearchPlaces\022%.free_m" +
-      "ap_service.SearchPlacesRequest\032&.free_ma" +
-      "p_service.SearchPlacesResponse\022Q\n\010AddPla" +
-      "ce\022!.free_map_service.AddPlaceRequest\032\"." +
-      "free_map_service.AddPlaceResponse\022P\n\013Del" +
-      "etePlace\022\037.free_map_service.DeleteReques" +
-      "t\032 .free_map_service.DeleteResponseBW\n$g" +
-      "enerated_grpc.free_map_service_grpcB\033fre" +
-      "e_map_service_grpc_typesZ\022./free_map_ser" +
-      "viceb\006proto3"
+      "\001(\010B\010\n\006_error\"W\n\022UpdatePlaceRequest\022A\n\024l" +
+      "ocation_of_free_map\030\001 \001(\0132#.free_map_ser" +
+      "vice.LocationOfFreeMap\"D\n\023UpdatePlaceRes" +
+      "ponse\022\022\n\005error\030\001 \001(\tH\000\210\001\001\022\017\n\007success\030\002 \001" +
+      "(\010B\010\n\006_error\")\n\022DeletePlaceRequest\022\023\n\013lo" +
+      "cation_id\030\001 \001(\005\"D\n\023DeletePlaceResponse\022\022" +
+      "\n\005error\030\001 \001(\tH\000\210\001\001\022\017\n\007success\030\002 \001(\010B\010\n\006_" +
+      "error2\372\002\n\016FreeMapService\022]\n\014SearchPlaces" +
+      "\022%.free_map_service.SearchPlacesRequest\032" +
+      "&.free_map_service.SearchPlacesResponse\022" +
+      "Q\n\010AddPlace\022!.free_map_service.AddPlaceR" +
+      "equest\032\".free_map_service.AddPlaceRespon" +
+      "se\022Z\n\013UpdatePlace\022$.free_map_service.Upd" +
+      "atePlaceRequest\032%.free_map_service.Updat" +
+      "ePlaceResponse\022Z\n\013DeletePlace\022$.free_map" +
+      "_service.DeletePlaceRequest\032%.free_map_s" +
+      "ervice.DeletePlaceResponseBW\n$generated_" +
+      "grpc.free_map_service_grpcB\033free_map_ser" +
+      "vice_grpc_typesZ\022./free_map_serviceb\006pro" +
+      "to3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -6244,17 +7592,29 @@ public final class free_map_service_grpc_types {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_free_map_service_AddPlaceResponse_descriptor,
         new java.lang.String[] { "Error", "Success", "Error", });
-    internal_static_free_map_service_DeleteRequest_descriptor =
+    internal_static_free_map_service_UpdatePlaceRequest_descriptor =
       getDescriptor().getMessageTypes().get(5);
-    internal_static_free_map_service_DeleteRequest_fieldAccessorTable = new
+    internal_static_free_map_service_UpdatePlaceRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_free_map_service_DeleteRequest_descriptor,
-        new java.lang.String[] { "LocationId", });
-    internal_static_free_map_service_DeleteResponse_descriptor =
+        internal_static_free_map_service_UpdatePlaceRequest_descriptor,
+        new java.lang.String[] { "LocationOfFreeMap", });
+    internal_static_free_map_service_UpdatePlaceResponse_descriptor =
       getDescriptor().getMessageTypes().get(6);
-    internal_static_free_map_service_DeleteResponse_fieldAccessorTable = new
+    internal_static_free_map_service_UpdatePlaceResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_free_map_service_DeleteResponse_descriptor,
+        internal_static_free_map_service_UpdatePlaceResponse_descriptor,
+        new java.lang.String[] { "Error", "Success", "Error", });
+    internal_static_free_map_service_DeletePlaceRequest_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_free_map_service_DeletePlaceRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_free_map_service_DeletePlaceRequest_descriptor,
+        new java.lang.String[] { "LocationId", });
+    internal_static_free_map_service_DeletePlaceResponse_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_free_map_service_DeletePlaceResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_free_map_service_DeletePlaceResponse_descriptor,
         new java.lang.String[] { "Error", "Success", "Error", });
   }
 

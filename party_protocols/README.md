@@ -197,6 +197,17 @@ protoc \
 
 ### Java/Kotlin
 
+<!-- ```bash
+cd .gradle
+wget https://github.com/Fadelis/protoc-gen-java-optional/releases/download/1.8.0/protoc-gen-java-optional-1.8.0-osx-x86_64.exe
+chmod 777 protoc-gen-java-optional-1.8.0-osx-x86_64.exe
+cd ..
+
+mkdir -p app/src/main/java/generated_grpc
+
+protoc -I=../party_protocols/protocols --plugin=protoc-gen-java-optional=.gradle/protoc-gen-java-optional-1.8.0-osx-x86_64.exe --plugin=protoc-gen-grpc-java=.gradle/protoc-gen-grpc-java-1.52.1-osx-x86_64.exe --java_out=app/src/main/java --java-optional_out=setter_optional=true,getter_optional=true,use_primitive_optionals=true:app/src/main/java --grpc-java_out=app/src/main/java free_map_service.proto
+``` -->
+
 ```bash
 cd .gradle
 wget https://repo1.maven.org/maven2/io/grpc/protoc-gen-grpc-java/1.52.1/protoc-gen-grpc-java-1.52.1-osx-x86_64.exe

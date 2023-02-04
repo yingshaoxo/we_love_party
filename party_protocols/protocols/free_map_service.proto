@@ -10,7 +10,8 @@ service FreeMapService {
     rpc SearchPlaces(SearchPlacesRequest) returns (SearchPlacesResponse);
 
     rpc AddPlace(AddPlaceRequest) returns (AddPlaceResponse);
-    rpc DeletePlace(DeleteRequest) returns (DeleteResponse);
+    rpc UpdatePlace(UpdatePlaceRequest) returns (UpdatePlaceResponse);
+    rpc DeletePlace(DeletePlaceRequest) returns (DeletePlaceResponse);
 }
 
 message SearchPlacesRequest {
@@ -59,11 +60,20 @@ message AddPlaceResponse {
     bool success = 2;
 }
 
-message DeleteRequest {
+message UpdatePlaceRequest {
+    LocationOfFreeMap location_of_free_map = 1;
+}
+
+message UpdatePlaceResponse {
+    optional string error = 1;
+    bool success = 2;
+}
+
+message DeletePlaceRequest {
     int32 location_id = 1;
 }
 
-message DeleteResponse {
+message DeletePlaceResponse {
     optional string error = 1;
     bool success = 2;
 }
