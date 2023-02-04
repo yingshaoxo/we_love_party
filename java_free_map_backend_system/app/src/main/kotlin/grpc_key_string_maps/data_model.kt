@@ -18,6 +18,7 @@ class data_model_key_string_maps {
                 companion object {
                     @JvmField 
                     var location_id: String = "location_id"
+                    var uploader_email: String = "uploader_email"
                     var name: String = "name"
                     var y_latitude: String = "y_latitude"
                     var x_longitude: String = "x_longitude"

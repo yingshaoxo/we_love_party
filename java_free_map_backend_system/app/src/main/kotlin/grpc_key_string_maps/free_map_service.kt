@@ -17,7 +17,7 @@ class free_map_service_key_string_maps {
                 companion object {
                     @JvmField 
                     var location_id: String = "location_id"
-                    var uploader_username: String = "uploader_username"
+                    var uploader_email: String = "uploader_email"
                     var name: String = "name"
                     var y_latitude: String = "y_latitude"
                     var x_longitude: String = "x_longitude"
@@ -62,14 +62,29 @@ class free_map_service_key_string_maps {
                 }
             }
 
-            class DeleteRequest {
+            class UpdatePlaceRequest {
+                companion object {
+                    @JvmField 
+                    var location_of_free_map: String = "location_of_free_map"
+                }
+            }
+
+            class UpdatePlaceResponse {
+                companion object {
+                    @JvmField 
+                    var error: String = "error"
+                    var success: String = "success"
+                }
+            }
+
+            class DeletePlaceRequest {
                 companion object {
                     @JvmField 
                     var location_id: String = "location_id"
                 }
             }
 
-            class DeleteResponse {
+            class DeletePlaceResponse {
                 companion object {
                     @JvmField 
                     var error: String = "error"

@@ -36,9 +36,9 @@ fun check_if_position_is_valid(one_location: LocationOfFreeMap?): Pair<Boolean, 
         ))
     }
 
-    if (one_location.uploaderUsername.isBlank()) {
+    if (one_location.uploaderEmail.isBlank()) {
         return Pair(false,Exception(
-            "${free_map_service_key_string_maps.Companion.LocationOfFreeMap.uploader_username} should have a value"
+            "${free_map_service_key_string_maps.Companion.LocationOfFreeMap.uploader_email} should have a value"
         ))
     }
 

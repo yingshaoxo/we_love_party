@@ -13,22 +13,23 @@ message User {
 
 message LocationOfFreeMap {
     optional int32 location_id = 1;
-    double name = 2;
-    double y_latitude = 3;
-    double x_longitude = 4;
-    double scores = 5;
-    bool open_all_day = 6;
-    bool has_charger = 7;
-    bool has_wifi = 8;
-    bool has_water = 9;
-    bool has_hot_water = 10;
-    bool has_desk = 11;
-    bool has_chair = 12;
-    bool has_toilet = 13;
-    bool has_showering = 14; // must make sure there can take showering
-    bool has_package_receiving_station = 15;
-    bool has_kfc = 16;
-    bool has_mcdonald = 17;
-    bool has_store = 18;
-    // string open_and_close_time = 19;
+    optional string uploader_email = 2;
+    string name = 3;
+    double y_latitude = 4;
+    double x_longitude = 5;
+    double scores = 6;
+    bool open_all_day = 7;
+    bool has_charger = 8;
+    bool has_wifi = 9;
+    bool has_water = 10;
+    bool has_hot_water = 11;
+    bool has_desk = 12;
+    bool has_chair = 13;
+    bool has_toilet = 14;
+    bool has_showering = 15; // must make sure there can take showering
+    bool has_package_receiving_station = 16;
+    bool has_kfc = 17;
+    bool has_mcdonald = 18;
+    bool has_store = 19;
+    // string open_and_close_time = 20;
 }

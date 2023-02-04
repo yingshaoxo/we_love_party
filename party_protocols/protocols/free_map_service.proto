@@ -25,7 +25,7 @@ message SearchPlacesRequest {
 // another is a big table that contains all those data uploaded by users, we'll use this table to generate the first table
 message LocationOfFreeMap {
     optional int32 location_id = 1;
-    optional string uploader_username = 2;
+    optional string uploader_email = 2;
     string name = 3;
     double y_latitude = 4;
     double x_longitude = 5;

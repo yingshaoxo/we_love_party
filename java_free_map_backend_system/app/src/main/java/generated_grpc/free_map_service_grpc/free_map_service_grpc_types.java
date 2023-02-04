@@ -807,21 +807,21 @@ public final class free_map_service_grpc_types {
     int getLocationId();
 
     /**
-     * <code>optional string uploader_username = 2;</code>
-     * @return Whether the uploaderUsername field is set.
+     * <code>optional string uploader_email = 2;</code>
+     * @return Whether the uploaderEmail field is set.
      */
-    boolean hasUploaderUsername();
+    boolean hasUploaderEmail();
     /**
-     * <code>optional string uploader_username = 2;</code>
-     * @return The uploaderUsername.
+     * <code>optional string uploader_email = 2;</code>
+     * @return The uploaderEmail.
      */
-    java.lang.String getUploaderUsername();
+    java.lang.String getUploaderEmail();
     /**
-     * <code>optional string uploader_username = 2;</code>
-     * @return The bytes for uploaderUsername.
+     * <code>optional string uploader_email = 2;</code>
+     * @return The bytes for uploaderEmail.
      */
     com.google.protobuf.ByteString
-        getUploaderUsernameBytes();
+        getUploaderEmailBytes();
 
     /**
      * <code>string name = 3;</code>
@@ -957,7 +957,7 @@ public final class free_map_service_grpc_types {
       super(builder);
     }
     private LocationOfFreeMap() {
-      uploaderUsername_ = "";
+      uploaderEmail_ = "";
       name_ = "";
     }
 
@@ -1006,47 +1006,47 @@ public final class free_map_service_grpc_types {
       return locationId_;
     }
 
-    public static final int UPLOADER_USERNAME_FIELD_NUMBER = 2;
+    public static final int UPLOADER_EMAIL_FIELD_NUMBER = 2;
     @SuppressWarnings("serial")
-    private volatile java.lang.Object uploaderUsername_ = "";
+    private volatile java.lang.Object uploaderEmail_ = "";
     /**
-     * <code>optional string uploader_username = 2;</code>
-     * @return Whether the uploaderUsername field is set.
+     * <code>optional string uploader_email = 2;</code>
+     * @return Whether the uploaderEmail field is set.
      */
     @java.lang.Override
-    public boolean hasUploaderUsername() {
+    public boolean hasUploaderEmail() {
       return ((bitField0_ & 0x00000002) != 0);
     }
     /**
-     * <code>optional string uploader_username = 2;</code>
-     * @return The uploaderUsername.
+     * <code>optional string uploader_email = 2;</code>
+     * @return The uploaderEmail.
      */
     @java.lang.Override
-    public java.lang.String getUploaderUsername() {
-      java.lang.Object ref = uploaderUsername_;
+    public java.lang.String getUploaderEmail() {
+      java.lang.Object ref = uploaderEmail_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        uploaderUsername_ = s;
+        uploaderEmail_ = s;
         return s;
       }
     }
     /**
-     * <code>optional string uploader_username = 2;</code>
-     * @return The bytes for uploaderUsername.
+     * <code>optional string uploader_email = 2;</code>
+     * @return The bytes for uploaderEmail.
      */
     @java.lang.Override
     public com.google.protobuf.ByteString
-        getUploaderUsernameBytes() {
-      java.lang.Object ref = uploaderUsername_;
+        getUploaderEmailBytes() {
+      java.lang.Object ref = uploaderEmail_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        uploaderUsername_ = b;
+        uploaderEmail_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -1294,7 +1294,7 @@ public final class free_map_service_grpc_types {
         output.writeInt32(1, locationId_);
       }
       if (((bitField0_ & 0x00000002) != 0)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, uploaderUsername_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, uploaderEmail_);
       }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, name_);
@@ -1361,7 +1361,7 @@ public final class free_map_service_grpc_types {
           .computeInt32Size(1, locationId_);
       }
       if (((bitField0_ & 0x00000002) != 0)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, uploaderUsername_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, uploaderEmail_);
       }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, name_);
@@ -1450,10 +1450,10 @@ public final class free_map_service_grpc_types {
         if (getLocationId()
             != other.getLocationId()) return false;
       }
-      if (hasUploaderUsername() != other.hasUploaderUsername()) return false;
-      if (hasUploaderUsername()) {
-        if (!getUploaderUsername()
-            .equals(other.getUploaderUsername())) return false;
+      if (hasUploaderEmail() != other.hasUploaderEmail()) return false;
+      if (hasUploaderEmail()) {
+        if (!getUploaderEmail()
+            .equals(other.getUploaderEmail())) return false;
       }
       if (!getName()
           .equals(other.getName())) return false;
@@ -1507,9 +1507,9 @@ public final class free_map_service_grpc_types {
         hash = (37 * hash) + LOCATION_ID_FIELD_NUMBER;
         hash = (53 * hash) + getLocationId();
       }
-      if (hasUploaderUsername()) {
-        hash = (37 * hash) + UPLOADER_USERNAME_FIELD_NUMBER;
-        hash = (53 * hash) + getUploaderUsername().hashCode();
+      if (hasUploaderEmail()) {
+        hash = (37 * hash) + UPLOADER_EMAIL_FIELD_NUMBER;
+        hash = (53 * hash) + getUploaderEmail().hashCode();
       }
       hash = (37 * hash) + NAME_FIELD_NUMBER;
       hash = (53 * hash) + getName().hashCode();
@@ -1696,7 +1696,7 @@ public final class free_map_service_grpc_types {
         super.clear();
         bitField0_ = 0;
         locationId_ = 0;
-        uploaderUsername_ = "";
+        uploaderEmail_ = "";
         name_ = "";
         yLatitude_ = 0D;
         xLongitude_ = 0D;
@@ -1753,7 +1753,7 @@ public final class free_map_service_grpc_types {
           to_bitField0_ |= 0x00000001;
         }
         if (((from_bitField0_ & 0x00000002) != 0)) {
-          result.uploaderUsername_ = uploaderUsername_;
+          result.uploaderEmail_ = uploaderEmail_;
           to_bitField0_ |= 0x00000002;
         }
         if (((from_bitField0_ & 0x00000004) != 0)) {
@@ -1857,8 +1857,8 @@ public final class free_map_service_grpc_types {
         if (other.hasLocationId()) {
           setLocationId(other.getLocationId());
         }
-        if (other.hasUploaderUsername()) {
-          uploaderUsername_ = other.uploaderUsername_;
+        if (other.hasUploaderEmail()) {
+          uploaderEmail_ = other.uploaderEmail_;
           bitField0_ |= 0x00000002;
           onChanged();
         }
@@ -1947,7 +1947,7 @@ public final class free_map_service_grpc_types {
                 break;
               } // case 8
               case 18: {
-                uploaderUsername_ = input.readStringRequireUtf8();
+                uploaderEmail_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000002;
                 break;
               } // case 18
@@ -2093,80 +2093,80 @@ public final class free_map_service_grpc_types {
         return this;
       }
 
-      private java.lang.Object uploaderUsername_ = "";
+      private java.lang.Object uploaderEmail_ = "";
       /**
-       * <code>optional string uploader_username = 2;</code>
-       * @return Whether the uploaderUsername field is set.
+       * <code>optional string uploader_email = 2;</code>
+       * @return Whether the uploaderEmail field is set.
        */
-      public boolean hasUploaderUsername() {
+      public boolean hasUploaderEmail() {
         return ((bitField0_ & 0x00000002) != 0);
       }
       /**
-       * <code>optional string uploader_username = 2;</code>
-       * @return The uploaderUsername.
+       * <code>optional string uploader_email = 2;</code>
+       * @return The uploaderEmail.
        */
-      public java.lang.String getUploaderUsername() {
-        java.lang.Object ref = uploaderUsername_;
+      public java.lang.String getUploaderEmail() {
+        java.lang.Object ref = uploaderEmail_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          uploaderUsername_ = s;
+          uploaderEmail_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>optional string uploader_username = 2;</code>
-       * @return The bytes for uploaderUsername.
+       * <code>optional string uploader_email = 2;</code>
+       * @return The bytes for uploaderEmail.
        */
       public com.google.protobuf.ByteString
-          getUploaderUsernameBytes() {
-        java.lang.Object ref = uploaderUsername_;
+          getUploaderEmailBytes() {
+        java.lang.Object ref = uploaderEmail_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          uploaderUsername_ = b;
+          uploaderEmail_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>optional string uploader_username = 2;</code>
-       * @param value The uploaderUsername to set.
+       * <code>optional string uploader_email = 2;</code>
+       * @param value The uploaderEmail to set.
        * @return This builder for chaining.
        */
-      public Builder setUploaderUsername(
+      public Builder setUploaderEmail(
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
-        uploaderUsername_ = value;
+        uploaderEmail_ = value;
         bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string uploader_username = 2;</code>
+       * <code>optional string uploader_email = 2;</code>
        * @return This builder for chaining.
        */
-      public Builder clearUploaderUsername() {
-        uploaderUsername_ = getDefaultInstance().getUploaderUsername();
+      public Builder clearUploaderEmail() {
+        uploaderEmail_ = getDefaultInstance().getUploaderEmail();
         bitField0_ = (bitField0_ & ~0x00000002);
         onChanged();
         return this;
       }
       /**
-       * <code>optional string uploader_username = 2;</code>
-       * @param value The bytes for uploaderUsername to set.
+       * <code>optional string uploader_email = 2;</code>
+       * @param value The bytes for uploaderEmail to set.
        * @return This builder for chaining.
        */
-      public Builder setUploaderUsernameBytes(
+      public Builder setUploaderEmailBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
-        uploaderUsername_ = value;
+        uploaderEmail_ = value;
         bitField0_ |= 0x00000002;
         onChanged();
         return this;
@@ -7518,45 +7518,44 @@ public final class free_map_service_grpc_types {
       "\n\026free_map_service.proto\022\020free_map_servi" +
       "ce\"j\n\023SearchPlacesRequest\022\021\n\tkey_words\030\001" +
       " \001(\t\022\022\n\ny_latitude\030\002 \001(\001\022\023\n\013x_longitude\030" +
-      "\003 \001(\001\022\027\n\017radius_distance\030\004 \001(\001\"\322\003\n\021Locat" +
-      "ionOfFreeMap\022\030\n\013location_id\030\001 \001(\005H\000\210\001\001\022\036" +
-      "\n\021uploader_username\030\002 \001(\tH\001\210\001\001\022\014\n\004name\030\003" +
-      " \001(\t\022\022\n\ny_latitude\030\004 \001(\001\022\023\n\013x_longitude\030" +
-      "\005 \001(\001\022\016\n\006scores\030\006 \001(\001\022\024\n\014open_all_day\030\007 " +
-      "\001(\010\022\023\n\013has_charger\030\010 \001(\010\022\020\n\010has_wifi\030\t \001" +
-      "(\010\022\021\n\thas_water\030\n \001(\010\022\025\n\rhas_hot_water\030\013" +
-      " \001(\010\022\020\n\010has_desk\030\014 \001(\010\022\021\n\thas_chair\030\r \001(" +
-      "\010\022\022\n\nhas_toilet\030\016 \001(\010\022\025\n\rhas_showering\030\017" +
-      " \001(\010\022%\n\035has_package_receiving_station\030\020 " +
-      "\001(\010\022\017\n\007has_kfc\030\021 \001(\010\022\024\n\014has_mcdonald\030\022 \001" +
-      "(\010\022\021\n\thas_store\030\023 \001(\010B\016\n\014_location_idB\024\n" +
-      "\022_uploader_username\"w\n\024SearchPlacesRespo" +
-      "nse\022\022\n\005error\030\001 \001(\tH\000\210\001\001\022A\n\024location_of_f" +
-      "ree_map\030\002 \003(\0132#.free_map_service.Locatio" +
-      "nOfFreeMapB\010\n\006_error\"T\n\017AddPlaceRequest\022" +
-      "A\n\024location_of_free_map\030\001 \001(\0132#.free_map" +
-      "_service.LocationOfFreeMap\"A\n\020AddPlaceRe" +
-      "sponse\022\022\n\005error\030\001 \001(\tH\000\210\001\001\022\017\n\007success\030\002 " +
-      "\001(\010B\010\n\006_error\"W\n\022UpdatePlaceRequest\022A\n\024l" +
-      "ocation_of_free_map\030\001 \001(\0132#.free_map_ser" +
-      "vice.LocationOfFreeMap\"D\n\023UpdatePlaceRes" +
-      "ponse\022\022\n\005error\030\001 \001(\tH\000\210\001\001\022\017\n\007success\030\002 \001" +
-      "(\010B\010\n\006_error\")\n\022DeletePlaceRequest\022\023\n\013lo" +
-      "cation_id\030\001 \001(\005\"D\n\023DeletePlaceResponse\022\022" +
-      "\n\005error\030\001 \001(\tH\000\210\001\001\022\017\n\007success\030\002 \001(\010B\010\n\006_" +
-      "error2\372\002\n\016FreeMapService\022]\n\014SearchPlaces" +
-      "\022%.free_map_service.SearchPlacesRequest\032" +
-      "&.free_map_service.SearchPlacesResponse\022" +
-      "Q\n\010AddPlace\022!.free_map_service.AddPlaceR" +
-      "equest\032\".free_map_service.AddPlaceRespon" +
-      "se\022Z\n\013UpdatePlace\022$.free_map_service.Upd" +
-      "atePlaceRequest\032%.free_map_service.Updat" +
-      "ePlaceResponse\022Z\n\013DeletePlace\022$.free_map" +
-      "_service.DeletePlaceRequest\032%.free_map_s" +
-      "ervice.DeletePlaceResponseBW\n$generated_" +
-      "grpc.free_map_service_grpcB\033free_map_ser" +
-      "vice_grpc_typesZ\022./free_map_serviceb\006pro" +
-      "to3"
+      "\003 \001(\001\022\027\n\017radius_distance\030\004 \001(\001\"\314\003\n\021Locat" +
+      "ionOfFreeMap\022\030\n\013location_id\030\001 \001(\005H\000\210\001\001\022\033" +
+      "\n\016uploader_email\030\002 \001(\tH\001\210\001\001\022\014\n\004name\030\003 \001(" +
+      "\t\022\022\n\ny_latitude\030\004 \001(\001\022\023\n\013x_longitude\030\005 \001" +
+      "(\001\022\016\n\006scores\030\006 \001(\001\022\024\n\014open_all_day\030\007 \001(\010" +
+      "\022\023\n\013has_charger\030\010 \001(\010\022\020\n\010has_wifi\030\t \001(\010\022" +
+      "\021\n\thas_water\030\n \001(\010\022\025\n\rhas_hot_water\030\013 \001(" +
+      "\010\022\020\n\010has_desk\030\014 \001(\010\022\021\n\thas_chair\030\r \001(\010\022\022" +
+      "\n\nhas_toilet\030\016 \001(\010\022\025\n\rhas_showering\030\017 \001(" +
+      "\010\022%\n\035has_package_receiving_station\030\020 \001(\010" +
+      "\022\017\n\007has_kfc\030\021 \001(\010\022\024\n\014has_mcdonald\030\022 \001(\010\022" +
+      "\021\n\thas_store\030\023 \001(\010B\016\n\014_location_idB\021\n\017_u" +
+      "ploader_email\"w\n\024SearchPlacesResponse\022\022\n" +
+      "\005error\030\001 \001(\tH\000\210\001\001\022A\n\024location_of_free_ma" +
+      "p\030\002 \003(\0132#.free_map_service.LocationOfFre" +
+      "eMapB\010\n\006_error\"T\n\017AddPlaceRequest\022A\n\024loc" +
+      "ation_of_free_map\030\001 \001(\0132#.free_map_servi" +
+      "ce.LocationOfFreeMap\"A\n\020AddPlaceResponse" +
+      "\022\022\n\005error\030\001 \001(\tH\000\210\001\001\022\017\n\007success\030\002 \001(\010B\010\n" +
+      "\006_error\"W\n\022UpdatePlaceRequest\022A\n\024locatio" +
+      "n_of_free_map\030\001 \001(\0132#.free_map_service.L" +
+      "ocationOfFreeMap\"D\n\023UpdatePlaceResponse\022" +
+      "\022\n\005error\030\001 \001(\tH\000\210\001\001\022\017\n\007success\030\002 \001(\010B\010\n\006" +
+      "_error\")\n\022DeletePlaceRequest\022\023\n\013location" +
+      "_id\030\001 \001(\005\"D\n\023DeletePlaceResponse\022\022\n\005erro" +
+      "r\030\001 \001(\tH\000\210\001\001\022\017\n\007success\030\002 \001(\010B\010\n\006_error2" +
+      "\372\002\n\016FreeMapService\022]\n\014SearchPlaces\022%.fre" +
+      "e_map_service.SearchPlacesRequest\032&.free" +
+      "_map_service.SearchPlacesResponse\022Q\n\010Add" +
+      "Place\022!.free_map_service.AddPlaceRequest" +
+      "\032\".free_map_service.AddPlaceResponse\022Z\n\013" +
+      "UpdatePlace\022$.free_map_service.UpdatePla" +
+      "ceRequest\032%.free_map_service.UpdatePlace" +
+      "Response\022Z\n\013DeletePlace\022$.free_map_servi" +
+      "ce.DeletePlaceRequest\032%.free_map_service" +
+      ".DeletePlaceResponseBW\n$generated_grpc.f" +
+      "ree_map_service_grpcB\033free_map_service_g" +
+      "rpc_typesZ\022./free_map_serviceb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -7573,7 +7572,7 @@ public final class free_map_service_grpc_types {
     internal_static_free_map_service_LocationOfFreeMap_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_free_map_service_LocationOfFreeMap_descriptor,
-        new java.lang.String[] { "LocationId", "UploaderUsername", "Name", "YLatitude", "XLongitude", "Scores", "OpenAllDay", "HasCharger", "HasWifi", "HasWater", "HasHotWater", "HasDesk", "HasChair", "HasToilet", "HasShowering", "HasPackageReceivingStation", "HasKfc", "HasMcdonald", "HasStore", "LocationId", "UploaderUsername", });
+        new java.lang.String[] { "LocationId", "UploaderEmail", "Name", "YLatitude", "XLongitude", "Scores", "OpenAllDay", "HasCharger", "HasWifi", "HasWater", "HasHotWater", "HasDesk", "HasChair", "HasToilet", "HasShowering", "HasPackageReceivingStation", "HasKfc", "HasMcdonald", "HasStore", "LocationId", "UploaderEmail", });
     internal_static_free_map_service_SearchPlacesResponse_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_free_map_service_SearchPlacesResponse_fieldAccessorTable = new
