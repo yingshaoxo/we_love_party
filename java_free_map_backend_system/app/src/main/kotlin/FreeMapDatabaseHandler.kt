@@ -2,13 +2,13 @@ package kotlin_free_map_backend_system
 
 import generated_grpc.free_map_service_grpc.free_map_service_grpc_types.*
 import grpc_key_string_maps.*
-import java.lang.Exception
 import java.math.BigDecimal
 import java.sql.Connection
 import java.sql.DriverManager.getConnection
 import java.sql.ResultSet
 import java.sql.Statement
 import java.util.*
+import kotlin.Exception
 
 
 var kotlin_data_type_to_sql_data_type_function = fun(it: Any): String {
@@ -398,7 +398,7 @@ WHERE
 INSERT INTO final_free_map(${column_key_list_text})
 VALUES(${column_value_list_text});
         """.trimIndent()
-        val result: Boolean = command_statement.execute(sql_command)
+        command_statement.execute(sql_command)
 
         command_statement.close()
         db_connection.close()
@@ -534,5 +534,51 @@ WHERE
             command_statement.close()
             db_connection.close()
         }
+    }
+
+    fun search_locations_in_final_free_map(keywords_text: String, y_latitude: Double, x_longitude: Double, page_size: Int, page_number: Int): List<LocationOfFreeMap> {
+        var keywords_list = keywords_text.split("""\s+""".toRegex())
+        var where_command = keywords_list.map { it -> "${free_map_service_key_string_maps.Companion.LocationOfFreeMap.name} LIKE '%${it}%'" }.joinToString(separator = " AND ")
+
+        var db_connection = get_free_map_database_connection()
+        val command_statement: Statement = db_connection.createStatement()
+
+        var sql_search_command = """
+WITH free_map_with_distance AS (
+    SELECT *, point(${free_map_service_key_string_maps.Companion.LocationOfFreeMap.y_latitude},${free_map_service_key_string_maps.Companion.LocationOfFreeMap.x_longitude})<->point(${y_latitude}, ${x_longitude}) AS distance
+    FROM (
+        SELECT * from free_map.public.final_free_map
+        WHERE ${where_command}
+    ) the_final_free_map
+)
+SELECT * FROM free_map_with_distance
+ORDER BY free_map_with_distance.distance ASC
+LIMIT ${page_size} 
+OFFSET ${page_number * page_size}
+;
+        """.trimIndent()
+
+        var location_list: MutableList<LocationOfFreeMap> = mutableListOf()
+        val result: ResultSet = command_statement.executeQuery(sql_search_command)
+        while (result.next()) {
+            var location_builder = LocationOfFreeMap.newBuilder()
+            free_map_service_key_string_maps.Companion.LocationOfFreeMap.__property_list__.forEach { column_name ->
+                try {
+                    val value = result.getObject(column_name)
+                    val length = location_builder.descriptorForType.fields.size
+                    location_builder.setField(
+                        location_builder.descriptorForType.findFieldByName(column_name),
+                        sql_data_type_to_kotlin_data_type_function(value)
+                    )
+                } catch (e: Exception) {
+                }
+            }
+            location_list.add(location_builder.build())
+        }
+
+        command_statement.close()
+        db_connection.close()
+
+        return location_list
     }
 }

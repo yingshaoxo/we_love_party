@@ -7,6 +7,7 @@ class account_storage_service_key_string_maps {
                 companion object {
                     @JvmField 
                     var email: String = "email"
+                    val __property_list__: List<String> = listOf("email")
                 }
             }
 
@@ -15,6 +16,7 @@ class account_storage_service_key_string_maps {
                     @JvmField 
                     var result: String = "result"
                     var error: String = "error"
+                    val __property_list__: List<String> = listOf("result", "error")
                 }
             }
 
@@ -22,6 +24,7 @@ class account_storage_service_key_string_maps {
                 companion object {
                     @JvmField 
                     var email: String = "email"
+                    val __property_list__: List<String> = listOf("email")
                 }
             }
 
@@ -30,6 +33,7 @@ class account_storage_service_key_string_maps {
                     @JvmField 
                     var result: String = "result"
                     var error: String = "error"
+                    val __property_list__: List<String> = listOf("result", "error")
                 }
             }
 
@@ -41,6 +45,7 @@ class account_storage_service_key_string_maps {
                     var head_image: String = "head_image"
                     var sex: String = "sex"
                     var age: String = "age"
+                    val __property_list__: List<String> = listOf("email", "username", "head_image", "sex", "age")
                 }
             }
 
@@ -49,6 +54,7 @@ class account_storage_service_key_string_maps {
                     @JvmField 
                     var result: String = "result"
                     var error: String = "error"
+                    val __property_list__: List<String> = listOf("result", "error")
                 }
             }
 
@@ -56,6 +62,7 @@ class account_storage_service_key_string_maps {
                 companion object {
                     @JvmField 
                     var email: String = "email"
+                    val __property_list__: List<String> = listOf("email")
                 }
             }
 
@@ -69,6 +76,7 @@ class account_storage_service_key_string_maps {
                     var head_image: String = "head_image"
                     var sex: String = "sex"
                     var age: String = "age"
+                    val __property_list__: List<String> = listOf("error", "user_exists", "email", "username", "head_image", "sex", "age")
                 }
             }
 
@@ -80,6 +88,7 @@ class account_storage_service_key_string_maps {
                     var head_image: String = "head_image"
                     var sex: String = "sex"
                     var age: String = "age"
+                    val __property_list__: List<String> = listOf("email", "username", "head_image", "sex", "age")
                 }
             }
     }

@@ -7,6 +7,7 @@ class internal_api_service_key_string_maps {
                 companion object {
                     @JvmField 
                     var email: String = "email"
+                    val __property_list__: List<String> = listOf("email")
                 }
             }
 
@@ -15,6 +16,7 @@ class internal_api_service_key_string_maps {
                     @JvmField 
                     var result: String = "result"
                     var error: String = "error"
+                    val __property_list__: List<String> = listOf("result", "error")
                 }
             }
 
@@ -22,6 +24,7 @@ class internal_api_service_key_string_maps {
                 companion object {
                     @JvmField 
                     var email: String = "email"
+                    val __property_list__: List<String> = listOf("email")
                 }
             }
 
@@ -30,6 +33,7 @@ class internal_api_service_key_string_maps {
                     @JvmField 
                     var result: String = "result"
                     var error: String = "error"
+                    val __property_list__: List<String> = listOf("result", "error")
                 }
             }
 
@@ -37,6 +41,7 @@ class internal_api_service_key_string_maps {
                 companion object {
                     @JvmField 
                     var email: String = "email"
+                    val __property_list__: List<String> = listOf("email")
                 }
             }
 
@@ -50,6 +55,7 @@ class internal_api_service_key_string_maps {
                     var head_image: String = "head_image"
                     var sex: String = "sex"
                     var age: String = "age"
+                    val __property_list__: List<String> = listOf("error", "user_exists", "email", "username", "head_image", "sex", "age")
                 }
             }
 
@@ -57,6 +63,7 @@ class internal_api_service_key_string_maps {
                 companion object {
                     @JvmField 
                     var email: String = "email"
+                    val __property_list__: List<String> = listOf("email")
                 }
             }
 
@@ -65,6 +72,7 @@ class internal_api_service_key_string_maps {
                     @JvmField 
                     var error: String = "error"
                     var user_exists: String = "user_exists"
+                    val __property_list__: List<String> = listOf("error", "user_exists")
                 }
             }
     }

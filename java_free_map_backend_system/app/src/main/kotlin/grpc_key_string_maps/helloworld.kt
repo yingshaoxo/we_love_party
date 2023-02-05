@@ -9,6 +9,7 @@ class helloworld_key_string_maps {
                     var uuid: String = "uuid"
                     var timestamp: String = "timestamp"
                     var voice: String = "voice"
+                    val __property_list__: List<String> = listOf("uuid", "timestamp", "voice")
                 }
             }
 
@@ -18,6 +19,7 @@ class helloworld_key_string_maps {
                     var uuid: String = "uuid"
                     var timestamp: String = "timestamp"
                     var voice: String = "voice"
+                    val __property_list__: List<String> = listOf("uuid", "timestamp", "voice")
                 }
             }
 
@@ -25,6 +27,7 @@ class helloworld_key_string_maps {
                 companion object {
                     @JvmField 
                     var uuid: String = "uuid"
+                    val __property_list__: List<String> = listOf("uuid")
                 }
             }
 
@@ -32,6 +35,7 @@ class helloworld_key_string_maps {
                 companion object {
                     @JvmField 
                     var uuid: String = "uuid"
+                    val __property_list__: List<String> = listOf("uuid")
                 }
             }
 
@@ -39,6 +43,7 @@ class helloworld_key_string_maps {
                 companion object {
                     @JvmField 
                     var uuid: String = "uuid"
+                    val __property_list__: List<String> = listOf("uuid")
                 }
             }
 
@@ -46,6 +51,7 @@ class helloworld_key_string_maps {
                 companion object {
                     @JvmField 
                     var name: String = "name"
+                    val __property_list__: List<String> = listOf("name")
                 }
             }
 
@@ -53,6 +59,7 @@ class helloworld_key_string_maps {
                 companion object {
                     @JvmField 
                     var message: String = "message"
+                    val __property_list__: List<String> = listOf("message")
                 }
             }
     }

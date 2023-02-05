@@ -11,6 +11,7 @@ class data_model_key_string_maps {
                     var head_image: String = "head_image"
                     var sex: String = "sex"
                     var age: String = "age"
+                    val __property_list__: List<String> = listOf("email", "username", "head_image", "sex", "age")
                 }
             }
 
@@ -37,6 +38,7 @@ class data_model_key_string_maps {
                     var has_mcdonald: String = "has_mcdonald"
                     var has_store: String = "has_store"
                     var open_and_close_time: String = "open_and_close_time"
+                    val __property_list__: List<String> = listOf("location_id", "uploader_email", "name", "y_latitude", "x_longitude", "scores", "open_all_day", "has_charger", "has_wifi", "has_water", "has_hot_water", "has_desk", "has_chair", "has_toilet", "has_showering", "has_package_receiving_station", "has_kfc", "has_mcdonald", "has_store", "open_and_close_time")
                 }
             }
     }

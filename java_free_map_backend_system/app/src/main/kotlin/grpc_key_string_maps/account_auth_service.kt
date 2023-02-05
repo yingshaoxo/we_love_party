@@ -7,6 +7,7 @@ class account_auth_service_key_string_maps {
                 companion object {
                     @JvmField 
                     var name: String = "name"
+                    val __property_list__: List<String> = listOf("name")
                 }
             }
 
@@ -14,6 +15,7 @@ class account_auth_service_key_string_maps {
                 companion object {
                     @JvmField 
                     var message: String = "message"
+                    val __property_list__: List<String> = listOf("message")
                 }
             }
 
@@ -21,6 +23,7 @@ class account_auth_service_key_string_maps {
                 companion object {
                     @JvmField 
                     var email: String = "email"
+                    val __property_list__: List<String> = listOf("email")
                 }
             }
 
@@ -29,6 +32,7 @@ class account_auth_service_key_string_maps {
                     @JvmField 
                     var result: String = "result"
                     var error: String = "error"
+                    val __property_list__: List<String> = listOf("result", "error")
                 }
             }
 
@@ -37,6 +41,7 @@ class account_auth_service_key_string_maps {
                     @JvmField 
                     var email: String = "email"
                     var random_string: String = "random_string"
+                    val __property_list__: List<String> = listOf("email", "random_string")
                 }
             }
 
@@ -45,6 +50,7 @@ class account_auth_service_key_string_maps {
                     @JvmField 
                     var jwt: String = "jwt"
                     var error: String = "error"
+                    val __property_list__: List<String> = listOf("jwt", "error")
                 }
             }
 
@@ -52,6 +58,7 @@ class account_auth_service_key_string_maps {
                 companion object {
                     @JvmField 
                     var jwt: String = "jwt"
+                    val __property_list__: List<String> = listOf("jwt")
                 }
             }
 
@@ -60,6 +67,7 @@ class account_auth_service_key_string_maps {
                     @JvmField 
                     var email: String = "email"
                     var error: String = "error"
+                    val __property_list__: List<String> = listOf("email", "error")
                 }
             }
 
@@ -67,6 +75,7 @@ class account_auth_service_key_string_maps {
                 companion object {
                     @JvmField 
                     var email: String = "email"
+                    val __property_list__: List<String> = listOf("email")
                 }
             }
 
@@ -75,6 +84,7 @@ class account_auth_service_key_string_maps {
                     @JvmField 
                     var error: String = "error"
                     var online: String = "online"
+                    val __property_list__: List<String> = listOf("error", "online")
                 }
             }
     }

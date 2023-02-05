@@ -7,6 +7,7 @@ class room_control_service_key_string_maps {
                 companion object {
                     @JvmField 
                     var roomName: String = "roomName"
+                    val __property_list__: List<String> = listOf("roomName")
                 }
             }
 
@@ -15,6 +16,7 @@ class room_control_service_key_string_maps {
                     @JvmField 
                     var error: String = "error"
                     var success: String = "success"
+                    val __property_list__: List<String> = listOf("error", "success")
                 }
             }
 
@@ -23,6 +25,7 @@ class room_control_service_key_string_maps {
                     @JvmField 
                     var roomName: String = "roomName"
                     var identity: String = "identity"
+                    val __property_list__: List<String> = listOf("roomName", "identity")
                 }
             }
 
@@ -31,6 +34,7 @@ class room_control_service_key_string_maps {
                     @JvmField 
                     var error: String = "error"
                     var accessToken: String = "accessToken"
+                    val __property_list__: List<String> = listOf("error", "accessToken")
                 }
             }
 
@@ -39,6 +43,7 @@ class room_control_service_key_string_maps {
                     @JvmField 
                     var roomName: String = "roomName"
                     var numberOfParticipants: String = "numberOfParticipants"
+                    val __property_list__: List<String> = listOf("roomName", "numberOfParticipants")
                 }
             }
 
@@ -47,6 +52,7 @@ class room_control_service_key_string_maps {
                     @JvmField 
                     var error: String = "error"
                     var rooms: String = "rooms"
+                    val __property_list__: List<String> = listOf("error", "rooms")
                 }
             }
 
@@ -54,6 +60,7 @@ class room_control_service_key_string_maps {
                 companion object {
                     @JvmField 
                     var roomName: String = "roomName"
+                    val __property_list__: List<String> = listOf("roomName")
                 }
             }
 
@@ -62,6 +69,7 @@ class room_control_service_key_string_maps {
                     @JvmField 
                     var error: String = "error"
                     var success: String = "success"
+                    val __property_list__: List<String> = listOf("error", "success")
                 }
             }
     }

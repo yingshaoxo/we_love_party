@@ -43,10 +43,16 @@ public final class free_map_service_grpc_types {
     double getXLongitude();
 
     /**
-     * <code>double radius_distance = 4;</code>
-     * @return The radiusDistance.
+     * <code>int32 page_size = 4;</code>
+     * @return The pageSize.
      */
-    double getRadiusDistance();
+    int getPageSize();
+
+    /**
+     * <code>int32 page_number = 5;</code>
+     * @return The pageNumber.
+     */
+    int getPageNumber();
   }
   /**
    * Protobuf type {@code free_map_service.SearchPlacesRequest}
@@ -150,15 +156,26 @@ public final class free_map_service_grpc_types {
       return xLongitude_;
     }
 
-    public static final int RADIUS_DISTANCE_FIELD_NUMBER = 4;
-    private double radiusDistance_ = 0D;
+    public static final int PAGE_SIZE_FIELD_NUMBER = 4;
+    private int pageSize_ = 0;
     /**
-     * <code>double radius_distance = 4;</code>
-     * @return The radiusDistance.
+     * <code>int32 page_size = 4;</code>
+     * @return The pageSize.
      */
     @java.lang.Override
-    public double getRadiusDistance() {
-      return radiusDistance_;
+    public int getPageSize() {
+      return pageSize_;
+    }
+
+    public static final int PAGE_NUMBER_FIELD_NUMBER = 5;
+    private int pageNumber_ = 0;
+    /**
+     * <code>int32 page_number = 5;</code>
+     * @return The pageNumber.
+     */
+    @java.lang.Override
+    public int getPageNumber() {
+      return pageNumber_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -184,8 +201,11 @@ public final class free_map_service_grpc_types {
       if (java.lang.Double.doubleToRawLongBits(xLongitude_) != 0) {
         output.writeDouble(3, xLongitude_);
       }
-      if (java.lang.Double.doubleToRawLongBits(radiusDistance_) != 0) {
-        output.writeDouble(4, radiusDistance_);
+      if (pageSize_ != 0) {
+        output.writeInt32(4, pageSize_);
+      }
+      if (pageNumber_ != 0) {
+        output.writeInt32(5, pageNumber_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -207,9 +227,13 @@ public final class free_map_service_grpc_types {
         size += com.google.protobuf.CodedOutputStream
           .computeDoubleSize(3, xLongitude_);
       }
-      if (java.lang.Double.doubleToRawLongBits(radiusDistance_) != 0) {
+      if (pageSize_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(4, radiusDistance_);
+          .computeInt32Size(4, pageSize_);
+      }
+      if (pageNumber_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(5, pageNumber_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -234,9 +258,10 @@ public final class free_map_service_grpc_types {
       if (java.lang.Double.doubleToLongBits(getXLongitude())
           != java.lang.Double.doubleToLongBits(
               other.getXLongitude())) return false;
-      if (java.lang.Double.doubleToLongBits(getRadiusDistance())
-          != java.lang.Double.doubleToLongBits(
-              other.getRadiusDistance())) return false;
+      if (getPageSize()
+          != other.getPageSize()) return false;
+      if (getPageNumber()
+          != other.getPageNumber()) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -256,9 +281,10 @@ public final class free_map_service_grpc_types {
       hash = (37 * hash) + X_LONGITUDE_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           java.lang.Double.doubleToLongBits(getXLongitude()));
-      hash = (37 * hash) + RADIUS_DISTANCE_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          java.lang.Double.doubleToLongBits(getRadiusDistance()));
+      hash = (37 * hash) + PAGE_SIZE_FIELD_NUMBER;
+      hash = (53 * hash) + getPageSize();
+      hash = (37 * hash) + PAGE_NUMBER_FIELD_NUMBER;
+      hash = (53 * hash) + getPageNumber();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -391,7 +417,8 @@ public final class free_map_service_grpc_types {
         keyWords_ = "";
         yLatitude_ = 0D;
         xLongitude_ = 0D;
-        radiusDistance_ = 0D;
+        pageSize_ = 0;
+        pageNumber_ = 0;
         return this;
       }
 
@@ -435,7 +462,10 @@ public final class free_map_service_grpc_types {
           result.xLongitude_ = xLongitude_;
         }
         if (((from_bitField0_ & 0x00000008) != 0)) {
-          result.radiusDistance_ = radiusDistance_;
+          result.pageSize_ = pageSize_;
+        }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.pageNumber_ = pageNumber_;
         }
       }
 
@@ -494,8 +524,11 @@ public final class free_map_service_grpc_types {
         if (other.getXLongitude() != 0D) {
           setXLongitude(other.getXLongitude());
         }
-        if (other.getRadiusDistance() != 0D) {
-          setRadiusDistance(other.getRadiusDistance());
+        if (other.getPageSize() != 0) {
+          setPageSize(other.getPageSize());
+        }
+        if (other.getPageNumber() != 0) {
+          setPageNumber(other.getPageNumber());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -538,11 +571,16 @@ public final class free_map_service_grpc_types {
                 bitField0_ |= 0x00000004;
                 break;
               } // case 25
-              case 33: {
-                radiusDistance_ = input.readDouble();
+              case 32: {
+                pageSize_ = input.readInt32();
                 bitField0_ |= 0x00000008;
                 break;
-              } // case 33
+              } // case 32
+              case 40: {
+                pageNumber_ = input.readInt32();
+                bitField0_ |= 0x00000010;
+                break;
+              } // case 40
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -696,34 +734,66 @@ public final class free_map_service_grpc_types {
         return this;
       }
 
-      private double radiusDistance_ ;
+      private int pageSize_ ;
       /**
-       * <code>double radius_distance = 4;</code>
-       * @return The radiusDistance.
+       * <code>int32 page_size = 4;</code>
+       * @return The pageSize.
        */
       @java.lang.Override
-      public double getRadiusDistance() {
-        return radiusDistance_;
+      public int getPageSize() {
+        return pageSize_;
       }
       /**
-       * <code>double radius_distance = 4;</code>
-       * @param value The radiusDistance to set.
+       * <code>int32 page_size = 4;</code>
+       * @param value The pageSize to set.
        * @return This builder for chaining.
        */
-      public Builder setRadiusDistance(double value) {
+      public Builder setPageSize(int value) {
         
-        radiusDistance_ = value;
+        pageSize_ = value;
         bitField0_ |= 0x00000008;
         onChanged();
         return this;
       }
       /**
-       * <code>double radius_distance = 4;</code>
+       * <code>int32 page_size = 4;</code>
        * @return This builder for chaining.
        */
-      public Builder clearRadiusDistance() {
+      public Builder clearPageSize() {
         bitField0_ = (bitField0_ & ~0x00000008);
-        radiusDistance_ = 0D;
+        pageSize_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int pageNumber_ ;
+      /**
+       * <code>int32 page_number = 5;</code>
+       * @return The pageNumber.
+       */
+      @java.lang.Override
+      public int getPageNumber() {
+        return pageNumber_;
+      }
+      /**
+       * <code>int32 page_number = 5;</code>
+       * @param value The pageNumber to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPageNumber(int value) {
+        
+        pageNumber_ = value;
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 page_number = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPageNumber() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        pageNumber_ = 0;
         onChanged();
         return this;
       }
@@ -7516,46 +7586,47 @@ public final class free_map_service_grpc_types {
   static {
     java.lang.String[] descriptorData = {
       "\n\026free_map_service.proto\022\020free_map_servi" +
-      "ce\"j\n\023SearchPlacesRequest\022\021\n\tkey_words\030\001" +
+      "ce\"y\n\023SearchPlacesRequest\022\021\n\tkey_words\030\001" +
       " \001(\t\022\022\n\ny_latitude\030\002 \001(\001\022\023\n\013x_longitude\030" +
-      "\003 \001(\001\022\027\n\017radius_distance\030\004 \001(\001\"\314\003\n\021Locat" +
-      "ionOfFreeMap\022\030\n\013location_id\030\001 \001(\005H\000\210\001\001\022\033" +
-      "\n\016uploader_email\030\002 \001(\tH\001\210\001\001\022\014\n\004name\030\003 \001(" +
-      "\t\022\022\n\ny_latitude\030\004 \001(\001\022\023\n\013x_longitude\030\005 \001" +
-      "(\001\022\016\n\006scores\030\006 \001(\001\022\024\n\014open_all_day\030\007 \001(\010" +
-      "\022\023\n\013has_charger\030\010 \001(\010\022\020\n\010has_wifi\030\t \001(\010\022" +
-      "\021\n\thas_water\030\n \001(\010\022\025\n\rhas_hot_water\030\013 \001(" +
-      "\010\022\020\n\010has_desk\030\014 \001(\010\022\021\n\thas_chair\030\r \001(\010\022\022" +
-      "\n\nhas_toilet\030\016 \001(\010\022\025\n\rhas_showering\030\017 \001(" +
-      "\010\022%\n\035has_package_receiving_station\030\020 \001(\010" +
-      "\022\017\n\007has_kfc\030\021 \001(\010\022\024\n\014has_mcdonald\030\022 \001(\010\022" +
-      "\021\n\thas_store\030\023 \001(\010B\016\n\014_location_idB\021\n\017_u" +
-      "ploader_email\"w\n\024SearchPlacesResponse\022\022\n" +
-      "\005error\030\001 \001(\tH\000\210\001\001\022A\n\024location_of_free_ma" +
-      "p\030\002 \003(\0132#.free_map_service.LocationOfFre" +
-      "eMapB\010\n\006_error\"T\n\017AddPlaceRequest\022A\n\024loc" +
-      "ation_of_free_map\030\001 \001(\0132#.free_map_servi" +
-      "ce.LocationOfFreeMap\"A\n\020AddPlaceResponse" +
-      "\022\022\n\005error\030\001 \001(\tH\000\210\001\001\022\017\n\007success\030\002 \001(\010B\010\n" +
-      "\006_error\"W\n\022UpdatePlaceRequest\022A\n\024locatio" +
-      "n_of_free_map\030\001 \001(\0132#.free_map_service.L" +
-      "ocationOfFreeMap\"D\n\023UpdatePlaceResponse\022" +
-      "\022\n\005error\030\001 \001(\tH\000\210\001\001\022\017\n\007success\030\002 \001(\010B\010\n\006" +
-      "_error\")\n\022DeletePlaceRequest\022\023\n\013location" +
-      "_id\030\001 \001(\005\"D\n\023DeletePlaceResponse\022\022\n\005erro" +
-      "r\030\001 \001(\tH\000\210\001\001\022\017\n\007success\030\002 \001(\010B\010\n\006_error2" +
-      "\372\002\n\016FreeMapService\022]\n\014SearchPlaces\022%.fre" +
-      "e_map_service.SearchPlacesRequest\032&.free" +
-      "_map_service.SearchPlacesResponse\022Q\n\010Add" +
-      "Place\022!.free_map_service.AddPlaceRequest" +
-      "\032\".free_map_service.AddPlaceResponse\022Z\n\013" +
-      "UpdatePlace\022$.free_map_service.UpdatePla" +
-      "ceRequest\032%.free_map_service.UpdatePlace" +
-      "Response\022Z\n\013DeletePlace\022$.free_map_servi" +
-      "ce.DeletePlaceRequest\032%.free_map_service" +
-      ".DeletePlaceResponseBW\n$generated_grpc.f" +
-      "ree_map_service_grpcB\033free_map_service_g" +
-      "rpc_typesZ\022./free_map_serviceb\006proto3"
+      "\003 \001(\001\022\021\n\tpage_size\030\004 \001(\005\022\023\n\013page_number\030" +
+      "\005 \001(\005\"\314\003\n\021LocationOfFreeMap\022\030\n\013location_" +
+      "id\030\001 \001(\005H\000\210\001\001\022\033\n\016uploader_email\030\002 \001(\tH\001\210" +
+      "\001\001\022\014\n\004name\030\003 \001(\t\022\022\n\ny_latitude\030\004 \001(\001\022\023\n\013" +
+      "x_longitude\030\005 \001(\001\022\016\n\006scores\030\006 \001(\001\022\024\n\014ope" +
+      "n_all_day\030\007 \001(\010\022\023\n\013has_charger\030\010 \001(\010\022\020\n\010" +
+      "has_wifi\030\t \001(\010\022\021\n\thas_water\030\n \001(\010\022\025\n\rhas" +
+      "_hot_water\030\013 \001(\010\022\020\n\010has_desk\030\014 \001(\010\022\021\n\tha" +
+      "s_chair\030\r \001(\010\022\022\n\nhas_toilet\030\016 \001(\010\022\025\n\rhas" +
+      "_showering\030\017 \001(\010\022%\n\035has_package_receivin" +
+      "g_station\030\020 \001(\010\022\017\n\007has_kfc\030\021 \001(\010\022\024\n\014has_" +
+      "mcdonald\030\022 \001(\010\022\021\n\thas_store\030\023 \001(\010B\016\n\014_lo" +
+      "cation_idB\021\n\017_uploader_email\"w\n\024SearchPl" +
+      "acesResponse\022\022\n\005error\030\001 \001(\tH\000\210\001\001\022A\n\024loca" +
+      "tion_of_free_map\030\002 \003(\0132#.free_map_servic" +
+      "e.LocationOfFreeMapB\010\n\006_error\"T\n\017AddPlac" +
+      "eRequest\022A\n\024location_of_free_map\030\001 \001(\0132#" +
+      ".free_map_service.LocationOfFreeMap\"A\n\020A" +
+      "ddPlaceResponse\022\022\n\005error\030\001 \001(\tH\000\210\001\001\022\017\n\007s" +
+      "uccess\030\002 \001(\010B\010\n\006_error\"W\n\022UpdatePlaceReq" +
+      "uest\022A\n\024location_of_free_map\030\001 \001(\0132#.fre" +
+      "e_map_service.LocationOfFreeMap\"D\n\023Updat" +
+      "ePlaceResponse\022\022\n\005error\030\001 \001(\tH\000\210\001\001\022\017\n\007su" +
+      "ccess\030\002 \001(\010B\010\n\006_error\")\n\022DeletePlaceRequ" +
+      "est\022\023\n\013location_id\030\001 \001(\005\"D\n\023DeletePlaceR" +
+      "esponse\022\022\n\005error\030\001 \001(\tH\000\210\001\001\022\017\n\007success\030\002" +
+      " \001(\010B\010\n\006_error2\372\002\n\016FreeMapService\022]\n\014Sea" +
+      "rchPlaces\022%.free_map_service.SearchPlace" +
+      "sRequest\032&.free_map_service.SearchPlaces" +
+      "Response\022Q\n\010AddPlace\022!.free_map_service." +
+      "AddPlaceRequest\032\".free_map_service.AddPl" +
+      "aceResponse\022Z\n\013UpdatePlace\022$.free_map_se" +
+      "rvice.UpdatePlaceRequest\032%.free_map_serv" +
+      "ice.UpdatePlaceResponse\022Z\n\013DeletePlace\022$" +
+      ".free_map_service.DeletePlaceRequest\032%.f" +
+      "ree_map_service.DeletePlaceResponseBW\n$g" +
+      "enerated_grpc.free_map_service_grpcB\033fre" +
+      "e_map_service_grpc_typesZ\022./free_map_ser" +
+      "viceb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -7566,7 +7637,7 @@ public final class free_map_service_grpc_types {
     internal_static_free_map_service_SearchPlacesRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_free_map_service_SearchPlacesRequest_descriptor,
-        new java.lang.String[] { "KeyWords", "YLatitude", "XLongitude", "RadiusDistance", });
+        new java.lang.String[] { "KeyWords", "YLatitude", "XLongitude", "PageSize", "PageNumber", });
     internal_static_free_map_service_LocationOfFreeMap_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_free_map_service_LocationOfFreeMap_fieldAccessorTable = new

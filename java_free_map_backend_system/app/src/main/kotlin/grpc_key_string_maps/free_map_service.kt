@@ -9,7 +9,9 @@ class free_map_service_key_string_maps {
                     var key_words: String = "key_words"
                     var y_latitude: String = "y_latitude"
                     var x_longitude: String = "x_longitude"
-                    var radius_distance: String = "radius_distance"
+                    var page_size: String = "page_size"
+                    var page_number: String = "page_number"
+                    val __property_list__: List<String> = listOf("key_words", "y_latitude", "x_longitude", "page_size", "page_number")
                 }
             }
 
@@ -36,6 +38,7 @@ class free_map_service_key_string_maps {
                     var has_mcdonald: String = "has_mcdonald"
                     var has_store: String = "has_store"
                     var open_and_close_time: String = "open_and_close_time"
+                    val __property_list__: List<String> = listOf("location_id", "uploader_email", "name", "y_latitude", "x_longitude", "scores", "open_all_day", "has_charger", "has_wifi", "has_water", "has_hot_water", "has_desk", "has_chair", "has_toilet", "has_showering", "has_package_receiving_station", "has_kfc", "has_mcdonald", "has_store", "open_and_close_time")
                 }
             }
 
@@ -44,6 +47,7 @@ class free_map_service_key_string_maps {
                     @JvmField 
                     var error: String = "error"
                     var location_of_free_map: String = "location_of_free_map"
+                    val __property_list__: List<String> = listOf("error", "location_of_free_map")
                 }
             }
 
@@ -51,6 +55,7 @@ class free_map_service_key_string_maps {
                 companion object {
                     @JvmField 
                     var location_of_free_map: String = "location_of_free_map"
+                    val __property_list__: List<String> = listOf("location_of_free_map")
                 }
             }
 
@@ -59,6 +64,7 @@ class free_map_service_key_string_maps {
                     @JvmField 
                     var error: String = "error"
                     var success: String = "success"
+                    val __property_list__: List<String> = listOf("error", "success")
                 }
             }
 
@@ -66,6 +72,7 @@ class free_map_service_key_string_maps {
                 companion object {
                     @JvmField 
                     var location_of_free_map: String = "location_of_free_map"
+                    val __property_list__: List<String> = listOf("location_of_free_map")
                 }
             }
 
@@ -74,6 +81,7 @@ class free_map_service_key_string_maps {
                     @JvmField 
                     var error: String = "error"
                     var success: String = "success"
+                    val __property_list__: List<String> = listOf("error", "success")
                 }
             }
 
@@ -81,6 +89,7 @@ class free_map_service_key_string_maps {
                 companion object {
                     @JvmField 
                     var location_id: String = "location_id"
+                    val __property_list__: List<String> = listOf("location_id")
                 }
             }
 
@@ -89,6 +98,7 @@ class free_map_service_key_string_maps {
                     @JvmField 
                     var error: String = "error"
                     var success: String = "success"
+                    val __property_list__: List<String> = listOf("error", "success")
                 }
             }
     }

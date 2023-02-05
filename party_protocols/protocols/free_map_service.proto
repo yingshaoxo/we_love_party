@@ -18,7 +18,8 @@ message SearchPlacesRequest {
     string key_words = 1;
     double y_latitude = 2;
     double x_longitude = 3;
-    double radius_distance = 4;
+    int32 page_size = 4;
+    int32 page_number = 5;
 }
 
 // we'll use this table to create two tables, one is global average data, for example, average scores for each location distinguished by location_id. this table won't include the 'uploader_username'

@@ -57,8 +57,45 @@ class FreeMapService: FreeMapServiceGrpc.FreeMapServiceImplBase()  {
             return
         }
 
-        responseObserver.onNext(null);
-        responseObserver.onCompleted();
+        try {
+            if (request == null) {
+                throw Exception("request is null")
+            }
+            if (request.xLongitude < -90 || request.xLongitude > 90) {
+                throw Exception(
+                    "${free_map_service_key_string_maps.Companion.SearchPlacesRequest.x_longitude} should be inside the range of [-90, 90]"
+                )
+            }
+            if (request.yLatitude < -90 || request.yLatitude > 90) {
+                throw Exception(
+                    "${free_map_service_key_string_maps.Companion.SearchPlacesRequest.y_latitude} should be inside the range of [-90, 90]"
+                )
+            }
+
+            var location_list = freeMapDatabaseHandler.search_locations_in_final_free_map(
+                keywords_text = request.keyWords,
+                y_latitude = request.yLatitude,
+                x_longitude = request.xLongitude,
+                page_size = request.pageSize,
+                page_number = request.pageNumber
+            )
+
+            responseObserver.onNext(
+                SearchPlacesResponse.newBuilder()
+                    .addAllLocationOfFreeMap(location_list)
+                    .build()
+            );
+        } catch (e: Exception) {
+            println(e)
+
+            responseObserver.onNext(
+                SearchPlacesResponse.newBuilder()
+                    .setError(e.toString())
+                    .build()
+            );
+        } finally {
+            responseObserver.onCompleted();
+        }
     }
 
     override fun addPlace(
