@@ -3,6 +3,7 @@ package kotlin_free_map_backend_system
 import generated_grpc.free_map_service_grpc.free_map_service_grpc_types.*
 import grpc_key_string_maps.*
 import java.lang.Exception
+import java.math.BigDecimal
 import java.sql.Connection
 import java.sql.DriverManager.getConnection
 import java.sql.ResultSet
@@ -21,6 +22,14 @@ var kotlin_data_type_to_sql_data_type_function = fun(it: Any): String {
         return if (it==true) "TRUE" else "FALSE"
     }
     return it.toString()
+}
+
+
+var sql_data_type_to_kotlin_data_type_function = fun(it: Any): Any {
+    if (it is BigDecimal) {
+        return it.toDouble()
+    }
+    return it
 }
 
 
@@ -92,8 +101,7 @@ CREATE TABLE IF NOT EXISTS "free_map" (
 );
         """.trimIndent()
 
-        val result: Boolean = command_statement.execute(create_table_command)
-//        println(result)
+        command_statement.execute(create_table_command)
 
         command_statement.close()
         db_connection.close()
@@ -157,9 +165,6 @@ WHERE
         val counting_result: ResultSet = command_statement.executeQuery(get_exists_record_counting_sql_command)
         var is_unique: Boolean = false
         while (counting_result.next()) {
-            // Now that `rs` points to a valid row (rs.next() is true), we can use the `getString`
-            // and `getLong` methods to return each column value of the row as a string and long
-            // respectively, and print it to the console
             var counting:Int = (counting_result.getObject("counting") as Long).toInt()
             if (counting > 0) {
                 is_unique = true
@@ -201,35 +206,19 @@ WHERE
             free_map_service_key_string_maps.Companion.LocationOfFreeMap.has_store,
         )
         var column_key_list_text: String = column_list.joinToString(separator = ", ")
-//        println(locationOfFreeMap.toString())
-        var column_value_list: List<Any> = listOf<Any>(
-            locationOfFreeMap.uploaderEmail,
-            locationOfFreeMap.name,
-            locationOfFreeMap.yLatitude,
-            locationOfFreeMap.xLongitude,
-            locationOfFreeMap.scores,
-            locationOfFreeMap.openAllDay,
-            locationOfFreeMap.hasCharger,
-            locationOfFreeMap.hasWifi,
-            locationOfFreeMap.hasWater,
-            locationOfFreeMap.hasHotWater,
-            locationOfFreeMap.hasDesk,
-            locationOfFreeMap.hasChair,
-            locationOfFreeMap.hasToilet,
-            locationOfFreeMap.hasShowering,
-            locationOfFreeMap.hasPackageReceivingStation,
-            locationOfFreeMap.hasKfc,
-            locationOfFreeMap.hasMcdonald,
-            locationOfFreeMap.hasStore,
-        )
+
+        var column_value_list: List<Any> = column_list.map { it ->
+            locationOfFreeMap.getField(
+                locationOfFreeMap.descriptorForType.findFieldByName(it)
+            )
+        }
         var column_value_list_text: String = column_value_list.map{ kotlin_data_type_to_sql_data_type_function(it) }.joinToString(", ")
 
         var sql_command = """
 INSERT INTO free_map(${column_key_list_text})
 VALUES(${column_value_list_text});
         """.trimIndent()
-        val result: Boolean = command_statement.execute(sql_command)
-//        println(result)
+        command_statement.execute(sql_command)
 
         command_statement.close()
         db_connection.close()
@@ -260,23 +249,11 @@ VALUES(${column_value_list_text});
         )
         var column_key_list_text: String = column_list.joinToString(separator = ", ")
 
-        var column_value_list: List<Any> = listOf<Any>(
-            locationOfFreeMap.name,
-            locationOfFreeMap.scores,
-            locationOfFreeMap.openAllDay,
-            locationOfFreeMap.hasCharger,
-            locationOfFreeMap.hasWifi,
-            locationOfFreeMap.hasWater,
-            locationOfFreeMap.hasHotWater,
-            locationOfFreeMap.hasDesk,
-            locationOfFreeMap.hasChair,
-            locationOfFreeMap.hasToilet,
-            locationOfFreeMap.hasShowering,
-            locationOfFreeMap.hasPackageReceivingStation,
-            locationOfFreeMap.hasKfc,
-            locationOfFreeMap.hasMcdonald,
-            locationOfFreeMap.hasStore,
-        )
+        var column_value_list: List<Any> = column_list.map { it ->
+            locationOfFreeMap.getField(
+                locationOfFreeMap.descriptorForType.findFieldByName(it)
+            )
+        }
         var column_value_list_text: String = column_value_list.map{ kotlin_data_type_to_sql_data_type_function(it) }.joinToString(", ")
 
         var update_sql_command = """
@@ -305,7 +282,7 @@ WHERE
         add_or_update_a_record_to_final_free_map(locationOfFreeMap=locationOfFreeMap)
     }
 
-    fun delete_one_record_to_free_map(locationOfFreeMap: LocationOfFreeMap) {
+    fun delete_one_record_in_free_map(locationOfFreeMap: LocationOfFreeMap) {
         var db_connection = get_free_map_database_connection()
         val command_statement: Statement = db_connection.createStatement()
 
@@ -313,6 +290,31 @@ WHERE
 DELETE FROM free_map.public.free_map
 WHERE 
     ${free_map_service_key_string_maps.Companion.LocationOfFreeMap.location_id} = ${kotlin_data_type_to_sql_data_type_function(locationOfFreeMap.locationId)} 
+        """.trimIndent()
+        command_statement.execute(delete_sql_command)
+
+        command_statement.close()
+        db_connection.close()
+    }
+
+    fun delete_a_location_in_free_map(locationOfFreeMap: LocationOfFreeMap) {
+        var db_connection = get_free_map_database_connection()
+        val command_statement: Statement = db_connection.createStatement()
+
+        var delete_sql_command = """
+DELETE FROM free_map.public.free_map
+WHERE 
+    y_latitude = ${
+            kotlin_data_type_to_sql_data_type_function(
+                locationOfFreeMap.yLatitude
+            )
+        } 
+    AND x_longitude = ${
+            kotlin_data_type_to_sql_data_type_function(
+                locationOfFreeMap.xLongitude
+            )
+        }
+;
         """.trimIndent()
         command_statement.execute(delete_sql_command)
 
@@ -339,7 +341,9 @@ WHERE
         )}
 ;
         """.trimIndent()
-        val counting_result: ResultSet = command_statement.executeQuery(get_exists_record_counting_sql_command)
+        val counting_result: ResultSet = command_statement.executeQuery(
+            get_exists_record_counting_sql_command
+        )
         var is_unique: Boolean = false
         while (counting_result.next()) {
             var counting:Int = (counting_result.getObject("counting") as Long).toInt()
@@ -382,26 +386,12 @@ WHERE
             free_map_service_key_string_maps.Companion.LocationOfFreeMap.has_store,
         )
         var column_key_list_text: String = column_list.joinToString(separator = ", ")
-//        println(locationOfFreeMap.toString())
-        var column_value_list: List<Any> = listOf<Any>(
-            locationOfFreeMap.name,
-            locationOfFreeMap.yLatitude,
-            locationOfFreeMap.xLongitude,
-            locationOfFreeMap.scores,
-            locationOfFreeMap.openAllDay,
-            locationOfFreeMap.hasCharger,
-            locationOfFreeMap.hasWifi,
-            locationOfFreeMap.hasWater,
-            locationOfFreeMap.hasHotWater,
-            locationOfFreeMap.hasDesk,
-            locationOfFreeMap.hasChair,
-            locationOfFreeMap.hasToilet,
-            locationOfFreeMap.hasShowering,
-            locationOfFreeMap.hasPackageReceivingStation,
-            locationOfFreeMap.hasKfc,
-            locationOfFreeMap.hasMcdonald,
-            locationOfFreeMap.hasStore,
-        )
+
+        var column_value_list: List<Any> = column_list.map { it ->
+            locationOfFreeMap.getField(
+                locationOfFreeMap.descriptorForType.findFieldByName(it)
+            )
+        }
         var column_value_list_text: String = column_value_list.map{ kotlin_data_type_to_sql_data_type_function(it) }.joinToString(", ")
 
         var sql_command = """
@@ -437,23 +427,11 @@ VALUES(${column_value_list_text});
         )
         var column_key_list_text: String = column_list.joinToString(separator = ", ")
 
-        var column_value_list: List<Any> = listOf<Any>(
-            locationOfFreeMap.name,
-            locationOfFreeMap.scores,
-            locationOfFreeMap.openAllDay,
-            locationOfFreeMap.hasCharger,
-            locationOfFreeMap.hasWifi,
-            locationOfFreeMap.hasWater,
-            locationOfFreeMap.hasHotWater,
-            locationOfFreeMap.hasDesk,
-            locationOfFreeMap.hasChair,
-            locationOfFreeMap.hasToilet,
-            locationOfFreeMap.hasShowering,
-            locationOfFreeMap.hasPackageReceivingStation,
-            locationOfFreeMap.hasKfc,
-            locationOfFreeMap.hasMcdonald,
-            locationOfFreeMap.hasStore,
-        )
+        var column_value_list: List<Any> = column_list.map { it ->
+            locationOfFreeMap.getField(
+                locationOfFreeMap.descriptorForType.findFieldByName(it)
+            )
+        }
         var column_value_list_text: String = column_value_list.map{ kotlin_data_type_to_sql_data_type_function(it) }.joinToString(", ")
 
         var update_sql_command = """
@@ -503,16 +481,21 @@ WHERE
                 free_map_service_key_string_maps.Companion.LocationOfFreeMap.has_mcdonald,
                 free_map_service_key_string_maps.Companion.LocationOfFreeMap.has_store,
             )
-            var boolean_column_query_command_list = boolean_column_list.map { it -> "    "+ "avg(CAST(${it.toString()} = 'True' AS int)) > 0.5," }
+            var boolean_column_query_command_list = boolean_column_list.map { it -> "    "+ "(avg(CAST(${it.toString()} = 'True' AS int)) > 0.5) AS ${it.toString()}," }
             var boolean_part_command = boolean_column_query_command_list.joinToString(separator = "\n")
                 .removeSuffix(",")
                 .removeSuffix(" ")
                 .removeSuffix("\n")
                 .trim()
 
+            var column_key_list = mutableListOf<String>(
+                free_map_service_key_string_maps.Companion.LocationOfFreeMap.scores
+            )
+            column_key_list.addAll(boolean_column_list)
+
             var query_average_value_command = """
 SELECT 
-    round(avg(${free_map_service_key_string_maps.Companion.LocationOfFreeMap.scores})::numeric,1),
+    round(avg(${free_map_service_key_string_maps.Companion.LocationOfFreeMap.scores})::numeric,1) AS ${free_map_service_key_string_maps.Companion.LocationOfFreeMap.scores},
     ${boolean_part_command}
 FROM free_map.public.free_map
 WHERE 
@@ -525,35 +508,26 @@ WHERE
 ;
             """.trimIndent()
 
-            var column_key_list = mutableListOf<String>(
-                free_map_service_key_string_maps.Companion.LocationOfFreeMap.scores
-            )
-            column_key_list.addAll(boolean_column_list)
-
             val result: ResultSet = command_statement.executeQuery(query_average_value_command)
             while (result.next()) {
-                var hi = result.getObject(3)
-
-                var temp_location: LocationOfFreeMap = LocationOfFreeMap.newBuilder()
+                var temp_location_builder: LocationOfFreeMap.Builder = LocationOfFreeMap.newBuilder()
                     .setName(locationOfFreeMap.name)
                     .setYLatitude(locationOfFreeMap.yLatitude)
-                    .setXLongitude(locationOfFreeMap.xLongitude)
-                    .setScores(result.getDouble(1))
-                    .setOpenAllDay(result.getBoolean(2))
-                    .setHasCharger(result.getBoolean(3))
-                    .setHasWifi(result.getBoolean(4))
-                    .setHasWater(result.getBoolean(5))
-                    .setHasHotWater(result.getBoolean(6))
-                    .setHasDesk(result.getBoolean(7))
-                    .setHasChair(result.getBoolean(8))
-                    .setHasToilet(result.getBoolean(9))
-                    .setHasShowering(result.getBoolean(10))
-                    .setHasPackageReceivingStation(result.getBoolean(11))
-                    .setHasKfc(result.getBoolean(12))
-                    .setHasMcdonald(result.getBoolean(13))
-                    .setHasStore(result.getBoolean(14))
-                    .build()
+                    .setXLongitude(locationOfFreeMap.xLongitude);
+
+                column_key_list.forEach {
+                    var descriptor_ = locationOfFreeMap.descriptorForType.findFieldByName(it)
+                    var one_value_from_database = result.getObject(it)
+                    temp_location_builder.setField(
+                        descriptor_,
+                        sql_data_type_to_kotlin_data_type_function(one_value_from_database)
+                    )
+                }
+
+                var temp_location: LocationOfFreeMap = temp_location_builder.build()
+
                 update_one_record_to_final_free_map(locationOfFreeMap=temp_location)
+
                 break
             }
 

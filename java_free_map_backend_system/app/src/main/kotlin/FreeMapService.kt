@@ -158,7 +158,7 @@ class FreeMapService: FreeMapServiceGrpc.FreeMapServiceImplBase()  {
         try {
             if (request != null) {
                 var one_location = LocationOfFreeMap.newBuilder().setLocationId(request.locationId).build();
-                freeMapDatabaseHandler.delete_one_record_to_free_map(one_location)
+                freeMapDatabaseHandler.delete_one_record_in_free_map(one_location)
 
                 responseObserver.onNext(
                     DeletePlaceResponse.newBuilder()
