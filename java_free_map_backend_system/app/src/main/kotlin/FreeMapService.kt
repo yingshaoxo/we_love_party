@@ -5,6 +5,18 @@ import generated_grpc.free_map_service_grpc.free_map_service_grpc_types.*
 import grpc_key_string_maps.free_map_service_key_string_maps
 import io.grpc.stub.ServerCalls
 import io.grpc.stub.StreamObserver
+import java.math.RoundingMode
+import java.text.DecimalFormat
+
+fun math_operation_round_for_float_number(number: Double, number_after_decimal: Int): Double {
+    val df = DecimalFormat("#." + "#".repeat(number_after_decimal))
+    df.roundingMode = RoundingMode.HALF_EVEN
+    return df.format(number).toDouble()
+}
+
+fun get_5_decimal_version_of_float_number(number: Double): Double {
+    return math_operation_round_for_float_number(number, 5)
+}
 
 fun check_if_position_is_valid(one_location: LocationOfFreeMap?): Pair<Boolean, Exception?> {
     if (one_location == null) {
@@ -45,6 +57,23 @@ fun check_if_position_is_valid(one_location: LocationOfFreeMap?): Pair<Boolean, 
     return Pair(true, null);
 }
 
+fun position_pre_process(one_location: LocationOfFreeMap?): Pair<LocationOfFreeMap?, Exception?> {
+    if (one_location == null) {
+        return Pair(null, null)
+    }
+
+    try {
+        var new_location = LocationOfFreeMap.newBuilder()
+            .mergeFrom(one_location)
+            .setXLongitude(get_5_decimal_version_of_float_number(one_location.xLongitude))
+            .setYLatitude(get_5_decimal_version_of_float_number(one_location.yLatitude))
+        return Pair(new_location.build(), null)
+    } catch (e: Exception) {
+        println(e)
+        return Pair(one_location, e)
+    }
+}
+
 class FreeMapService: FreeMapServiceGrpc.FreeMapServiceImplBase()  {
     var freeMapDatabaseHandler: FreeMapDatabaseHandler = FreeMapDatabaseHandler()
 
@@ -74,8 +103,8 @@ class FreeMapService: FreeMapServiceGrpc.FreeMapServiceImplBase()  {
 
             var location_list = freeMapDatabaseHandler.search_locations_in_final_free_map(
                 keywords_text = request.keyWords,
-                y_latitude = request.yLatitude,
-                x_longitude = request.xLongitude,
+                y_latitude = get_5_decimal_version_of_float_number(request.yLatitude),
+                x_longitude = get_5_decimal_version_of_float_number(request.xLongitude),
                 page_size = request.pageSize,
                 page_number = request.pageNumber
             )
@@ -118,8 +147,9 @@ class FreeMapService: FreeMapServiceGrpc.FreeMapServiceImplBase()  {
                 }
             }
 
-            if (one_location != null) {
-                freeMapDatabaseHandler.insert_one_record_to_free_map(one_location)
+            var (new_positon,_) = position_pre_process(one_location)
+            if (new_positon != null) {
+                freeMapDatabaseHandler.insert_one_record_to_free_map(new_positon)
             }
 
             responseObserver.onNext(
@@ -161,8 +191,9 @@ class FreeMapService: FreeMapServiceGrpc.FreeMapServiceImplBase()  {
                 }
             }
 
-            if (one_location != null) {
-                freeMapDatabaseHandler.update_one_record_to_free_map(one_location)
+            var (new_positon,_) = position_pre_process(one_location)
+            if (new_positon != null) {
+                freeMapDatabaseHandler.update_one_record_to_free_map(new_positon)
             }
 
             responseObserver.onNext(
