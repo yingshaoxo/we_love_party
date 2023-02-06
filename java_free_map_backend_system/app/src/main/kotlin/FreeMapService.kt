@@ -30,9 +30,9 @@ fun check_if_position_is_valid(one_location: LocationOfFreeMap?): Pair<Boolean, 
         ))
     }
 
-    if (one_location.xLongitude < -90 || one_location.xLongitude > 90) {
+    if (one_location.xLongitude < -180 || one_location.xLongitude > 180) {
         return Pair(false,Exception(
-            "${free_map_service_key_string_maps.Companion.LocationOfFreeMap.x_longitude} should be inside the range of [-90, 90]"
+            "${free_map_service_key_string_maps.Companion.LocationOfFreeMap.x_longitude} should be inside the range of [-180, 180]"
         ))
     }
 
@@ -90,9 +90,9 @@ class FreeMapService: FreeMapServiceGrpc.FreeMapServiceImplBase()  {
             if (request == null) {
                 throw Exception("request is null")
             }
-            if (request.xLongitude < -90 || request.xLongitude > 90) {
+            if (request.xLongitude < -180 || request.xLongitude > 180) {
                 throw Exception(
-                    "${free_map_service_key_string_maps.Companion.SearchPlacesRequest.x_longitude} should be inside the range of [-90, 90]"
+                    "${free_map_service_key_string_maps.Companion.SearchPlacesRequest.x_longitude} should be inside the range of [-180, 180]"
                 )
             }
             if (request.yLatitude < -90 || request.yLatitude > 90) {
