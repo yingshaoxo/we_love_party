@@ -1,11 +1,14 @@
 import 'package:cron/cron.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_client/pages/4.party/room_list.dart';
+import 'package:flutter_client/pages/5.free_map/free_map_page.dart';
 import 'package:flutter_client/pages/7.me/me_page.dart';
 import 'package:flutter_client/pages/network_error_page.dart';
 import 'package:flutter_client/store/controllers.dart';
 import 'package:flutter_client/tools/internet_tools.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+
+import '../../store/config.dart';
 
 class MyTabs extends StatefulWidget {
   const MyTabs({Key? key}) : super(key: key);
@@ -17,9 +20,7 @@ class MyTabs extends StatefulWidget {
 class _MyTabsState extends State<MyTabs> {
   List<Widget> tab_widget_list = [
     RoomListPage(),
-    Container(
-      child: Center(child: Text("Free Map")),
-    ),
+    FreeMapPage(),
     Container(
       child: Center(child: Text("Friends")),
     ),
@@ -105,8 +106,8 @@ class _MyTabsState extends State<MyTabs> {
         ),
         Obx(() {
           return Offstage(
-            offstage:
-                variable_controller.online.value, //variable_controller.online,
+            offstage: variable_controller.online.value ||
+                in_dev_mode == true, //variable_controller.online,
             child: NetworkErrorPage(),
           );
         })

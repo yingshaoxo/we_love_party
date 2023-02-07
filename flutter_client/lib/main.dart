@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_client/pages/2.create_an_account/face_scan_page.dart';
 import 'package:flutter_client/pages/2.create_an_account/profile_edit_page.dart';
+import 'package:flutter_client/pages/5.free_map/free_map_page.dart';
 import 'package:flutter_client/pages/7.me/me_page.dart';
 import 'package:flutter_client/pages/4.party/room_list.dart';
 import 'package:flutter_client/pages/3.tabs/tabs.dart';
@@ -34,7 +35,7 @@ void main() {
         ScreenUtil.init(context);
         return EasyLoading.init()(context, child);
       },
-      initialRoute: RoutesMap.welcome,
+      initialRoute: RoutesMap.free_map_page,
       getPages: [
         GetPage(name: RoutesMap.welcome, page: () => const WelcomePage()),
         GetPage(
@@ -52,6 +53,7 @@ void main() {
         GetPage(
             name: RoutesMap.single_room_page,
             page: () => const SingleVoiceRoom()),
+        GetPage(name: RoutesMap.free_map_page, page: () => const FreeMapPage()),
         GetPage(name: RoutesMap.me_page, page: () => const MePage()),
       ],
     ));

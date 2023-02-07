@@ -8,6 +8,7 @@ class RoutesMap {
   static const my_tabs = "/my_tabs";
   static const room_list = "/room_list";
   static const single_room_page = "/single_room";
+  static const free_map_page = "/free_map_page";
   static const me_page = "/me_page";
 }
 
