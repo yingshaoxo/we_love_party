@@ -8,7 +8,7 @@ import 'package:flutter_client/store/controllers.dart';
 import 'package:get/get.dart';
 import 'package:grpc/grpc.dart';
 
-import '../common_user_interface/exit.dart';
+import '../generated_grpc/free_map_service.pbgrpc.dart';
 
 CallOptions get_JWT_CallOptions_for_GRPC() {
   return CallOptions(
@@ -250,6 +250,44 @@ class RoomControlGrpcControllr extends GetxController {
               roomName: roomName, identity: variable_controller.user_email),
           options: get_JWT_CallOptions_for_GRPC());
 
+      return response;
+    } catch (e) {
+      print(e);
+      default_response.error = e.toString();
+      return default_response;
+    } finally {
+      await channel.shutdown();
+    }
+  }
+}
+
+class FreeMapGrpcControllr extends GetxController {
+  ClientChannel channel = ClientChannel(
+    GrpcConfig.free_map_service,
+    port: GrpcConfig.port_number,
+    options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
+  );
+
+  FreeMapServiceClient get_free_map_service_client() {
+    channel = ClientChannel(
+      GrpcConfig.free_map_service,
+      port: GrpcConfig.port_number,
+      options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
+    );
+
+    return FreeMapServiceClient(channel);
+  }
+
+  Future<SearchPlacesResponse> search_locations(
+      SearchPlacesRequest searchPlacesRequest) async {
+    SearchPlacesResponse default_response = SearchPlacesResponse();
+    default_response.error = "";
+
+    try {
+      final client = get_free_map_service_client();
+      final response = await client.searchPlaces(searchPlacesRequest,
+          options: get_JWT_CallOptions_for_GRPC());
+      print('room list received: ${response.locationOfFreeMap}');
       return response;
     } catch (e) {
       print(e);

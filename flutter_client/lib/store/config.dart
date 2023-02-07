@@ -10,6 +10,7 @@ class RoutesMap {
   static const single_room_page = "/single_room";
   static const free_map_page = "/free_map_page";
   static const me_page = "/me_page";
+  static const place_search_list_page = "/place_search_list_page";
 }
 
 class GrpcConfig {
@@ -20,6 +21,7 @@ class GrpcConfig {
   static const account_storage_service =
       "account_storage.weloveparty.domain.local";
   static const room_control_service = "room_control.weloveparty.domain.local";
+  static const free_map_service = "free_map.weloveparty.domain.local";
 }
 
 class LivekitConfig {

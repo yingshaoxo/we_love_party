@@ -1,6 +1,8 @@
 import 'dart:core';
 import 'package:cron/cron.dart';
 import 'package:flutter_client/generated_grpc/account_storage_service.pbgrpc.dart';
+import 'package:flutter_client/generated_grpc/free_map_service.pbgrpc.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -29,6 +31,10 @@ class VariableControllr extends GetxController {
   int current_tab_index = 0;
   Rx<bool> online = RxBool(true);
 
+  MapController map_controller = MapController();
+  LocationOfFreeMap? current_location;
+  LocationOfFreeMap? target_location;
+
   Future<void> initilize_function() async {
     final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     preferences = await _prefs;
@@ -41,6 +47,8 @@ class VariableControllr extends GetxController {
       jwt =
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlpbmdzaGFveG9AZ21haWwuY29tIiwicmFuZG9tX3N0cmluZyI6IjU1ODQ0OCJ9.kcVthYPI_IL6aD7Mx9KdDCFsAEXvgsxTtAM_dYs5Qko";
       user_email = "yingshaoxo@gmail.com";
+
+      current_location = LocationOfFreeMap(xLongitude: 0, yLatitude: 0);
     }
   }
 

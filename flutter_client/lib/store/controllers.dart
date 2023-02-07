@@ -14,3 +14,6 @@ final face_scan_controller = Get.put(FaceScanControllr(), permanent: true);
 
 final room_control_grpc_controllr =
     Get.put(RoomControlGrpcControllr(), permanent: true);
+
+final free_map_grpc_controller =
+    Get.put(FreeMapGrpcControllr(), permanent: true);
