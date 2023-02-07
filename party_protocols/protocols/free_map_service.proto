@@ -28,8 +28,8 @@ message LocationOfFreeMap {
     optional int32 location_id = 1;
     optional string uploader_email = 2;
     string name = 3;
-    double y_latitude = 4;
-    double x_longitude = 5;
+    double y_latitude = 4; // up to 5 digits after decimal
+    double x_longitude = 5; // up to 5 digits after decimal
     double scores = 6;
     bool open_all_day = 7;
     bool has_charger = 8;

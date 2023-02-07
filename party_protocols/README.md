@@ -112,7 +112,7 @@ protoc --go_out=generated_grpc --go-grpc_out=generated_grpc --proto_path ../part
 ```bash
 mkdir -p lib/generated_grpc
 
-protoc --dart_out=grpc:lib/generated_grpc --proto_path ../party_protocols/protocols account_auth_service.proto account_storage_service.proto room_control_service.proto
+protoc --dart_out=grpc:lib/generated_grpc --proto_path ../party_protocols/protocols account_auth_service.proto account_storage_service.proto room_control_service.proto free_map_service.proto
 ```
 
 ### Rust
