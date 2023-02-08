@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_client/generated_grpc/free_map_service.pbgrpc.dart';
 import 'package:flutter_client/store/controllers.dart';
 import 'package:flutter_client/tools/color_tools.dart';
+import 'package:geolocator/geolocator.dart';
 
 import 'package:get/get.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -168,7 +169,12 @@ class _LocationInfoCardState extends State<LocationInfoCard> {
                       Text(
                         // locationOfFreeMap.distance(),
                         // "need to add distance",
-                        "1m",
+                        "${Geolocator.distanceBetween(
+                          variable_controller.current_location?.yLatitude ?? 0,
+                          variable_controller.current_location?.xLongitude ?? 0,
+                          variable_controller.target_location?.yLatitude ?? 0,
+                          variable_controller.target_location?.xLongitude ?? 0,
+                        ).toInt()} meters",
                         style: TextStyle(color: Colors.black),
                         textAlign: TextAlign.left,
                       ),

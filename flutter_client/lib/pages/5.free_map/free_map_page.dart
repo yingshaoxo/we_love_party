@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_client/common_user_interface/exit.dart';
 import 'package:flutter_client/common_user_interface/pop_up_window.dart';
 import 'package:flutter_client/generated_grpc/free_map_service.pbgrpc.dart';
@@ -74,7 +73,7 @@ class _FreeMapPageState extends State<FreeMapPage> {
       if ((await get_gps_permissions()) == false) {
         await show_message(
             msg:
-                "Please give me the Location/GPS permission. So that I can start to work.");
+                "Please give me the Location/GPS permission and enable Location function. So that I can start to work.");
         initialization_is_done = false;
         return;
       }
@@ -125,7 +124,6 @@ class TheMap extends StatefulWidget {
 }
 
 class _TheMapState extends State<TheMap> {
-  Position? current_position;
   bool stream_on = true;
   StreamSubscription<Position>? the_stream;
 
@@ -138,12 +136,33 @@ class _TheMapState extends State<TheMap> {
   }
 
   Future<void> refresh_current_location() async {
-    current_position = await Geolocator.getCurrentPosition();
-    if (current_position?.latitude != null &&
-        current_position?.longitude != null) {
-      variable_controller.current_location = LocationOfFreeMap(
-          yLatitude: current_position?.latitude ?? 0,
-          xLongitude: current_position?.longitude ?? 0);
+    // get current location
+    var current_position = await Geolocator.getCurrentPosition();
+    variable_controller.current_location = LocationOfFreeMap(
+        yLatitude: current_position.latitude.toPrecision(6),
+        xLongitude: current_position.longitude.toPrecision(6));
+
+    // fit bound
+    if (variable_controller.current_location != null &&
+        variable_controller.target_location != null) {
+      var point_a = LatLng(variable_controller.current_location!.yLatitude,
+          variable_controller.current_location!.xLongitude);
+      var point_b = LatLng(variable_controller.target_location!.yLatitude,
+          variable_controller.target_location!.xLongitude);
+
+      variable_controller.map_controller.fitBounds(
+          LatLngBounds(point_a, point_b),
+          options: FitBoundsOptions(padding: EdgeInsets.all(40)));
+    } else if // fit bound
+        (variable_controller.current_location != null) {
+      var point_a = LatLng(variable_controller.current_location!.yLatitude,
+          variable_controller.current_location!.xLongitude);
+
+      variable_controller.map_controller.fitBounds(LatLngBounds(point_a),
+          options: FitBoundsOptions(padding: EdgeInsets.all(0)));
+      // variable_controller.map_controller.move(point_a, 13.0);
+
+      // variable_controller.map_refresh_trigger.toggle();
     }
 
     setState(() {});
@@ -193,8 +212,8 @@ class _TheMapState extends State<TheMap> {
 
       markers.add(get_location_indicator(
           locationOfFreeMap: LocationOfFreeMap(
-              yLatitude: current_position?.altitude,
-              xLongitude: current_position?.longitude,
+              yLatitude: variable_controller.current_location?.yLatitude ?? 0,
+              xLongitude: variable_controller.current_location?.xLongitude ?? 0,
               name: "Me"),
           mapIndicatorType: MapIndicatorType()..value = MapIndicatorType.me));
 
@@ -262,7 +281,7 @@ class _TheMapState extends State<TheMap> {
                     height: 20,
                   ),
                   Text(
-                      "y_altitude: ${current_position?.altitude}    |    x_longitude:${current_position?.longitude}"),
+                      "y_altitude: ${variable_controller.current_location?.yLatitude ?? 0}    |    x_longitude:${variable_controller.current_location?.xLongitude ?? 0}"),
                   SizedBox(
                     height: 20,
                   ),
@@ -270,8 +289,12 @@ class _TheMapState extends State<TheMap> {
                     child: FlutterMap(
                       mapController: variable_controller.map_controller,
                       options: MapOptions(
-                          center: LatLng(current_position?.latitude ?? 0.0,
-                              current_position?.longitude ?? 0.0),
+                          center: LatLng(
+                              variable_controller.current_location?.yLatitude ??
+                                  0,
+                              variable_controller
+                                      .current_location?.xLongitude ??
+                                  0),
                           zoom: 13,
                           onTap: _handleTap),
                       children: [
@@ -295,31 +318,19 @@ class _TheMapState extends State<TheMap> {
               Positioned(
                   right: 25.0,
                   bottom: 40.0,
+                  width: 40,
+                  height: 40,
                   child: GestureDetector(
                     child: Container(
-                      width: 40,
-                      height: 40,
                       color: Colors.white,
                       child: IconButton(
-                          onPressed: () async {}, icon: Icon(Icons.gps_fixed)),
+                          onPressed: () async {
+                            await refresh_current_location();
+                          },
+                          icon: Icon(Icons.gps_fixed)),
                     ),
                     onTap: () async {
                       await refresh_current_location();
-
-                      if (variable_controller.current_location != null &&
-                          variable_controller.target_location != null) {
-                        var point_a = LatLng(
-                            variable_controller.current_location!.yLatitude,
-                            variable_controller.current_location!.xLongitude);
-                        var point_b = LatLng(
-                            variable_controller.target_location!.yLatitude,
-                            variable_controller.target_location!.xLongitude);
-
-                        variable_controller.map_controller.fitBounds(
-                            LatLngBounds(point_a, point_b),
-                            options:
-                                FitBoundsOptions(padding: EdgeInsets.all(40)));
-                      }
                     },
                   )),
             ],
