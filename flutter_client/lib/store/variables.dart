@@ -26,14 +26,18 @@ class VariableControllr extends GetxController {
 
   UserModel userModel = UserModel();
 
+  // party rooms
   String? access_token;
 
+  // tabs
   int current_tab_index = 0;
   Rx<bool> online = RxBool(true);
 
+  // free map
   MapController map_controller = MapController();
   LocationOfFreeMap? current_location;
   LocationOfFreeMap? target_location;
+  Rx<bool> map_refresh_trigger = RxBool(true);
 
   Future<void> initilize_function() async {
     final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();

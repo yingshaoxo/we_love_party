@@ -178,136 +178,155 @@ class _TheMapState extends State<TheMap> {
 
   @override
   Widget build(BuildContext context) {
-    final markers = tapped_points.map((latlng) {
-      return get_location_indicator(
+    return Obx(() {
+      variable_controller.map_refresh_trigger.value;
+
+      final markers = tapped_points.map((latlng) {
+        return get_location_indicator(
+            locationOfFreeMap: LocationOfFreeMap(
+                yLatitude: latlng.latitude,
+                xLongitude: latlng.longitude,
+                name: "ABCD"),
+            mapIndicatorType: MapIndicatorType()
+              ..value = MapIndicatorType.normal);
+      }).toList();
+
+      markers.add(get_location_indicator(
           locationOfFreeMap: LocationOfFreeMap(
-              yLatitude: latlng.latitude,
-              xLongitude: latlng.longitude,
-              name: "ABCD"),
-          mapIndicatorType: MapIndicatorType()
-            ..value = MapIndicatorType.normal);
-    }).toList();
+              yLatitude: current_position?.altitude,
+              xLongitude: current_position?.longitude,
+              name: "Me"),
+          mapIndicatorType: MapIndicatorType()..value = MapIndicatorType.me));
 
-    markers.add(get_location_indicator(
-        locationOfFreeMap: LocationOfFreeMap(
-            yLatitude: current_position?.altitude,
-            xLongitude: current_position?.longitude,
-            name: "Me"),
-        mapIndicatorType: MapIndicatorType()..value = MapIndicatorType.me));
+      if (variable_controller.target_location != null) {
+        var the_target = get_location_indicator(
+            locationOfFreeMap: variable_controller.target_location!,
+            mapIndicatorType: MapIndicatorType()
+              ..value = MapIndicatorType.target);
+        markers.add(the_target);
+      }
 
-    if (variable_controller.target_location != null) {
-      var the_target = get_location_indicator(
-          locationOfFreeMap: variable_controller.target_location!,
-          mapIndicatorType: MapIndicatorType()
-            ..value = MapIndicatorType.target);
-      markers.add(the_target);
-    }
-
-    return Container(
-      child: Center(
-        child: Stack(
-          children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // Text(stream_on == false ? "paused" : "on"),
-                // TextButton(
-                //     child: Text("Start/Puase the location update"),
-                //     onPressed: () {
-                //       if (the_stream != null) {
-                //         if (stream_on == true) {
-                //           the_stream?.pause();
-                //           stream_on = false;
-                //         } else {
-                //           the_stream?.resume();
-                //           stream_on = true;
-                //         }
-                //       }
-                //       setState(() {});
-                //     }),
-                SizedBox(
-                  height: 40,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 1),
-                  child: TextField(
-                    readOnly: true,
-                    controller: null,
-                    textAlign: TextAlign.center,
-                    textAlignVertical: TextAlignVertical.bottom,
-                    autocorrect: false,
-                    autofocus: false,
-                    decoration: InputDecoration(
-                      hintText: 'Search here',
-                      focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Colors.transparent, width: 0.5),
+      return Container(
+        child: Center(
+          child: Stack(
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Text(stream_on == false ? "paused" : "on"),
+                  // TextButton(
+                  //     child: Text("Start/Puase the location update"),
+                  //     onPressed: () {
+                  //       if (the_stream != null) {
+                  //         if (stream_on == true) {
+                  //           the_stream?.pause();
+                  //           stream_on = false;
+                  //         } else {
+                  //           the_stream?.resume();
+                  //           stream_on = true;
+                  //         }
+                  //       }
+                  //       setState(() {});
+                  //     }),
+                  SizedBox(
+                    height: 35,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 1),
+                    child: TextField(
+                      readOnly: true,
+                      controller: null,
+                      textAlign: TextAlign.center,
+                      textAlignVertical: TextAlignVertical.bottom,
+                      autocorrect: false,
+                      autofocus: false,
+                      decoration: InputDecoration(
+                        hintText: 'Search here',
+                        focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.transparent, width: 0.5),
+                        ),
                       ),
+                      onChanged: (_) async {
+                        // await doASearch();
+                      },
+                      onEditingComplete: () async {
+                        // await doASearch();
+                      },
+                      onTap: () async {
+                        Get.toNamed(RoutesMap.place_search_list_page);
+                      },
                     ),
-                    onChanged: (_) async {
-                      // await doASearch();
-                    },
-                    onEditingComplete: () async {
-                      // await doASearch();
-                    },
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                      "y_altitude: ${current_position?.altitude}    |    x_longitude:${current_position?.longitude}"),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Flexible(
+                    child: FlutterMap(
+                      mapController: variable_controller.map_controller,
+                      options: MapOptions(
+                          center: LatLng(current_position?.latitude ?? 0.0,
+                              current_position?.longitude ?? 0.0),
+                          zoom: 13,
+                          onTap: _handleTap),
+                      children: [
+                        TileLayer(
+                          // urlTemplate:
+                          //     'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                          urlTemplate: 'https://abc.com/{z}/{x}/{y}.png',
+                          userAgentPackageName: 'xyz.yingshaoxo.weloveparty',
+                        ),
+                        MarkerLayer(markers: markers),
+                      ],
+                    ),
+                  )
+                  // RotationTransition(
+                  //   turns:
+                  //       AlwaysStoppedAnimation(current_position?.heading ?? 0 / 360),
+                  //   child: Icon(Icons.arrow_forward),
+                  // ),
+                ],
+              ),
+              Positioned(
+                  right: 25.0,
+                  bottom: 40.0,
+                  child: GestureDetector(
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      color: Colors.white,
+                      child: IconButton(
+                          onPressed: () async {}, icon: Icon(Icons.gps_fixed)),
+                    ),
                     onTap: () async {
-                      Get.toNamed(RoutesMap.place_search_list_page);
+                      await refresh_current_location();
+
+                      if (variable_controller.current_location != null &&
+                          variable_controller.target_location != null) {
+                        var point_a = LatLng(
+                            variable_controller.current_location!.yLatitude,
+                            variable_controller.current_location!.xLongitude);
+                        var point_b = LatLng(
+                            variable_controller.target_location!.yLatitude,
+                            variable_controller.target_location!.xLongitude);
+
+                        variable_controller.map_controller.fitBounds(
+                            LatLngBounds(point_a, point_b),
+                            options:
+                                FitBoundsOptions(padding: EdgeInsets.all(40)));
+                      }
                     },
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                    "y_altitude: ${current_position?.altitude}    |    x_longitude:${current_position?.longitude}"),
-                SizedBox(
-                  height: 20,
-                ),
-                Flexible(
-                  child: FlutterMap(
-                    mapController: variable_controller.map_controller,
-                    options: MapOptions(
-                        center: LatLng(current_position?.latitude ?? 0.0,
-                            current_position?.longitude ?? 0.0),
-                        zoom: 13,
-                        onTap: _handleTap),
-                    children: [
-                      TileLayer(
-                        // urlTemplate:
-                        //     'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                        urlTemplate: 'https://abc.com/{z}/{x}/{y}.png',
-                        userAgentPackageName: 'xyz.yingshaoxo.weloveparty',
-                      ),
-                      MarkerLayer(markers: markers),
-                    ],
-                  ),
-                )
-                // RotationTransition(
-                //   turns:
-                //       AlwaysStoppedAnimation(current_position?.heading ?? 0 / 360),
-                //   child: Icon(Icons.arrow_forward),
-                // ),
-              ],
-            ),
-            Positioned(
-                right: 25.0,
-                bottom: 40.0,
-                child: GestureDetector(
-                  child: Container(
-                    width: 40,
-                    height: 40,
-                    color: Colors.white,
-                    child: IconButton(
-                        onPressed: () async {}, icon: Icon(Icons.gps_fixed)),
-                  ),
-                  onTap: () async {
-                    refresh_current_location();
-                  },
-                )),
-          ],
+                  )),
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Marker get_location_indicator({
