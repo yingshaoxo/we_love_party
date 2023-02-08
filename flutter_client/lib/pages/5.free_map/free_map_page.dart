@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_client/common_user_interface/exit.dart';
@@ -95,20 +96,6 @@ class _FreeMapPageState extends State<FreeMapPage> {
                   Flexible(
                     child: TheMap(),
                   )
-                  // Center(
-                  //   child: SmoothCompass(
-                  //     //higher the value of rotation speed slower the rotation
-                  //     rotationSpeed: 200,
-                  //     height: 300,
-                  //     width: 300,
-                  //     compassBuilder: (context,
-                  //         AsyncSnapshot<CompassModel>? compassData,
-                  //         Widget child) {
-                  //       print(compassData);
-                  //       return child;
-                  //     },
-                  //   ),
-                  // )
                 ],
               ));
   }
@@ -281,7 +268,7 @@ class _TheMapState extends State<TheMap> {
                     height: 20,
                   ),
                   Text(
-                      "y_altitude: ${variable_controller.current_location?.yLatitude ?? 0}    |    x_longitude:${variable_controller.current_location?.xLongitude ?? 0}"),
+                      "altitude: ${variable_controller.current_location?.yLatitude ?? 0}    |    longitude:${variable_controller.current_location?.xLongitude ?? 0}"),
                   SizedBox(
                     height: 20,
                   ),
@@ -299,11 +286,12 @@ class _TheMapState extends State<TheMap> {
                           onTap: _handleTap),
                       children: [
                         TileLayer(
-                          // urlTemplate:
-                          //     'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                          urlTemplate: 'https://abc.com/{z}/{x}/{y}.png',
-                          userAgentPackageName: 'xyz.yingshaoxo.weloveparty',
-                        ),
+                            urlTemplate:
+                                'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}.png',
+                            fallbackUrl: 'https://abc.com/{z}/{x}/{y}.png',
+                            userAgentPackageName: 'xyz.yingshaoxo.weloveparty',
+                            evictErrorTileStrategy: EvictErrorTileStrategy.none,
+                            errorImage: AssetImage('assets/images/me.jpg')),
                         MarkerLayer(markers: markers),
                       ],
                     ),
@@ -316,18 +304,50 @@ class _TheMapState extends State<TheMap> {
                 ],
               ),
               Positioned(
+                  left: 25.0,
+                  bottom: 40.0,
+                  width: 50,
+                  height: 50,
+                  child: SmoothCompass(
+                    rotationSpeed: 200,
+                    height: 300,
+                    width: 300,
+                    compassBuilder: (context,
+                        AsyncSnapshot<CompassModel>? compassData,
+                        Widget child) {
+                      print(compassData);
+                      return child;
+                    },
+                  )),
+              Positioned(
                   right: 25.0,
                   bottom: 40.0,
-                  width: 40,
-                  height: 40,
+                  width: 45,
+                  height: 45,
                   child: GestureDetector(
-                    child: Container(
-                      color: Colors.white,
-                      child: IconButton(
-                          onPressed: () async {
-                            await refresh_current_location();
-                          },
-                          icon: Icon(Icons.gps_fixed)),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(14.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: "#F5F5F5".color),
+                          color: Colors.white,
+                        ),
+                        child: Container(
+                          width: 30,
+                          height: 30,
+                          child: FittedBox(
+                            child: IconButton(
+                                onPressed: () async {
+                                  await refresh_current_location();
+                                },
+                                icon: Icon(
+                                  Icons.gps_fixed,
+                                  size: 22,
+                                )),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
                     ),
                     onTap: () async {
                       await refresh_current_location();
