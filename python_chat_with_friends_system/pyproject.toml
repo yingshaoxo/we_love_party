@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "python_chat_with_friends_system"
+version = "0.1.0"
+description = ""
+authors = ["yingshaoxo <yingshaoxo@gmail.com>"]
+packages = [
+    { include = "**/*.py" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+databases = "0.7.0"
+asyncpg = "0.27.0"
+func-timeout = "4.3.5"
+betterproto = {version = "2.0.0b5", extras = ["compiler"]}
+
+[tool.poetry.group.dev.dependencies]
+grpcio-tools = "1.51.1"
+pytest-asyncio = "0.20.3"
+pytest = "7.2.0"
+yapf = "0.32.0"
+ipykernel = "6.9.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+dev = "src.main:start"
+test = "src.tests.entry:main"

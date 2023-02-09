@@ -1,0 +1,23 @@
+syntax = "proto3";
+package chat_with_friends_service;
+
+option go_package = "./chat_with_friends_service";
+
+option java_package = "generated_grpc.chat_with_friends_service_grpc";
+option java_outer_classname = "chat_with_friends_service_grpc_types";
+
+service ChatWithFriendsService {
+    // rpc DeletePlace(DeletePlaceRequest) returns (DeletePlaceResponse);
+}
+
+message MessageType {
+    string text = 1;
+}
+
+message ChatMessage {
+    string from_email = 1;
+    string to_email = 2;
+    string message_type = 3;
+    string content = 4;
+    int32 date_in_seconds_in_unix_timestamps = 5; //seconds (10-digit)
+}

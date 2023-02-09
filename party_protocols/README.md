@@ -76,10 +76,16 @@ only traefik listens 0.0.0.0's 443 port,
 #### GRPC
     typescript: 40055
 
+### Chat with Friends Service
+> chat_with_friends.weloveparty.domain.local
+
+#### GRPC
+    typescript: 40056
 
 ## Generate GRPC Code (It's just for example, don't run it directly!)
 
 ### Python
+#### account_auth_service
 ```bash
 brew install protobuf
 
@@ -94,6 +100,18 @@ poetry add "betterproto[compiler]==2.0.0b5"
 
 mkdir src/generated_grpc
 python -m grpc_tools.protoc --proto_path ../party_protocols/protocols --python_betterproto_out=src/generated_grpc account_auth_service.proto
+```
+
+#### chat_with_friends_service
+```
+export GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1
+export GRPC_PYTHON_BUILD_SYSTEM_ZLIB=1
+export CFLAGS="-I/opt/homebrew/opt/openssl/include"
+export LDFLAGS="-L/opt/homebrew/opt/openssl/lib"
+python -m pip install grpcio grpcio-tools 
+
+mkdir src/generated_grpc
+python -m grpc_tools.protoc --proto_path ../party_protocols/protocols --python_betterproto_out=src/generated_grpc chat_with_friends_service.proto
 ```
 
 ### Golang
