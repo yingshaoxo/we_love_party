@@ -6,10 +6,6 @@ Here I used python to make the friend list and chat service system.
 ```bash
 curl -sSL https://install.python-poetry.org | python3 -
 
-poetry install --with dev
-
-poetry install
-
 poetry shell
 
 export GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1
@@ -18,13 +14,9 @@ export CFLAGS="-I/opt/homebrew/opt/openssl/include"
 export LDFLAGS="-L/opt/homebrew/opt/openssl/lib"
 pip install grpcio grpcio-tools 
 
-exit
+poetry export -f requirements.txt --output requirements.txt --without-hashes
 
-export GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1
-export GRPC_PYTHON_BUILD_SYSTEM_ZLIB=1
-export CFLAGS="-I/opt/homebrew/opt/openssl/include"
-export LDFLAGS="-L/opt/homebrew/opt/openssl/lib"
-poetry install
+pip install -r requirements.txt
 
 echo 'Garbage Mac M1, M2, and so on...'
 ```
