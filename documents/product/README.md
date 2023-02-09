@@ -46,3 +46,27 @@ Anyway, it's similar to `radar graph` in `seven dragon ball`(an animation: https
 The distance is changeable by finger gesture (two finger zoom up or zoom out).
 
 > It can also be: where user click, where is the center (x,y)
+
+### friend_list tab
+We have a friend_list, for each item, it got:
+
+```json
+{
+    nickname: 'girlfriend1',
+    name: 'princess',
+    email: '*@*.com'
+}
+```
+
+For this list, we'll use `lazy loading` technology, which means we load more items only when we doing the scrolling.
+
+When we click one friend item, we'll get into a chat page, where we could chat with our friend.
+
+If we recently had a conversation with one friend, this friend will be on the top.
+
+At the top bar, on the right, we'll have a search icon and add icon. 
+
+    * The search icon will allow us to do a global search to filter out those conversations or contacts that do not include those keywords we input.
+    * The add icon will allow us to add a new friend from the information we input
+
+> At the top bar, we could also add another tab called `New People`, which would contain a list of conversations that were initiated by unknown people from somewhere. You can choose to add them as your friend. (If you choose to talk, they'll be on the top without get deleted by cache rule.)
