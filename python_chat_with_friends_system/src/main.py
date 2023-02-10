@@ -6,12 +6,9 @@ sys.path.insert(0, cur_path+"/..")
 import asyncio
 import multiprocessing
 
-# from src.grpc_service import run_service
-# from func_timeout import func_timeout, FunctionTimedOut
-
 from src import config
-# from src import utils
-# from src import models
+from src.database.mongodb import MyMongoDB
+from src.grpc_service import run_service
 
 
 mongo_db_url = os.getenv("MONGO_DB_URL")
@@ -24,28 +21,23 @@ if postgresql_db_url:
 
 
 def start_grpc_service():
-    print("\n\n" + "grpc service is running on: 127.0.0.1:40056" + "\n\n")
+    host="0.0.0.0"
+    port=40056
+
+    print("\n\n" + f"grpc service is running on: {host}:{port}" + "\n\n")
 
     loop = asyncio.get_event_loop()
-    # loop.run_until_complete(run_service(host="0.0.0.0", port=40056))
-
-    # async def fake_function():
-    #     i = 0
-    #     while True:
-    #         i += 1
-    #         print(i)
-    #         if i > 1000:
-    #             i = 0
-    #         await asyncio.sleep(1)
-
-    # loop.run_until_complete(fake_function())
+    loop.run_until_complete(
+        run_service(
+            host=host, 
+            port=port, 
+            myMongoDB=MyMongoDB(mongo_server_address=config.MONGO_DB_URL)
+        )
+    )
 
 
 def start():
-    # launch with: poetry run dev
-
     process_1 = multiprocessing.Process(target=start_grpc_service)
-
     process_1.start()
 
     # Wait processes to complete

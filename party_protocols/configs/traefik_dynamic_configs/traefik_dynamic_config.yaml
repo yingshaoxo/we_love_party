@@ -56,6 +56,12 @@ http:
         - websecure
       rule: "Host(`free_map.weloveparty.domain.local`)"
       service: weloveparty_free_map_service
+    chat_with_friends_service_router:
+      entryPoints:
+        - web
+        - websecure
+      rule: "Host(`chat_with_friends.weloveparty.domain.local`)"
+      service: weloveparty_chat_with_friends_service
 
   middlewares:
     test-stripprefix:
@@ -112,4 +118,10 @@ http:
         servers:
           # - url: h2c://weloveparty_room_control_service:40055
           - url: h2c://host.docker.internal:40055
+        passHostHeader: true
+    weloveparty_chat_with_friends_service:
+      loadBalancer:
+        servers:
+          # - url: h2c://weloveparty_chat_with_friends_service:40056
+          - url: h2c://host.docker.internal:40056
         passHostHeader: true

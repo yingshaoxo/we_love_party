@@ -163,3 +163,17 @@ services:
       ME_CONFIG_MONGODB_ADMINUSERNAME: yingshaoxo
       ME_CONFIG_MONGODB_ADMINPASSWORD: yingshaoxo
       ME_CONFIG_MONGODB_URL: mongodb://yingshaoxo:yingshaoxo@mongo:27017/
+
+  # weloveparty_chat_with_friends_service:
+  #   build: 
+  #     context: ../python_chat_with_friends_system
+  #     dockerfile: ./Dockerfile
+  #   image: yingshaoxo/weloveparty_chat_with_friends_service
+  #   expose:
+  #     - "40056"
+  #   # ports:
+  #   #   - "40056:40056"
+  #   environment: 
+  #     - MONGO_DB_URL=mongodb://yingshaoxo:yingshaoxo@127.0.0.1:27017/
+  #     - POSTGRESQL_DB_URL=postgresql://yingshaoxo:yingshaoxo@127.0.0.1:5432/postgres
+  #   restart: unless-stopped

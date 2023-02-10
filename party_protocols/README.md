@@ -80,7 +80,7 @@ only traefik listens 0.0.0.0's 443 port,
 > chat_with_friends.weloveparty.domain.local
 
 #### GRPC
-    typescript: 40056
+    python: 40056
 
 ## Generate GRPC Code (It's just for example, don't run it directly!)
 
