@@ -2,6 +2,7 @@ import 'dart:core';
 
 import 'package:flutter_client/generated_grpc/account_auth_service.pbgrpc.dart';
 import 'package:flutter_client/generated_grpc/account_storage_service.pbgrpc.dart';
+import 'package:flutter_client/generated_grpc/chat_with_friends_service.pbgrpc.dart';
 import 'package:flutter_client/generated_grpc/room_control_service.pbgrpc.dart';
 import 'package:flutter_client/store/config.dart';
 import 'package:flutter_client/store/controllers.dart';
@@ -288,6 +289,84 @@ class FreeMapGrpcControllr extends GetxController {
       final response = await client.searchPlaces(searchPlacesRequest,
           options: get_JWT_CallOptions_for_GRPC());
       print('room list received: ${response.locationOfFreeMap}');
+      return response;
+    } catch (e) {
+      print(e);
+      default_response.error = e.toString();
+      return default_response;
+    } finally {
+      await channel.shutdown();
+    }
+  }
+}
+
+class ChatWithFriendsGrpcControllr extends GetxController {
+  ClientChannel channel = ClientChannel(
+    GrpcConfig.chat_with_friends_service,
+    port: GrpcConfig.port_number,
+    options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
+  );
+
+  ChatWithFriendsServiceClient get_chat_with_friends_service_client() {
+    channel = ClientChannel(
+      GrpcConfig.chat_with_friends_service,
+      port: GrpcConfig.port_number,
+      options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
+    );
+
+    return ChatWithFriendsServiceClient(channel);
+  }
+
+  Future<AddOrUpdateFriendResponse> add_or_update_a_contact(
+      AddOrUpdateFriendRequest addOrUpdateFriendRequest) async {
+    AddOrUpdateFriendResponse default_response = AddOrUpdateFriendResponse();
+    default_response.error = "";
+
+    try {
+      final client = get_chat_with_friends_service_client();
+      final response = await client.addOrUpdateFriend(addOrUpdateFriendRequest,
+          options: get_JWT_CallOptions_for_GRPC());
+      print(response.error);
+      return response;
+    } catch (e) {
+      print(e);
+      default_response.error = e.toString();
+      return default_response;
+    } finally {
+      await channel.shutdown();
+    }
+  }
+
+  Future<GetFriendListResponse> get_contact_list(
+      GetFriendListRequest getFriendListRequest) async {
+    GetFriendListResponse default_response = GetFriendListResponse();
+    default_response.error = "";
+
+    try {
+      final client = get_chat_with_friends_service_client();
+      final response = await client.getFriendList(getFriendListRequest,
+          options: get_JWT_CallOptions_for_GRPC());
+      print(response.error);
+      return response;
+    } catch (e) {
+      print(e);
+      default_response.error = e.toString();
+      return default_response;
+    } finally {
+      await channel.shutdown();
+    }
+  }
+
+  Future<DeleteFriendResponse> delete_a_contact(
+      DeleteFriendRequest deleteFriendRequest) async {
+    DeleteFriendResponse default_response = DeleteFriendResponse();
+    default_response.error = "";
+
+    try {
+      final client = get_chat_with_friends_service_client();
+      final response = await client.deleteFriend(deleteFriendRequest,
+          options: get_JWT_CallOptions_for_GRPC());
+      print(response.error);
       return response;
     } catch (e) {
       print(e);

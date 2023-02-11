@@ -19,7 +19,7 @@ class MePage extends StatefulWidget {
 }
 
 class _MePageState extends State<MePage> {
-  final Color the_background = "rgba(236, 239, 241, 0.5)".color;
+  final Color the_background = "rgba(255, 255, 255, 1.0)".color;
 
   bool initialization_is_done = false;
   Image head_image = Image.asset(
@@ -152,8 +152,7 @@ class _MePageState extends State<MePage> {
 
     double function_box_height = 110;
     double head_picture_side_length = 0.25.sw;
-    // Color function_box_background_color = "rgba(236, 239, 241, 0.5)".color;
-    Color function_box_background_color = "rgba(255, 255, 255, 1.0)".color;
+    Color function_box_background_color = "rgba(255, 243, 224, 0.6)".color;
     Widget second_page = Container(
       width: 0.9.sw,
       color: the_background,

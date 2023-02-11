@@ -1,6 +1,8 @@
 import 'package:flutter/painting.dart';
 
 class Style {
+  static const Blue = Color.fromARGB(255, 172, 196, 238);
+
   static const LightBrown = Color(0xfff1efe5);
   static const LightGreen = Color(0xffE8FCD9);
   static const LightGrey = Color(0xfff2f2f2);

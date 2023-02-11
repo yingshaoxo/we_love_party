@@ -11,6 +11,9 @@ class RoutesMap {
   static const free_map_page = "/free_map_page";
   static const me_page = "/me_page";
   static const place_search_list_page = "/place_search_list_page";
+  static const chat_page = "/chat_page";
+  static const contacts_page = "/contacts_page";
+  static const add_or_edit_contact_page = "/add_or_edit_contact_page";
 }
 
 class GrpcConfig {
@@ -22,6 +25,8 @@ class GrpcConfig {
       "account_storage.weloveparty.domain.local";
   static const room_control_service = "room_control.weloveparty.domain.local";
   static const free_map_service = "free_map.weloveparty.domain.local";
+  static const chat_with_friends_service =
+      "chat_with_friends.weloveparty.domain.local";
 }
 
 class LivekitConfig {

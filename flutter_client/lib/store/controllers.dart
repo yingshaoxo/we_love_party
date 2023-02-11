@@ -17,3 +17,6 @@ final room_control_grpc_controllr =
 
 final free_map_grpc_controller =
     Get.put(FreeMapGrpcControllr(), permanent: true);
+
+final chat_with_friends_grpc_controller =
+    Get.put(ChatWithFriendsGrpcControllr(), permanent: true);

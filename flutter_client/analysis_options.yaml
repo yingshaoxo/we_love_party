@@ -39,3 +39,4 @@ linter:
     library_private_types_in_public_api: false
     unnecessary_null_comparison: false
     prefer_conditional_assignment: false
+    camel_case_types: false

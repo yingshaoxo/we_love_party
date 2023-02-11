@@ -9,6 +9,7 @@ import 'package:flutter_client/tools/internet_tools.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
 import '../../store/config.dart';
+import '../6.chat/chat_page.dart';
 
 class MyTabs extends StatefulWidget {
   const MyTabs({Key? key}) : super(key: key);
@@ -21,9 +22,7 @@ class _MyTabsState extends State<MyTabs> {
   List<Widget> tab_widget_list = [
     RoomListPage(),
     FreeMapPage(),
-    Container(
-      child: Center(child: Text("Friends")),
-    ),
+    ChatPage(),
     MePage()
   ];
   List<BottomNavigationBarItem> tab_list = const [
