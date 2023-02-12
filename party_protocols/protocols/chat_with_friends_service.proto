@@ -10,22 +10,12 @@ service ChatWithFriendsService {
     rpc AddOrUpdateFriend(AddOrUpdateFriendRequest) returns (AddOrUpdateFriendResponse);
     rpc GetFriendList(GetFriendListRequest) returns (GetFriendListResponse);
     rpc DeleteFriend(DeleteFriendRequest) returns (DeleteFriendResponse);
-}
 
-enum ChatMessageType {
-  text = 0;
-  picture = 1;
-  audio = 2;
-  video = 3;
-  file = 4;
-}
-
-message ChatMessage {
-    string from_email = 1;
-    string to_email = 2;
-    ChatMessageType message_type = 3;
-    string content = 4; //base64
-    int32 date_in_seconds_in_unix_timestamps = 5; //seconds (10-digit)
+    rpc SendMessageToFriend(SendMessageToFriendRequest) returns (SendMessageToFriendResponse);
+    rpc GetConverstationList(GetConversationListRequest) returns (GetConversationListResponse);
+    rpc GetChatMessageList(GetChatMessageListRequest) returns (GetChatMessageListResponse);
+    rpc DeleteMessage(DeleteMessageRequest) returns (DeleteMessageResponse);
+    rpc DeleteConverstation(DeleteConverstationRequest) returns (DeleteConverstationResponse);
 }
 
 // one user can only be added 100 times by others per day(24hours); but she/he can add others without limitation
@@ -40,6 +30,7 @@ message Friend {
     string nickname = 3;
     bool got_blocked = 4;
     bool super_like = 5;
+    bool unknown = 6;
 }
 
 message AddOrUpdateFriendResponse {
@@ -61,5 +52,75 @@ message DeleteFriendRequest {
 }
 
 message DeleteFriendResponse {
+    optional string error = 1;
+}
+
+message SendMessageToFriendRequest {
+    ChatMessage chatMessage = 1;
+}
+
+enum ChatMessageType {
+  text = 0;
+  picture = 1;
+  audio = 2;
+  video = 3;
+  file = 4;
+}
+
+message ChatMessage {
+    optional string my_id = 1;
+    string from_email = 2;
+    string to_email = 3;
+    ChatMessageType message_type = 4;
+    string content = 5; //base64
+    int32 date_in_seconds_in_unix_timestamps = 6; //seconds (10-digit)
+    repeated string people_who_seen = 7;
+}
+
+message SendMessageToFriendResponse {
+    optional string error = 1;
+}
+
+message GetConversationListRequest {
+    string your_email = 1;
+}
+
+message Conversation {
+    optional string my_id = 1;
+    Friend friend = 2;
+    int32 last_active_date_in_seconds_in_unix_timestamps = 3; //seconds (10-digit)
+    string last_saying = 4; 
+    bool got_new_message = 5; 
+}
+
+message GetConversationListResponse {
+    optional string error = 1;
+    repeated Conversation conversation_list = 2;
+}
+
+message GetChatMessageListRequest {
+    string your_email = 1;
+    string target_email = 2;
+}
+
+message GetChatMessageListResponse {
+    optional string error = 1;
+    repeated ChatMessage chat_message_list = 2;
+}
+
+message DeleteMessageRequest {
+    ChatMessage message = 1;
+}
+
+message DeleteMessageResponse {
+    optional string error = 1;
+}
+
+message DeleteConverstationRequest {
+    string your_email = 1;
+    Conversation conversation = 2;
+}
+
+message DeleteConverstationResponse {
     optional string error = 1;
 }

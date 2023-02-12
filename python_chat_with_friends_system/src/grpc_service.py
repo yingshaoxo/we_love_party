@@ -60,6 +60,82 @@ class MyChatWithFriendsService(ChatWithFriendsServiceBase):
         finally:
             return default_response
 
+    async def send_message_to_friend(
+        self, send_message_to_friend_request: "SendMessageToFriendRequest"
+    ) -> "SendMessageToFriendResponse":
+        default_response = SendMessageToFriendResponse()
+        try:
+            await self.myMongoDB.send_message_to_friend(
+                send_message_to_friend_request
+            )
+            default_response.error = None
+        except Exception as e:
+            print(e)
+            default_response.error = str(e)
+        finally:
+            return default_response
+
+    async def get_converstation_list(
+        self, get_conversation_list_request: "GetConversationListRequest"
+    ) -> "GetConversationListResponse":
+        default_response = GetConversationListResponse()
+        try:
+            result = await self.myMongoDB.get_converstation_list(
+                get_conversation_list_request
+            )
+            default_response.conversation_list = result
+            default_response.error = None
+        except Exception as e:
+            print(e)
+            default_response.error = str(e)
+        finally:
+            return default_response
+
+    async def get_chat_message_list(
+        self, get_chat_message_list_request: "GetChatMessageListRequest"
+    ) -> "GetChatMessageListResponse":
+        default_response = GetChatMessageListResponse()
+        try:
+            result = await self.myMongoDB.get_chat_message_list(
+                get_chat_message_list_request
+            )
+            default_response.chat_message_list = result
+            default_response.error = None
+        except Exception as e:
+            print(e)
+            default_response.error = str(e)
+        finally:
+            return default_response
+
+    async def delete_message(
+        self, delete_message_request: "DeleteMessageRequest"
+    ) -> "DeleteMessageResponse":
+        default_response = DeleteMessageResponse()
+        try:
+            result = await self.myMongoDB.delete_message(
+                delete_message_request
+            )
+            default_response.error = None
+        except Exception as e:
+            print(e)
+            default_response.error = str(e)
+        finally:
+            return default_response
+
+    async def delete_converstation(
+        self, delete_converstation_request: "DeleteConverstationRequest"
+    ) -> "DeleteConverstationResponse":
+        default_response = DeleteConverstationResponse()
+        try:
+            result = await self.myMongoDB.delete_converstation(
+                delete_converstation_request
+            )
+            default_response.error = None
+        except Exception as e:
+            print(e)
+            default_response.error = str(e)
+        finally:
+            return default_response
 
 async def run_service(host: str, port: int, myMongoDB: MyMongoDB):
     server = Server([

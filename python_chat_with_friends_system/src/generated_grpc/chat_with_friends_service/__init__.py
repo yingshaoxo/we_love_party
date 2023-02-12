@@ -30,15 +30,6 @@ class ChatMessageType(betterproto.Enum):
 
 
 @dataclass(eq=False, repr=False)
-class ChatMessage(betterproto.Message):
-    from_email: str = betterproto.string_field(1)
-    to_email: str = betterproto.string_field(2)
-    message_type: "ChatMessageType" = betterproto.enum_field(3)
-    content: str = betterproto.string_field(4)
-    date_in_seconds_in_unix_timestamps: int = betterproto.int32_field(5)
-
-
-@dataclass(eq=False, repr=False)
 class AddOrUpdateFriendRequest(betterproto.Message):
     """
     one user can only be added 100 times by others per day(24hours); but she/he
@@ -56,6 +47,7 @@ class Friend(betterproto.Message):
     nickname: str = betterproto.string_field(3)
     got_blocked: bool = betterproto.bool_field(4)
     super_like: bool = betterproto.bool_field(5)
+    unknown: bool = betterproto.bool_field(6)
 
 
 @dataclass(eq=False, repr=False)
@@ -82,6 +74,80 @@ class DeleteFriendRequest(betterproto.Message):
 
 @dataclass(eq=False, repr=False)
 class DeleteFriendResponse(betterproto.Message):
+    error: Optional[str] = betterproto.string_field(1, optional=True, group="_error")
+
+
+@dataclass(eq=False, repr=False)
+class SendMessageToFriendRequest(betterproto.Message):
+    chat_message: "ChatMessage" = betterproto.message_field(1)
+
+
+@dataclass(eq=False, repr=False)
+class ChatMessage(betterproto.Message):
+    my_id: Optional[str] = betterproto.string_field(1, optional=True, group="_my_id")
+    from_email: str = betterproto.string_field(2)
+    to_email: str = betterproto.string_field(3)
+    message_type: "ChatMessageType" = betterproto.enum_field(4)
+    content: str = betterproto.string_field(5)
+    date_in_seconds_in_unix_timestamps: int = betterproto.int32_field(6)
+    people_who_seen: List[str] = betterproto.string_field(7)
+
+
+@dataclass(eq=False, repr=False)
+class SendMessageToFriendResponse(betterproto.Message):
+    error: Optional[str] = betterproto.string_field(1, optional=True, group="_error")
+
+
+@dataclass(eq=False, repr=False)
+class GetConversationListRequest(betterproto.Message):
+    your_email: str = betterproto.string_field(1)
+
+
+@dataclass(eq=False, repr=False)
+class Conversation(betterproto.Message):
+    my_id: Optional[str] = betterproto.string_field(1, optional=True, group="_my_id")
+    friend: "Friend" = betterproto.message_field(2)
+    last_active_date_in_seconds_in_unix_timestamps: int = betterproto.int32_field(3)
+    last_saying: str = betterproto.string_field(4)
+    got_new_message: bool = betterproto.bool_field(5)
+
+
+@dataclass(eq=False, repr=False)
+class GetConversationListResponse(betterproto.Message):
+    error: Optional[str] = betterproto.string_field(1, optional=True, group="_error")
+    conversation_list: List["Conversation"] = betterproto.message_field(2)
+
+
+@dataclass(eq=False, repr=False)
+class GetChatMessageListRequest(betterproto.Message):
+    your_email: str = betterproto.string_field(1)
+    target_email: str = betterproto.string_field(2)
+
+
+@dataclass(eq=False, repr=False)
+class GetChatMessageListResponse(betterproto.Message):
+    error: Optional[str] = betterproto.string_field(1, optional=True, group="_error")
+    chat_message_list: List["ChatMessage"] = betterproto.message_field(2)
+
+
+@dataclass(eq=False, repr=False)
+class DeleteMessageRequest(betterproto.Message):
+    message: "ChatMessage" = betterproto.message_field(1)
+
+
+@dataclass(eq=False, repr=False)
+class DeleteMessageResponse(betterproto.Message):
+    error: Optional[str] = betterproto.string_field(1, optional=True, group="_error")
+
+
+@dataclass(eq=False, repr=False)
+class DeleteConverstationRequest(betterproto.Message):
+    your_email: str = betterproto.string_field(1)
+    conversation: "Conversation" = betterproto.message_field(2)
+
+
+@dataclass(eq=False, repr=False)
+class DeleteConverstationResponse(betterproto.Message):
     error: Optional[str] = betterproto.string_field(1, optional=True, group="_error")
 
 
@@ -137,6 +203,91 @@ class ChatWithFriendsServiceStub(betterproto.ServiceStub):
             metadata=metadata,
         )
 
+    async def send_message_to_friend(
+        self,
+        send_message_to_friend_request: "SendMessageToFriendRequest",
+        *,
+        timeout: Optional[float] = None,
+        deadline: Optional["Deadline"] = None,
+        metadata: Optional["MetadataLike"] = None
+    ) -> "SendMessageToFriendResponse":
+        return await self._unary_unary(
+            "/chat_with_friends_service.ChatWithFriendsService/SendMessageToFriend",
+            send_message_to_friend_request,
+            SendMessageToFriendResponse,
+            timeout=timeout,
+            deadline=deadline,
+            metadata=metadata,
+        )
+
+    async def get_converstation_list(
+        self,
+        get_conversation_list_request: "GetConversationListRequest",
+        *,
+        timeout: Optional[float] = None,
+        deadline: Optional["Deadline"] = None,
+        metadata: Optional["MetadataLike"] = None
+    ) -> "GetConversationListResponse":
+        return await self._unary_unary(
+            "/chat_with_friends_service.ChatWithFriendsService/GetConverstationList",
+            get_conversation_list_request,
+            GetConversationListResponse,
+            timeout=timeout,
+            deadline=deadline,
+            metadata=metadata,
+        )
+
+    async def get_chat_message_list(
+        self,
+        get_chat_message_list_request: "GetChatMessageListRequest",
+        *,
+        timeout: Optional[float] = None,
+        deadline: Optional["Deadline"] = None,
+        metadata: Optional["MetadataLike"] = None
+    ) -> "GetChatMessageListResponse":
+        return await self._unary_unary(
+            "/chat_with_friends_service.ChatWithFriendsService/GetChatMessageList",
+            get_chat_message_list_request,
+            GetChatMessageListResponse,
+            timeout=timeout,
+            deadline=deadline,
+            metadata=metadata,
+        )
+
+    async def delete_message(
+        self,
+        delete_message_request: "DeleteMessageRequest",
+        *,
+        timeout: Optional[float] = None,
+        deadline: Optional["Deadline"] = None,
+        metadata: Optional["MetadataLike"] = None
+    ) -> "DeleteMessageResponse":
+        return await self._unary_unary(
+            "/chat_with_friends_service.ChatWithFriendsService/DeleteMessage",
+            delete_message_request,
+            DeleteMessageResponse,
+            timeout=timeout,
+            deadline=deadline,
+            metadata=metadata,
+        )
+
+    async def delete_converstation(
+        self,
+        delete_converstation_request: "DeleteConverstationRequest",
+        *,
+        timeout: Optional[float] = None,
+        deadline: Optional["Deadline"] = None,
+        metadata: Optional["MetadataLike"] = None
+    ) -> "DeleteConverstationResponse":
+        return await self._unary_unary(
+            "/chat_with_friends_service.ChatWithFriendsService/DeleteConverstation",
+            delete_converstation_request,
+            DeleteConverstationResponse,
+            timeout=timeout,
+            deadline=deadline,
+            metadata=metadata,
+        )
+
 
 class ChatWithFriendsServiceBase(ServiceBase):
     async def add_or_update_friend(
@@ -152,6 +303,31 @@ class ChatWithFriendsServiceBase(ServiceBase):
     async def delete_friend(
         self, delete_friend_request: "DeleteFriendRequest"
     ) -> "DeleteFriendResponse":
+        raise grpclib.GRPCError(grpclib.const.Status.UNIMPLEMENTED)
+
+    async def send_message_to_friend(
+        self, send_message_to_friend_request: "SendMessageToFriendRequest"
+    ) -> "SendMessageToFriendResponse":
+        raise grpclib.GRPCError(grpclib.const.Status.UNIMPLEMENTED)
+
+    async def get_converstation_list(
+        self, get_conversation_list_request: "GetConversationListRequest"
+    ) -> "GetConversationListResponse":
+        raise grpclib.GRPCError(grpclib.const.Status.UNIMPLEMENTED)
+
+    async def get_chat_message_list(
+        self, get_chat_message_list_request: "GetChatMessageListRequest"
+    ) -> "GetChatMessageListResponse":
+        raise grpclib.GRPCError(grpclib.const.Status.UNIMPLEMENTED)
+
+    async def delete_message(
+        self, delete_message_request: "DeleteMessageRequest"
+    ) -> "DeleteMessageResponse":
+        raise grpclib.GRPCError(grpclib.const.Status.UNIMPLEMENTED)
+
+    async def delete_converstation(
+        self, delete_converstation_request: "DeleteConverstationRequest"
+    ) -> "DeleteConverstationResponse":
         raise grpclib.GRPCError(grpclib.const.Status.UNIMPLEMENTED)
 
     async def __rpc_add_or_update_friend(
@@ -177,6 +353,46 @@ class ChatWithFriendsServiceBase(ServiceBase):
         response = await self.delete_friend(request)
         await stream.send_message(response)
 
+    async def __rpc_send_message_to_friend(
+        self,
+        stream: "grpclib.server.Stream[SendMessageToFriendRequest, SendMessageToFriendResponse]",
+    ) -> None:
+        request = await stream.recv_message()
+        response = await self.send_message_to_friend(request)
+        await stream.send_message(response)
+
+    async def __rpc_get_converstation_list(
+        self,
+        stream: "grpclib.server.Stream[GetConversationListRequest, GetConversationListResponse]",
+    ) -> None:
+        request = await stream.recv_message()
+        response = await self.get_converstation_list(request)
+        await stream.send_message(response)
+
+    async def __rpc_get_chat_message_list(
+        self,
+        stream: "grpclib.server.Stream[GetChatMessageListRequest, GetChatMessageListResponse]",
+    ) -> None:
+        request = await stream.recv_message()
+        response = await self.get_chat_message_list(request)
+        await stream.send_message(response)
+
+    async def __rpc_delete_message(
+        self,
+        stream: "grpclib.server.Stream[DeleteMessageRequest, DeleteMessageResponse]",
+    ) -> None:
+        request = await stream.recv_message()
+        response = await self.delete_message(request)
+        await stream.send_message(response)
+
+    async def __rpc_delete_converstation(
+        self,
+        stream: "grpclib.server.Stream[DeleteConverstationRequest, DeleteConverstationResponse]",
+    ) -> None:
+        request = await stream.recv_message()
+        response = await self.delete_converstation(request)
+        await stream.send_message(response)
+
     def __mapping__(self) -> Dict[str, grpclib.const.Handler]:
         return {
             "/chat_with_friends_service.ChatWithFriendsService/AddOrUpdateFriend": grpclib.const.Handler(
@@ -196,5 +412,35 @@ class ChatWithFriendsServiceBase(ServiceBase):
                 grpclib.const.Cardinality.UNARY_UNARY,
                 DeleteFriendRequest,
                 DeleteFriendResponse,
+            ),
+            "/chat_with_friends_service.ChatWithFriendsService/SendMessageToFriend": grpclib.const.Handler(
+                self.__rpc_send_message_to_friend,
+                grpclib.const.Cardinality.UNARY_UNARY,
+                SendMessageToFriendRequest,
+                SendMessageToFriendResponse,
+            ),
+            "/chat_with_friends_service.ChatWithFriendsService/GetConverstationList": grpclib.const.Handler(
+                self.__rpc_get_converstation_list,
+                grpclib.const.Cardinality.UNARY_UNARY,
+                GetConversationListRequest,
+                GetConversationListResponse,
+            ),
+            "/chat_with_friends_service.ChatWithFriendsService/GetChatMessageList": grpclib.const.Handler(
+                self.__rpc_get_chat_message_list,
+                grpclib.const.Cardinality.UNARY_UNARY,
+                GetChatMessageListRequest,
+                GetChatMessageListResponse,
+            ),
+            "/chat_with_friends_service.ChatWithFriendsService/DeleteMessage": grpclib.const.Handler(
+                self.__rpc_delete_message,
+                grpclib.const.Cardinality.UNARY_UNARY,
+                DeleteMessageRequest,
+                DeleteMessageResponse,
+            ),
+            "/chat_with_friends_service.ChatWithFriendsService/DeleteConverstation": grpclib.const.Handler(
+                self.__rpc_delete_converstation,
+                grpclib.const.Cardinality.UNARY_UNARY,
+                DeleteConverstationRequest,
+                DeleteConverstationResponse,
             ),
         }
