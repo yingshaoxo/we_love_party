@@ -15,14 +15,17 @@ def underline_variable_to_first_character_capitalized_version(text: str):
     return re.sub(r"(?<!^)_\w", _underline_substitute_function, text)
 
 def my_protobuff_object_to_dict_function(protobuff_obj: Any, property_list: List[str]) -> Dict[str, Any]:
-    old_dict = protobuff_obj.to_dict()
+    if type(protobuff_obj) is dict:
+        return protobuff_obj
+
+    old_dict: dict = protobuff_obj.to_dict()
 
     result = {}
     for property in property_list:
         the_stupid_key = underline_variable_to_first_character_capitalized_version(property)
         if the_stupid_key not in old_dict:
             # result[property] = None 
-            result[property] = protobuff_obj._get_field_default(property)
+            result[property] = protobuff_obj._get_field_default(property) # type: ignore
         else:
             result[property] = old_dict.get(the_stupid_key)
     return result

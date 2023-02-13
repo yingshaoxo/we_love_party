@@ -22,20 +22,6 @@ const ChatMessageType$json = const {
 
 /// Descriptor for `ChatMessageType`. Decode as a `google.protobuf.EnumDescriptorProto`.
 final $typed_data.Uint8List chatMessageTypeDescriptor = $convert.base64Decode('Cg9DaGF0TWVzc2FnZVR5cGUSCAoEdGV4dBAAEgsKB3BpY3R1cmUQARIJCgVhdWRpbxACEgkKBXZpZGVvEAMSCAoEZmlsZRAE');
-@$core.Deprecated('Use chatMessageDescriptor instead')
-const ChatMessage$json = const {
-  '1': 'ChatMessage',
-  '2': const [
-    const {'1': 'from_email', '3': 1, '4': 1, '5': 9, '10': 'fromEmail'},
-    const {'1': 'to_email', '3': 2, '4': 1, '5': 9, '10': 'toEmail'},
-    const {'1': 'message_type', '3': 3, '4': 1, '5': 14, '6': '.chat_with_friends_service.ChatMessageType', '10': 'messageType'},
-    const {'1': 'content', '3': 4, '4': 1, '5': 9, '10': 'content'},
-    const {'1': 'date_in_seconds_in_unix_timestamps', '3': 5, '4': 1, '5': 5, '10': 'dateInSecondsInUnixTimestamps'},
-  ],
-};
-
-/// Descriptor for `ChatMessage`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List chatMessageDescriptor = $convert.base64Decode('CgtDaGF0TWVzc2FnZRIdCgpmcm9tX2VtYWlsGAEgASgJUglmcm9tRW1haWwSGQoIdG9fZW1haWwYAiABKAlSB3RvRW1haWwSTQoMbWVzc2FnZV90eXBlGAMgASgOMiouY2hhdF93aXRoX2ZyaWVuZHNfc2VydmljZS5DaGF0TWVzc2FnZVR5cGVSC21lc3NhZ2VUeXBlEhgKB2NvbnRlbnQYBCABKAlSB2NvbnRlbnQSSQoiZGF0ZV9pbl9zZWNvbmRzX2luX3VuaXhfdGltZXN0YW1wcxgFIAEoBVIdZGF0ZUluU2Vjb25kc0luVW5peFRpbWVzdGFtcHM=');
 @$core.Deprecated('Use addOrUpdateFriendRequestDescriptor instead')
 const AddOrUpdateFriendRequest$json = const {
   '1': 'AddOrUpdateFriendRequest',
@@ -56,11 +42,12 @@ const Friend$json = const {
     const {'1': 'nickname', '3': 3, '4': 1, '5': 9, '10': 'nickname'},
     const {'1': 'got_blocked', '3': 4, '4': 1, '5': 8, '10': 'gotBlocked'},
     const {'1': 'super_like', '3': 5, '4': 1, '5': 8, '10': 'superLike'},
+    const {'1': 'unknown', '3': 6, '4': 1, '5': 8, '10': 'unknown'},
   ],
 };
 
 /// Descriptor for `Friend`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List friendDescriptor = $convert.base64Decode('CgZGcmllbmQSFAoFZW1haWwYASABKAlSBWVtYWlsEhIKBG5hbWUYAiABKAlSBG5hbWUSGgoIbmlja25hbWUYAyABKAlSCG5pY2tuYW1lEh8KC2dvdF9ibG9ja2VkGAQgASgIUgpnb3RCbG9ja2VkEh0KCnN1cGVyX2xpa2UYBSABKAhSCXN1cGVyTGlrZQ==');
+final $typed_data.Uint8List friendDescriptor = $convert.base64Decode('CgZGcmllbmQSFAoFZW1haWwYASABKAlSBWVtYWlsEhIKBG5hbWUYAiABKAlSBG5hbWUSGgoIbmlja25hbWUYAyABKAlSCG5pY2tuYW1lEh8KC2dvdF9ibG9ja2VkGAQgASgIUgpnb3RCbG9ja2VkEh0KCnN1cGVyX2xpa2UYBSABKAhSCXN1cGVyTGlrZRIYCgd1bmtub3duGAYgASgIUgd1bmtub3du');
 @$core.Deprecated('Use addOrUpdateFriendResponseDescriptor instead')
 const AddOrUpdateFriendResponse$json = const {
   '1': 'AddOrUpdateFriendResponse',
@@ -122,3 +109,158 @@ const DeleteFriendResponse$json = const {
 
 /// Descriptor for `DeleteFriendResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List deleteFriendResponseDescriptor = $convert.base64Decode('ChREZWxldGVGcmllbmRSZXNwb25zZRIZCgVlcnJvchgBIAEoCUgAUgVlcnJvcogBAUIICgZfZXJyb3I=');
+@$core.Deprecated('Use sendMessageToFriendRequestDescriptor instead')
+const SendMessageToFriendRequest$json = const {
+  '1': 'SendMessageToFriendRequest',
+  '2': const [
+    const {'1': 'chatMessage', '3': 1, '4': 1, '5': 11, '6': '.chat_with_friends_service.ChatMessage', '10': 'chatMessage'},
+  ],
+};
+
+/// Descriptor for `SendMessageToFriendRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List sendMessageToFriendRequestDescriptor = $convert.base64Decode('ChpTZW5kTWVzc2FnZVRvRnJpZW5kUmVxdWVzdBJICgtjaGF0TWVzc2FnZRgBIAEoCzImLmNoYXRfd2l0aF9mcmllbmRzX3NlcnZpY2UuQ2hhdE1lc3NhZ2VSC2NoYXRNZXNzYWdl');
+@$core.Deprecated('Use chatMessageDescriptor instead')
+const ChatMessage$json = const {
+  '1': 'ChatMessage',
+  '2': const [
+    const {'1': 'my_id', '3': 1, '4': 1, '5': 9, '9': 0, '10': 'myId', '17': true},
+    const {'1': 'from_email', '3': 2, '4': 1, '5': 9, '10': 'fromEmail'},
+    const {'1': 'to_email', '3': 3, '4': 1, '5': 9, '10': 'toEmail'},
+    const {'1': 'message_type', '3': 4, '4': 1, '5': 14, '6': '.chat_with_friends_service.ChatMessageType', '10': 'messageType'},
+    const {'1': 'content', '3': 5, '4': 1, '5': 9, '10': 'content'},
+    const {'1': 'date_in_seconds_in_unix_timestamps', '3': 6, '4': 1, '5': 5, '10': 'dateInSecondsInUnixTimestamps'},
+    const {'1': 'people_who_seen', '3': 7, '4': 3, '5': 9, '10': 'peopleWhoSeen'},
+  ],
+  '8': const [
+    const {'1': '_my_id'},
+  ],
+};
+
+/// Descriptor for `ChatMessage`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List chatMessageDescriptor = $convert.base64Decode('CgtDaGF0TWVzc2FnZRIYCgVteV9pZBgBIAEoCUgAUgRteUlkiAEBEh0KCmZyb21fZW1haWwYAiABKAlSCWZyb21FbWFpbBIZCgh0b19lbWFpbBgDIAEoCVIHdG9FbWFpbBJNCgxtZXNzYWdlX3R5cGUYBCABKA4yKi5jaGF0X3dpdGhfZnJpZW5kc19zZXJ2aWNlLkNoYXRNZXNzYWdlVHlwZVILbWVzc2FnZVR5cGUSGAoHY29udGVudBgFIAEoCVIHY29udGVudBJJCiJkYXRlX2luX3NlY29uZHNfaW5fdW5peF90aW1lc3RhbXBzGAYgASgFUh1kYXRlSW5TZWNvbmRzSW5Vbml4VGltZXN0YW1wcxImCg9wZW9wbGVfd2hvX3NlZW4YByADKAlSDXBlb3BsZVdob1NlZW5CCAoGX215X2lk');
+@$core.Deprecated('Use sendMessageToFriendResponseDescriptor instead')
+const SendMessageToFriendResponse$json = const {
+  '1': 'SendMessageToFriendResponse',
+  '2': const [
+    const {'1': 'error', '3': 1, '4': 1, '5': 9, '9': 0, '10': 'error', '17': true},
+  ],
+  '8': const [
+    const {'1': '_error'},
+  ],
+};
+
+/// Descriptor for `SendMessageToFriendResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List sendMessageToFriendResponseDescriptor = $convert.base64Decode('ChtTZW5kTWVzc2FnZVRvRnJpZW5kUmVzcG9uc2USGQoFZXJyb3IYASABKAlIAFIFZXJyb3KIAQFCCAoGX2Vycm9y');
+@$core.Deprecated('Use getConversationListRequestDescriptor instead')
+const GetConversationListRequest$json = const {
+  '1': 'GetConversationListRequest',
+  '2': const [
+    const {'1': 'your_email', '3': 1, '4': 1, '5': 9, '10': 'yourEmail'},
+  ],
+};
+
+/// Descriptor for `GetConversationListRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getConversationListRequestDescriptor = $convert.base64Decode('ChpHZXRDb252ZXJzYXRpb25MaXN0UmVxdWVzdBIdCgp5b3VyX2VtYWlsGAEgASgJUgl5b3VyRW1haWw=');
+@$core.Deprecated('Use conversationDescriptor instead')
+const Conversation$json = const {
+  '1': 'Conversation',
+  '2': const [
+    const {'1': 'my_id', '3': 1, '4': 1, '5': 9, '9': 0, '10': 'myId', '17': true},
+    const {'1': 'friend', '3': 2, '4': 1, '5': 11, '6': '.chat_with_friends_service.Friend', '10': 'friend'},
+    const {'1': 'last_active_date_in_seconds_in_unix_timestamps', '3': 3, '4': 1, '5': 5, '10': 'lastActiveDateInSecondsInUnixTimestamps'},
+    const {'1': 'last_saying', '3': 4, '4': 1, '5': 9, '10': 'lastSaying'},
+    const {'1': 'got_new_message', '3': 5, '4': 1, '5': 8, '10': 'gotNewMessage'},
+  ],
+  '8': const [
+    const {'1': '_my_id'},
+  ],
+};
+
+/// Descriptor for `Conversation`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List conversationDescriptor = $convert.base64Decode('CgxDb252ZXJzYXRpb24SGAoFbXlfaWQYASABKAlIAFIEbXlJZIgBARI5CgZmcmllbmQYAiABKAsyIS5jaGF0X3dpdGhfZnJpZW5kc19zZXJ2aWNlLkZyaWVuZFIGZnJpZW5kEl8KLmxhc3RfYWN0aXZlX2RhdGVfaW5fc2Vjb25kc19pbl91bml4X3RpbWVzdGFtcHMYAyABKAVSJ2xhc3RBY3RpdmVEYXRlSW5TZWNvbmRzSW5Vbml4VGltZXN0YW1wcxIfCgtsYXN0X3NheWluZxgEIAEoCVIKbGFzdFNheWluZxImCg9nb3RfbmV3X21lc3NhZ2UYBSABKAhSDWdvdE5ld01lc3NhZ2VCCAoGX215X2lk');
+@$core.Deprecated('Use getConversationListResponseDescriptor instead')
+const GetConversationListResponse$json = const {
+  '1': 'GetConversationListResponse',
+  '2': const [
+    const {'1': 'error', '3': 1, '4': 1, '5': 9, '9': 0, '10': 'error', '17': true},
+    const {'1': 'conversation_list', '3': 2, '4': 3, '5': 11, '6': '.chat_with_friends_service.Conversation', '10': 'conversationList'},
+  ],
+  '8': const [
+    const {'1': '_error'},
+  ],
+};
+
+/// Descriptor for `GetConversationListResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getConversationListResponseDescriptor = $convert.base64Decode('ChtHZXRDb252ZXJzYXRpb25MaXN0UmVzcG9uc2USGQoFZXJyb3IYASABKAlIAFIFZXJyb3KIAQESVAoRY29udmVyc2F0aW9uX2xpc3QYAiADKAsyJy5jaGF0X3dpdGhfZnJpZW5kc19zZXJ2aWNlLkNvbnZlcnNhdGlvblIQY29udmVyc2F0aW9uTGlzdEIICgZfZXJyb3I=');
+@$core.Deprecated('Use getChatMessageListRequestDescriptor instead')
+const GetChatMessageListRequest$json = const {
+  '1': 'GetChatMessageListRequest',
+  '2': const [
+    const {'1': 'your_email', '3': 1, '4': 1, '5': 9, '10': 'yourEmail'},
+    const {'1': 'target_email', '3': 2, '4': 1, '5': 9, '10': 'targetEmail'},
+  ],
+};
+
+/// Descriptor for `GetChatMessageListRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getChatMessageListRequestDescriptor = $convert.base64Decode('ChlHZXRDaGF0TWVzc2FnZUxpc3RSZXF1ZXN0Eh0KCnlvdXJfZW1haWwYASABKAlSCXlvdXJFbWFpbBIhCgx0YXJnZXRfZW1haWwYAiABKAlSC3RhcmdldEVtYWls');
+@$core.Deprecated('Use getChatMessageListResponseDescriptor instead')
+const GetChatMessageListResponse$json = const {
+  '1': 'GetChatMessageListResponse',
+  '2': const [
+    const {'1': 'error', '3': 1, '4': 1, '5': 9, '9': 0, '10': 'error', '17': true},
+    const {'1': 'chat_message_list', '3': 2, '4': 3, '5': 11, '6': '.chat_with_friends_service.ChatMessage', '10': 'chatMessageList'},
+  ],
+  '8': const [
+    const {'1': '_error'},
+  ],
+};
+
+/// Descriptor for `GetChatMessageListResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getChatMessageListResponseDescriptor = $convert.base64Decode('ChpHZXRDaGF0TWVzc2FnZUxpc3RSZXNwb25zZRIZCgVlcnJvchgBIAEoCUgAUgVlcnJvcogBARJSChFjaGF0X21lc3NhZ2VfbGlzdBgCIAMoCzImLmNoYXRfd2l0aF9mcmllbmRzX3NlcnZpY2UuQ2hhdE1lc3NhZ2VSD2NoYXRNZXNzYWdlTGlzdEIICgZfZXJyb3I=');
+@$core.Deprecated('Use deleteMessageRequestDescriptor instead')
+const DeleteMessageRequest$json = const {
+  '1': 'DeleteMessageRequest',
+  '2': const [
+    const {'1': 'message', '3': 1, '4': 1, '5': 11, '6': '.chat_with_friends_service.ChatMessage', '10': 'message'},
+  ],
+};
+
+/// Descriptor for `DeleteMessageRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List deleteMessageRequestDescriptor = $convert.base64Decode('ChREZWxldGVNZXNzYWdlUmVxdWVzdBJACgdtZXNzYWdlGAEgASgLMiYuY2hhdF93aXRoX2ZyaWVuZHNfc2VydmljZS5DaGF0TWVzc2FnZVIHbWVzc2FnZQ==');
+@$core.Deprecated('Use deleteMessageResponseDescriptor instead')
+const DeleteMessageResponse$json = const {
+  '1': 'DeleteMessageResponse',
+  '2': const [
+    const {'1': 'error', '3': 1, '4': 1, '5': 9, '9': 0, '10': 'error', '17': true},
+  ],
+  '8': const [
+    const {'1': '_error'},
+  ],
+};
+
+/// Descriptor for `DeleteMessageResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List deleteMessageResponseDescriptor = $convert.base64Decode('ChVEZWxldGVNZXNzYWdlUmVzcG9uc2USGQoFZXJyb3IYASABKAlIAFIFZXJyb3KIAQFCCAoGX2Vycm9y');
+@$core.Deprecated('Use deleteConverstationRequestDescriptor instead')
+const DeleteConverstationRequest$json = const {
+  '1': 'DeleteConverstationRequest',
+  '2': const [
+    const {'1': 'your_email', '3': 1, '4': 1, '5': 9, '10': 'yourEmail'},
+    const {'1': 'conversation', '3': 2, '4': 1, '5': 11, '6': '.chat_with_friends_service.Conversation', '10': 'conversation'},
+  ],
+};
+
+/// Descriptor for `DeleteConverstationRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List deleteConverstationRequestDescriptor = $convert.base64Decode('ChpEZWxldGVDb252ZXJzdGF0aW9uUmVxdWVzdBIdCgp5b3VyX2VtYWlsGAEgASgJUgl5b3VyRW1haWwSSwoMY29udmVyc2F0aW9uGAIgASgLMicuY2hhdF93aXRoX2ZyaWVuZHNfc2VydmljZS5Db252ZXJzYXRpb25SDGNvbnZlcnNhdGlvbg==');
+@$core.Deprecated('Use deleteConverstationResponseDescriptor instead')
+const DeleteConverstationResponse$json = const {
+  '1': 'DeleteConverstationResponse',
+  '2': const [
+    const {'1': 'error', '3': 1, '4': 1, '5': 9, '9': 0, '10': 'error', '17': true},
+  ],
+  '8': const [
+    const {'1': '_error'},
+  ],
+};
+
+/// Descriptor for `DeleteConverstationResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List deleteConverstationResponseDescriptor = $convert.base64Decode('ChtEZWxldGVDb252ZXJzdGF0aW9uUmVzcG9uc2USGQoFZXJyb3IYASABKAlIAFIFZXJyb3KIAQFCCAoGX2Vycm9y');

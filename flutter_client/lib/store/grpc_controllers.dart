@@ -376,4 +376,111 @@ class ChatWithFriendsGrpcControllr extends GetxController {
       await channel.shutdown();
     }
   }
+
+  Future<SendMessageToFriendResponse> send_message_to_friend(
+      SendMessageToFriendRequest sendMessageToFriendRequest) async {
+    SendMessageToFriendResponse default_response =
+        SendMessageToFriendResponse();
+    default_response.error = "";
+
+    try {
+      final client = get_chat_with_friends_service_client();
+      final response = await client.sendMessageToFriend(
+          sendMessageToFriendRequest,
+          options: get_JWT_CallOptions_for_GRPC());
+      print(response.error);
+      return response;
+    } catch (e) {
+      print(e);
+      default_response.error = e.toString();
+      return default_response;
+    } finally {
+      await channel.shutdown();
+    }
+  }
+
+  Future<GetConversationListResponse> get_converstation_list(
+      GetConversationListRequest getConversationListRequest) async {
+    GetConversationListResponse default_response =
+        GetConversationListResponse();
+    default_response.error = "";
+
+    try {
+      final client = get_chat_with_friends_service_client();
+      final response = await client.getConverstationList(
+          getConversationListRequest,
+          options: get_JWT_CallOptions_for_GRPC());
+      print(response.error);
+      return response;
+    } catch (e) {
+      print(e);
+      default_response.error = e.toString();
+      return default_response;
+    } finally {
+      await channel.shutdown();
+    }
+  }
+
+  Future<GetChatMessageListResponse> get_chat_message_list(
+      GetChatMessageListRequest getConversationListRequest) async {
+    GetChatMessageListResponse default_response = GetChatMessageListResponse();
+    default_response.error = "";
+
+    try {
+      final client = get_chat_with_friends_service_client();
+      final response = await client.getChatMessageList(
+          getConversationListRequest,
+          options: get_JWT_CallOptions_for_GRPC());
+      print(response.error);
+      return response;
+    } catch (e) {
+      print(e);
+      default_response.error = e.toString();
+      return default_response;
+    } finally {
+      await channel.shutdown();
+    }
+  }
+
+  Future<DeleteMessageResponse> delete_message(
+      DeleteMessageRequest deleteMessageRequest) async {
+    DeleteMessageResponse default_response = DeleteMessageResponse();
+    default_response.error = "";
+
+    try {
+      final client = get_chat_with_friends_service_client();
+      final response = await client.deleteMessage(deleteMessageRequest,
+          options: get_JWT_CallOptions_for_GRPC());
+      print(response.error);
+      return response;
+    } catch (e) {
+      print(e);
+      default_response.error = e.toString();
+      return default_response;
+    } finally {
+      await channel.shutdown();
+    }
+  }
+
+  Future<DeleteConverstationResponse> delete_converstation(
+      DeleteConverstationRequest deleteConverstationRequest) async {
+    DeleteConverstationResponse default_response =
+        DeleteConverstationResponse();
+    default_response.error = "";
+
+    try {
+      final client = get_chat_with_friends_service_client();
+      final response = await client.deleteConverstation(
+          deleteConverstationRequest,
+          options: get_JWT_CallOptions_for_GRPC());
+      print(response.error);
+      return response;
+    } catch (e) {
+      print(e);
+      default_response.error = e.toString();
+      return default_response;
+    } finally {
+      await channel.shutdown();
+    }
+  }
 }

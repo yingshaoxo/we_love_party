@@ -14,6 +14,7 @@ class RoutesMap {
   static const chat_page = "/chat_page";
   static const contacts_page = "/contacts_page";
   static const add_or_edit_contact_page = "/add_or_edit_contact_page";
+  static const one_to_one_chat_page = "/one_to_one_chat_page";
 }
 
 class GrpcConfig {
@@ -33,4 +34,4 @@ class LivekitConfig {
   static const url = 'ws://livekit.weloveparty.domain.local';
 }
 
-bool in_dev_mode = true;
+bool in_dev_mode = false;

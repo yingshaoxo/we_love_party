@@ -7,6 +7,7 @@ import 'package:flutter_client/pages/5.free_map/place_search_page.dart';
 import 'package:flutter_client/pages/6.chat/add_or_edit_contact_page.dart';
 import 'package:flutter_client/pages/6.chat/chat_page.dart';
 import 'package:flutter_client/pages/6.chat/contacts_page.dart';
+import 'package:flutter_client/pages/6.chat/one_to_one_chat_page.dart';
 import 'package:flutter_client/pages/7.me/me_page.dart';
 import 'package:flutter_client/pages/4.party/room_list.dart';
 import 'package:flutter_client/pages/3.tabs/tabs.dart';
@@ -39,7 +40,7 @@ void main() {
         ScreenUtil.init(context);
         return EasyLoading.init()(context, child);
       },
-      initialRoute: RoutesMap.contacts_page,
+      initialRoute: RoutesMap.welcome,
       getPages: [
         GetPage(name: RoutesMap.welcome, page: () => const WelcomePage()),
         GetPage(
@@ -67,6 +68,9 @@ void main() {
         GetPage(
             name: RoutesMap.contacts_page, page: () => const ContactsPage()),
         GetPage(name: RoutesMap.chat_page, page: () => const ChatPage()),
+        GetPage(
+            name: RoutesMap.one_to_one_chat_page,
+            page: () => const OneToOneChatPage()),
         GetPage(name: RoutesMap.me_page, page: () => const MePage()),
       ],
     ));

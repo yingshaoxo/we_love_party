@@ -163,7 +163,7 @@ class _AddOrEditContactPageState extends State<AddOrEditContactPage> {
             ),
           ),
           SizedBox(
-            height: 30,
+            height: 50,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 2),

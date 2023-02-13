@@ -8,11 +8,11 @@ import 'package:flutter_client/store/controllers.dart';
 import '../../store/config.dart';
 import '../../tools/color_tools.dart';
 import 'package:flutter_client/common_user_interface/exit.dart';
-import 'package:flutter_client/generated_grpc/account_storage_service.pb.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../tools/utils/style.dart';
 import 'add_or_edit_contact_page.dart';
+import 'one_to_one_chat_page.dart';
 
 class ContactsPage extends StatefulWidget {
   const ContactsPage({Key? key}) : super(key: key);
@@ -68,7 +68,7 @@ class _ContactsPageState extends State<ContactsPage> {
   @override
   Widget build(BuildContext context) {
     Widget the_body = Container(
-      width: 0.9.sw,
+      padding: EdgeInsets.symmetric(horizontal: 0.05.sw),
       color: the_background,
       child: Column(
         children: [
@@ -134,16 +134,9 @@ class _ContactsPageState extends State<ContactsPage> {
                           ),
                           itemCount: friend_list.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return ConstrainedBox(
-                              constraints: BoxConstraints(
-                                  // minHeight: 50.0,
-                                  ),
-                              child: InkWell(
-                                  child: ContactCard(
-                                friend: friend_list[index],
-                                update_the_contact_list:
-                                    update_the_contact_list,
-                              )),
+                            return ContactCard(
+                              friend: friend_list[index],
+                              update_the_contact_list: update_the_contact_list,
                             );
                           },
                         ),
@@ -177,10 +170,12 @@ class ContactCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: (() {
+    return InkWell(
+      onTap: () async {
         // go to chat
-      }),
+        Get.toNamed(RoutesMap.one_to_one_chat_page,
+            arguments: OneToOneChatPage_Arguments(a_friend: friend));
+      },
       child: Container(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

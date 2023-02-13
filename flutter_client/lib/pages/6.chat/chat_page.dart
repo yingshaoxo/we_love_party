@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_client/generated_grpc/chat_with_friends_service.pb.dart';
+import 'package:flutter_client/store/config.dart';
 import 'package:get/get.dart';
 
 import 'package:flutter_client/store/controllers.dart';
+import '../../common_user_interface/pop_up_window.dart';
 import '../../tools/color_tools.dart';
 import 'package:flutter_client/common_user_interface/exit.dart';
 import 'package:flutter_client/generated_grpc/account_storage_service.pb.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'one_to_one_chat_page.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({Key? key}) : super(key: key);
@@ -16,6 +21,8 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   final Color the_background = "rgba(255, 255, 255, 1.0)".color;
+
+  List<Conversation> conversation_list = [];
 
   bool initialization_is_done = false;
 
@@ -29,20 +36,31 @@ class _ChatPageState extends State<ChatPage> {
             msg:
                 "I think we got some problems here, you might want to clear the data of this app and try it again.\nIf it doesn't work, I suggest you contact the author: yingshaoxo@gmail.com");
       }
-      GetUserResponse getUserResponse = await account_storage_grpc_controllr
-          .get_a_user(variable_controller.user_email);
+      // GetUserResponse getUserResponse = await account_storage_grpc_controllr
+      //     .get_a_user(variable_controller.user_email);
 
-      if (!getUserResponse.userExists) {
-        await show_exit_confirm_pop_window(
-            msg:
-                "I think that we got some problems here.\n\nThere might have no Internet.");
+      // if (!getUserResponse.userExists) {
+      //   await show_exit_confirm_pop_window(
+      //       msg:
+      //           "I think that we got some problems here.\n\nThere might have no Internet.");
+      // }
+
+      // variable_controller.userModel.email = getUserResponse.email;
+      // variable_controller.userModel.username = getUserResponse.username;
+      // variable_controller.userModel.sex = getUserResponse.sex;
+      // variable_controller.userModel.age = getUserResponse.age;
+      // variable_controller.userModel.headImage = getUserResponse.headImage;
+
+      var response = await chat_with_friends_grpc_controller
+          .get_converstation_list(GetConversationListRequest(
+        yourEmail: variable_controller.user_email,
+      ));
+
+      if (response.error != null && response.error.isNotEmpty) {
+        await show_error(msg: response.error);
+      } else {
+        conversation_list = response.conversationList;
       }
-
-      variable_controller.userModel.email = getUserResponse.email;
-      variable_controller.userModel.username = getUserResponse.username;
-      variable_controller.userModel.sex = getUserResponse.sex;
-      variable_controller.userModel.age = getUserResponse.age;
-      variable_controller.userModel.headImage = getUserResponse.headImage;
 
       setState(() {
         initialization_is_done = true;
@@ -53,7 +71,7 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     Widget the_body = Container(
-      width: 0.9.sw,
+      padding: EdgeInsets.symmetric(horizontal: 0.05.sw),
       color: the_background,
       child: Column(
         children: [
@@ -63,7 +81,12 @@ class _ChatPageState extends State<ChatPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Icon(Icons.contacts),
+              GestureDetector(
+                child: Icon(Icons.contacts),
+                onTap: () {
+                  Get.toNamed(RoutesMap.contacts_page);
+                },
+              ),
               Row(
                 children: [
                   GestureDetector(
@@ -86,12 +109,7 @@ class _ChatPageState extends State<ChatPage> {
           SizedBox(
             height: 35,
           ),
-          Expanded(
-              child: Container(
-            child: Center(
-              child: Text("No conversations in here yet"),
-            ),
-          ))
+          Expanded(child: TheConversationList())
         ],
       ),
     );
@@ -105,6 +123,114 @@ class _ChatPageState extends State<ChatPage> {
               child: Center(
                 child: the_body,
               ),
+            ),
+    );
+  }
+}
+
+class TheConversationList extends StatefulWidget {
+  const TheConversationList({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<TheConversationList> createState() => _TheConversationListState();
+}
+
+class _TheConversationListState extends State<TheConversationList> {
+  List<Conversation> conversation_list = [];
+
+  bool initialization_is_done = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    () async {
+      var response = await chat_with_friends_grpc_controller
+          .get_converstation_list(GetConversationListRequest(
+        yourEmail: variable_controller.user_email,
+      ));
+
+      if (response.error != null && response.error.isNotEmpty) {
+        await show_error(msg: response.error);
+      } else {
+        conversation_list = response.conversationList;
+      }
+
+      setState(() {
+        initialization_is_done = true;
+      });
+    }();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: initialization_is_done == false
+          ? Center(
+              child: Text("No conversations in here yet"),
+            )
+          : Container(
+              child: ListView(
+                  children: conversation_list
+                      .map((e) => Container(
+                            child: InkWell(
+                              onTap: () async {
+                                Get.toNamed(RoutesMap.one_to_one_chat_page,
+                                    arguments: OneToOneChatPage_Arguments(
+                                        a_friend: e.friend));
+                              },
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(
+                                              e.friend.nickname,
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            SizedBox(
+                                              width: 4,
+                                            ),
+                                            Text("(${e.friend.email})"),
+                                          ],
+                                        ),
+                                        e.gotNewMessage
+                                            ? Text(
+                                                "•",
+                                                style: TextStyle(
+                                                    color: Colors.red,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              )
+                                            : Container()
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 14,
+                                    ),
+                                    Text(e.lastSaying),
+                                    SizedBox(
+                                      height: 25,
+                                    ),
+                                    Container(
+                                      height: 1,
+                                      color: Colors.grey.shade200,
+                                    ),
+                                    SizedBox(
+                                      height: 25,
+                                    )
+                                  ]),
+                            ),
+                          ))
+                      .toList()),
             ),
     );
   }
