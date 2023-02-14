@@ -1,3 +1,4 @@
+import 'package:cron/cron.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_client/generated_grpc/chat_with_friends_service.pb.dart';
 import 'package:flutter_client/store/config.dart';
@@ -22,8 +23,6 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   final Color the_background = "rgba(255, 255, 255, 1.0)".color;
 
-  List<Conversation> conversation_list = [];
-
   bool initialization_is_done = false;
 
   @override
@@ -35,31 +34,6 @@ class _ChatPageState extends State<ChatPage> {
         await show_exit_confirm_pop_window(
             msg:
                 "I think we got some problems here, you might want to clear the data of this app and try it again.\nIf it doesn't work, I suggest you contact the author: yingshaoxo@gmail.com");
-      }
-      // GetUserResponse getUserResponse = await account_storage_grpc_controllr
-      //     .get_a_user(variable_controller.user_email);
-
-      // if (!getUserResponse.userExists) {
-      //   await show_exit_confirm_pop_window(
-      //       msg:
-      //           "I think that we got some problems here.\n\nThere might have no Internet.");
-      // }
-
-      // variable_controller.userModel.email = getUserResponse.email;
-      // variable_controller.userModel.username = getUserResponse.username;
-      // variable_controller.userModel.sex = getUserResponse.sex;
-      // variable_controller.userModel.age = getUserResponse.age;
-      // variable_controller.userModel.headImage = getUserResponse.headImage;
-
-      var response = await chat_with_friends_grpc_controller
-          .get_converstation_list(GetConversationListRequest(
-        yourEmail: variable_controller.user_email,
-      ));
-
-      if (response.error != null && response.error.isNotEmpty) {
-        await show_error(msg: response.error);
-      } else {
-        conversation_list = response.conversationList;
       }
 
       setState(() {
@@ -138,30 +112,57 @@ class TheConversationList extends StatefulWidget {
 }
 
 class _TheConversationListState extends State<TheConversationList> {
+  final crontab = Cron();
+
   List<Conversation> conversation_list = [];
 
   bool initialization_is_done = false;
+
+  Future<void> update_conversation_list({required bool display_error}) async {
+    var response = await chat_with_friends_grpc_controller
+        .get_converstation_list(GetConversationListRequest(
+            yourEmail: variable_controller.user_email,
+            pageNumber: 0,
+            pageSize: 100));
+
+    if (response.error != null && response.error.isNotEmpty) {
+      if (display_error) {
+        await show_error(msg: response.error);
+      }
+    } else {
+      conversation_list = response.conversationList;
+      setState(() {});
+    }
+  }
 
   @override
   void initState() {
     super.initState();
 
     () async {
-      var response = await chat_with_friends_grpc_controller
-          .get_converstation_list(GetConversationListRequest(
-        yourEmail: variable_controller.user_email,
-      ));
+      await update_conversation_list(display_error: true);
 
-      if (response.error != null && response.error.isNotEmpty) {
-        await show_error(msg: response.error);
-      } else {
-        conversation_list = response.conversationList;
-      }
+      crontab.schedule(Schedule.parse('*/10 * * * * *'), () async {
+        if (variable_controller.user_email == null) {
+          return false;
+        }
+
+        await update_conversation_list(display_error: false);
+
+        return true;
+      });
 
       setState(() {
         initialization_is_done = true;
       });
     }();
+  }
+
+  @override
+  void dispose() {
+    crontab.close();
+
+    super.dispose();
   }
 
   @override

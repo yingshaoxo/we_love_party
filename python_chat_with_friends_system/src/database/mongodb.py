@@ -254,7 +254,10 @@ class MyMongoDB:
         self, get_conversation_list_request: "GetConversationListRequest"
     ) -> List[Conversation]:
         the_collection = self.conversation_list_database.get_collection(get_conversation_list_request.your_email)
-        result = the_collection.find()
+        result = the_collection.find() \
+                            .sort(chat_with_friends_service_property_dict.Conversation.last_active_date_in_seconds_in_unix_timestamps, -1) \
+                            .skip(get_conversation_list_request.page_number*get_conversation_list_request.page_size) \
+                            .limit(get_conversation_list_request.page_size)
         return [Conversation().from_dict(one) for one in result]
 
     async def get_chat_message_list(

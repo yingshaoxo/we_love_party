@@ -57,7 +57,9 @@ class SendMessageToFriendResponse:
 
 class GetConversationListRequest:
     your_email: str = "your_email"
-    __property_list__: List[str] = ["your_email"]
+    page_size: str = "page_size"
+    page_number: str = "page_number"
+    __property_list__: List[str] = ["your_email", "page_size", "page_number"]
 
 class Conversation:
     my_id: str = "my_id"

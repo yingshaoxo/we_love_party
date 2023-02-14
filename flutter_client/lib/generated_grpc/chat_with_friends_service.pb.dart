@@ -674,16 +674,26 @@ class SendMessageToFriendResponse extends $pb.GeneratedMessage {
 class GetConversationListRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetConversationListRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'chat_with_friends_service'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'yourEmail')
+    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pageSize', $pb.PbFieldType.O3)
+    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pageNumber', $pb.PbFieldType.O3)
     ..hasRequiredFields = false
   ;
 
   GetConversationListRequest._() : super();
   factory GetConversationListRequest({
     $core.String? yourEmail,
+    $core.int? pageSize,
+    $core.int? pageNumber,
   }) {
     final _result = create();
     if (yourEmail != null) {
       _result.yourEmail = yourEmail;
+    }
+    if (pageSize != null) {
+      _result.pageSize = pageSize;
+    }
+    if (pageNumber != null) {
+      _result.pageNumber = pageNumber;
     }
     return _result;
   }
@@ -716,6 +726,24 @@ class GetConversationListRequest extends $pb.GeneratedMessage {
   $core.bool hasYourEmail() => $_has(0);
   @$pb.TagNumber(1)
   void clearYourEmail() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get pageSize => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set pageSize($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasPageSize() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearPageSize() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.int get pageNumber => $_getIZ(2);
+  @$pb.TagNumber(3)
+  set pageNumber($core.int v) { $_setSignedInt32(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasPageNumber() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearPageNumber() => clearField(3);
 }
 
 class Conversation extends $pb.GeneratedMessage {

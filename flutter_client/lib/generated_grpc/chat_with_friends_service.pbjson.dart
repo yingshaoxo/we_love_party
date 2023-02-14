@@ -156,11 +156,13 @@ const GetConversationListRequest$json = const {
   '1': 'GetConversationListRequest',
   '2': const [
     const {'1': 'your_email', '3': 1, '4': 1, '5': 9, '10': 'yourEmail'},
+    const {'1': 'page_size', '3': 2, '4': 1, '5': 5, '10': 'pageSize'},
+    const {'1': 'page_number', '3': 3, '4': 1, '5': 5, '10': 'pageNumber'},
   ],
 };
 
 /// Descriptor for `GetConversationListRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getConversationListRequestDescriptor = $convert.base64Decode('ChpHZXRDb252ZXJzYXRpb25MaXN0UmVxdWVzdBIdCgp5b3VyX2VtYWlsGAEgASgJUgl5b3VyRW1haWw=');
+final $typed_data.Uint8List getConversationListRequestDescriptor = $convert.base64Decode('ChpHZXRDb252ZXJzYXRpb25MaXN0UmVxdWVzdBIdCgp5b3VyX2VtYWlsGAEgASgJUgl5b3VyRW1haWwSGwoJcGFnZV9zaXplGAIgASgFUghwYWdlU2l6ZRIfCgtwYWdlX251bWJlchgDIAEoBVIKcGFnZU51bWJlcg==');
 @$core.Deprecated('Use conversationDescriptor instead')
 const Conversation$json = const {
   '1': 'Conversation',

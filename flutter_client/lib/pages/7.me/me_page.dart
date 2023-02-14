@@ -113,20 +113,6 @@ class _MePageState extends State<MePage> {
             msg:
                 "I think we got some problems here, you might want to clear the data of this app and try it again.\nIf it doesn't work, I suggest you contact the author: yingshaoxo@gmail.com");
       }
-      GetUserResponse getUserResponse = await account_storage_grpc_controllr
-          .get_a_user(variable_controller.user_email);
-
-      if (!getUserResponse.userExists) {
-        await show_exit_confirm_pop_window(
-            msg:
-                "I think that we got some problems here.\n\nThere might have no Internet.");
-      }
-
-      variable_controller.userModel.email = getUserResponse.email;
-      variable_controller.userModel.username = getUserResponse.username;
-      variable_controller.userModel.sex = getUserResponse.sex;
-      variable_controller.userModel.age = getUserResponse.age;
-      variable_controller.userModel.headImage = getUserResponse.headImage;
 
       head_image = Image.memory(
         get_Uint8List_from_base64_string(

@@ -101,6 +101,8 @@ class SendMessageToFriendResponse(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class GetConversationListRequest(betterproto.Message):
     your_email: str = betterproto.string_field(1)
+    page_size: int = betterproto.int32_field(2)
+    page_number: int = betterproto.int32_field(3)
 
 
 @dataclass(eq=False, repr=False)

@@ -83,6 +83,8 @@ message SendMessageToFriendResponse {
 
 message GetConversationListRequest {
     string your_email = 1;
+    int32 page_size = 2;
+    int32 page_number = 3;
 }
 
 message Conversation {
