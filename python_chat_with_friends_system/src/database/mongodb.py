@@ -51,6 +51,12 @@ class MyMongoDB:
         self.friend_list_database = self.client["friend_list"]
         self.message_list_database = self.client["message_list"]
         self.conversation_list_database = self.client["conversation_list"]
+
+        self.connection_test()
+    
+    def connection_test(self):
+        self.client.list_database_names()
+        return
     
     def rename_database(self, old_name, new_name):
         assert self.client.get_database(old_name) is not None

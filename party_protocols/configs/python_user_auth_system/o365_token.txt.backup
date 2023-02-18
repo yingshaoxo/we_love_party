@@ -1,0 +1,13 @@
+{
+ "token_type": "Bearer",
+ "scope": [
+  "https://graph.microsoft.com/Mail.ReadWrite",
+  "https://graph.microsoft.com/Mail.Send",
+  "https://graph.microsoft.com/User.Read"
+ ],
+ "expires_in": 3600,
+ "ext_expires_in": 3600,
+ "access_token": "EwBoA8l6BAA+TvgqVupZU5kjxfCkCyQTsGeRQUp+6U/t8Y9YM6FSEgI2PITTfpXuQHwZpRBf9DEFGCzGWvJeABv0VTMlryjUUAmLcMQRK3iFSCea63KiyuKoQmU3LpX665XXI3elRNgmRMnJrC+dL4I5dgs4h3s/AvnNIlMKo8Sdl3kuDhJeUHD4tVJrTS9Hi0ZGGtySBaWe1G6hJCVFHcqbRXK4bNnCIBzVobXv2w00Kmm3RAB0/YsyHHSXGx6QCa3bXAoONicroS3OxnwN3uZafJUHP1Ndx7m94WlbbgfKfZnAZ57J9+9mJC8ya9RcVunIzqUwiFYpJ+u01S7khDAU4xjJ7ZcNQtX3pEepIF04PVZdg8fup3SYp2dZu2tGOXbjsbE3Jey9AoMiLeNMyNk/xNSUJXn7ct0yPlKlucc/QSewb6Ma3+2t4eYM4cv4WhWRao/EQqSBX0pHwyffDRXyeHlzzi+83+svXjipRzFAM+Jbs7Ft/fw7SRXRzug7F1mPuyddn3fM3OkGWoUIx3af2o0dVfvT103wBxaDUYRuWw0QIY9WyU5+HZtVRYwV68kNeu8oOlv5E+OL+TbsyDSheregI=",
+ "refresh_token": "M.R3_BAY.-!ZyokPth443Z7qB3EzPtjBnuh7Xif!KCj4j5Kor2LUxlORPBOfNg$$",
+ "expires_at": 1673496491.6252434
+}
