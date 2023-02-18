@@ -73,7 +73,7 @@ class _ChatPageState extends State<ChatPage> {
                   GestureDetector(
                     child: Icon(Icons.add),
                     onTap: () async {
-                      // Get.toNamed(RoutesMap.face_scan_page);
+                      // add people from qr code
                     },
                   ),
                 ],
