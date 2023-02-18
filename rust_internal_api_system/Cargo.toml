@@ -20,7 +20,8 @@ rawsample = { version = "0.2.0" }
 reqwest = { version = "0.11", features = ["json"] }
 tokio-test = "0.2.1"
 serde_json = "1.0"
-tokio-postgres = "0.7.7"
+tokio-postgres = "0.7.6"
+#phf = { git = "https://github.com/rust-phf/rust-phf.git", rev = "3897b21" }
 
 [build-dependencies]
 tonic-build = "0.6.2"

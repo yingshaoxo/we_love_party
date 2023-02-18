@@ -11,6 +11,7 @@ COPY ./build.rs /code/build.rs
 COPY ./src /code/src
 COPY ./protocols /code/protocols
 
+#RUN cargo update
 RUN cargo build --bin server
 
 

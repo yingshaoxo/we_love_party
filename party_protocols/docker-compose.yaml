@@ -50,23 +50,23 @@ services:
 #      - '5432:5432'
 #    volumes: 
 #      - ./configs/postgre_sql_db:/var/lib/postgresql/data
-#  
-#  weloveparty_internal_api_service:
-#    build: 
-#      context: ../rust_internal_api_system
-#      dockerfile: ./Dockerfile
-#    image: yingshaoxo/weloveparty_internal_api_service
-#    expose:
-#      - "40050"
-#    # ports:
-#    #   - "40050:40050"
-#    environment: 
-#      - redis_network_name=dragonfly
-#      - postgres_sql_host=db
-#      - postgres_sql_user=yingshaoxo
-#      - postgres_sql_password=yingshaoxo
-#    restart: unless-stopped
-#
+  
+  weloveparty_internal_api_service:
+    build: 
+      context: ../rust_internal_api_system
+      dockerfile: ./Dockerfile
+    image: yingshaoxo/weloveparty_internal_api_service
+    expose:
+      - "40050"
+    # ports:
+    #   - "40050:40050"
+    environment: 
+      - redis_network_name=dragonfly
+      - postgres_sql_host=db
+      - postgres_sql_user=yingshaoxo
+      - postgres_sql_password=yingshaoxo
+    restart: unless-stopped
+
   weloveparty_account_auth_service:
     build: 
       context: ../python_user_auth_system

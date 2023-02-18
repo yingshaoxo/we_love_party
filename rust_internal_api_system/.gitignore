@@ -1,3 +1,4 @@
+.cargo/
 .pytest_cache/
 .vscode/
 
