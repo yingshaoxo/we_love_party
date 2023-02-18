@@ -1,4 +1,4 @@
-FROM rust:1.59 as temp_build_container
+FROM rust:1.67.1 as temp_build_container
 
 RUN rustup component add rustfmt
 
@@ -15,7 +15,7 @@ COPY ./protocols /code/protocols
 RUN cargo build --bin server
 
 
-FROM rust:1.59 as final
+FROM rust:1.67.1 as final
 
 COPY --from=temp_build_container /code/target/debug/server /code/server
 
