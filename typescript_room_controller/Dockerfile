@@ -16,7 +16,7 @@ RUN npm install
 
 
 
-FROM node:18-alpine as app
+FROM node:19-alpine as app
 
 WORKDIR /code
 RUN mkdir -p /code/src

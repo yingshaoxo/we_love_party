@@ -1,3 +1,5 @@
+my_database.db
+
 #configs/*
 configs/o365_token.txt
 configs/config.py
