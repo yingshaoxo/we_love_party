@@ -2,9 +2,7 @@
 
 ## run
 ```bash
-./build.sh
-
-cargo run --bin server
+cargo run --bin server --release
 ```
 
 ## test

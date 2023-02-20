@@ -79,8 +79,11 @@ async def v1_jwt_auth_gateway(request: Request, response: Response):
 def start_grpc_service():
     print("\n\n" + "grpc service is running on: 127.0.0.1:40052" + "\n\n")
 
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(run_service(host="0.0.0.0", port=40052, my_o365=my_o365, my_authentication_class=my_auth_class))
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    asyncio.run(
+        run_service(host="0.0.0.0", port=40052, my_o365=my_o365, my_authentication_class=my_auth_class)
+    )
 
 
 def start_restful_service():
@@ -92,6 +95,7 @@ def start_restful_service():
                 host="0.0.0.0",
                 port=port, 
                 debug=True) #reload=True, workers=8)
+                
 
 
 def start():

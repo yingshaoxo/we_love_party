@@ -11,13 +11,14 @@ COPY ./build.rs /code/build.rs
 COPY ./src /code/src
 COPY ./protocols /code/protocols
 
-#RUN cargo update
-RUN cargo build --bin server
+RUN cargo build --bin server --release
 
 
-FROM rust:1.67.1 as final
 
-COPY --from=temp_build_container /code/target/debug/server /code/server
+FROM ubuntu:jammy
+
+RUN mkdir -p /code
+COPY --from=temp_build_container /code/target/release/server /code/server
 
 
 EXPOSE 40050

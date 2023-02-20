@@ -26,14 +26,13 @@ def start_grpc_service():
 
     print("\n\n" + f"grpc service is running on: {host}:{port}" + "\n\n")
 
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(
-        run_service(
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    asyncio.run(run_service(
             host=host, 
             port=port, 
             myMongoDB=MyMongoDB(mongo_server_address=config.MONGO_DB_URL)
-        )
-    )
+        ))
 
 
 def start():

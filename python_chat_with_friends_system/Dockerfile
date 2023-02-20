@@ -10,7 +10,13 @@ RUN poetry export -f requirements.txt --output requirements.txt --without-hashes
 
 
 
-FROM python:3.10-bullseye
+FROM ubuntu:jammy
+
+RUN apt update
+
+RUN apt install python3.10 -y
+RUN apt install pip -y
+RUN apt install git -y
 
 COPY --from=requirements-stage /tmp/requirements.txt /code/requirements.txt
 
@@ -22,7 +28,7 @@ WORKDIR /code
 
 EXPOSE 40056
 
-CMD ["python", "src/main.py"]
+CMD ["python3.10", "src/main.py"]
 
 
 
