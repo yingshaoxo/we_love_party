@@ -33,7 +33,7 @@ class AccountAuthenticationService(AccountAuthenticationServiceBase):
         await self.my_authentication_class.add_info_to_unverified_pool(email=email, random_string=randomString)
 
         try:
-            func_timeout(20, self.my_o365.send_email2, args=(email, "Thanks for register WeLoveParty App", "Here is your verification code: " + randomString))
+            func_timeout(20, self.my_o365.send_email2, args=(email, "Thank you for registering WeLoveParty App", "Here is your verification code: " + randomString))
         except FunctionTimedOut:
             print(f"Sening email to {email} timeout!")
             return RegisterReply(result="failed", error="can't send email. timeout.")

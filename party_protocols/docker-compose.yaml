@@ -119,7 +119,7 @@ services:
     image: livekit/livekit-server:v1.3
     command: 
       - "--config=/etc/livekit.yaml"
-      # - "--node-ip=192.168.49.195"
+      # - "--node-ip=144.202.109.163"
     # network_mode: "host"
     # expose:
     #   - "80"
@@ -129,8 +129,8 @@ services:
       - '7881/tcp'
       # - '5349:5349/tcp'
       # - '5349:5349/udp'
-      #- "50000-60000:50000-60000"
-      - "50000-50010:50000-50010/udp"
+      # - "50000-60000:50000-60000/udp"
+      - "50000-50100:50000-50100/udp"
     volumes:
       - ./configs/livekit.yaml:/etc/livekit.yaml
     restart: unless-stopped

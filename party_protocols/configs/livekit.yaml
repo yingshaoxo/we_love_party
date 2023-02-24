@@ -1,10 +1,10 @@
 port: 7880
 rtc:
     tcp_port: 7881
-    # port_range_start: 50000
-    # port_range_end: 60000
     port_range_start: 50000
-    port_range_end: 50010
+    port_range_end: 50100
+    # port_range_start: 50000
+    # port_range_end: 50010
     use_external_ip: false
 redis:
     address: dragonfly:6379 # 127.0.0.1:6379
@@ -13,7 +13,7 @@ redis:
     db: 0
 turn:
     enabled: false
-    domain: livekit_turn.weloveparty.domain.local
+    domain: livekit_turn.ai-tools-online.xyz
     cert_file: ""
     key_file: ""
     tls_port: 5349

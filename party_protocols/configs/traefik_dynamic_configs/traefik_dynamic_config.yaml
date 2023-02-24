@@ -51,6 +51,12 @@ http:
         - websecure
       rule: "Host(`livekit.ai-tools-online.xyz`) || Host(`livekit.weloveparty.ai-tools-online.xyz`) || Host(`livekit.weloveparty.domain.local`)"
       service: livekit_service
+    livekit_turn:
+      entryPoints:
+        - web
+        - websecure
+      rule: "Host(`livekit_turn.ai-tools-online.xyz`) || Host(`livekit_turn.weloveparty.ai-tools-online.xyz`)"
+      service: livekit_turn_service
     free_map_service_router:
       entryPoints:
         - web
@@ -117,6 +123,11 @@ http:
       loadBalancer:
         servers:
           - url: http://livekit:7880
+        passHostHeader: true
+    livekit_turn_service:
+      loadBalancer:
+        servers:
+          - url: http://livekit:5349
         passHostHeader: true
     weloveparty_free_map_service:
       loadBalancer:
