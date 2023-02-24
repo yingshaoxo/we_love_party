@@ -1,6 +1,5 @@
 .cargo/
 .pytest_cache/
-.vscode/
 
 #src/protocols
 # .cargo/
