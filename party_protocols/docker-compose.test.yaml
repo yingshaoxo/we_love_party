@@ -1,0 +1,8 @@
+version: "3.9"
+
+services:
+  whoami:
+    image: "traefik/whoami"
+    expose: #expose port to other container by using http://whoami:80
+      - "80"
+    restart: unless-stopped
