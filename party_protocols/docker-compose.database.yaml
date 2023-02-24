@@ -1,11 +1,23 @@
 version: "3.9"
 
 services:
-  dragonfly: # the new redis
-    image: docker.dragonflydb.io/dragonflydb/dragonfly:v0.12.0
+  # dragonfly: # the new redis
+  #   image: docker.dragonflydb.io/dragonflydb/dragonfly:v0.12.0
+  #   command:
+  #     - "--save_schedule=*:05" # save for every 1 minute
+  #     - "--dbfilename=/data/dump.rdb"
+  #   expose:
+  #     - "6379:6379"
+  #   # ports:
+  #   #   - '6379:6379'
+  #   volumes:
+  #     - "./configs/redis_data:/data"
+  #   restart: unless-stopped
+
+  redis: 
+    image: redis:7.0
     command:
-      - "--save_schedule=*:05" # save for every 1 minute
-      - "--dbfilename=/data/dump.rdb"
+      - "redis-server --save 60 1" # save for every 1 minute if at least one operation has been made
     expose:
       - "6379:6379"
     # ports:

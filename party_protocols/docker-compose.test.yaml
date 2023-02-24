@@ -1,8 +1,14 @@
 version: "3.9"
 
 services:
-  whoami:
-    image: "traefik/whoami"
-    expose: #expose port to other container by using http://whoami:80
-      - "80"
+  redis: 
+    image: redis:7.0
+    command:
+      - "redis-server --save 60 1" # save for every 1 minute if at least one operation has been made
+    expose:
+      - "6379:6379"
+    # ports:
+    #   - '6379:6379'
+    volumes:
+      - "./configs/redis_data:/data"
     restart: unless-stopped

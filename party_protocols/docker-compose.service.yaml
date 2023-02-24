@@ -24,6 +24,12 @@ services:
       - "./configs/traefik_dynamic_configs:/traefik_dynamic_configs" # <== Volume for dynamic conf file
     restart: unless-stopped
 
+  whoami:
+    image: "traefik/whoami"
+    expose: #expose port to other container by using http://whoami:80
+      - "80"
+    restart: unless-stopped
+
   weloveparty_internal_api_service:
     build: 
       context: ../rust_internal_api_system
@@ -34,7 +40,7 @@ services:
     # ports:
     #   - "40050:40050"
     environment: 
-      - redis_network_name=dragonfly
+      - redis_network_name=redis
       - postgres_sql_host=db
       - postgres_sql_user=yingshaoxo
       - postgres_sql_password=yingshaoxo
@@ -62,7 +68,7 @@ services:
         source: ./configs/python_user_auth_system/user_database
         target: /code/data
     environment: 
-      - redis_network_name=dragonfly
+      - redis_network_name=redis
     restart: unless-stopped
 
   weloveparty_account_storage_service:
@@ -75,7 +81,7 @@ services:
     # ports:
     #   - "40053:40053"
     environment: 
-      - redis_network_name=dragonfly
+      - redis_network_name=redis
       - postgres_sql_host=db
       - postgres_sql_user=yingshaoxo
       - postgres_sql_password=yingshaoxo
@@ -113,7 +119,7 @@ services:
     # ports:
     #   - "40054"
     environment: 
-      - redis_network_name=dragonfly
+      - redis_network_name=redis
       - livekit_NETWORK_NAME=livekit
       - weloveparty_internal_api_service_NETWORK_NAME=weloveparty_internal_api_service
       - livekit_key=APIDtk2LyAaZPWA
