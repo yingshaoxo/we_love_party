@@ -20,3 +20,4 @@ services:
     volumes:
       - ./configs/livekit.yaml:/etc/livekit.yaml
     restart: unless-stopped
+

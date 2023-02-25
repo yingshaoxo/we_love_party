@@ -132,7 +132,7 @@ http:
     weloveparty_free_map_service:
       loadBalancer:
         servers:
-          - url: h2c://weloveparty_room_control_service:40055
+          - url: h2c://weloveparty_free_map_service:40055
           # - url: h2c://host.docker.internal:40055
         passHostHeader: true
     weloveparty_chat_with_friends_service:

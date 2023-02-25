@@ -126,6 +126,26 @@ services:
       - livekit_value=LXo3sftMbII4YqV4bawJu1MrsfL1oOfjexZkqrGm1pkA
     restart: unless-stopped
 
+  weloveparty_free_map_service:
+    build: 
+      context: ../java_free_map_backend_system
+      dockerfile: ./Dockerfile
+    image: yingshaoxo/weloveparty_free_map_backend_service
+    expose:
+      - "40055"
+    # ports:
+    #   - "40055:40055"
+    # volumes:
+    #   - type: bind
+    #     source: ./configs/python_chat_with_friends_system/config.py
+    #     target: /code/src/config.py
+    environment: 
+      - redis_network_name=redis
+      - postgres_sql_host=db
+      - postgres_sql_user=yingshaoxo
+      - postgres_sql_password=yingshaoxo
+    restart: unless-stopped
+
   weloveparty_chat_with_friends_service:
     build: 
       context: ../python_chat_with_friends_system

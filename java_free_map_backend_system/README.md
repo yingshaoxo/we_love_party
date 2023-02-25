@@ -5,5 +5,12 @@
 ./gradlew run
 ```
 
+## Build
+```bash
+./gradlew build
+
+# app/build/distributions/app.zip
+```
+
 ## Library Search And Installation
 https://search.maven.org
