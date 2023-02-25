@@ -72,9 +72,9 @@ class _FreeMapPageState extends State<FreeMapPage> {
       }
 
       if ((await get_gps_permissions()) == false) {
-        await show_message(
-            msg:
-                "Please give me the Location/GPS permission and enable Location function. So that I can start to work.");
+        // await show_message(
+        //     msg:
+        //         "Please give me the Location/GPS permission and enable Location function. So that I can start to work.");
         initialization_is_done = false;
         return;
       }
@@ -90,7 +90,19 @@ class _FreeMapPageState extends State<FreeMapPage> {
     return Scaffold(
         appBar: null,
         body: initialization_is_done == false
-            ? Container()
+            ? Container(
+                child: Center(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Please give me the location permission."),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text("And enable GPS (locations)."),
+                  ],
+                )),
+              )
             : Column(
                 children: [
                   Flexible(

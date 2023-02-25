@@ -22,10 +22,6 @@ class _MePageState extends State<MePage> {
   final Color the_background = "rgba(255, 255, 255, 1.0)".color;
 
   bool initialization_is_done = false;
-  Image head_image = Image.asset(
-    'assets/images/me.jpg',
-    fit: BoxFit.fill,
-  );
 
   bool show_second_page = false;
 
@@ -59,13 +55,14 @@ class _MePageState extends State<MePage> {
                 width: 1.0.sw,
                 height: 1.2.sw,
                 child: FittedBox(
-                  child: head_image,
+                  child: variable_controller.head_image,
                   fit: BoxFit.fill,
                 ),
               ),
             ),
             onTap: () {
-              Get.to(FullScreenImagePage(image: head_image));
+              Get.to(
+                  FullScreenImagePage(image: variable_controller.head_image));
             },
           ),
         ),
@@ -114,7 +111,7 @@ class _MePageState extends State<MePage> {
                 "I think we got some problems here, you might want to clear the data of this app and try it again.\nIf it doesn't work, I suggest you contact the author: yingshaoxo@gmail.com");
       }
 
-      head_image = Image.memory(
+      variable_controller.head_image = Image.memory(
         get_Uint8List_from_base64_string(
             variable_controller.userModel.headImage),
       );
@@ -171,7 +168,7 @@ class _MePageState extends State<MePage> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: FittedBox(
-                      child: head_image,
+                      child: variable_controller.head_image,
                       fit: BoxFit.fill,
                     ),
                   )),

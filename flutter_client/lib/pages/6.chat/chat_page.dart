@@ -142,7 +142,7 @@ class _TheConversationListState extends State<TheConversationList> {
     () async {
       await update_conversation_list(display_error: true);
 
-      crontab.schedule(Schedule.parse('*/10 * * * * *'), () async {
+      crontab.schedule(Schedule.parse('*/15 * * * * *'), () async {
         if (variable_controller.user_email == null) {
           return false;
         }
@@ -168,7 +168,7 @@ class _TheConversationListState extends State<TheConversationList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: initialization_is_done == false
+      child: initialization_is_done == false || conversation_list.isEmpty
           ? Center(
               child: Text("No conversations in here yet"),
             )

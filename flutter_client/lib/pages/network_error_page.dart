@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:protobuf/protobuf.dart';
 
 import '../tools/internet_tools.dart';
 

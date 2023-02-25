@@ -1,5 +1,6 @@
 import 'dart:core';
 import 'package:cron/cron.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_client/generated_grpc/account_storage_service.pbgrpc.dart';
 import 'package:flutter_client/generated_grpc/free_map_service.pbgrpc.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -25,6 +26,10 @@ class VariableControllr extends GetxController {
   String? username;
 
   UserModel userModel = UserModel();
+  Image head_image = Image.asset(
+    'assets/images/me.jpg',
+    fit: BoxFit.fill,
+  );
 
   // party rooms
   String? access_token;

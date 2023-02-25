@@ -82,7 +82,7 @@ class _MyTabsState extends State<MyTabs> {
       variable_controller.userModel.age = getUserResponse.age;
       variable_controller.userModel.headImage = getUserResponse.headImage;
 
-      crontab.schedule(Schedule.parse('*/10 * * * * *'), () async {
+      crontab.schedule(Schedule.parse('*/60 * * * * *'), () async {
         if (variable_controller.user_email == null) {
           return false;
         }
@@ -112,7 +112,10 @@ class _MyTabsState extends State<MyTabs> {
             children: [
               Scaffold(
                 appBar: null,
-                body: tab_widget_list[variable_controller.current_tab_index],
+                body: Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: tab_widget_list[variable_controller.current_tab_index],
+                ),
                 bottomNavigationBar: BottomNavigationBar(
                   currentIndex: variable_controller.current_tab_index,
                   backgroundColor: Colors.white,
