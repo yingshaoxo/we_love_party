@@ -1,3 +1,7 @@
+# docker build --tag yingshaoxo/weloveparty_internal_api_service .
+
+
+
 FROM rust:1.67.1 as temp_build_container
 
 RUN rustup component add rustfmt

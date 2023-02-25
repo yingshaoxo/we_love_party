@@ -1,3 +1,7 @@
+# docker build --tag yingshaoxo/weloveparty_room_control_service .
+
+
+
 FROM node:18-alpine as builder
 
 ## Install build toolchain, install node deps and compile native add-ons

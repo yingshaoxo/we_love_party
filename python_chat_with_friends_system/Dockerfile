@@ -1,3 +1,7 @@
+# docker build --tag yingshaoxo/weloveparty_chat_with_friends_service .
+
+
+
 FROM python:3.10-bullseye as requirements-stage
 
 WORKDIR /tmp

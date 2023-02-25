@@ -1,4 +1,6 @@
 # docker build --tag yingshaoxo/weloveparty_free_map_backend_service .
+
+
 FROM gradle:jdk19 as builder 
 
 COPY ./ /work_space/server
