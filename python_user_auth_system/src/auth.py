@@ -93,13 +93,32 @@ class MyAuthClass:
     async def add_info_to_verified_pool(self, email: str, random_string: str) -> None:
         key = f"{email}.{REDIS_JWT_ACTION_KEY}"
         value = f"{random_string}.deviceID"
-        self.myRedis.set(key, value)
+
+        old_value = self.myRedis.get(key)
+        if old_value == None:
+            self.myRedis.set(key, value)
+        else:
+            self.myRedis.set(key, old_value + "&" + value)
     
 
     async def check_if_the_info_is_in_verified_pool(self, email: str, random_string: str) -> bool:
         key = f"{email}.{REDIS_JWT_ACTION_KEY}"
         value = f"{random_string}.deviceID"
-        return self.myRedis.get(key) == value
+
+        old_value = self.myRedis.get(key)
+        if old_value == None:
+            return False
+        else:
+            old_value_list = old_value.split("&")
+            for one in old_value_list:
+                if one == value:
+                    return True
+            return False
+
+
+    async def log_out_all_devices_by_email_from_verified_pool(self, email: str) -> None:
+        key = f"{email}.{REDIS_JWT_ACTION_KEY}"
+        self.myRedis.delete(key)
 
 
     async def add_email_to_online_pool(self, email: str) -> None:
