@@ -1,14 +1,22 @@
 version: "3.9"
 
 services:
-  redis: 
-    image: redis:7.0
-    command:
-      - "redis-server --save 60 1" # save for every 1 minute if at least one operation has been made
-    expose:
-      - "6379:6379"
-    # ports:
-    #   - '6379:6379'
+  livekit:
+    image: livekit/livekit-server:v1.3
+    command: 
+      - "--config=/etc/livekit.yaml"
+      - "--node-ip=144.202.109.163"
+    # network_mode: "host"
+    # expose:
+    #   - "80"
+    #   - "443"
+    ports:
+      - '7880/tcp'
+      - '7881/tcp'
+      # - '5349:5349/tcp'
+      # - '5349:5349/udp'
+      # - "50000-60000:50000-60000/udp"
+      - "50000-50100:50000-50100/udp"
     volumes:
-      - "./configs/redis_data:/data"
+      - ./configs/livekit.yaml:/etc/livekit.yaml
     restart: unless-stopped

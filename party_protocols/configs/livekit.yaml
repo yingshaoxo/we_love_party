@@ -7,7 +7,7 @@ rtc:
     # port_range_end: 50010
     use_external_ip: false
 redis:
-    address: dragonfly:6379 # 127.0.0.1:6379
+    address: redis:6379 # 127.0.0.1:6379
     username: ""
     password: ""
     db: 0
