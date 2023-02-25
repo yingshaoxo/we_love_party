@@ -126,7 +126,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                       username_is_valid = true;
                     } else {
                       username_is_valid = false;
-                      if (value.length > 3) {
+                      if (value.length >= 3) {
                         return "Invalid username";
                       } else {
                         return "Please input chars >= 3";
