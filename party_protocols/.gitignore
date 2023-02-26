@@ -1,4 +1,5 @@
 my_database.db
+o365_token.txt
 
 #configs/*
 configs/o365_token.txt
