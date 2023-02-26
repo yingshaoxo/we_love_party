@@ -17,9 +17,12 @@ message Empty {
 
 service AccountAuthenticationService {
     rpc SayHello (HelloRequest) returns (HelloReply);
+
     rpc UserRegisterRequest(RegisterRequest) returns (RegisterReply);
     rpc UserRegisterConfirm(RegisterConfirmRequest) returns (RegisterConfirmReply);
+
     rpc IsJwtOk(IsJwtOkRequest) returns (IsJwtOkReply);
+    rpc IsAdmin(IsAdminRequest) returns (IsAdminResponse);
 
     rpc IsOnline(IsOnlineRequest) returns (IsOnlineResponse);
 }
@@ -53,6 +56,15 @@ message IsJwtOkReply {
     optional string error = 2;
 }
 
+message IsAdminRequest {
+    string jwt = 1;
+}
+
+message IsAdminResponse {
+    optional string error = 1;
+    string yes = 2;
+}
+
 message IsOnlineRequest {
     optional string email = 1;
 }
@@ -60,4 +72,38 @@ message IsOnlineRequest {
 message IsOnlineResponse {
     optional string error = 1;
     bool online = 2;
+}
+
+
+//-------yingshaoxo-------
+
+message UserModel {
+    string email = 1;
+    optional string username = 2;
+    optional string head_image = 3; //base64 string of an image
+    optional int32 sex = 4; //AI detect. 0: female, 1: male
+    optional int32 age = 5; //AI detect.
+}
+
+message LocationOfFreeMap {
+    optional int32 location_id = 1;
+    optional string uploader_email = 2;
+    string name = 3;
+    double y_latitude = 4; // up to 5 digits after decimal
+    double x_longitude = 5; // up to 5 digits after decimal
+    double scores = 6;
+    bool open_all_day = 7;
+    bool has_charger = 8;
+    bool has_wifi = 9;
+    bool has_water = 10;
+    bool has_hot_water = 11;
+    bool has_desk = 12;
+    bool has_chair = 13;
+    bool has_toilet = 14;
+    bool has_showering = 15; // must make sure there can take showering
+    bool has_package_receiving_station = 16;
+    bool has_kfc = 17;
+    bool has_mcdonald = 18;
+    bool has_store = 19;
+    // string open_and_close_time = 20;
 }

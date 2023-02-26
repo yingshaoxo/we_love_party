@@ -25,11 +25,11 @@ if (process?.env?.livekit_NETWORK_NAME) {
 const svc = new RoomServiceClient(livekitHost, apiKeyAndValueObject.apiKey, apiKeyAndValueObject.apiValue);
 
 
-const the_internal_api_port = "40050"
-let the_internal_api_host = `http://0.0.0.0:${the_internal_api_port}`;
-if (process?.env?.weloveparty_internal_api_service_NETWORK_NAME) {
-    the_internal_api_host = `http://${process.env.weloveparty_internal_api_service_NETWORK_NAME}:${the_internal_api_port}`;
-}
+// const the_internal_api_port = "40050"
+// let the_internal_api_host = `http://0.0.0.0:${the_internal_api_port}`;
+// if (process?.env?.weloveparty_internal_api_service_NETWORK_NAME) {
+//     the_internal_api_host = `http://${process.env.weloveparty_internal_api_service_NETWORK_NAME}:${the_internal_api_port}`;
+// }
 
 
 class MyRoomControlService implements room_control_service_grpc.RoomControlServiceImplementation {

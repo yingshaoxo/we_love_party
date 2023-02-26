@@ -3,51 +3,40 @@ package internal_api_service;
 
 option go_package = "./internal_api_service";
 
+// this module is made for internal use, which means developers from different groups can access those API to dev their own API
+// It's kind of like "shared API for company's employees only", those API shall never directly went into public for normal users
 service InternalApiService {
-    rpc CreateAUser(CreateAUserRequest) returns (CreateAUserResponse);
-    rpc DeleteAUser(DeleteAUserRequest) returns (DeleteAUserResponse);
-
-    rpc CheckIfUserExists(CheckIfUserExistsRequest) returns (CheckIfUserExistsResponse);
-    rpc GetUser(GetUserRequest) returns (GetUserResponse);
 }
 
-message CreateAUserRequest {
+//-------yingshaoxo-------
+
+message UserModel {
     string email = 1;
+    optional string username = 2;
+    optional string head_image = 3; //base64 string of an image
+    optional int32 sex = 4; //AI detect. 0: female, 1: male
+    optional int32 age = 5; //AI detect.
 }
 
-message CreateAUserResponse {
-    string result = 1;
-    optional string error = 2;
-}
-
-message DeleteAUserRequest {
-    string email = 1;
-}
-
-message DeleteAUserResponse {
-    string result = 1;
-    optional string error = 2;
-}
-
-message GetUserRequest {
-    string email = 1;
-}
-
-message GetUserResponse {
-    optional string error = 1;
-    bool user_exists = 2;
-    string email = 3;
-    optional string username = 4;
-    optional string head_image = 5; //base64 string of an image
-    optional int32 sex = 6; //AI detect. 0: female, 1: male
-    optional int32 age = 7; //AI detect.
-}
-
-message CheckIfUserExistsRequest {
-    string email = 1;
-}
-
-message CheckIfUserExistsResponse {
-    optional string error = 1;
-    bool user_exists = 2;
+message LocationOfFreeMap {
+    optional int32 location_id = 1;
+    optional string uploader_email = 2;
+    string name = 3;
+    double y_latitude = 4; // up to 5 digits after decimal
+    double x_longitude = 5; // up to 5 digits after decimal
+    double scores = 6;
+    bool open_all_day = 7;
+    bool has_charger = 8;
+    bool has_wifi = 9;
+    bool has_water = 10;
+    bool has_hot_water = 11;
+    bool has_desk = 12;
+    bool has_chair = 13;
+    bool has_toilet = 14;
+    bool has_showering = 15; // must make sure there can take showering
+    bool has_package_receiving_station = 16;
+    bool has_kfc = 17;
+    bool has_mcdonald = 18;
+    bool has_store = 19;
+    // string open_and_close_time = 20;
 }

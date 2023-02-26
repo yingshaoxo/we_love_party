@@ -21,14 +21,14 @@ http:
       middlewares:
         - test-grpcweb
       service: weloveparty_account_auth_service
-    grpc_internal_api_router:
-      entryPoints:
-        - web
-        - websecure
-      rule: "Host(`internal_api.ai-tools-online.xyz`) || Host(`internal_api.weloveparty.ai-tools-online.xyz`) || Host(`internal_api.weloveparty.domain.local`)"
-      middlewares:
-        - my_jwt_auth
-      service: weloveparty_internal_api_service
+    # grpc_internal_api_router:
+    #   entryPoints:
+    #     - web
+    #     - websecure
+    #   rule: "Host(`internal_api.ai-tools-online.xyz`) || Host(`internal_api.weloveparty.ai-tools-online.xyz`) || Host(`internal_api.weloveparty.domain.local`)"
+    #   middlewares:
+    #     - my_jwt_auth
+    #   service: weloveparty_internal_api_service
     grpc_account_storage_service_router:
       entryPoints:
         - web
@@ -101,12 +101,12 @@ http:
           - url: h2c://weloveparty_account_auth_service:40052
           # - url: h2c://host.docker.internal:40052
         passHostHeader: true
-    weloveparty_internal_api_service:
-      loadBalancer:
-        servers:
-          - url: h2c://weloveparty_internal_api_service:40050
-          # - url: h2c://host.docker.internal:40050
-        passHostHeader: true
+    # weloveparty_internal_api_service:
+    #   loadBalancer:
+    #     servers:
+    #       - url: h2c://weloveparty_internal_api_service:40050
+    #       # - url: h2c://host.docker.internal:40050
+    #     passHostHeader: true
     weloveparty_account_storage_service:
       loadBalancer:
         servers:

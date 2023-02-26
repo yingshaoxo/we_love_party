@@ -101,7 +101,7 @@ services:
     environment: 
       - redis_network_name=redis
       - livekit_NETWORK_NAME=livekit
-      - weloveparty_internal_api_service_NETWORK_NAME=weloveparty_internal_api_service
+      # - weloveparty_internal_api_service_NETWORK_NAME=weloveparty_internal_api_service
       - livekit_key=APIDtk2LyAaZPWA
       - livekit_value=LXo3sftMbII4YqV4bawJu1MrsfL1oOfjexZkqrGm1pkA
     restart: unless-stopped

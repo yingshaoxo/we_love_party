@@ -175,13 +175,13 @@ PROTO_FILE="room_control_service.proto"
   --proto_path="${INPUT_DIR}" \
   "${PROTO_FILE}"
 
-PROTO_FILE="internal_api_service.proto"
-./node_modules/.bin/grpc_tools_node_protoc \
-  --plugin=protoc-gen-ts_proto=./node_modules/.bin/protoc-gen-ts_proto \
-  --ts_proto_out="${OUT_DIR}" \
-  --ts_proto_opt=outputServices=nice-grpc,outputServices=generic-definitions,useExactTypes=false \
-  --proto_path="${INPUT_DIR}" \
-  "${PROTO_FILE}"
+# PROTO_FILE="internal_api_service.proto"
+# ./node_modules/.bin/grpc_tools_node_protoc \
+#   --plugin=protoc-gen-ts_proto=./node_modules/.bin/protoc-gen-ts_proto \
+#   --ts_proto_out="${OUT_DIR}" \
+#   --ts_proto_opt=outputServices=nice-grpc,outputServices=generic-definitions,useExactTypes=false \
+#   --proto_path="${INPUT_DIR}" \
+#   "${PROTO_FILE}"
 ```
 
 ```bash
@@ -210,7 +210,7 @@ protoc \
     --js_out="import_style=commonjs,binary:${OUT_DIR}" \
     --ts_out="service=grpc-node,mode=grpc-js:${OUT_DIR}" \
     --grpc_out="grpc_js:${OUT_DIR}" \
-    room_control_service.proto internal_api_service.proto
+    room_control_service.proto
 ```
 
 ### Java/Kotlin

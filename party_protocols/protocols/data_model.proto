@@ -3,7 +3,7 @@ package data_model;
 
 option go_package = "./data_model";
 
-message User {
+message UserModel {
     string email = 1;
     optional string username = 2;
     optional string head_image = 3; //base64 string of an image
@@ -11,12 +11,14 @@ message User {
     optional int32 age = 5; //AI detect.
 }
 
+// we'll use this table to create two tables, one is global average data, for example, average scores for each location distinguished by location_id. this table won't include the 'uploader_username'
+// another is a big table that contains all those data uploaded by users, we'll use this table to generate the first table
 message LocationOfFreeMap {
     optional int32 location_id = 1;
     optional string uploader_email = 2;
     string name = 3;
-    double y_latitude = 4;
-    double x_longitude = 5;
+    double y_latitude = 4; // up to 5 digits after decimal
+    double x_longitude = 5; // up to 5 digits after decimal
     double scores = 6;
     bool open_all_day = 7;
     bool has_charger = 8;
