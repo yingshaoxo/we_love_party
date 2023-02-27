@@ -8,19 +8,20 @@ import (
 	"log"
 	"os"
 
-	"gorm.io/gorm"
+	"database/sql"
+
+	_ "github.com/lib/pq"
 
 	"github.com/yingshaoxo/gopython/disk_tool"
 
-	"github.com/yingshaoxo/we_love_party/golang_user_storage_system/account_storage_service"
-	"github.com/yingshaoxo/we_love_party/golang_user_storage_system/database"
-	"github.com/yingshaoxo/we_love_party/golang_user_storage_system/store"
+	"github.com/yingshaoxo/we_love_party/management_system/golang_backend_service/database"
+	"github.com/yingshaoxo/we_love_party/management_system/golang_backend_service/grpc_services"
+	"github.com/yingshaoxo/we_love_party/management_system/golang_backend_service/store"
 )
 
 var context_ context.Context
-var err error
 
-var postgres_sql_database *gorm.DB
+var postgres_sql_database *sql.DB
 
 func setup_logger(log_file_path string) {
 	// delete old log
@@ -50,12 +51,26 @@ func main() {
 	store.Init()
 
 	// set database
-	postgres_sql_database = database.Get_postgres_sql_database()
+	// postgres_sql_information := fmt.Sprintf(
+	// 	"host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
+	// 	store.Environment_variables.Postgres_sql_host, 5432,
+	// 	store.Environment_variables.Postgres_sql_user, store.Environment_variables.Postgres_sql_password,
+	// 	"postgres")
+	// postgres_sql_database, err := sql.Open("postgres", postgres_sql_information)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// defer postgres_sql_database.Close()
+	fuckTheDatabaseClass := database.FuckTheDatabaseClass{
+		Postgres_sql: postgres_sql_database,
+	}
+	fuckTheDatabaseClass.Init()
+	defer fuckTheDatabaseClass.End()
 
 	// set up grpc
 	context_ = context.Background()
-	account_storage_service := account_storage_service.GrpcAccountStorageServer{
+	an_management_service := grpc_services.GrpcManagementServer{
 		Postgres_sql_database: postgres_sql_database,
 	}
-	account_storage_service.Start(&account_storage_service, "0.0.0.0:40053", context_)
+	an_management_service.Start(&an_management_service, "0.0.0.0:40057", context_)
 }

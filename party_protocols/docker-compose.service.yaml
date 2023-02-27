@@ -143,3 +143,23 @@ services:
       - MONGO_DB_URL=mongodb://yingshaoxo:yingshaoxo@my_mongo:27017/
       - POSTGRESQL_DB_URL=postgresql://yingshaoxo:yingshaoxo@db:5432/postgres
     restart: unless-stopped
+
+  livekit:
+    image: livekit/livekit-server:v1.3
+    command: 
+      - "--config=/etc/livekit.yaml"
+      - "--node-ip=144.202.109.163"
+    # network_mode: "host"
+    # expose:
+    #   - "80"
+    #   - "443"
+    ports:
+      - '7880/tcp'
+      - '7881/tcp'
+      # - '5349:5349/tcp'
+      # - '5349:5349/udp'
+      # - "50000-60000:50000-60000/udp"
+      - "50000-50100:50000-50100/udp"
+    volumes:
+      - ./configs/livekit.yaml:/etc/livekit.yaml
+    restart: unless-stopped

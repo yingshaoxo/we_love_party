@@ -82,6 +82,15 @@ only traefik listens 0.0.0.0's 443 port,
 #### GRPC
     python: 40056
 
+### Management Service
+> chat_with_friends.weloveparty.domain.local
+
+#### GRPC
+    golang: 40057
+
+#### HTTP
+    react: 40058
+
 ## Generate GRPC Code (It's just for example, don't run it directly!)
 
 ### Python

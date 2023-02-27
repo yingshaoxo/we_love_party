@@ -10,6 +10,7 @@ export PATH=~/go/bin:$PATH
 
 mkdir binary
 cd binary
+export CGO_ENABLED=0
 gox -output="${name}_{{.OS}}_{{.Arch}}" -osarch="linux/amd64" ../
 #-osarch="darwin/arm64"
 

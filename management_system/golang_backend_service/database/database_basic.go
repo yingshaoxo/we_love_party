@@ -1,60 +1,56 @@
 package database
 
 import (
+	"database/sql"
 	"fmt"
+	"log"
 
-	"gorm.io/driver/postgres"
+	_ "github.com/lib/pq" // add this
 
-	"gorm.io/gorm"
-	"gorm.io/gorm/schema"
-
-	"github.com/yingshaoxo/we_love_party/golang_user_storage_system/store"
+	"github.com/yingshaoxo/we_love_party/management_system/golang_backend_service/store"
 )
 
-type User struct {
-	gorm.Model
+type FuckTheDatabaseClass struct {
+	Postgres_sql *sql.DB
+}
+
+type TestUser struct {
 	Email      string
-	Username   string
-	Head_image string //base64 string of an image
-	Sex        int32  //AI detect. 0: female, 1: male
-	Age        int32  //AI detect.
+	Username   *string
+	Head_image *string //base64 string of an image
+	Sex        *int32  //AI detect. 0: female, 1: male
+	Age        *int32  //AI detect.
 }
 
-func Get_postgres_sql_database() *gorm.DB {
-	dsn := fmt.Sprintf(
-		"host=%s user=%s password=%s dbname=postgres port=5432 sslmode=disable",
-		store.Environment_variables.Postgres_sql_host,
-		store.Environment_variables.Postgres_sql_user,
-		store.Environment_variables.Postgres_sql_password,
-	)
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
-		NamingStrategy: schema.NamingStrategy{
-			TablePrefix:   "",   // table name prefix, table for `User` would be `t_users`
-			SingularTable: true, // use singular table name, table for `User` would be `user` with this option enabled
-			NoLowerCase:   false,
-		},
-	})
+func (self FuckTheDatabaseClass) Init() error {
+	postgres_sql_information := fmt.Sprintf(
+		"host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
+		store.Environment_variables.Postgres_sql_host, 5432,
+		store.Environment_variables.Postgres_sql_user, store.Environment_variables.Postgres_sql_password,
+		"postgres")
+	db, err := sql.Open("postgres", postgres_sql_information)
 	if err != nil {
-		panic("failed to connect database")
+		log.Fatal(err)
 	}
-	db.AutoMigrate(&User{})
-	return db
+
+	self.Postgres_sql = db
+	//*self.Postgres_sql = *db
+
+	return err
 }
 
-func Get_a_user(db *gorm.DB, email string) (User, bool, error) {
-	var user_list []User
-	var the_user User
+func (self FuckTheDatabaseClass) End() error {
+	err := self.Postgres_sql.Close()
+	return err
+}
 
-	operation_result := db.Where("email = ?", email).Find(&user_list)
-	if operation_result.Error != nil {
-		return the_user, false, operation_result.Error
-	}
+func (self FuckTheDatabaseClass) Print_all_data_in_a_table(table_name string) error {
+	user := TestUser{}
 
-	if len(user_list) == 0 {
-		return the_user, false, nil
-	}
+	err := self.Postgres_sql.QueryRow("SELECT 'yingshaoxo', NULL").Scan(&user.Username, &user.Age)
 
-	the_user = user_list[0]
+	log.Println(user.Username)
+	log.Println(user.Age)
 
-	return the_user, true, nil
+	return err
 }

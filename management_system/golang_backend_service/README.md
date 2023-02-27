@@ -12,7 +12,7 @@ sudo apt install golang -y
 #go get -d -u -t ./... && go mod tidy
 go get
 
-GRPC_GO_LOG_SEVERITY_LEVEL=info GRPC_GO_LOG_VERBOSITY_LEVEL=99 go run main.go
+CGO_ENABLED=0 GRPC_GO_LOG_SEVERITY_LEVEL=info GRPC_GO_LOG_VERBOSITY_LEVEL=99 go run main.go
 ```
 
 #### For developers

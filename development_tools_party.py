@@ -28,6 +28,7 @@ def itIsWindows():
 class Tools():
     def __init__(self) -> None:
         self.project_root_folder = disk.get_directory_name(os.path.realpath(os.path.abspath(__file__))) 
+        self.protobuff_protocols_folder = disk.join_paths(self.project_root_folder, "party_protocols", "protocols")
 
     def help(self):
         print(help(Tools))
@@ -69,6 +70,17 @@ class Tools():
     
     def build_python_protocols(self):
         pass
+
+    def build_management_system_golang_backend_service_protocols(self):
+        management_system_folder = disk.join_paths(self.project_root_folder, "management_system")
+        golang_backend_service_folder = disk.join_paths(management_system_folder, "golang_backend_service")
+        the_generated_grpc_folder = disk.join_paths(golang_backend_service_folder, "generated_grpc")
+
+        grpc.generate_golang_code(
+            input_folder=self.protobuff_protocols_folder, 
+            input_files=["management_service.proto"],
+            output_folder=the_generated_grpc_folder,
+        )
 
 py.make_it_global_runnable(executable_name="development_tools_party")
 py.fire(Tools)

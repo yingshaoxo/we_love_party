@@ -16,11 +16,6 @@ var Environment_variables EnvironmentVariables = EnvironmentVariables{
 	Postgres_sql_password: "yingshaoxo",
 }
 
-var Livekit_host_wss_address string = "wss://livekit-test.ai-tools-online.xyz"
-var Livekit_host_https_address string = "https://livekit-test.ai-tools-online.xyz"
-var Livekit_api_key string = "APIVVhGF42WGq9a"
-var Livekit_api_secret string = "TxOCYYNl6MIYtfedhaEq7lhyUsNX93DveVi3smZYSciB"
-
 func Init() {
 	Postgres_sql_host := os.Getenv("postgres_sql_host")
 	Postgres_sql_user := os.Getenv("postgres_sql_user")
