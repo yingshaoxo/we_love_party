@@ -73,6 +73,15 @@ http:
       middlewares:
         - my_jwt_auth
       service: weloveparty_chat_with_friends_service
+    management_service_router:
+      entryPoints:
+        - web
+        - websecure
+      rule: "Host(`management.ai-tools-online.xyz`) || Host(`management.weloveparty.ai-tools-online.xyz`) || Host(`management.weloveparty.domain.local`)"
+      middlewares:
+        # - my_jwt_auth
+        - my_grpcweb
+      service: management_service
 
   middlewares:
     stripprefix_whoami:
@@ -85,7 +94,7 @@ http:
           # address: "http://host.docker.internal:40051/v1/jwt_auth_gateway/"
           authResponseHeaders:
               - "user_email" # jwt_auth_gateway will put this header to the original request
-    test-grpcweb:
+    my_grpcweb:
       grpcWeb:
         allowOrigins:
           - "*"
@@ -140,4 +149,10 @@ http:
         servers:
           - url: h2c://weloveparty_chat_with_friends_service:40056
           # - url: h2c://host.docker.internal:40056
+        passHostHeader: true
+    management_service:
+      loadBalancer:
+        servers:
+          # - url: h2c://management_service:40057
+          - url: h2c://host.docker.internal:40057
         passHostHeader: true

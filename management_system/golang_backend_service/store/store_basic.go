@@ -31,3 +31,34 @@ func Init() {
 		Environment_variables.Postgres_sql_password = Postgres_sql_password
 	}
 }
+
+var Database_Name_Dict = struct {
+	Postgres string
+	Free_map string
+}{
+	Postgres: "postgres",
+	Free_map: "free_map",
+}
+
+var Database_Table_Name_Dict = struct {
+	User           string
+	Free_map       string
+	Final_free_map string
+}{
+	User:           "user",
+	Free_map:       "free_map",
+	Final_free_map: "final_free_map",
+}
+
+/*
+{
+	postgres: {
+		user
+	}
+
+	free_map: {
+		free_map,
+		final_free_map
+	}
+}
+*/

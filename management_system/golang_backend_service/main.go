@@ -8,8 +8,6 @@ import (
 	"log"
 	"os"
 
-	"database/sql"
-
 	_ "github.com/lib/pq"
 
 	"github.com/yingshaoxo/gopython/disk_tool"
@@ -20,8 +18,6 @@ import (
 )
 
 var context_ context.Context
-
-var postgres_sql_database *sql.DB
 
 func setup_logger(log_file_path string) {
 	// delete old log
@@ -51,26 +47,12 @@ func main() {
 	store.Init()
 
 	// set database
-	// postgres_sql_information := fmt.Sprintf(
-	// 	"host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
-	// 	store.Environment_variables.Postgres_sql_host, 5432,
-	// 	store.Environment_variables.Postgres_sql_user, store.Environment_variables.Postgres_sql_password,
-	// 	"postgres")
-	// postgres_sql_database, err := sql.Open("postgres", postgres_sql_information)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	// defer postgres_sql_database.Close()
-	fuckTheDatabaseClass := database.FuckTheDatabaseClass{
-		Postgres_sql: postgres_sql_database,
-	}
-	fuckTheDatabaseClass.Init()
-	defer fuckTheDatabaseClass.End()
+	fuckTheDatabaseClass := database.FuckTheDatabaseClass{}
 
 	// set up grpc
 	context_ = context.Background()
 	an_management_service := grpc_services.GrpcManagementServer{
-		Postgres_sql_database: postgres_sql_database,
+		FuckTheDatabaseClass: fuckTheDatabaseClass,
 	}
 	an_management_service.Start(&an_management_service, "0.0.0.0:40057", context_)
 }

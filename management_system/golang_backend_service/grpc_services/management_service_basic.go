@@ -2,7 +2,6 @@ package grpc_services
 
 import (
 	"context"
-	"database/sql"
 	"log"
 	"net"
 
@@ -11,10 +10,10 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 
-	// "github.com/yingshaoxo/we_love_party/management_system/golang_backend_service/database"
-	"github.com/yingshaoxo/we_love_party/management_system/golang_backend_service/generated_grpc/management_service"
-
 	"github.com/yingshaoxo/gopython/error_tool"
+
+	"github.com/yingshaoxo/we_love_party/management_system/golang_backend_service/database"
+	"github.com/yingshaoxo/we_love_party/management_system/golang_backend_service/generated_grpc/management_service"
 )
 
 // if success, return nil, if no, return error_string
@@ -44,28 +43,24 @@ func Get_error_memory_pointer_from_string() {
 
 type GrpcManagementServer struct {
 	management_service.UnimplementedManagementServiceServer
-	Postgres_sql_database *sql.DB
+	FuckTheDatabaseClass database.FuckTheDatabaseClass
 }
 
+// GetUsers(ctx context.Context, in *GetUsersRequest, opts ...grpc.CallOption) (*GetUsersResponse, error)
 // AddPlace(ctx context.Context, in *AddPlaceRequest, opts ...grpc.CallOption) (*AddPlaceResponse, error)
 // UpdatePlace(ctx context.Context, in *UpdatePlaceRequest, opts ...grpc.CallOption) (*UpdatePlaceResponse, error)
 // DeletePlace(ctx context.Context, in *DeletePlaceRequest, opts ...grpc.CallOption) (*DeletePlaceResponse, error)
 
-// func (self *GrpcAccountStorageServer) CreateUser(context_ context.Context, request *management_service.CreateUserRequest) (*management_service.CreateUserResponse, error) {
-// 	error_string := "unknown error"
-// 	default_response := &management_service.CreateUserResponse{
-// 		Result: "",
-// 		Error:  &error_string,
-// 	}
+func (self *GrpcManagementServer) GetUsers(context_ context.Context, request *management_service.GetUsersRequest) (*management_service.GetUsersResponse, error) {
+	// error_string := "unknown error"
+	// default_response := &management_service.GetUsersResponse{
+	// 	Error: &error_string,
+	// }
 
-// 	an_error := return_error_if_header_user_email_not_match_target_email(context_, request.Email)
-// 	if an_error != nil {
-// 		*default_response.Error = (*an_error).Error()
-// 		return default_response, *an_error
-// 	}
+	response := self.FuckTheDatabaseClass.Get_all_user_data(request)
 
-// 	return default_response, nil
-// }
+	return &response, nil
+}
 
 // func interceptor(ctx_ context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
 // 	headers, ok := metadata.FromIncomingContext(ctx_)

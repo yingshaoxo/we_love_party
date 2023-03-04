@@ -8,9 +8,21 @@ service ManagementService {
     // this service will have an interceptor that will make sure only admin can do operations in here
     // the interceptor will call the account_auth_service.proto
 
+    rpc GetUsers(GetUsersRequest) returns (GetUsersResponse);
+
     rpc AddPlace(AddPlaceRequest) returns (AddPlaceResponse);
     rpc UpdatePlace(UpdatePlaceRequest) returns (UpdatePlaceResponse);
     rpc DeletePlace(DeletePlaceRequest) returns (DeletePlaceResponse);
+}
+
+message GetUsersRequest {
+    int32 page_size = 1;
+    int32 page_number = 2;
+}
+
+message GetUsersResponse {
+    optional string error = 1;
+    repeated UserModel user = 2;
 }
 
 message AddPlaceRequest {

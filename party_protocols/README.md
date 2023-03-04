@@ -83,13 +83,13 @@ only traefik listens 0.0.0.0's 443 port,
     python: 40056
 
 ### Management Service
-> chat_with_friends.weloveparty.domain.local
+> management.weloveparty.domain.local
 
 #### GRPC
     golang: 40057
 
 #### HTTP
-    react: 40058
+    flutter: 40058
 
 ## Generate GRPC Code (It's just for example, don't run it directly!)
 
@@ -199,7 +199,7 @@ brew link --overwrite protobuf@3
 
 yarn add ts-protoc-gen@next -D
 
-yarn add grpc-tools --ignore-scripts
+yarn add grpc-tools --ignore-scripts -D
 
 pushd node_modules/grpc-tools
 node_modules/.bin/node-pre-gyp install --target_arch=x64
