@@ -52,13 +52,12 @@ type GrpcManagementServer struct {
 // DeletePlace(ctx context.Context, in *DeletePlaceRequest, opts ...grpc.CallOption) (*DeletePlaceResponse, error)
 
 func (self *GrpcManagementServer) GetUsers(context_ context.Context, request *management_service.GetUsersRequest) (*management_service.GetUsersResponse, error) {
-	// error_string := "unknown error"
-	// default_response := &management_service.GetUsersResponse{
-	// 	Error: &error_string,
-	// }
-
 	response := self.FuckTheDatabaseClass.Get_all_user_data(request)
+	return &response, nil
+}
 
+func (self *GrpcManagementServer) AddPlace(context_ context.Context, request *management_service.AddPlaceRequest) (*management_service.AddPlaceResponse, error) {
+	response := self.FuckTheDatabaseClass.Add_place(request)
 	return &response, nil
 }
 

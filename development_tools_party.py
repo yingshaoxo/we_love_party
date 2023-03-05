@@ -71,6 +71,17 @@ class Tools():
     def build_python_protocols(self):
         pass
 
+    def build_python_user_auth_system_protocols(self):
+        python_user_auth_system_folder = disk.join_paths(self.project_root_folder, "python_user_auth_system")
+        the_generated_grpc_folder = disk.join_paths(python_user_auth_system_folder, "src/generated_grpc")
+
+        grpc.generate_python_code(
+            python="python3.10",
+            input_folder=self.protobuff_protocols_folder, 
+            input_files=["account_auth_service.proto"],
+            output_folder=the_generated_grpc_folder,
+        )
+
     def build_management_system_golang_backend_service_protocols(self):
         management_system_folder = disk.join_paths(self.project_root_folder, "management_system")
         golang_backend_service_folder = disk.join_paths(management_system_folder, "golang_backend_service")
@@ -78,11 +89,11 @@ class Tools():
 
         grpc.generate_golang_code(
             input_folder=self.protobuff_protocols_folder, 
-            input_files=["management_service.proto"],
+            input_files=["management_service.proto", "account_auth_service.proto"],
             output_folder=the_generated_grpc_folder,
         )
 
-    def build_management_system_flutter_web_client(self):
+    def build_management_system_flutter_web_client_protocols(self):
         management_system_folder = disk.join_paths(self.project_root_folder, "management_system")
         flutter_web_client_folder = disk.join_paths(management_system_folder, "flutter_web_client")
         input_folder: str = self.protobuff_protocols_folder
@@ -94,18 +105,9 @@ class Tools():
             input_files=input_files, 
             output_folder=output_folder)
     
-    # def build_management_system_react_web_client(self):
-    #     management_system_folder = disk.join_paths(self.project_root_folder, "management_system")
-    #     react_web_client_folder = disk.join_paths(management_system_folder, "react_web_client")
-    #     input_folder: str = self.protobuff_protocols_folder
-    #     input_files: list[str] = ["management_service.proto"]
-    #     output_folder: str = disk.join_paths(react_web_client_folder, "src/generated_grpc") 
-
-    #     grpc.generate_typescript_code(
-    #         input_folder=input_folder, 
-    #         input_files=input_files, 
-    #         project_root_folder=react_web_client_folder, 
-    #         output_folder=output_folder)
+    def build_management_system_protocols(self):
+        self.build_management_system_golang_backend_service_protocols()
+        self.build_management_system_flutter_web_client_protocols()
 
 
 py.make_it_global_runnable(executable_name="development_tools_party")

@@ -47,7 +47,9 @@ func main() {
 	store.Init()
 
 	// set database
-	fuckTheDatabaseClass := database.FuckTheDatabaseClass{}
+	fuckTheDatabaseClass := database.FuckTheDatabaseClass{
+		My_redis: database.Get_my_redis(),
+	}
 
 	// set up grpc
 	context_ = context.Background()

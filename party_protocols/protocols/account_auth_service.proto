@@ -62,7 +62,7 @@ message IsAdminRequest {
 
 message IsAdminResponse {
     optional string error = 1;
-    string yes = 2;
+    bool yes = 2;
 }
 
 message IsOnlineRequest {

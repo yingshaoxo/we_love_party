@@ -114,7 +114,12 @@ class MyAuthClass:
                 if one == value:
                     return True
             return False
-
+    
+    async def check_if_the_user_is_admin(self, email: str) -> bool:
+        if email not in config.ADMIN_EMAIL_LIST:
+            return False
+        else:
+            return True
 
     async def log_out_all_devices_by_email_from_verified_pool(self, email: str) -> None:
         key = f"{email}.{REDIS_JWT_ACTION_KEY}"

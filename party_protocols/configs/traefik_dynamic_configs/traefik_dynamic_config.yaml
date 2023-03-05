@@ -79,7 +79,7 @@ http:
         - websecure
       rule: "Host(`management.ai-tools-online.xyz`) || Host(`management.weloveparty.ai-tools-online.xyz`) || Host(`management.weloveparty.domain.local`)"
       middlewares:
-        # - my_jwt_auth
+        # - my_admin_jwt_auth
         - my_grpcweb
       service: management_service
 
@@ -91,7 +91,11 @@ http:
     my_jwt_auth:
         forwardAuth:
           address: "http://weloveparty_account_auth_service:40051/v1/jwt_auth_gateway/"
-          # address: "http://host.docker.internal:40051/v1/jwt_auth_gateway/"
+          authResponseHeaders:
+              - "user_email" # jwt_auth_gateway will put this header to the original request
+    my_admin_jwt_auth:
+        forwardAuth:
+          address: "http://weloveparty_account_auth_service:40051/v1/admin_jwt_auth_gateway/"
           authResponseHeaders:
               - "user_email" # jwt_auth_gateway will put this header to the original request
     my_grpcweb:

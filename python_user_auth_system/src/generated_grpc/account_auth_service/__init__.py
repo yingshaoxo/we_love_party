@@ -69,6 +69,17 @@ class IsJwtOkReply(betterproto.Message):
 
 
 @dataclass(eq=False, repr=False)
+class IsAdminRequest(betterproto.Message):
+    jwt: str = betterproto.string_field(1)
+
+
+@dataclass(eq=False, repr=False)
+class IsAdminResponse(betterproto.Message):
+    error: Optional[str] = betterproto.string_field(1, optional=True, group="_error")
+    yes: bool = betterproto.bool_field(2)
+
+
+@dataclass(eq=False, repr=False)
 class IsOnlineRequest(betterproto.Message):
     email: Optional[str] = betterproto.string_field(1, optional=True, group="_email")
 
@@ -77,6 +88,46 @@ class IsOnlineRequest(betterproto.Message):
 class IsOnlineResponse(betterproto.Message):
     error: Optional[str] = betterproto.string_field(1, optional=True, group="_error")
     online: bool = betterproto.bool_field(2)
+
+
+@dataclass(eq=False, repr=False)
+class UserModel(betterproto.Message):
+    email: str = betterproto.string_field(1)
+    username: Optional[str] = betterproto.string_field(
+        2, optional=True, group="_username"
+    )
+    head_image: Optional[str] = betterproto.string_field(
+        3, optional=True, group="_head_image"
+    )
+    sex: Optional[int] = betterproto.int32_field(4, optional=True, group="_sex")
+    age: Optional[int] = betterproto.int32_field(5, optional=True, group="_age")
+
+
+@dataclass(eq=False, repr=False)
+class LocationOfFreeMap(betterproto.Message):
+    location_id: Optional[int] = betterproto.int32_field(
+        1, optional=True, group="_location_id"
+    )
+    uploader_email: Optional[str] = betterproto.string_field(
+        2, optional=True, group="_uploader_email"
+    )
+    name: str = betterproto.string_field(3)
+    y_latitude: float = betterproto.double_field(4)
+    x_longitude: float = betterproto.double_field(5)
+    scores: float = betterproto.double_field(6)
+    open_all_day: bool = betterproto.bool_field(7)
+    has_charger: bool = betterproto.bool_field(8)
+    has_wifi: bool = betterproto.bool_field(9)
+    has_water: bool = betterproto.bool_field(10)
+    has_hot_water: bool = betterproto.bool_field(11)
+    has_desk: bool = betterproto.bool_field(12)
+    has_chair: bool = betterproto.bool_field(13)
+    has_toilet: bool = betterproto.bool_field(14)
+    has_showering: bool = betterproto.bool_field(15)
+    has_package_receiving_station: bool = betterproto.bool_field(16)
+    has_kfc: bool = betterproto.bool_field(17)
+    has_mcdonald: bool = betterproto.bool_field(18)
+    has_store: bool = betterproto.bool_field(19)
 
 
 class AccountAuthenticationServiceStub(betterproto.ServiceStub):
@@ -148,6 +199,23 @@ class AccountAuthenticationServiceStub(betterproto.ServiceStub):
             metadata=metadata,
         )
 
+    async def is_admin(
+        self,
+        is_admin_request: "IsAdminRequest",
+        *,
+        timeout: Optional[float] = None,
+        deadline: Optional["Deadline"] = None,
+        metadata: Optional["MetadataLike"] = None
+    ) -> "IsAdminResponse":
+        return await self._unary_unary(
+            "/account_auth_service.AccountAuthenticationService/IsAdmin",
+            is_admin_request,
+            IsAdminResponse,
+            timeout=timeout,
+            deadline=deadline,
+            metadata=metadata,
+        )
+
     async def is_online(
         self,
         is_online_request: "IsOnlineRequest",
@@ -181,6 +249,9 @@ class AccountAuthenticationServiceBase(ServiceBase):
         raise grpclib.GRPCError(grpclib.const.Status.UNIMPLEMENTED)
 
     async def is_jwt_ok(self, is_jwt_ok_request: "IsJwtOkRequest") -> "IsJwtOkReply":
+        raise grpclib.GRPCError(grpclib.const.Status.UNIMPLEMENTED)
+
+    async def is_admin(self, is_admin_request: "IsAdminRequest") -> "IsAdminResponse":
         raise grpclib.GRPCError(grpclib.const.Status.UNIMPLEMENTED)
 
     async def is_online(
@@ -217,6 +288,13 @@ class AccountAuthenticationServiceBase(ServiceBase):
         response = await self.is_jwt_ok(request)
         await stream.send_message(response)
 
+    async def __rpc_is_admin(
+        self, stream: "grpclib.server.Stream[IsAdminRequest, IsAdminResponse]"
+    ) -> None:
+        request = await stream.recv_message()
+        response = await self.is_admin(request)
+        await stream.send_message(response)
+
     async def __rpc_is_online(
         self, stream: "grpclib.server.Stream[IsOnlineRequest, IsOnlineResponse]"
     ) -> None:
@@ -249,6 +327,12 @@ class AccountAuthenticationServiceBase(ServiceBase):
                 grpclib.const.Cardinality.UNARY_UNARY,
                 IsJwtOkRequest,
                 IsJwtOkReply,
+            ),
+            "/account_auth_service.AccountAuthenticationService/IsAdmin": grpclib.const.Handler(
+                self.__rpc_is_admin,
+                grpclib.const.Cardinality.UNARY_UNARY,
+                IsAdminRequest,
+                IsAdminResponse,
             ),
             "/account_auth_service.AccountAuthenticationService/IsOnline": grpclib.const.Handler(
                 self.__rpc_is_online,

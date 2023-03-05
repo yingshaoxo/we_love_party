@@ -1,5 +1,7 @@
 import os
 import sys
+
+from python_user_auth_system.src.config import ADMIN_EMAIL_LIST
 cur_path=os.path.abspath(os.path.dirname(__file__))
 sys.path.insert(0, cur_path+"/..")
 
@@ -76,6 +78,33 @@ async def v1_jwt_auth_gateway(request: Request, response: Response):
     return "error"
 
 
+@ app.get("/v1/admin_jwt_auth_gateway/", response_model=str)
+async def v1_admin_jwt_auth_gateway(request: Request, response: Response):
+    print("headers: ", request.headers)
+    raw_jwt_string = request.headers.get("jwt", None)
+    if raw_jwt_string == None:
+        response.status_code = status.HTTP_401_UNAUTHORIZED
+    else:
+        # response.status_code = status.HTTP_202_ACCEPTED
+        # return "ok"
+        email = await my_auth_class.auth_jwt_string(raw_jwt_string=raw_jwt_string)
+        if (email is None):
+            print(f"error: invalid jwt: {raw_jwt_string}")
+            response.status_code = status.HTTP_401_UNAUTHORIZED
+        else:
+            if not my_auth_class.check_if_the_user_is_admin(email=email):
+                print(f"error: you are not admin according to: {raw_jwt_string}")
+                response.status_code = status.HTTP_401_UNAUTHORIZED
+            else:
+                #print(f"success: valid jwt from user: {user.email}")
+                response.headers.update({
+                    "user_email": email
+                })
+                response.status_code = status.HTTP_202_ACCEPTED
+                return "ok"
+    return "error"
+
+
 def start_grpc_service():
     print("\n\n" + "grpc service is running on: 127.0.0.1:40052" + "\n\n")
 
@@ -93,8 +122,8 @@ def start_restful_service():
     
     uvicorn.run(app=app, # type: ignore #"src.main:app", 
                 host="0.0.0.0",
-                port=port, 
-                debug=True) #reload=True, workers=8)
+                port=port) 
+                # debug=True) #reload=True, workers=8)
                 
 
 

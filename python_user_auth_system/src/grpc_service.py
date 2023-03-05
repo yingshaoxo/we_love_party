@@ -69,6 +69,17 @@ class AccountAuthenticationService(AccountAuthenticationServiceBase):
         
         return IsJwtOkReply(email=email, error=None)
 
+    async def is_admin(self, is_admin_request: IsAdminRequest) -> IsAdminResponse:
+        email = await self.my_authentication_class.auth_jwt_string(raw_jwt_string=is_admin_request.jwt)
+
+        if (email is None):
+            return IsAdminResponse(yes=True, error="Invalid JWT.")
+        
+        if not self.my_authentication_class.check_if_the_user_is_admin(email=email):
+            return IsAdminResponse(yes=False, error="You are not an admin.")
+        
+        return IsAdminResponse(yes=True, error=None)
+
     async def is_online(
         self, is_online_request: IsOnlineRequest
     ) -> IsOnlineResponse:
