@@ -7,4 +7,4 @@ class GrpcConfig {
       "http://management.weloveparty.domain.local:80";
 }
 
-bool in_dev_mode = false;
+bool in_dev_mode = true;

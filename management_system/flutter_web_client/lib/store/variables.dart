@@ -1,7 +1,8 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
+import 'package:flutter_web_client/store/controllers.dart';
 import 'package:get/get.dart';
-import 'package:localstorage/localstorage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../generated_grpc/management_service.pb.dart';
 import 'config.dart';
@@ -12,8 +13,7 @@ class LocalStorageKeys {
 }
 
 class VariableControllr extends GetxController {
-  final LocalStorage storage =
-      LocalStorage('flutter_management_user_interface');
+  SharedPreferences? preferences;
 
   String? jwt;
   String? user_email;
@@ -32,8 +32,13 @@ class VariableControllr extends GetxController {
   Rx<bool> online = RxBool(true);
 
   Future<void> initilize_function() async {
-    jwt = storage.getItem(LocalStorageKeys.jwt);
-    user_email = storage.getItem(LocalStorageKeys.user_email);
+    final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    preferences = await _prefs;
+
+    jwt = preferences?.getString(LocalStorageKeys.jwt);
+    user_email = preferences?.getString(LocalStorageKeys.user_email);
+
+    management_page_controller.initilize_function();
 
     if (in_dev_mode) {
       jwt =
@@ -45,14 +50,14 @@ class VariableControllr extends GetxController {
   Future<void> save_jwt(String? jwt) async {
     if (jwt != null && jwt != "") {
       this.jwt = jwt;
-      await storage.setItem(LocalStorageKeys.jwt, jwt);
+      await preferences?.setString(LocalStorageKeys.jwt, jwt);
     }
   }
 
   Future<void> save_user_email(String? user_email) async {
     if (user_email != null && user_email != "") {
       this.user_email = user_email;
-      await storage.setItem(LocalStorageKeys.user_email, user_email);
+      await preferences?.setString(LocalStorageKeys.user_email, user_email);
     }
   }
 }

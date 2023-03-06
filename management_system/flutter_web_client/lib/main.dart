@@ -32,6 +32,17 @@ void main() {
       getPages: [
         GetPage(name: RoutesMap.test, page: () => const TestPage()),
       ],
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        inputDecorationTheme: const InputDecorationTheme(
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(width: 1, color: Colors.greenAccent),
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(width: 1, color: Colors.amberAccent),
+          ),
+        ),
+      ),
     ));
   }();
 }
