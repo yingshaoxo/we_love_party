@@ -1,4 +1,4 @@
-# docker build --tag yingshaoxo/weloveparty_golang_user_storage_system .
+# docker build --tag yingshaoxo/weloveparty_golang_user_storage_system . --no-cache
 
 FROM golang:1.18-bullseye as go_builder 
 COPY ./ /work_space/server

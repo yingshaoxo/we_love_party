@@ -1,4 +1,4 @@
-# docker build --tag yingshaoxo/weloveparty_free_map_backend_service .
+# docker build --tag yingshaoxo/weloveparty_free_map_backend_service . --no-cache
 
 
 

@@ -1,4 +1,4 @@
-# docker build --tag yingshaoxo/management_system/golang_backend_service --platform=linux/amd64 .
+# docker build --tag yingshaoxo/management_system/golang_backend_service --platform=linux/amd64 . --no-cache
 
 #FROM golang:1.18-bullseye as go_builder 
 FROM amd64/golang:1.18 as go_builder 

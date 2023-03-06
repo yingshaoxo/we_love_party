@@ -5,7 +5,7 @@ services:
     image: "traefik:v3.0.0-beta2" #"traefik:v2.9.6"
     container_name: "traefik"
     command:
-      # - "--accesslog=true"
+      - "--accesslog=true"
       # - "--accessLog.filePath=/tmp/traefik_log.txt"
       - "--log.level=DEBUG"
       - "--api.insecure=true"

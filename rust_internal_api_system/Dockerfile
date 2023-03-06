@@ -1,4 +1,4 @@
-# docker build --tag yingshaoxo/weloveparty_internal_api_service .
+# docker build --tag yingshaoxo/weloveparty_internal_api_service . --no-cache
 
 
 

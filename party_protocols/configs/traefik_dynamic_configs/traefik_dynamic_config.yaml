@@ -18,8 +18,8 @@ http:
         - web
         - websecure
       rule: "Host(`auth.ai-tools-online.xyz`) || Host(`auth.weloveparty.ai-tools-online.xyz`) || Host(`auth.weloveparty.domain.local`)"
-      middlewares:
-        - test-grpcweb
+      # middlewares:
+      #   - test-grpcweb
       service: weloveparty_account_auth_service
     # grpc_internal_api_router:
     #   entryPoints:

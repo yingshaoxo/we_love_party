@@ -1,4 +1,4 @@
-# docker build --tag yingshaoxo/weloveparty_chat_with_friends_service .
+# docker build --tag yingshaoxo/weloveparty_chat_with_friends_service . --no-cache
 
 
 

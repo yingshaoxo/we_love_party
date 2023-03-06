@@ -1,4 +1,4 @@
-# docker build --tag yingshaoxo/weloveparty_room_control_service .
+# docker build --tag yingshaoxo/weloveparty_room_control_service . --no-cache
 
 
 

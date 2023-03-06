@@ -1,4 +1,4 @@
-# docker build --tag yingshaoxo/weloveparty_account_auth_service .
+# docker build --tag yingshaoxo/weloveparty_account_auth_service . --no-cache
 
 
 
