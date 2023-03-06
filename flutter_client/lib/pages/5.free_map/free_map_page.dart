@@ -322,13 +322,27 @@ class _TheMapState extends State<TheMap> {
                   height: 50,
                   child: SmoothCompass(
                     rotationSpeed: 200,
-                    height: 300,
-                    width: 300,
+                    height: 270,
+                    width: 270,
                     compassBuilder: (context,
                         AsyncSnapshot<CompassModel>? compassData,
                         Widget child) {
-                      print(compassData);
-                      return child;
+                      // print(compassData);
+                      // return child;
+                      return AnimatedRotation(
+                        turns: compassData!.data!.turns * -1,
+                        duration: Duration(milliseconds: 200),
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(32.0),
+                            child: Container(
+                              color: Colors.white,
+                              child: Icon(
+                                Icons.arrow_upward,
+                                size: 30,
+                                color: Colors.green,
+                              ),
+                            )),
+                      );
                     },
                   )),
               Positioned(
@@ -336,7 +350,7 @@ class _TheMapState extends State<TheMap> {
                   bottom: 40.0,
                   width: 45,
                   height: 45,
-                  child: GestureDetector(
+                  child: InkWell(
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(14.0),
                       child: Container(
