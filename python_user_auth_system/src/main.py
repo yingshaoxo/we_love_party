@@ -1,7 +1,6 @@
 import os
 import sys
 
-from python_user_auth_system.src.config import ADMIN_EMAIL_LIST
 cur_path=os.path.abspath(os.path.dirname(__file__))
 sys.path.insert(0, cur_path+"/..")
 
@@ -27,6 +26,7 @@ from src.utils import MyO365
 from src.auth import MyAuthClass
 from src.database.sqlite import MyDatabase
 from src.database.redis import MyRedis
+from src.config import ADMIN_EMAIL_LIST
 
 
 redis_network_name = os.getenv("redis_network_name")
