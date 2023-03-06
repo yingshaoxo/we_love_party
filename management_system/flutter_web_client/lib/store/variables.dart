@@ -24,26 +24,19 @@ class VariableControllr extends GetxController {
     jwt = preferences?.getString(LocalStorageKeys.jwt);
 
     management_page_controller.initilize_function();
-
-    if (in_dev_mode) {
-      jwt =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlpbmdzaGFveG9AZ21haWwuY29tIiwicmFuZG9tX3N0cmluZyI6IjU1ODQ0OCJ9.kcVthYPI_IL6aD7Mx9KdDCFsAEXvgsxTtAM_dYs5Qko";
-    }
   }
 
-  Future<bool> check_if_jwt_is_valid(String the_jwt) async {
+  Future<bool> check_if_jwt_is_belong_to_admin(String the_jwt) async {
     var old_jwt = jwt;
 
     jwt = the_jwt;
-
     var response = await management_grpc_controller
         .get_users(GetUsersRequest(pageNumber: 0, pageSize: 3));
+    jwt = old_jwt;
 
     if (response.error != null && response.error.isNotEmpty) {
-      jwt = old_jwt;
       return false;
     } else {
-      jwt = old_jwt;
       return true;
     }
   }

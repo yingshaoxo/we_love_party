@@ -10,5 +10,3 @@ class GrpcConfig {
   static const management_service_web_url =
       "https://management.ai-tools-online.xyz";
 }
-
-bool in_dev_mode = false;

@@ -55,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
               onPressed: () async {
                 var input_value = jwt_code_editing_controller.text;
                 if (await variable_controller
-                        .check_if_jwt_is_valid(input_value) ==
+                        .check_if_jwt_is_belong_to_admin(input_value) ==
                     true) {
                   variable_controller.jwt = input_value;
                   await variable_controller.save_jwt(input_value);

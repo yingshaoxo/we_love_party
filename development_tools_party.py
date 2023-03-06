@@ -97,7 +97,7 @@ class Tools():
         management_system_folder = disk.join_paths(self.project_root_folder, "management_system")
         flutter_web_client_folder = disk.join_paths(management_system_folder, "flutter_web_client")
         input_folder: str = self.protobuff_protocols_folder
-        input_files: list[str] = ["management_service.proto"]
+        input_files: list[str] = ["management_service.proto", "account_auth_service.proto"]
         output_folder: str = disk.join_paths(flutter_web_client_folder, "lib/generated_grpc") 
 
         grpc.generate_dart_code(

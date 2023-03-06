@@ -85,8 +85,8 @@ http:
         - websecure
       rule: "Host(`management.ai-tools-online.xyz`) || Host(`management.weloveparty.ai-tools-online.xyz`) || Host(`management.weloveparty.domain.local`)"
       middlewares:
-        - my_admin_jwt_auth
         - my_grpcweb
+        - my_admin_jwt_auth
       service: management_service
 
   middlewares:
