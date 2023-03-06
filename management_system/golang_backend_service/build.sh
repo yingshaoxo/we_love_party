@@ -3,7 +3,7 @@
 #sudo apt install golang -y
 #go get ./... && go mod tidy
 
-name="golang_user_storage_system"
+name="golang_management_backend_service"
 
 go install github.com/mitchellh/gox@latest
 export PATH=~/go/bin:$PATH

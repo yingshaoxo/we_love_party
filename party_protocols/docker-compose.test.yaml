@@ -1,43 +1,64 @@
 version: "3.9"
 
 services:
-  traefik:
-    image: "traefik:v3.0.0-beta2" #"traefik:v2.9.6"
-    container_name: "traefik"
-    command:
-      - "--accesslog=true"
-      # - "--accessLog.filePath=/tmp/traefik_log.txt"
-      - "--log.level=DEBUG"
-      - "--api.insecure=true"
-      - "--providers.file.directory=/traefik_dynamic_configs"
-      - "--providers.file.watch=true"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.web.address=:80"
-      - "--entrypoints.websecure.address=:443"
-    ports:
-      - "80:80"
-      # - "443:443"
-      #- "8081:8080"
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-      - "./configs/traefik_dynamic_configs:/traefik_dynamic_configs" # <== Volume for dynamic conf file
-    restart: unless-stopped
-  db:
-    image: postgres:15
-    restart: always
-    environment:
-      - POSTGRES_USER=yingshaoxo
-      - POSTGRES_PASSWORD=yingshaoxo
-    # expose:
-    #   - "5432:5432"
-    ports:
-      - '5432:5432'
-    volumes: 
-      - ./configs/postgre_sql_db:/var/lib/postgresql/data
-  # redis: 
-  #   image: redis:7.0
-  #   command: bash -c "redis-server --save 60 1" # save for every 1 minute if at least one operation has been made
+    music_town:
+        image: yingshaoxo/music_town
+        container_name: music_town
+        ports:
+            - 2016:2016
+        volumes:
+            - ~/.music_town/music:/usr/src/music_town/static/music
+            - ~/.music_town/userdata:/usr/src/music_town/userdata
+        restart: unless-stopped
+  # traefik:
+  #   image: "traefik:v3.0.0-beta2" #"traefik:v2.9.6"
+  #   container_name: "traefik"
+  #   command:
+  #     - "--accesslog=true"
+  #     # - "--accessLog.filePath=/tmp/traefik_log.txt"
+  #     - "--log.level=DEBUG"
+  #     - "--api.insecure=true"
+  #     - "--providers.file.directory=/traefik_dynamic_configs"
+  #     - "--providers.file.watch=true"
+  #     - "--providers.docker=true"
+  #     - "--providers.docker.exposedbydefault=false"
+  #     - "--entrypoints.web.address=:80"
+  #     - "--entrypoints.websecure.address=:443"
+  #   ports:
+  #     - "80:80"
+  #     # - "443:443"
+  #     #- "8081:8080"
+  #   volumes:
+  #     - "/var/run/docker.sock:/var/run/docker.sock:ro"
+  #     - "./configs/traefik_dynamic_configs:/traefik_dynamic_configs" # <== Volume for dynamic conf file
+  #   restart: unless-stopped
+  # db:
+  #   image: postgres:15
+  #   restart: always
+  #   environment:
+  #     - POSTGRES_USER=yingshaoxo
+  #     - POSTGRES_PASSWORD=yingshaoxo
+  #   # expose:
+  #   #   - "5432:5432"
+  #   ports:
+  #     - '5432:5432'
+  #   volumes: 
+  #     - ./configs/postgre_sql_db:/var/lib/postgresql/data
+  # # redis: 
+  # #   image: redis:7.0
+  # #   command: bash -c "redis-server --save 60 1" # save for every 1 minute if at least one operation has been made
+  # #   # expose:
+  # #   #   - "6379:6379"
+  # #   ports:
+  # #     - '6379:6379'
+  # #   volumes:
+  # #     - "./configs/redis_data:/data"
+  # #   restart: unless-stopped
+  # dragonfly: # the new redis
+  #   image: docker.dragonflydb.io/dragonflydb/dragonfly:v0.12.0
+  #   command:
+  #     - "--save_schedule=*:05" # save for every 1 minute
+  #     - "--dbfilename=/data/dump.rdb"
   #   # expose:
   #   #   - "6379:6379"
   #   ports:
@@ -45,15 +66,3 @@ services:
   #   volumes:
   #     - "./configs/redis_data:/data"
   #   restart: unless-stopped
-  dragonfly: # the new redis
-    image: docker.dragonflydb.io/dragonflydb/dragonfly:v0.12.0
-    command:
-      - "--save_schedule=*:05" # save for every 1 minute
-      - "--dbfilename=/data/dump.rdb"
-    # expose:
-    #   - "6379:6379"
-    ports:
-      - '6379:6379'
-    volumes:
-      - "./configs/redis_data:/data"
-    restart: unless-stopped

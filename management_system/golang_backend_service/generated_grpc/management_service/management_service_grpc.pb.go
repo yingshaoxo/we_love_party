@@ -23,6 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ManagementServiceClient interface {
 	GetUsers(ctx context.Context, in *GetUsersRequest, opts ...grpc.CallOption) (*GetUsersResponse, error)
+	SearchPlaces(ctx context.Context, in *SearchPlacesRequest, opts ...grpc.CallOption) (*SearchPlacesResponse, error)
 	AddPlace(ctx context.Context, in *AddPlaceRequest, opts ...grpc.CallOption) (*AddPlaceResponse, error)
 	UpdatePlace(ctx context.Context, in *UpdatePlaceRequest, opts ...grpc.CallOption) (*UpdatePlaceResponse, error)
 	DeletePlace(ctx context.Context, in *DeletePlaceRequest, opts ...grpc.CallOption) (*DeletePlaceResponse, error)
@@ -39,6 +40,15 @@ func NewManagementServiceClient(cc grpc.ClientConnInterface) ManagementServiceCl
 func (c *managementServiceClient) GetUsers(ctx context.Context, in *GetUsersRequest, opts ...grpc.CallOption) (*GetUsersResponse, error) {
 	out := new(GetUsersResponse)
 	err := c.cc.Invoke(ctx, "/management_service.ManagementService/GetUsers", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *managementServiceClient) SearchPlaces(ctx context.Context, in *SearchPlacesRequest, opts ...grpc.CallOption) (*SearchPlacesResponse, error) {
+	out := new(SearchPlacesResponse)
+	err := c.cc.Invoke(ctx, "/management_service.ManagementService/SearchPlaces", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -77,6 +87,7 @@ func (c *managementServiceClient) DeletePlace(ctx context.Context, in *DeletePla
 // for forward compatibility
 type ManagementServiceServer interface {
 	GetUsers(context.Context, *GetUsersRequest) (*GetUsersResponse, error)
+	SearchPlaces(context.Context, *SearchPlacesRequest) (*SearchPlacesResponse, error)
 	AddPlace(context.Context, *AddPlaceRequest) (*AddPlaceResponse, error)
 	UpdatePlace(context.Context, *UpdatePlaceRequest) (*UpdatePlaceResponse, error)
 	DeletePlace(context.Context, *DeletePlaceRequest) (*DeletePlaceResponse, error)
@@ -89,6 +100,9 @@ type UnimplementedManagementServiceServer struct {
 
 func (UnimplementedManagementServiceServer) GetUsers(context.Context, *GetUsersRequest) (*GetUsersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUsers not implemented")
+}
+func (UnimplementedManagementServiceServer) SearchPlaces(context.Context, *SearchPlacesRequest) (*SearchPlacesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SearchPlaces not implemented")
 }
 func (UnimplementedManagementServiceServer) AddPlace(context.Context, *AddPlaceRequest) (*AddPlaceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddPlace not implemented")
@@ -126,6 +140,24 @@ func _ManagementService_GetUsers_Handler(srv interface{}, ctx context.Context, d
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ManagementServiceServer).GetUsers(ctx, req.(*GetUsersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ManagementService_SearchPlaces_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SearchPlacesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ManagementServiceServer).SearchPlaces(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/management_service.ManagementService/SearchPlaces",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ManagementServiceServer).SearchPlaces(ctx, req.(*SearchPlacesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -194,6 +226,10 @@ var ManagementService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetUsers",
 			Handler:    _ManagementService_GetUsers_Handler,
+		},
+		{
+			MethodName: "SearchPlaces",
+			Handler:    _ManagementService_SearchPlaces_Handler,
 		},
 		{
 			MethodName: "AddPlace",

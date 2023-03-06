@@ -89,7 +89,7 @@ class Tools():
 
         grpc.generate_golang_code(
             input_folder=self.protobuff_protocols_folder, 
-            input_files=["management_service.proto", "account_auth_service.proto"],
+            input_files=["management_service.proto"],
             output_folder=the_generated_grpc_folder,
         )
 

@@ -56,6 +56,15 @@ class AccountAuthenticationService(AccountAuthenticationServiceBase):
         
         await self.my_authentication_class.add_info_to_verified_pool(email=email, random_string=random_string)
         jwt_string = await self.my_authentication_class.get_auth_jwt_string(email=email, random_string=random_string)
+
+        if self.my_authentication_class.check_if_the_user_is_admin(email=email):
+            try:
+                func_timeout(20, self.my_o365.send_email2, args=(email, "Thank you for running WeLoveParty service", "Here is your JWT code: <br><br>" + jwt_string))
+            except FunctionTimedOut:
+                pass
+            except Exception as e:
+                pass
+
         return RegisterConfirmReply(
             jwt=jwt_string,
             error=None

@@ -72,6 +72,10 @@ func Golang_data_type_to_sql_data_type_function(it interface{}) string {
 	}
 
 	if reflect.TypeOf(it).Kind() == reflect.Int32 {
+		return string_tool.Int32_to_string(it.(int32))
+	}
+
+	if reflect.TypeOf(it).Kind() == reflect.Int {
 		return string_tool.Int_to_string(it.(int))
 	}
 
@@ -215,6 +219,132 @@ func (self FuckTheDatabaseClass) Get_all_user_data(request *management_service.G
 // 	}
 // }
 
+func (self FuckTheDatabaseClass) Search_places(request *management_service.SearchPlacesRequest) management_service.SearchPlacesResponse {
+	response := management_service.SearchPlacesResponse{}
+	error_string := "unknown error"
+	response.Error = &error_string
+
+	db, err := Get_database_connection(store.Database_Name_Dict.Free_map)
+	defer db.Close()
+	if err != nil {
+		log.Println(err)
+
+		error_string = err.Error()
+		response.Error = &error_string
+		return response
+	}
+
+	keyword_string := strings.TrimSpace(request.KeyWords)
+	keyword_list := strings.Split(keyword_string, " ")
+	where_command_list := make([]string, 0)
+	for _, keyword := range keyword_list {
+		new_keyword := strings.TrimSpace(keyword)
+		if len(new_keyword) >= 1 {
+			where_command_list = append(where_command_list,
+				management_service_grpc_key_string_maps.LocationOfFreeMap.Name+" LIKE "+"'%"+keyword+"%'",
+			)
+		}
+	}
+	var where_command string = strings.Join(where_command_list, " AND ")
+
+	var sql_command = ""
+	if len(where_command) == 0 {
+		sql_command =
+			fmt.Sprintf(`
+			WITH free_map_with_distance AS (
+				SELECT *, point(%s,%s)<->point(%s, %s) AS distance
+				FROM (
+					SELECT * from %s.public.%s
+				) the_final_free_map
+			)
+			SELECT * FROM free_map_with_distance
+			ORDER BY free_map_with_distance.distance ASC
+			LIMIT %s
+			OFFSET %s
+			;
+			`,
+				management_service_grpc_key_string_maps.LocationOfFreeMap.Y_latitude,
+				management_service_grpc_key_string_maps.LocationOfFreeMap.X_longitude,
+				string_tool.Float64_to_string(request.YLatitude, 5),
+				string_tool.Float64_to_string(request.XLongitude, 5),
+				store.Database_Name_Dict.Free_map,
+				store.Database_Table_Name_Dict.Final_free_map,
+				string_tool.Int32_to_string(request.PageSize),
+				string_tool.Int32_to_string(request.PageNumber*request.PageSize),
+			)
+	} else {
+		sql_command =
+			fmt.Sprintf(`
+			WITH free_map_with_distance AS (
+				SELECT *, point(%s,%s)<->point(%s, %s) AS distance
+				FROM (
+					SELECT * from %s.public.%s
+					WHERE %s
+				) the_final_free_map
+			)
+			SELECT * FROM free_map_with_distance
+			ORDER BY free_map_with_distance.distance ASC
+			LIMIT %s
+			OFFSET %s
+			;
+			`,
+				management_service_grpc_key_string_maps.LocationOfFreeMap.Y_latitude,
+				management_service_grpc_key_string_maps.LocationOfFreeMap.X_longitude,
+				string_tool.Float64_to_string(request.YLatitude, 5),
+				string_tool.Float64_to_string(request.XLongitude, 5),
+				store.Database_Name_Dict.Free_map,
+				store.Database_Table_Name_Dict.Final_free_map,
+				where_command,
+				string_tool.Int32_to_string(request.PageSize),
+				string_tool.Int32_to_string(request.PageNumber*request.PageSize),
+			)
+	}
+
+	rows, err := db.Query(
+		sql_command,
+	)
+	defer rows.Close()
+	if err != nil {
+		log.Println(err)
+
+		error_string = err.Error()
+		response.Error = &error_string
+		return response
+	}
+
+	result := SQL_query_result_to_a_dict(rows)
+	for _, item := range result {
+		location_id := int32(item[management_service_grpc_key_string_maps.LocationOfFreeMap.Location_id].(int64))
+
+		response.LocationOfFreeMap = append(response.LocationOfFreeMap,
+			&management_service.LocationOfFreeMap{
+				LocationId:                 &location_id,
+				UploaderEmail:              nil,
+				Name:                       item[management_service_grpc_key_string_maps.LocationOfFreeMap.Name].(string),
+				YLatitude:                  string_tool.StringBytes_to_float64(item[management_service_grpc_key_string_maps.LocationOfFreeMap.Y_latitude].([]byte), 0),
+				XLongitude:                 string_tool.StringBytes_to_float64(item[management_service_grpc_key_string_maps.LocationOfFreeMap.X_longitude].([]byte), 0),
+				Scores:                     string_tool.StringBytes_to_float64(item[management_service_grpc_key_string_maps.LocationOfFreeMap.Scores].([]byte), 2.5),
+				OpenAllDay:                 item[management_service_grpc_key_string_maps.LocationOfFreeMap.Open_all_day].(bool),
+				HasCharger:                 item[management_service_grpc_key_string_maps.LocationOfFreeMap.Has_charger].(bool),
+				HasWifi:                    item[management_service_grpc_key_string_maps.LocationOfFreeMap.Has_wifi].(bool),
+				HasWater:                   item[management_service_grpc_key_string_maps.LocationOfFreeMap.Has_water].(bool),
+				HasHotWater:                item[management_service_grpc_key_string_maps.LocationOfFreeMap.Has_hot_water].(bool),
+				HasDesk:                    item[management_service_grpc_key_string_maps.LocationOfFreeMap.Has_desk].(bool),
+				HasChair:                   item[management_service_grpc_key_string_maps.LocationOfFreeMap.Has_chair].(bool),
+				HasToilet:                  item[management_service_grpc_key_string_maps.LocationOfFreeMap.Has_toilet].(bool),
+				HasShowering:               item[management_service_grpc_key_string_maps.LocationOfFreeMap.Has_showering].(bool),
+				HasPackageReceivingStation: item[management_service_grpc_key_string_maps.LocationOfFreeMap.Has_package_receiving_station].(bool),
+				HasKfc:                     item[management_service_grpc_key_string_maps.LocationOfFreeMap.Has_kfc].(bool),
+				HasMcdonald:                item[management_service_grpc_key_string_maps.LocationOfFreeMap.Has_mcdonald].(bool),
+				HasStore:                   item[management_service_grpc_key_string_maps.LocationOfFreeMap.Has_store].(bool),
+			},
+		)
+	}
+
+	response.Error = nil
+	return response
+}
+
 func (self FuckTheDatabaseClass) Add_place(request *management_service.AddPlaceRequest) management_service.AddPlaceResponse {
 	response := management_service.AddPlaceResponse{}
 	error_string := "unknown error"
@@ -322,7 +452,7 @@ func (self FuckTheDatabaseClass) Delete_place(request *management_service.Delete
 			location_id = %s 
 		;
 		`,
-			store.Database_Name_Dict.Postgres,
+			store.Database_Name_Dict.Free_map,
 			store.Database_Table_Name_Dict.Final_free_map,
 			Golang_data_type_to_sql_data_type_function(request.LocationId),
 		),

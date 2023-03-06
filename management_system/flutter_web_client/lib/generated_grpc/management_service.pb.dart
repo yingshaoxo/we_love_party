@@ -125,6 +125,164 @@ class GetUsersResponse extends $pb.GeneratedMessage {
   $core.List<UserModel> get user => $_getList(1);
 }
 
+class SearchPlacesRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SearchPlacesRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'management_service'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'keyWords')
+    ..a<$core.double>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'yLatitude', $pb.PbFieldType.OD)
+    ..a<$core.double>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'xLongitude', $pb.PbFieldType.OD)
+    ..a<$core.int>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pageSize', $pb.PbFieldType.O3)
+    ..a<$core.int>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pageNumber', $pb.PbFieldType.O3)
+    ..hasRequiredFields = false
+  ;
+
+  SearchPlacesRequest._() : super();
+  factory SearchPlacesRequest({
+    $core.String? keyWords,
+    $core.double? yLatitude,
+    $core.double? xLongitude,
+    $core.int? pageSize,
+    $core.int? pageNumber,
+  }) {
+    final _result = create();
+    if (keyWords != null) {
+      _result.keyWords = keyWords;
+    }
+    if (yLatitude != null) {
+      _result.yLatitude = yLatitude;
+    }
+    if (xLongitude != null) {
+      _result.xLongitude = xLongitude;
+    }
+    if (pageSize != null) {
+      _result.pageSize = pageSize;
+    }
+    if (pageNumber != null) {
+      _result.pageNumber = pageNumber;
+    }
+    return _result;
+  }
+  factory SearchPlacesRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory SearchPlacesRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  SearchPlacesRequest clone() => SearchPlacesRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  SearchPlacesRequest copyWith(void Function(SearchPlacesRequest) updates) => super.copyWith((message) => updates(message as SearchPlacesRequest)) as SearchPlacesRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static SearchPlacesRequest create() => SearchPlacesRequest._();
+  SearchPlacesRequest createEmptyInstance() => create();
+  static $pb.PbList<SearchPlacesRequest> createRepeated() => $pb.PbList<SearchPlacesRequest>();
+  @$core.pragma('dart2js:noInline')
+  static SearchPlacesRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SearchPlacesRequest>(create);
+  static SearchPlacesRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get keyWords => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set keyWords($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasKeyWords() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearKeyWords() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.double get yLatitude => $_getN(1);
+  @$pb.TagNumber(2)
+  set yLatitude($core.double v) { $_setDouble(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasYLatitude() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearYLatitude() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.double get xLongitude => $_getN(2);
+  @$pb.TagNumber(3)
+  set xLongitude($core.double v) { $_setDouble(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasXLongitude() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearXLongitude() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.int get pageSize => $_getIZ(3);
+  @$pb.TagNumber(4)
+  set pageSize($core.int v) { $_setSignedInt32(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasPageSize() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearPageSize() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.int get pageNumber => $_getIZ(4);
+  @$pb.TagNumber(5)
+  set pageNumber($core.int v) { $_setSignedInt32(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasPageNumber() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearPageNumber() => clearField(5);
+}
+
+class SearchPlacesResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SearchPlacesResponse', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'management_service'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'error')
+    ..pc<LocationOfFreeMap>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'locationOfFreeMap', $pb.PbFieldType.PM, subBuilder: LocationOfFreeMap.create)
+    ..hasRequiredFields = false
+  ;
+
+  SearchPlacesResponse._() : super();
+  factory SearchPlacesResponse({
+    $core.String? error,
+    $core.Iterable<LocationOfFreeMap>? locationOfFreeMap,
+  }) {
+    final _result = create();
+    if (error != null) {
+      _result.error = error;
+    }
+    if (locationOfFreeMap != null) {
+      _result.locationOfFreeMap.addAll(locationOfFreeMap);
+    }
+    return _result;
+  }
+  factory SearchPlacesResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory SearchPlacesResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  SearchPlacesResponse clone() => SearchPlacesResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  SearchPlacesResponse copyWith(void Function(SearchPlacesResponse) updates) => super.copyWith((message) => updates(message as SearchPlacesResponse)) as SearchPlacesResponse; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static SearchPlacesResponse create() => SearchPlacesResponse._();
+  SearchPlacesResponse createEmptyInstance() => create();
+  static $pb.PbList<SearchPlacesResponse> createRepeated() => $pb.PbList<SearchPlacesResponse>();
+  @$core.pragma('dart2js:noInline')
+  static SearchPlacesResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SearchPlacesResponse>(create);
+  static SearchPlacesResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get error => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set error($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasError() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearError() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.List<LocationOfFreeMap> get locationOfFreeMap => $_getList(1);
+}
+
 class AddPlaceRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'AddPlaceRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'management_service'), createEmptyInstance: create)
     ..aOM<LocationOfFreeMap>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'locationOfFreeMap', subBuilder: LocationOfFreeMap.create)

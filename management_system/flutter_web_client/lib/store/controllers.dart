@@ -1,4 +1,4 @@
-import 'package:flutter_web_client/store/page_view_controllers/management_page_controller.dart';
+import 'package:flutter_web_client/store/page_view_controllers/location_management_page_controller.dart';
 import 'package:get/get.dart';
 import 'grpc_controllers.dart';
 import 'variables.dart';

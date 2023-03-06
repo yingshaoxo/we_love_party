@@ -163,3 +163,25 @@ services:
     volumes:
       - ./configs/livekit.yaml:/etc/livekit.yaml
     restart: unless-stopped
+
+  management_service:
+    build: 
+      context: ../management_system/golang_backend_service
+      dockerfile: ./Dockerfile
+    image: yingshaoxo/management_system/golang_backend_service
+    expose:
+      - "40057"
+    # ports:
+    #   - "40057:40057"
+    # volumes:
+    #   - type: bind
+    #     source: ./configs/python_chat_with_friends_system/config.py
+    #     target: /code/src/config.py
+    environment: 
+      - postgres_sql_host=db
+      - postgres_sql_user=yingshaoxo
+      - postgres_sql_password=yingshaoxo
+      - redis_host=redis
+      - redis_port=6379
+      - redis_db_number=1
+    restart: unless-stopped

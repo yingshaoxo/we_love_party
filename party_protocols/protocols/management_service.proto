@@ -12,6 +12,7 @@ service ManagementService {
 
     rpc GetUsers(GetUsersRequest) returns (GetUsersResponse);
 
+    rpc SearchPlaces(SearchPlacesRequest) returns (SearchPlacesResponse);
     rpc AddPlace(AddPlaceRequest) returns (AddPlaceResponse);
     rpc UpdatePlace(UpdatePlaceRequest) returns (UpdatePlaceResponse);
     rpc DeletePlace(DeletePlaceRequest) returns (DeletePlaceResponse);
@@ -34,6 +35,19 @@ message GetUsersRequest {
 message GetUsersResponse {
     optional string error = 1;
     repeated UserModel user = 2;
+}
+
+message SearchPlacesRequest {
+    string key_words = 1;
+    double y_latitude = 2;
+    double x_longitude = 3;
+    int32 page_size = 4;
+    int32 page_number = 5;
+}
+
+message SearchPlacesResponse {
+    optional string error = 1;
+    repeated LocationOfFreeMap location_of_free_map = 2;
 }
 
 message AddPlaceRequest {

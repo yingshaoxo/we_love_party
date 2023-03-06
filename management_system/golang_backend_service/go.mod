@@ -8,7 +8,7 @@ require (
 	github.com/iancoleman/strcase v0.2.0 // indirect
 	github.com/lib/pq v1.10.7
 	github.com/redis/go-redis/v9 v9.0.2 // indirect
-	github.com/yingshaoxo/gopython v0.0.0-20230305050419-6d9dcbd68108
+	github.com/yingshaoxo/gopython v0.0.0-20230306073831-7f1eec85ebd5
 	google.golang.org/grpc v1.53.0
 	google.golang.org/protobuf v1.28.2-0.20230222093303-bc1253ad3743
 )

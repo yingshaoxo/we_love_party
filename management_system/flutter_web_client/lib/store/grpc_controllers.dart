@@ -44,6 +44,26 @@ class ManagementGRPCControllr extends GetxController {
     }
   }
 
+  Future<SearchPlacesResponse> search_places(
+      SearchPlacesRequest searchPlacesRequest) async {
+    SearchPlacesResponse default_response = SearchPlacesResponse();
+    default_response.error = "";
+
+    try {
+      final client = get_client();
+      final response = await client.searchPlaces(searchPlacesRequest,
+          options: get_JWT_CallOptions_for_GRPC());
+      print(response.error);
+      return response;
+    } catch (e) {
+      print(e);
+      default_response.error = e.toString();
+      return default_response;
+    } finally {
+      await channel.shutdown();
+    }
+  }
+
   Future<AddPlaceResponse> add_place(AddPlaceRequest addPlaceRequest) async {
     AddPlaceResponse default_response = AddPlaceResponse();
     default_response.error = "";

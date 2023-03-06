@@ -73,13 +73,19 @@ http:
       middlewares:
         - my_jwt_auth
       service: weloveparty_chat_with_friends_service
+    management_ui_service_router:
+      entryPoints:
+        - web
+        - websecure
+      rule: "Host(`management_ui.ai-tools-online.xyz`) || Host(`management_ui.weloveparty.ai-tools-online.xyz`) || Host(`management_ui.weloveparty.domain.local`)"
+      service: management_ui_service
     management_service_router:
       entryPoints:
         - web
         - websecure
       rule: "Host(`management.ai-tools-online.xyz`) || Host(`management.weloveparty.ai-tools-online.xyz`) || Host(`management.weloveparty.domain.local`)"
       middlewares:
-        # - my_admin_jwt_auth
+        - my_admin_jwt_auth
         - my_grpcweb
       service: management_service
 
@@ -157,6 +163,12 @@ http:
     management_service:
       loadBalancer:
         servers:
-          # - url: h2c://management_service:40057
-          - url: h2c://host.docker.internal:40057
+          - url: h2c://management_service:40057
+          # - url: h2c://host.docker.internal:40057
+        passHostHeader: true
+    management_ui_service:
+      loadBalancer:
+        servers:
+          - url: h2c://management_ui_service:40057
+          # - url: h2c://host.docker.internal:40057
         passHostHeader: true

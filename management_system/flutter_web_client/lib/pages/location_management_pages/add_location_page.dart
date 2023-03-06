@@ -3,6 +3,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_web_client/store/controllers.dart';
 import 'package:get/get.dart';
 
+import '../../generated_grpc/management_service.pb.dart';
+
 class AddLocationPage extends StatefulWidget {
   const AddLocationPage({super.key});
 
@@ -31,9 +33,27 @@ class _AddLocationPageState extends State<AddLocationPage> {
           .addPlaceRequest.value.locationOfFreeMap.scores
           .toString());
 
+  void refresh_input_box_value() {
+    location_name_editing_controller.text =
+        management_page_controller.addPlaceRequest.value.locationOfFreeMap.name;
+
+    latitude_editing_controller.text = management_page_controller
+        .addPlaceRequest.value.locationOfFreeMap.yLatitude
+        .toString();
+
+    longitude_editing_controller.text = management_page_controller
+        .addPlaceRequest.value.locationOfFreeMap.xLongitude
+        .toString();
+
+    scores_editing_controller.text = management_page_controller
+        .addPlaceRequest.value.locationOfFreeMap.scores
+        .toString();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
+      refresh_input_box_value();
       management_page_controller.addPlaceRequest.value;
       return SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -380,25 +400,70 @@ class _AddLocationPageState extends State<AddLocationPage> {
             SizedBox(
               height: 20,
             ),
-            TextButton(
-              child: Text("Add New Position"),
-              style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all(Colors.deepPurple.shade50)),
-              onPressed: () async {
-                var response = await management_grpc_controller.add_place(
-                    management_page_controller.addPlaceRequest.value);
-                if (response.error != null && response.error.isNotEmpty) {
-                  await EasyLoading.showError(response.error,
-                      dismissOnTap: true);
-                } else {
-                  await EasyLoading.showSuccess("position added",
-                      dismissOnTap: true);
-                  await management_page_controller.save_addPlaceRequest(
-                      management_page_controller.addPlaceRequest.value
-                          .writeToJson());
-                }
-              },
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  child: Text("Add New Position"),
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(Colors.green.shade50)),
+                  onPressed: () async {
+                    var response = await management_grpc_controller.add_place(
+                        management_page_controller.addPlaceRequest.value);
+                    if (response.error != null && response.error.isNotEmpty) {
+                      await EasyLoading.showError(response.error,
+                          dismissOnTap: true);
+                    } else {
+                      await EasyLoading.showSuccess("position added",
+                          dismissOnTap: true);
+                      await management_page_controller.save_addPlaceRequest(
+                          management_page_controller.addPlaceRequest.value
+                              .writeToJson());
+
+                      await management_page_controller
+                          .update_home_page_locations();
+                    }
+                  },
+                ),
+                SizedBox(
+                  width: 30,
+                ),
+                TextButton(
+                  child: Text(
+                    "Delete This Position",
+                    style: TextStyle(color: Colors.red),
+                  ),
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(Colors.green.shade50)),
+                  onPressed: () async {
+                    var response = await management_grpc_controller
+                        .delete_place(DeletePlaceRequest(
+                            locationId: management_page_controller
+                                .addPlaceRequest
+                                .value
+                                .locationOfFreeMap
+                                .locationId));
+                    if (response.error != null && response.error.isNotEmpty) {
+                      await EasyLoading.showError(response.error,
+                          dismissOnTap: true);
+                    } else {
+                      await EasyLoading.showSuccess("position deleted",
+                          dismissOnTap: true);
+                      await management_page_controller.save_addPlaceRequest(
+                          management_page_controller.addPlaceRequest.value
+                              .writeToJson());
+
+                      await management_page_controller
+                          .update_home_page_locations();
+                    }
+                  },
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 15,
             ),
             Text(management_page_controller
                 .addPlaceRequest.value.locationOfFreeMap

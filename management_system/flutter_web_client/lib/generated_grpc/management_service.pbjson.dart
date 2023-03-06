@@ -33,6 +33,34 @@ const GetUsersResponse$json = const {
 
 /// Descriptor for `GetUsersResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getUsersResponseDescriptor = $convert.base64Decode('ChBHZXRVc2Vyc1Jlc3BvbnNlEhkKBWVycm9yGAEgASgJSABSBWVycm9yiAEBEjEKBHVzZXIYAiADKAsyHS5tYW5hZ2VtZW50X3NlcnZpY2UuVXNlck1vZGVsUgR1c2VyQggKBl9lcnJvcg==');
+@$core.Deprecated('Use searchPlacesRequestDescriptor instead')
+const SearchPlacesRequest$json = const {
+  '1': 'SearchPlacesRequest',
+  '2': const [
+    const {'1': 'key_words', '3': 1, '4': 1, '5': 9, '10': 'keyWords'},
+    const {'1': 'y_latitude', '3': 2, '4': 1, '5': 1, '10': 'yLatitude'},
+    const {'1': 'x_longitude', '3': 3, '4': 1, '5': 1, '10': 'xLongitude'},
+    const {'1': 'page_size', '3': 4, '4': 1, '5': 5, '10': 'pageSize'},
+    const {'1': 'page_number', '3': 5, '4': 1, '5': 5, '10': 'pageNumber'},
+  ],
+};
+
+/// Descriptor for `SearchPlacesRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List searchPlacesRequestDescriptor = $convert.base64Decode('ChNTZWFyY2hQbGFjZXNSZXF1ZXN0EhsKCWtleV93b3JkcxgBIAEoCVIIa2V5V29yZHMSHQoKeV9sYXRpdHVkZRgCIAEoAVIJeUxhdGl0dWRlEh8KC3hfbG9uZ2l0dWRlGAMgASgBUgp4TG9uZ2l0dWRlEhsKCXBhZ2Vfc2l6ZRgEIAEoBVIIcGFnZVNpemUSHwoLcGFnZV9udW1iZXIYBSABKAVSCnBhZ2VOdW1iZXI=');
+@$core.Deprecated('Use searchPlacesResponseDescriptor instead')
+const SearchPlacesResponse$json = const {
+  '1': 'SearchPlacesResponse',
+  '2': const [
+    const {'1': 'error', '3': 1, '4': 1, '5': 9, '9': 0, '10': 'error', '17': true},
+    const {'1': 'location_of_free_map', '3': 2, '4': 3, '5': 11, '6': '.management_service.LocationOfFreeMap', '10': 'locationOfFreeMap'},
+  ],
+  '8': const [
+    const {'1': '_error'},
+  ],
+};
+
+/// Descriptor for `SearchPlacesResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List searchPlacesResponseDescriptor = $convert.base64Decode('ChRTZWFyY2hQbGFjZXNSZXNwb25zZRIZCgVlcnJvchgBIAEoCUgAUgVlcnJvcogBARJWChRsb2NhdGlvbl9vZl9mcmVlX21hcBgCIAMoCzIlLm1hbmFnZW1lbnRfc2VydmljZS5Mb2NhdGlvbk9mRnJlZU1hcFIRbG9jYXRpb25PZkZyZWVNYXBCCAoGX2Vycm9y');
 @$core.Deprecated('Use addPlaceRequestDescriptor instead')
 const AddPlaceRequest$json = const {
   '1': 'AddPlaceRequest',

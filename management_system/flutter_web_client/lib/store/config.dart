@@ -1,5 +1,6 @@
 class RoutesMap {
-  static const test = "/test";
+  static const location_management = "/location_management";
+  static const login = "/login";
 }
 
 class GrpcConfig {
@@ -7,4 +8,4 @@ class GrpcConfig {
       "http://management.weloveparty.domain.local:80";
 }
 
-bool in_dev_mode = true;
+bool in_dev_mode = false;

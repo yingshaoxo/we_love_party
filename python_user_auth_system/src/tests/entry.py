@@ -6,6 +6,7 @@ import src.tests.test_database as test_database
 import src.tests.test_redis as test_redis
 from src.tests import test_auth_system
 from src.tests import test_restful_api 
+from src.tests import test_email_sending
 
 import src.database.sqlite as sqlite
 from src.database.redis import MyRedis
@@ -18,10 +19,13 @@ my_redis = MyRedis(redis_host_URL='localhost', db_number=config.REDIS_DB_NUMBER)
 async def async_function():
     #await test_database.run(myDatabase=myDatabase)
     #await test_redis.test_it(my_redis=my_redis)
-    await test_auth_system.run(myDatabase=myDatabase, my_redis=my_redis)
+    # await test_auth_system.run(myDatabase=myDatabase, my_redis=my_redis)
     #await test_restful_api.run(client=client, myDatabase=myDatabase, my_redis=my_redis)
+    # await test_email_sending.run()
+    pass
 
 def main():
+    return
     # loop = asyncio.get_event_loop()
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)

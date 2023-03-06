@@ -20,6 +20,12 @@ class ManagementServiceClient extends $grpc.Client {
           ($0.GetUsersRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.GetUsersResponse.fromBuffer(value));
+  static final _$searchPlaces =
+      $grpc.ClientMethod<$0.SearchPlacesRequest, $0.SearchPlacesResponse>(
+          '/management_service.ManagementService/SearchPlaces',
+          ($0.SearchPlacesRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.SearchPlacesResponse.fromBuffer(value));
   static final _$addPlace =
       $grpc.ClientMethod<$0.AddPlaceRequest, $0.AddPlaceResponse>(
           '/management_service.ManagementService/AddPlace',
@@ -47,6 +53,12 @@ class ManagementServiceClient extends $grpc.Client {
   $grpc.ResponseFuture<$0.GetUsersResponse> getUsers($0.GetUsersRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getUsers, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.SearchPlacesResponse> searchPlaces(
+      $0.SearchPlacesRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$searchPlaces, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.AddPlaceResponse> addPlace($0.AddPlaceRequest request,
@@ -78,6 +90,15 @@ abstract class ManagementServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.GetUsersRequest.fromBuffer(value),
         ($0.GetUsersResponse value) => value.writeToBuffer()));
+    $addMethod(
+        $grpc.ServiceMethod<$0.SearchPlacesRequest, $0.SearchPlacesResponse>(
+            'SearchPlaces',
+            searchPlaces_Pre,
+            false,
+            false,
+            ($core.List<$core.int> value) =>
+                $0.SearchPlacesRequest.fromBuffer(value),
+            ($0.SearchPlacesResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.AddPlaceRequest, $0.AddPlaceResponse>(
         'AddPlace',
         addPlace_Pre,
@@ -110,6 +131,12 @@ abstract class ManagementServiceBase extends $grpc.Service {
     return getUsers(call, await request);
   }
 
+  $async.Future<$0.SearchPlacesResponse> searchPlaces_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.SearchPlacesRequest> request) async {
+    return searchPlaces(call, await request);
+  }
+
   $async.Future<$0.AddPlaceResponse> addPlace_Pre(
       $grpc.ServiceCall call, $async.Future<$0.AddPlaceRequest> request) async {
     return addPlace(call, await request);
@@ -127,6 +154,8 @@ abstract class ManagementServiceBase extends $grpc.Service {
 
   $async.Future<$0.GetUsersResponse> getUsers(
       $grpc.ServiceCall call, $0.GetUsersRequest request);
+  $async.Future<$0.SearchPlacesResponse> searchPlaces(
+      $grpc.ServiceCall call, $0.SearchPlacesRequest request);
   $async.Future<$0.AddPlaceResponse> addPlace(
       $grpc.ServiceCall call, $0.AddPlaceRequest request);
   $async.Future<$0.UpdatePlaceResponse> updatePlace(

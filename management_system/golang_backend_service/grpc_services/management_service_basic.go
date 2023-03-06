@@ -47,6 +47,7 @@ type GrpcManagementServer struct {
 }
 
 // GetUsers(ctx context.Context, in *GetUsersRequest, opts ...grpc.CallOption) (*GetUsersResponse, error)
+// SearchPlaces(ctx context.Context, in *SearchPlacesRequest, opts ...grpc.CallOption) (*SearchPlacesResponse, error)
 // AddPlace(ctx context.Context, in *AddPlaceRequest, opts ...grpc.CallOption) (*AddPlaceResponse, error)
 // UpdatePlace(ctx context.Context, in *UpdatePlaceRequest, opts ...grpc.CallOption) (*UpdatePlaceResponse, error)
 // DeletePlace(ctx context.Context, in *DeletePlaceRequest, opts ...grpc.CallOption) (*DeletePlaceResponse, error)
@@ -56,8 +57,18 @@ func (self *GrpcManagementServer) GetUsers(context_ context.Context, request *ma
 	return &response, nil
 }
 
+func (self *GrpcManagementServer) SearchPlaces(context_ context.Context, request *management_service.SearchPlacesRequest) (*management_service.SearchPlacesResponse, error) {
+	response := self.FuckTheDatabaseClass.Search_places(request)
+	return &response, nil
+}
+
 func (self *GrpcManagementServer) AddPlace(context_ context.Context, request *management_service.AddPlaceRequest) (*management_service.AddPlaceResponse, error) {
 	response := self.FuckTheDatabaseClass.Add_place(request)
+	return &response, nil
+}
+
+func (self *GrpcManagementServer) DeletePlace(context_ context.Context, request *management_service.DeletePlaceRequest) (*management_service.DeletePlaceResponse, error) {
+	response := self.FuckTheDatabaseClass.Delete_place(request)
 	return &response, nil
 }
 
