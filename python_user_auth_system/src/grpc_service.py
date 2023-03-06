@@ -1,14 +1,10 @@
 import asyncio
 from grpclib.server import Server
 
-# from src import config
 from src import utils
-
 from src.auth import MyAuthClass
-# from src.database.sqlite import MyDatabase
-# from src.database.redis import MyRedis
 from src.utils import MyO365
-from src.config import *
+from src.generated_grpc.account_auth_service import *
 
 from func_timeout import func_timeout, FunctionTimedOut
 

@@ -4,8 +4,11 @@ class RoutesMap {
 }
 
 class GrpcConfig {
+  // static const management_service_web_url =
+  //     "http://management.weloveparty.domain.local:80";
+
   static const management_service_web_url =
-      "http://management.weloveparty.domain.local:80";
+      "https://management.ai-tools-online.xyz";
 }
 
 bool in_dev_mode = false;

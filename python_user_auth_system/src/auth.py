@@ -1,4 +1,3 @@
-from operator import mod
 import re
 import jwt
 from src.database.redis import MyRedis
