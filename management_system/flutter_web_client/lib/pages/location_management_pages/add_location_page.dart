@@ -74,7 +74,7 @@ class _AddLocationPageState extends State<AddLocationPage> {
                     onChanged: (value) {
                       management_page_controller
                           .addPlaceRequest.value.locationOfFreeMap.name = value;
-                      management_page_controller.addPlaceRequest.refresh();
+                      // management_page_controller.addPlaceRequest.refresh();
                     },
                   ),
                 ),
@@ -99,7 +99,7 @@ class _AddLocationPageState extends State<AddLocationPage> {
                         if (double_value != null) {
                           management_page_controller.addPlaceRequest.value
                               .locationOfFreeMap.yLatitude = double_value;
-                          management_page_controller.addPlaceRequest.refresh();
+                          // management_page_controller.addPlaceRequest.refresh();
                         }
                       },
                     ),
@@ -126,7 +126,7 @@ class _AddLocationPageState extends State<AddLocationPage> {
                         if (double_value != null) {
                           management_page_controller.addPlaceRequest.value
                               .locationOfFreeMap.xLongitude = double_value;
-                          management_page_controller.addPlaceRequest.refresh();
+                          // management_page_controller.addPlaceRequest.refresh();
                         }
                       },
                     ),
@@ -155,7 +155,7 @@ class _AddLocationPageState extends State<AddLocationPage> {
                         if (double_value != null) {
                           management_page_controller.addPlaceRequest.value
                               .locationOfFreeMap.scores = double_value;
-                          management_page_controller.addPlaceRequest.refresh();
+                          // management_page_controller.addPlaceRequest.refresh();
                         }
                       },
                     ),
