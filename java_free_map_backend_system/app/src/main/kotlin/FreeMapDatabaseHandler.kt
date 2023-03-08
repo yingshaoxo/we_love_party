@@ -538,7 +538,7 @@ WHERE
 
     fun search_locations_in_final_free_map(keywords_text: String, y_latitude: Double, x_longitude: Double, page_size: Int, page_number: Int): List<LocationOfFreeMap> {
         var keywords_list = keywords_text.split("""\s+""".toRegex())
-        var where_command = keywords_list.map { it -> "${free_map_service_key_string_maps.Companion.LocationOfFreeMap.name} LIKE '%${it}%'" }.joinToString(separator = " AND ")
+        var where_command = keywords_list.map { it -> "${free_map_service_key_string_maps.Companion.LocationOfFreeMap.name} ILIKE '%${it.lowercase()}%'" }.joinToString(separator = " AND ")
 
         var db_connection = get_free_map_database_connection()
         val command_statement: Statement = db_connection.createStatement()
