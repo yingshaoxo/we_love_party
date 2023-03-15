@@ -23,7 +23,7 @@ class _MePageState extends State<MePage> {
 
   bool initialization_is_done = false;
 
-  bool show_second_page = false;
+  bool show_simple_page = false;
 
   void my_onVerticalDragEnd(DragEndDetails details) {
     double fake_dy = details.velocity.clampMagnitude(0, 1).pixelsPerSecond.dy;
@@ -36,7 +36,7 @@ class _MePageState extends State<MePage> {
       //   //up
       //   show_second_page = true;
       // }
-      show_second_page = !show_second_page;
+      show_simple_page = !show_simple_page;
       setState(() {});
       //print(fake_dy);
     }
@@ -124,7 +124,7 @@ class _MePageState extends State<MePage> {
 
   @override
   Widget build(BuildContext context) {
-    Widget first_page = Column(
+    Widget simple_info_page = Column(
       children: [
         SizedBox(
           height: 50,
@@ -135,8 +135,8 @@ class _MePageState extends State<MePage> {
 
     double function_box_height = 110;
     double head_picture_side_length = 0.25.sw;
-    Color function_box_background_color = "rgba(255, 243, 224, 0.6)".color;
-    Widget second_page = Container(
+    Color function_box_background_color = Color.fromARGB(255, 245, 241, 250);
+    Widget complex_info_page = Container(
       width: 0.9.sw,
       color: the_background,
       child: Column(
@@ -260,6 +260,58 @@ class _MePageState extends State<MePage> {
               )
             ],
           ),
+          SizedBox(
+            height: 10,
+          ),
+          Row(
+            children: [
+              Flexible(
+                child: InkWell(
+                  onTap: () async {
+                    Get.toNamed(RoutesMap.random_life_page);
+                  },
+                  child: Container(
+                    height: function_box_height,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      color: function_box_background_color,
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Random Life',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 13,
+                            // color: Colors.black,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              // SizedBox(
+              //   width: 10,
+              // ),
+              // Flexible(
+              //   child: Container(
+              //     height: function_box_height,
+              //     decoration: BoxDecoration(
+              //       borderRadius: BorderRadius.all(Radius.circular(5)),
+              //       color: function_box_background_color,
+              //     ),
+              //     child: Center(
+              //       child: Text(
+              //         'Friends Saying',
+              //         style: TextStyle(
+              //             fontSize: 14,
+              //             // color: Colors.pink,
+              //             fontWeight: FontWeight.bold),
+              //       ),
+              //     ),
+              //   ),
+              // )
+            ],
+          ),
         ],
       ),
     );
@@ -275,7 +327,9 @@ class _MePageState extends State<MePage> {
                   my_onVerticalDragEnd(details);
                 },
                 child: Center(
-                  child: show_second_page == false ? first_page : second_page,
+                  child: show_simple_page == true
+                      ? simple_info_page
+                      : complex_info_page,
                 ),
               ),
             ),

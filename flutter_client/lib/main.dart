@@ -11,6 +11,7 @@ import 'package:flutter_client/pages/6.chat/one_to_one_chat_page.dart';
 import 'package:flutter_client/pages/7.me/me_page.dart';
 import 'package:flutter_client/pages/4.party/room_list.dart';
 import 'package:flutter_client/pages/3.tabs/tabs.dart';
+import 'package:flutter_client/pages/8.features/random_life_page.dart';
 
 import 'package:get/get.dart';
 
@@ -72,6 +73,9 @@ void main() {
             name: RoutesMap.one_to_one_chat_page,
             page: () => const OneToOneChatPage()),
         GetPage(name: RoutesMap.me_page, page: () => const MePage()),
+        GetPage(
+            name: RoutesMap.random_life_page,
+            page: () => const RandomLifePage()),
       ],
     ));
   }();
