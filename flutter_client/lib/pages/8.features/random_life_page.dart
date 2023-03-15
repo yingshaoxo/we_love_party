@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_client/store/controllers.dart';
 
 class RandomLifePage extends StatefulWidget {
   const RandomLifePage({Key? key}) : super(key: key);
@@ -36,6 +37,8 @@ class _RandomLifePageState extends State<RandomLifePage> {
     var random_index = Random.secure().nextInt(places.length);
     var random_place = places[random_index];
 
+    var username = variable_controller.userModel.username ?? "yingshaoxo";
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -56,7 +59,17 @@ class _RandomLifePageState extends State<RandomLifePage> {
           Spacer(),
           Spacer(),
           Spacer(),
-          Spacer(),
+          Text("""
+Hi, ${username}
+
+今天又是愉快的一天，记住几句话：
+
+1. 不谈恋爱不结婚
+2. 不打工不受压榨
+3. 练习 普通话 + English
+4. 写代码 + 卖东西
+"""
+              .trim()),
           Spacer(),
           Spacer(),
           Spacer(),
