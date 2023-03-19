@@ -12,8 +12,6 @@ from auto_everything.io import IO
 
 from pprint import pprint
 
-from regex import F
-
 py = Python()
 t = Terminal(debug=True)
 disk = Disk()
@@ -29,6 +27,7 @@ class Tools():
     def __init__(self) -> None:
         self.project_root_folder = disk.get_directory_name(os.path.realpath(os.path.abspath(__file__))) 
         self.protobuff_protocols_folder = disk.join_paths(self.project_root_folder, "party_protocols", "protocols")
+        self.party_protocols_folder = disk.join_paths(self.project_root_folder, "party_protocols")
 
     def help(self):
         print(help(Tools))
@@ -108,6 +107,12 @@ class Tools():
     def build_management_system_protocols(self):
         self.build_management_system_golang_backend_service_protocols()
         self.build_management_system_flutter_web_client_protocols()
+
+    def logs(self):
+        t.run(f"""
+        cd {self.party_protocols_folder}
+        docker-compose -f docker-compose.service.yaml logs -f
+        """)
 
 
 py.make_it_global_runnable(executable_name="development_tools_party")
