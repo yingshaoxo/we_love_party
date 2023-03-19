@@ -60,11 +60,11 @@ func Golang_data_type_to_sql_data_type_function(it interface{}) string {
 	}
 
 	if reflect.TypeOf(it).Kind() == reflect.Float64 {
-		return fmt.Sprintf("%.5f", it)
+		return fmt.Sprintf("%.6f", it)
 	}
 
 	if reflect.TypeOf(it).Kind() == reflect.Float32 {
-		return fmt.Sprintf("%.5f", it)
+		return fmt.Sprintf("%.6f", it)
 	}
 
 	if reflect.TypeOf(it).Kind() == reflect.Int64 {
@@ -239,9 +239,10 @@ func (self FuckTheDatabaseClass) Search_places(request *management_service.Searc
 	where_command_list := make([]string, 0)
 	for _, keyword := range keyword_list {
 		new_keyword := strings.TrimSpace(keyword)
+		new_keyword = strings.ToLower(new_keyword)
 		if len(new_keyword) >= 1 {
 			where_command_list = append(where_command_list,
-				management_service_grpc_key_string_maps.LocationOfFreeMap.Name+" LIKE "+"'%"+keyword+"%'",
+				management_service_grpc_key_string_maps.LocationOfFreeMap.Name+" ILIKE "+"'%"+keyword+"%'",
 			)
 		}
 	}
@@ -265,8 +266,8 @@ func (self FuckTheDatabaseClass) Search_places(request *management_service.Searc
 			`,
 				management_service_grpc_key_string_maps.LocationOfFreeMap.Y_latitude,
 				management_service_grpc_key_string_maps.LocationOfFreeMap.X_longitude,
-				string_tool.Float64_to_string(request.YLatitude, 5),
-				string_tool.Float64_to_string(request.XLongitude, 5),
+				string_tool.Float64_to_string(request.YLatitude, 6),
+				string_tool.Float64_to_string(request.XLongitude, 6),
 				store.Database_Name_Dict.Free_map,
 				store.Database_Table_Name_Dict.Final_free_map,
 				string_tool.Int32_to_string(request.PageSize),
@@ -290,8 +291,8 @@ func (self FuckTheDatabaseClass) Search_places(request *management_service.Searc
 			`,
 				management_service_grpc_key_string_maps.LocationOfFreeMap.Y_latitude,
 				management_service_grpc_key_string_maps.LocationOfFreeMap.X_longitude,
-				string_tool.Float64_to_string(request.YLatitude, 5),
-				string_tool.Float64_to_string(request.XLongitude, 5),
+				string_tool.Float64_to_string(request.YLatitude, 6),
+				string_tool.Float64_to_string(request.XLongitude, 6),
 				store.Database_Name_Dict.Free_map,
 				store.Database_Table_Name_Dict.Final_free_map,
 				where_command,

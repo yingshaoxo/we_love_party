@@ -15,6 +15,7 @@ class RoutesMap {
   static const contacts_page = "/contacts_page";
   static const add_or_edit_contact_page = "/add_or_edit_contact_page";
   static const one_to_one_chat_page = "/one_to_one_chat_page";
+  static const random_life_page = "/random_life_page";
 }
 
 // class GrpcConfig {
