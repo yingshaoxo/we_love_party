@@ -12,8 +12,6 @@ from auto_everything.io import IO
 
 from pprint import pprint
 
-from regex import F
-
 py = Python()
 t = Terminal(debug=True)
 disk = Disk()
@@ -130,7 +128,6 @@ class Tools():
 
         docker-compose -f docker-compose.service.yaml logs -f
         """)
-
 
 py.make_it_global_runnable(executable_name="development_tools_party")
 py.fire(Tools)
