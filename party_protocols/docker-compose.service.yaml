@@ -15,6 +15,7 @@ services:
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.smtp.address=:25"
     ports:
       - "80:80"
       - "25:25"
