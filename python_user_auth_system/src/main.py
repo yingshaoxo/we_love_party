@@ -22,7 +22,7 @@ from auto_everything.terminal import Terminal
 from src import config
 # from src.utils import MyO365
 from src.auth import MyAuthClass
-from src.database.sqlite import MyDatabase
+# from src.database.sqlite import MyDatabase
 from src.database.redis import MyRedis
 
 
@@ -31,7 +31,7 @@ if redis_network_name:
     config.REDIS_HOST_URL = redis_network_name
 
 
-my_database = MyDatabase(DATABASE_URL=config.DATABASE_URL)
+# my_database = MyDatabase(DATABASE_URL=config.DATABASE_URL)
 my_redis_1 = MyRedis(redis_host_URL=config.REDIS_HOST_URL, db_number=config.REDIS_DB_NUMBER)
 my_auth_class = MyAuthClass(redis=my_redis_1)
 # my_o365 = MyO365(config.O365_credentials)
