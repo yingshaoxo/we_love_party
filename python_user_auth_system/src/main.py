@@ -127,10 +127,10 @@ def start_restful_service():
 def start_email_service():
     port = 25
 
-    def handle_email(from_ip: str, from_: str, to: str, message: str):
-        if to == my_auth_class.our_email:
+    def handle_email(from_ip: str, from_: str, to: list[str], message: str):
+        if any([one.endswith(my_auth_class.our_email) for one in to]):
             title = SMTP_Service.get_title_from_email_string_data(message)
-            print(f"Got email: {title}")
+            print(f"Got email: {title}, from ip: {from_ip}", flush=True)
             if title != None:
                 splits = title.split(":")
                 if len(splits) == 2:

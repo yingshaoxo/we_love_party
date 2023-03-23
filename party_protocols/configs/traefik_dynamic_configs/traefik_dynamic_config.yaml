@@ -6,7 +6,7 @@ tcp:
   routers:
     smtp_router:
       entryPoints:
-        address: ":25"
+        - smtp
       rule: "HostSNI(`*`)"
       service: smtp_service
   services:
@@ -14,8 +14,6 @@ tcp:
       loadBalancer:
         servers:
           - address: weloveparty_account_auth_service:25
-        proxyProtocol:
-          version: 2
 
 http:
   routers:
