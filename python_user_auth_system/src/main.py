@@ -1,6 +1,7 @@
 import os
 import sys
 from time import sleep
+from typing import Any
 
 cur_path=os.path.abspath(os.path.dirname(__file__))
 sys.path.insert(0, cur_path+"/..")
@@ -16,6 +17,7 @@ from fastapi import Request, Response, status
 from fastapi.middleware.cors import CORSMiddleware
 
 from auto_everything.my_email import SMTP_Service
+from auto_everything.terminal import Terminal
 
 from src import config
 from src.utils import MyO365
@@ -32,7 +34,8 @@ if redis_network_name:
 my_database = MyDatabase(DATABASE_URL=config.DATABASE_URL)
 my_redis_1 = MyRedis(redis_host_URL=config.REDIS_HOST_URL, db_number=config.REDIS_DB_NUMBER)
 my_auth_class = MyAuthClass(database=my_database, redis=my_redis_1)
-my_o365 = MyO365(config.O365_credentials)
+# my_o365 = MyO365(config.O365_credentials)
+my_o365: Any = Terminal()
 
 
 app = FastAPI()
@@ -146,6 +149,7 @@ def start_email_service():
                 auth_ip_source=False
             )
 
+            print("\n\n")
             smtp_service.start()
         except Exception as e:
             print(e)
@@ -157,13 +161,16 @@ def start():
 
     process_1 = multiprocessing.Process(target=start_grpc_service)
     process_2 = multiprocessing.Process(target=start_restful_service)
+    process_3 = multiprocessing.Process(target=start_email_service)
 
     process_1.start()
     process_2.start()
+    process_3.start()
 
     # Wait processes to complete
     process_1.join()
     process_2.join()
+    process_3.join()
 
 
 if __name__ == '__main__':
