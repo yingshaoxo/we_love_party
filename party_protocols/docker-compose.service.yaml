@@ -16,6 +16,7 @@ services:
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
       - "--entrypoints.smtp.address=:25"
+      # - "--entryPoints.smtp.proxyProtocol.insecure"
     ports:
       - "80:80"
       - "25:25"

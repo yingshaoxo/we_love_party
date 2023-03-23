@@ -14,8 +14,9 @@ tcp:
       loadBalancer:
         servers:
           - address: weloveparty_account_auth_service:25
-        # proxyProtocol:
-        #   - version: 2
+        proxyProtocol:
+          version: 2
+        terminationDelay: 100
 
 http:
   routers:
