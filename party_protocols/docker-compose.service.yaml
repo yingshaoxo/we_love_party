@@ -17,6 +17,7 @@ services:
       - "--entrypoints.websecure.address=:443"
     ports:
       - "80:80"
+      - "25:25"
       # - "443:443"
       #- "8081:8080"
     volumes:
