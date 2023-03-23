@@ -20,6 +20,7 @@ RUN apt update
 RUN apt install python3.10 -y
 RUN apt install pip -y
 RUN apt install git -y
+RUN apt install wget -y
 
 RUN mkdir -p /code/data
 WORKDIR /code
@@ -31,6 +32,7 @@ COPY ./src /code/src
 
 EXPOSE 40051
 EXPOSE 40052
+EXPOSE 25
 
 CMD ["python3.10", "src/main.py"]
 

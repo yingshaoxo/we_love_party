@@ -2,6 +2,20 @@
 # 127.0.0.1 weloveparty.domain.local auth.weloveparty.domain.local whoami.weloveparty.domain.local internal_api.weloveparty.domain.local account_storage.weloveparty.domain.local livekit.weloveparty.domain.local livekit_turn.weloveparty.domain.local 
 # 144.202.109.163
 
+tcp:
+  routers:
+    smtp_router:
+      entryPoints:
+        address: ":25"
+      rule: "HostSNI(`*`)"
+      service: smtp_service
+  services:
+    smtp_service:
+      loadBalancer:
+        servers:
+          - address: weloveparty_account_auth_service:25
+        proxyProtocol:
+          version: 2
 
 http:
   routers:
