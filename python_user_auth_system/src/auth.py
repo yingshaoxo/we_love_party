@@ -2,9 +2,9 @@ import re
 import jwt
 from src.database.redis import MyRedis
 
-from src import models
+# from src import models
 import src.config as config
-import src.database.sqlite as sqlite
+# import src.database.sqlite as sqlite
 from typing import Optional, Any
 
 
@@ -15,8 +15,7 @@ REDIS_IS_ONLINE_ACTION_KEY = 'online'
 
 
 class MyAuthClass:
-    def __init__(self, database: sqlite.MyDatabase, redis: MyRedis) -> None:
-        self.myDatabase: sqlite.MyDatabase = database
+    def __init__(self, redis: MyRedis) -> None:
         self.myRedis: MyRedis = redis
         self.our_email = config.OUR_EMAIL
 
@@ -35,11 +34,11 @@ class MyAuthClass:
             return True
 
 
-    async def auth_email(self, email: str) -> Optional[models.User]:
-        user = await self.myDatabase.getAUserByEmail(email=email)
-        if (not user):
-            return None
-        return user
+    # async def auth_email(self, email: str) -> Optional[models.User]:
+    #     user = await self.myDatabase.getAUserByEmail(email=email)
+    #     if (not user):
+    #         return None
+    #     return user
 
 
     def encode_jwt(self, payload: dict[str, Any]):
