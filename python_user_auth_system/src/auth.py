@@ -8,7 +8,8 @@ import src.database.sqlite as sqlite
 from typing import Optional, Any
 
 
-REDIS_VERIFY_ACTION_KEY = 'verify'
+REDIS_BEGIN_EMAIL_VERIFY_ACTION_KEY = 'verify_email_begin'
+REDIS_EMAIL_WE_GOT_VERIFY_ACTION_KEY = 'verify_email_we_got'
 REDIS_JWT_ACTION_KEY = 'jwt'
 REDIS_IS_ONLINE_ACTION_KEY = 'online'
 
@@ -17,6 +18,21 @@ class MyAuthClass:
     def __init__(self, database: sqlite.MyDatabase, redis: MyRedis) -> None:
         self.myDatabase: sqlite.MyDatabase = database
         self.myRedis: MyRedis = redis
+        self.our_email = config.OUR_EMAIL
+
+
+    async def check_if_the_user_is_admin(self, email: str) -> bool:
+        if email not in config.ADMIN_EMAIL_LIST:
+            return False
+        else:
+            return True
+
+
+    async def check_if_the_user_is_tester(self, email: str) -> bool:
+        if email not in config.TESTER_EMAIL_LIST:
+            return False
+        else:
+            return True
 
 
     async def auth_email(self, email: str) -> Optional[models.User]:
@@ -26,20 +42,20 @@ class MyAuthClass:
         return user
 
 
-    def encode_jwt(self, payload):
+    def encode_jwt(self, payload: dict[str, Any]):
         return jwt.encode(payload, config.SECRET, algorithm='HS256')
 
 
-    def decode_jwt(self, raw_string):
+    def decode_jwt(self, raw_string: str):
         return jwt.decode(raw_string, config.SECRET, algorithms=['HS256'])
 
 
-    def regex_validate_for_jwt(self, raw_string):
+    def regex_validate_for_jwt(self, raw_string: str):
         return bool(re.match(r'^[a-zA-Z0-9\-_]+?\.[a-zA-Z0-9\-_]+?\.([a-zA-Z0-9\-_]+)?$', raw_string))
 
 
     # jwt: JSON Web Token
-    async def auth_jwt_string(self, raw_jwt_string) -> Optional[str]:
+    async def auth_jwt_string(self, raw_jwt_string: str) -> Optional[str]:
         # print("the jwt I got: ", raw_jwt_string)
         
         if not self.regex_validate_for_jwt(raw_jwt_string):
@@ -63,35 +79,42 @@ class MyAuthClass:
         # user is verified, you may want to save it to golang handled database
         return email
 
-        # # if it is verified in redis but not in database, we save it to database
-        # user = await self.myDatabase.getAUserByEmail(email=email)
-        # if user is not None:
-        #     return user
-        # else:
-        #     if await self.myDatabase.addAUser(models.User(email=email)):
-        #         return await self.myDatabase.getAUserByEmail(email=email)
-        #     return None
-
 
     async def get_auth_jwt_string(self, email: str, random_string: str) -> str:
         return self.encode_jwt({'email': email, 'random_string': random_string})
 
 
     async def add_info_to_unverified_pool(self, email: str, random_string: str) -> None:
-        key = f"{email}.{REDIS_VERIFY_ACTION_KEY}"
-        value = f"{random_string}.deviceID"
-        self.myRedis.set(key, value)
+        key = f"{email}.{REDIS_BEGIN_EMAIL_VERIFY_ACTION_KEY}"
+        value = f"{random_string}"
+
+        expire_time_left_in_seconds = self.myRedis.redis.ttl(key)
+        if (expire_time_left_in_seconds < 0):
+            #The command returns -2 if the key does not exist.
+            #The command returns -1 if the key exists but has no associated expire.
+            self.myRedis.set(key, value, expire_time_in_seconds=180)
+        else:
+            # do nothing since for each 3 minutes, the user can only require login once
+            pass
+
+
+    async def add_info_that_was_come_from_email_system_to_unverified_pool(self, email: str, random_string: str) -> None:
+        key = f"{email}.{REDIS_EMAIL_WE_GOT_VERIFY_ACTION_KEY}"
+        value = f"{random_string}"
+        self.myRedis.set(key, value, expire_time_in_seconds=180)
 
     
-    async def check_if_any_info_matchs_in_unverified_pool(self, email: str, random_string: str) -> bool:
-        key = f"{email}.{REDIS_VERIFY_ACTION_KEY}"
-        value = f"{random_string}.deviceID"
-        return self.myRedis.get(key) == value
-    
+    async def check_if_all_info_matchs_in_unverified_pool(self, email: str, random_string: str) -> bool:
+        key1 = f"{email}.{REDIS_BEGIN_EMAIL_VERIFY_ACTION_KEY}"
+        key2 = f"{email}.{REDIS_EMAIL_WE_GOT_VERIFY_ACTION_KEY}"
+        value1 = self.myRedis.get(key1)
+        value2 = self.myRedis.get(key2)
+        return value1 == value2 == random_string
+
 
     async def add_info_to_verified_pool(self, email: str, random_string: str) -> None:
         key = f"{email}.{REDIS_JWT_ACTION_KEY}"
-        value = f"{random_string}.deviceID"
+        value = f"{random_string}.device_name"
 
         old_value = self.myRedis.get(key)
         if old_value == None:
@@ -102,23 +125,38 @@ class MyAuthClass:
 
     async def check_if_the_info_is_in_verified_pool(self, email: str, random_string: str) -> bool:
         key = f"{email}.{REDIS_JWT_ACTION_KEY}"
-        value = f"{random_string}.deviceID"
+        value = f"{random_string}.device_name"
 
         old_value = self.myRedis.get(key)
         if old_value == None:
             return False
         else:
             old_value_list = old_value.split("&")
-            for one in old_value_list:
+            for one in old_value_list.copy():
                 if one == value:
+                    if len(old_value_list) > 25:
+                        # we allow no more than 25 devices log in by using same account.
+                        for one in old_value_list:
+                            if one != value:
+                                self.myRedis.delete(one)
                     return True
             return False
+
     
-    async def check_if_the_user_is_admin(self, email: str) -> bool:
-        if email not in config.ADMIN_EMAIL_LIST:
-            return False
+    async def get_all_devices_by_email_from_verified_pool(self, email: str) -> list[str]:
+        key = f"{email}.{REDIS_JWT_ACTION_KEY}"
+        value = self.myRedis.get(key)
+        if value != None:
+            value_list = value.split("&")
+            result_list = []
+            for one in value_list:
+                splits = one.split(".")
+                if len(splits) >= 2:
+                    result_list.append(splits[1])
+            return result_list
         else:
-            return True
+            return []
+
 
     async def log_out_all_devices_by_email_from_verified_pool(self, email: str) -> None:
         key = f"{email}.{REDIS_JWT_ACTION_KEY}"

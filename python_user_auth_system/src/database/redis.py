@@ -2,7 +2,7 @@ from typing import Optional
 import redis
 
 class MyRedis:
-    def __init__(self, redis_host_URL: str = 'localhost', db_number=0) -> None:
+    def __init__(self, redis_host_URL: str = 'localhost', db_number:int = 0) -> None:
         self.redis = redis.Redis(host=redis_host_URL, port=6379, db=db_number)
     
     def get(self, key: str) -> Optional[str]:
@@ -21,7 +21,7 @@ class MyRedis:
     
     def delete(self, key: str) -> bool:
         result = self.redis.delete(key)
-        if result is None:
+        if result == 0:
             return False
         else:
             return True

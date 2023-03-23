@@ -1,7 +1,6 @@
 from __future__ import annotations
-from datetime import datetime
 
-from typing import Optional, Any
+from typing import Any, Optional
 from pydantic import BaseModel
 
 #
@@ -19,7 +18,7 @@ class User(BaseModel):
 #
 
 class GeneralResponse(BaseModel):
-    result: Optional[str] = None
+    result: Optional[Any] = None
     error: Optional[str] = None
 
 

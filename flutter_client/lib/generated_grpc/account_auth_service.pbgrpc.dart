@@ -3,7 +3,7 @@
 //  source: account_auth_service.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
+// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
 
 import 'dart:async' as $async;
 
@@ -19,21 +19,27 @@ class AccountAuthenticationServiceClient extends $grpc.Client {
       ($0.HelloRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.HelloReply.fromBuffer(value));
   static final _$userRegisterRequest = $grpc.ClientMethod<$0.RegisterRequest,
-          $0.RegisterReply>(
+          $0.RegisterResponse>(
       '/account_auth_service.AccountAuthenticationService/UserRegisterRequest',
       ($0.RegisterRequest value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) => $0.RegisterReply.fromBuffer(value));
+      ($core.List<$core.int> value) => $0.RegisterResponse.fromBuffer(value));
   static final _$userRegisterConfirm = $grpc.ClientMethod<
-          $0.RegisterConfirmRequest, $0.RegisterConfirmReply>(
+          $0.RegisterConfirmRequest, $0.RegisterConfirmResponse>(
       '/account_auth_service.AccountAuthenticationService/UserRegisterConfirm',
       ($0.RegisterConfirmRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) =>
-          $0.RegisterConfirmReply.fromBuffer(value));
+          $0.RegisterConfirmResponse.fromBuffer(value));
   static final _$isJwtOk =
       $grpc.ClientMethod<$0.IsJwtOkRequest, $0.IsJwtOkReply>(
           '/account_auth_service.AccountAuthenticationService/IsJwtOk',
           ($0.IsJwtOkRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $0.IsJwtOkReply.fromBuffer(value));
+  static final _$isAdmin =
+      $grpc.ClientMethod<$0.IsAdminRequest, $0.IsAdminResponse>(
+          '/account_auth_service.AccountAuthenticationService/IsAdmin',
+          ($0.IsAdminRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.IsAdminResponse.fromBuffer(value));
   static final _$isOnline =
       $grpc.ClientMethod<$0.IsOnlineRequest, $0.IsOnlineResponse>(
           '/account_auth_service.AccountAuthenticationService/IsOnline',
@@ -51,13 +57,13 @@ class AccountAuthenticationServiceClient extends $grpc.Client {
     return $createUnaryCall(_$sayHello, request, options: options);
   }
 
-  $grpc.ResponseFuture<$0.RegisterReply> userRegisterRequest(
+  $grpc.ResponseFuture<$0.RegisterResponse> userRegisterRequest(
       $0.RegisterRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$userRegisterRequest, request, options: options);
   }
 
-  $grpc.ResponseFuture<$0.RegisterConfirmReply> userRegisterConfirm(
+  $grpc.ResponseFuture<$0.RegisterConfirmResponse> userRegisterConfirm(
       $0.RegisterConfirmRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$userRegisterConfirm, request, options: options);
@@ -66,6 +72,11 @@ class AccountAuthenticationServiceClient extends $grpc.Client {
   $grpc.ResponseFuture<$0.IsJwtOkReply> isJwtOk($0.IsJwtOkRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$isJwtOk, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.IsAdminResponse> isAdmin($0.IsAdminRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$isAdmin, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.IsOnlineResponse> isOnline($0.IsOnlineRequest request,
@@ -85,22 +96,22 @@ abstract class AccountAuthenticationServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.HelloRequest.fromBuffer(value),
         ($0.HelloReply value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.RegisterRequest, $0.RegisterReply>(
+    $addMethod($grpc.ServiceMethod<$0.RegisterRequest, $0.RegisterResponse>(
         'UserRegisterRequest',
         userRegisterRequest_Pre,
         false,
         false,
         ($core.List<$core.int> value) => $0.RegisterRequest.fromBuffer(value),
-        ($0.RegisterReply value) => value.writeToBuffer()));
-    $addMethod(
-        $grpc.ServiceMethod<$0.RegisterConfirmRequest, $0.RegisterConfirmReply>(
-            'UserRegisterConfirm',
-            userRegisterConfirm_Pre,
-            false,
-            false,
-            ($core.List<$core.int> value) =>
-                $0.RegisterConfirmRequest.fromBuffer(value),
-            ($0.RegisterConfirmReply value) => value.writeToBuffer()));
+        ($0.RegisterResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.RegisterConfirmRequest,
+            $0.RegisterConfirmResponse>(
+        'UserRegisterConfirm',
+        userRegisterConfirm_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.RegisterConfirmRequest.fromBuffer(value),
+        ($0.RegisterConfirmResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.IsJwtOkRequest, $0.IsJwtOkReply>(
         'IsJwtOk',
         isJwtOk_Pre,
@@ -108,6 +119,13 @@ abstract class AccountAuthenticationServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.IsJwtOkRequest.fromBuffer(value),
         ($0.IsJwtOkReply value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.IsAdminRequest, $0.IsAdminResponse>(
+        'IsAdmin',
+        isAdmin_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.IsAdminRequest.fromBuffer(value),
+        ($0.IsAdminResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.IsOnlineRequest, $0.IsOnlineResponse>(
         'IsOnline',
         isOnline_Pre,
@@ -122,12 +140,12 @@ abstract class AccountAuthenticationServiceBase extends $grpc.Service {
     return sayHello(call, await request);
   }
 
-  $async.Future<$0.RegisterReply> userRegisterRequest_Pre(
+  $async.Future<$0.RegisterResponse> userRegisterRequest_Pre(
       $grpc.ServiceCall call, $async.Future<$0.RegisterRequest> request) async {
     return userRegisterRequest(call, await request);
   }
 
-  $async.Future<$0.RegisterConfirmReply> userRegisterConfirm_Pre(
+  $async.Future<$0.RegisterConfirmResponse> userRegisterConfirm_Pre(
       $grpc.ServiceCall call,
       $async.Future<$0.RegisterConfirmRequest> request) async {
     return userRegisterConfirm(call, await request);
@@ -138,6 +156,11 @@ abstract class AccountAuthenticationServiceBase extends $grpc.Service {
     return isJwtOk(call, await request);
   }
 
+  $async.Future<$0.IsAdminResponse> isAdmin_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.IsAdminRequest> request) async {
+    return isAdmin(call, await request);
+  }
+
   $async.Future<$0.IsOnlineResponse> isOnline_Pre(
       $grpc.ServiceCall call, $async.Future<$0.IsOnlineRequest> request) async {
     return isOnline(call, await request);
@@ -145,12 +168,14 @@ abstract class AccountAuthenticationServiceBase extends $grpc.Service {
 
   $async.Future<$0.HelloReply> sayHello(
       $grpc.ServiceCall call, $0.HelloRequest request);
-  $async.Future<$0.RegisterReply> userRegisterRequest(
+  $async.Future<$0.RegisterResponse> userRegisterRequest(
       $grpc.ServiceCall call, $0.RegisterRequest request);
-  $async.Future<$0.RegisterConfirmReply> userRegisterConfirm(
+  $async.Future<$0.RegisterConfirmResponse> userRegisterConfirm(
       $grpc.ServiceCall call, $0.RegisterConfirmRequest request);
   $async.Future<$0.IsJwtOkReply> isJwtOk(
       $grpc.ServiceCall call, $0.IsJwtOkRequest request);
+  $async.Future<$0.IsAdminResponse> isAdmin(
+      $grpc.ServiceCall call, $0.IsAdminRequest request);
   $async.Future<$0.IsOnlineResponse> isOnline(
       $grpc.ServiceCall call, $0.IsOnlineRequest request);
 }

@@ -40,19 +40,20 @@ class RegisterRequest(betterproto.Message):
 
 
 @dataclass(eq=False, repr=False)
-class RegisterReply(betterproto.Message):
-    result: str = betterproto.string_field(1)
-    error: Optional[str] = betterproto.string_field(2, optional=True, group="_error")
+class RegisterResponse(betterproto.Message):
+    the_email_the_user_need_to_send_verify_code_to: str = betterproto.string_field(1)
+    the_verify_code_the_user_need_to_send_back: str = betterproto.string_field(2)
+    error: Optional[str] = betterproto.string_field(3, optional=True, group="_error")
 
 
 @dataclass(eq=False, repr=False)
 class RegisterConfirmRequest(betterproto.Message):
     email: str = betterproto.string_field(1)
-    random_string: str = betterproto.string_field(2)
+    the_verify_code_the_user_need_to_send_back: str = betterproto.string_field(2)
 
 
 @dataclass(eq=False, repr=False)
-class RegisterConfirmReply(betterproto.Message):
+class RegisterConfirmResponse(betterproto.Message):
     jwt: str = betterproto.string_field(1)
     error: Optional[str] = betterproto.string_field(2, optional=True, group="_error")
 
@@ -155,11 +156,11 @@ class AccountAuthenticationServiceStub(betterproto.ServiceStub):
         timeout: Optional[float] = None,
         deadline: Optional["Deadline"] = None,
         metadata: Optional["MetadataLike"] = None
-    ) -> "RegisterReply":
+    ) -> "RegisterResponse":
         return await self._unary_unary(
             "/account_auth_service.AccountAuthenticationService/UserRegisterRequest",
             register_request,
-            RegisterReply,
+            RegisterResponse,
             timeout=timeout,
             deadline=deadline,
             metadata=metadata,
@@ -172,11 +173,11 @@ class AccountAuthenticationServiceStub(betterproto.ServiceStub):
         timeout: Optional[float] = None,
         deadline: Optional["Deadline"] = None,
         metadata: Optional["MetadataLike"] = None
-    ) -> "RegisterConfirmReply":
+    ) -> "RegisterConfirmResponse":
         return await self._unary_unary(
             "/account_auth_service.AccountAuthenticationService/UserRegisterConfirm",
             register_confirm_request,
-            RegisterConfirmReply,
+            RegisterConfirmResponse,
             timeout=timeout,
             deadline=deadline,
             metadata=metadata,
@@ -240,12 +241,12 @@ class AccountAuthenticationServiceBase(ServiceBase):
 
     async def user_register_request(
         self, register_request: "RegisterRequest"
-    ) -> "RegisterReply":
+    ) -> "RegisterResponse":
         raise grpclib.GRPCError(grpclib.const.Status.UNIMPLEMENTED)
 
     async def user_register_confirm(
         self, register_confirm_request: "RegisterConfirmRequest"
-    ) -> "RegisterConfirmReply":
+    ) -> "RegisterConfirmResponse":
         raise grpclib.GRPCError(grpclib.const.Status.UNIMPLEMENTED)
 
     async def is_jwt_ok(self, is_jwt_ok_request: "IsJwtOkRequest") -> "IsJwtOkReply":
@@ -267,7 +268,7 @@ class AccountAuthenticationServiceBase(ServiceBase):
         await stream.send_message(response)
 
     async def __rpc_user_register_request(
-        self, stream: "grpclib.server.Stream[RegisterRequest, RegisterReply]"
+        self, stream: "grpclib.server.Stream[RegisterRequest, RegisterResponse]"
     ) -> None:
         request = await stream.recv_message()
         response = await self.user_register_request(request)
@@ -275,7 +276,7 @@ class AccountAuthenticationServiceBase(ServiceBase):
 
     async def __rpc_user_register_confirm(
         self,
-        stream: "grpclib.server.Stream[RegisterConfirmRequest, RegisterConfirmReply]",
+        stream: "grpclib.server.Stream[RegisterConfirmRequest, RegisterConfirmResponse]",
     ) -> None:
         request = await stream.recv_message()
         response = await self.user_register_confirm(request)
@@ -314,13 +315,13 @@ class AccountAuthenticationServiceBase(ServiceBase):
                 self.__rpc_user_register_request,
                 grpclib.const.Cardinality.UNARY_UNARY,
                 RegisterRequest,
-                RegisterReply,
+                RegisterResponse,
             ),
             "/account_auth_service.AccountAuthenticationService/UserRegisterConfirm": grpclib.const.Handler(
                 self.__rpc_user_register_confirm,
                 grpclib.const.Cardinality.UNARY_UNARY,
                 RegisterConfirmRequest,
-                RegisterConfirmReply,
+                RegisterConfirmResponse,
             ),
             "/account_auth_service.AccountAuthenticationService/IsJwtOk": grpclib.const.Handler(
                 self.__rpc_is_jwt_ok,

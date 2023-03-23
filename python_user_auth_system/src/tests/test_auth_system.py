@@ -22,7 +22,7 @@ async def run(myDatabase: sqlite.MyDatabase, my_redis: MyRedis):
     random_string = "asdfhjh"
 
     # init check
-    result = await myAuthClass.check_if_any_info_matchs_in_unverified_pool(email=email, random_string=random_string)
+    result = await myAuthClass.check_if_all_info_matchs_in_unverified_pool(email=email, random_string=random_string)
     assert result == False
 
     result = await myAuthClass.check_if_the_info_is_in_verified_pool(email=email, random_string=random_string)
@@ -32,11 +32,11 @@ async def run(myDatabase: sqlite.MyDatabase, my_redis: MyRedis):
     await myAuthClass.add_info_to_unverified_pool(email=email, random_string=random_string)
 
     # check if matchs unverified pool with wrong info
-    result = await myAuthClass.check_if_any_info_matchs_in_unverified_pool(email=email, random_string=random_string*2)
+    result = await myAuthClass.check_if_all_info_matchs_in_unverified_pool(email=email, random_string=random_string*2)
     assert result == False
 
     # check if matchs unverified pool with right info
-    result = await myAuthClass.check_if_any_info_matchs_in_unverified_pool(email=email, random_string=random_string)
+    result = await myAuthClass.check_if_all_info_matchs_in_unverified_pool(email=email, random_string=random_string)
     assert result == True
 
     # check if matchs verified pool with right info | it should be False since I didn't add it to verified pool yet

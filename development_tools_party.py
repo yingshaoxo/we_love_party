@@ -70,7 +70,7 @@ class Tools():
     def build_python_protocols(self):
         pass
 
-    def build_python_user_auth_system_protocols(self):
+    def build_user_auth_system_python_protocols(self):
         python_user_auth_system_folder = disk.join_paths(self.project_root_folder, "python_user_auth_system")
         the_generated_grpc_folder = disk.join_paths(python_user_auth_system_folder, "src/generated_grpc")
 
@@ -80,6 +80,20 @@ class Tools():
             input_files=["account_auth_service.proto"],
             output_folder=the_generated_grpc_folder,
         )
+
+    def build_user_auth_system_dart_protocols(self):
+        flutter_client_folder = disk.join_paths(self.project_root_folder, "flutter_client")
+        the_generated_grpc_folder = disk.join_paths(flutter_client_folder, "lib/generated_grpc")
+
+        grpc.generate_dart_code(
+            input_folder=self.protobuff_protocols_folder, 
+            input_files=["account_auth_service.proto"],
+            output_folder=the_generated_grpc_folder,
+        )
+
+    def build_auth_system_protocols(self):
+        self.build_user_auth_system_python_protocols()
+        self.build_user_auth_system_dart_protocols()
 
     def build_management_system_golang_backend_service_protocols(self):
         management_system_folder = disk.join_paths(self.project_root_folder, "management_system")

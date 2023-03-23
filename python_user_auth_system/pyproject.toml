@@ -20,6 +20,7 @@ O365 = "^2.0.18"
 redis = "^4.1.4"
 func-timeout = "^4.3.5"
 betterproto = {version = "2.0.0b5", extras = ["compiler"]}
+auto-everything = "^3.15"
 
 [tool.poetry.group.dev.dependencies]
 grpcio-tools = "^1.51.1"

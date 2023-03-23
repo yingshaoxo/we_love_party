@@ -6,4 +6,7 @@ REDIS_DB_NUMBER = 1
 
 O365_credentials = ('8a01ba4e-c8b5-4428-a57b-44d042275e23', '1op8Q~VCuapJYpfZmw-kS3vF-c-4QPhuQDautb3V')
 
+OUR_EMAIL = "mail.weloveparty.ai-tools-online.xyz"
+
 ADMIN_EMAIL_LIST = ["yingshaoxo@gmail.com"]
+TESTER_EMAIL_LIST = ["fake@gmail.com"]

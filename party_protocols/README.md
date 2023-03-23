@@ -33,6 +33,11 @@ only traefik listens 0.0.0.0's 443 port,
 #### GRPC
     python: 40052
 
+#### SMTP (Simple Mail Transfer Protocol)
+    python: 25
+
+    > May need traefik send the real_source_ip
+
 ### Account Storage Service
 
 > account_storage.weloveparty.domain.local

@@ -23,10 +23,17 @@ It is normally like this:
 
 ```
 MX  your_domain.com          mail.your_domain.com
-A   mail.your_domain.com     192.168.3.123(your server IP address)
+A   mail.your_domain.com     192.168.1.1(your server IP address)
+TXT mail.your_domain.com v=spf1 ip4:192.168.1.1(your server IP address) -all
 ```
 
 Then you could send email to your email service by specify the sender email as `admin@mail.your_domain.com`
+
+And if you want to check if an email was sent from the real user, you can do a check like this:
+
+1. Get `source_ip` from the email, for example, 192.168.1.1
+2. Get the `TXT record` from a domain after `@`, for example, `mail.your_domain.com`. The result will give you an IP address or IP Range.
+3. If the ((`source_ip` == `txt record ip`) or (`source_ip` in `text record ip range`)), then that email was sent from `mail.your_domain.com` for sure.
 
 ## email service example
 

@@ -1,12 +1,11 @@
 import os
 import sys
+from time import sleep
 
 cur_path=os.path.abspath(os.path.dirname(__file__))
 sys.path.insert(0, cur_path+"/..")
 
 import asyncio
-from datetime import datetime
-from socket import timeout
 import uvicorn
 
 import multiprocessing
@@ -16,17 +15,13 @@ from fastapi import FastAPI
 from fastapi import Request, Response, status
 from fastapi.middleware.cors import CORSMiddleware
 
-from func_timeout import func_timeout, FunctionTimedOut
+from auto_everything.my_email import SMTP_Service
 
 from src import config
-from src import utils
-from src import models
-
 from src.utils import MyO365
 from src.auth import MyAuthClass
 from src.database.sqlite import MyDatabase
 from src.database.redis import MyRedis
-from src.config import ADMIN_EMAIL_LIST
 
 
 redis_network_name = os.getenv("redis_network_name")
@@ -124,7 +119,37 @@ def start_restful_service():
                 host="0.0.0.0",
                 port=port) 
                 # debug=True) #reload=True, workers=8)
-                
+
+
+def start_email_service():
+    port = 25
+
+    def handle_email(from_ip: str, from_: str, to: str, message: str):
+        if to == my_auth_class.our_email:
+            title = SMTP_Service.get_title_from_email_string_data(message)
+            print(f"Got email: {title}")
+            if title != None:
+                splits = title.split(":")
+                if len(splits) == 2:
+                    key = splits[0].strip()
+                    value = splits[1].strip()
+                    if key == "verify":
+                        asyncio.run(my_auth_class.add_info_that_was_come_from_email_system_to_unverified_pool(from_, value))
+
+
+    while True:
+        try:
+            smtp_service = SMTP_Service(
+                host="0.0.0.0",
+                port=port,
+                handler=handle_email,
+                auth_ip_source=False
+            )
+
+            smtp_service.start()
+        except Exception as e:
+            print(e)
+        sleep(10)
 
 
 def start():
