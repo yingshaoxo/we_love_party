@@ -23,7 +23,7 @@ class _MePageState extends State<MePage> {
 
   bool initialization_is_done = false;
 
-  bool show_simple_page = false;
+  bool show_simple_page = true;
 
   void my_onVerticalDragEnd(DragEndDetails details) {
     double fake_dy = details.velocity.clampMagnitude(0, 1).pixelsPerSecond.dy;
