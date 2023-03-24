@@ -180,23 +180,25 @@ class _EmailRegisterPageState extends State<EmailRegisterPage> {
               String the_email_address = email_inputbox_controller.text.trim();
 
               loading_start();
-              bool result = await auth_grpc_controller.ask_for_registering(
+              var response = await auth_grpc_controller.ask_for_registering(
                   email: the_email_address);
               loading_end();
 
-              if (result) {
-                variable_controller.save_user_email(the_email_address);
-                Get.offNamed(RoutesMap.register_confirming);
-                return;
-              } else {
+              if (response.error == null && response.error.isEmpty) {
                 Fluttertoast.showToast(
-                    msg: "Something went wrong!",
+                    msg: "Something went wrong!" + "\n\n" + response.error,
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.CENTER,
                     timeInSecForIosWeb: 1,
                     backgroundColor: Colors.white,
                     textColor: Colors.black,
                     fontSize: 16.0);
+              } else {
+                variable_controller.registerResponse = response;
+
+                variable_controller.save_user_email(the_email_address);
+                Get.offNamed(RoutesMap.register_confirming);
+                return;
               }
             }
           },

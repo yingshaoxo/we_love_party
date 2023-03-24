@@ -54,4 +54,6 @@ class LivekitConfig {
   // static const url = 'ws://144.202.109.163';
 }
 
+const our_email = "mail.weloveparty.ai-tools-online.xyz";
+
 bool in_dev_mode = false;

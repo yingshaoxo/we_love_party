@@ -52,7 +52,7 @@ class AccountAuthenticationService(AccountAuthenticationServiceBase):
         else:
             matched = await self.my_authentication_class.check_if_all_info_matchs_in_unverified_pool(email=email, random_string=the_verify_code_the_user_need_to_send_back)
             if matched == False:
-                return RegisterConfirmResponse(jwt="", error="No matched info found. You need to go back to the previous page.")
+                return RegisterConfirmResponse(jwt="", error="No matched info found.")
         
         random_string = utils.generate_x_random_number_string(x=11)
         await self.my_authentication_class.add_info_to_verified_pool(email=email, random_string=random_string)

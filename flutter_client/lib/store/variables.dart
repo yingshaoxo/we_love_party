@@ -7,6 +7,8 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../generated_grpc/account_auth_service.pb.dart' as account_auth_service;
+
 import 'config.dart';
 
 class LocalStorageKeys {
@@ -24,6 +26,8 @@ class VariableControllr extends GetxController {
   String? jwt;
   String? user_email;
   String? username;
+
+  account_auth_service.RegisterResponse? registerResponse;
 
   UserModel userModel = UserModel();
   Image head_image = Image.asset(

@@ -241,6 +241,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.0"
+  equatable:
+    dependency: transitive
+    description:
+      name: equatable
+      sha256: c2b87cb7756efdf69892005af546c56c0b5037f54d2a88269b4f347a505e3ca2
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.5"
   eva_icons_flutter:
     dependency: "direct main"
     description:
@@ -281,6 +289,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
+  float_column:
+    dependency: transitive
+    description:
+      name: float_column
+      sha256: "493bef32951f2fc927d7928a777f9ff73460d2f3bc620f191b84b73f27954f69"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -302,6 +318,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.5"
+  flutter_email_sender:
+    dependency: "direct main"
+    description:
+      name: flutter_email_sender
+      sha256: "9e253c69617f43d4cb5de672e93a7a19c12a21fb6a75e66c6ce7626336c4c1bc"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.2.0"
   flutter_image_compress:
     dependency: "direct main"
     description:
@@ -1072,6 +1096,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.4"
+  selectable:
+    dependency: "direct main"
+    description:
+      name: selectable
+      sha256: a9a79702ef7fd904aa591528a2471e3b2f145cfde308b041297f6d623a13c5ee
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.11"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -1479,5 +1511,5 @@ packages:
     source: hosted
     version: "3.1.1"
 sdks:
-  dart: ">=2.18.0 <3.0.0"
+  dart: ">=2.19.0 <3.0.0"
   flutter: ">=3.3.0"

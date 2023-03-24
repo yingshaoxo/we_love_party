@@ -37,51 +37,43 @@ class AuthGrpcControllr extends GetxController {
     return AccountAuthenticationServiceClient(channel);
   }
 
-  Future<bool> ask_for_registering({required String email}) async {
+  Future<RegisterResponse> ask_for_registering({required String email}) async {
+    RegisterResponse register_response = RegisterResponse();
     try {
       final client = get_account_authentication_service_client();
-      final response = await client.userRegisterRequest(
+      register_response = await client.userRegisterRequest(
           RegisterRequest()..email = email,
           options: get_JWT_CallOptions_for_GRPC());
 
-      String error = response.error;
-      if (error.isNotEmpty) {
-        print('pre_register failed: $error');
-        return false;
-      }
-
       await channel.shutdown();
 
-      return true;
+      return register_response;
     } catch (e) {
       print(e);
-      return false;
+      register_response.error = e.toString();
+      return register_response;
     }
   }
 
-  Future<String?> registering_confirm(
+  Future<RegisterConfirmResponse> registering_confirm(
       {required String email, required String code}) async {
+    RegisterConfirmResponse register_response = RegisterConfirmResponse();
     try {
       final client = get_account_authentication_service_client();
 
-      final response = await client.userRegisterConfirm(
+      final register_response = await client.userRegisterConfirm(
           RegisterConfirmRequest()
             ..email = email
-            ..randomString = code,
+            ..theVerifyCodeTheUserNeedToSendBack = code,
           options: get_JWT_CallOptions_for_GRPC());
-
-      String error = response.error;
-      if (error.isNotEmpty) {
-        print('register_confirm failed: $error');
-        return null;
-      }
 
       await channel.shutdown();
 
-      return response.jwt;
+      return register_response;
     } catch (e) {
       print(e);
-      return null;
+      register_response.error = e.toString();
+      return register_response;
     }
   }
 
