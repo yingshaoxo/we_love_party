@@ -97,7 +97,7 @@ class MyAuthClass:
             pass
 
 
-    async def add_info_that_was_come_from_email_system_to_unverified_pool(self, email: str, random_string: str) -> None:
+    def add_info_that_was_come_from_email_system_to_unverified_pool(self, email: str, random_string: str) -> None:
         key = f"{email}.{REDIS_EMAIL_WE_GOT_VERIFY_ACTION_KEY}"
         value = f"{random_string}"
         self.myRedis.set(key, value, expire_time_in_seconds=180)

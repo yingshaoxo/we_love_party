@@ -2,8 +2,8 @@ import smtplib
 from email.message import EmailMessage
 
 msg = EmailMessage()
-msg['Subject'] = f'Hi, you!'
-msg['From'] = "yingshaoxo@gmail.com"
+msg['Subject'] = f'verify:8360327668'
+msg['From'] = "1576570260@qq.com"
 msg['To'] = "god@mail.weloveparty.ai-tools-online.xyz"
 
 # s = smtplib.SMTP('mail.weloveparty.ai-tools-online.xyz', port=25)

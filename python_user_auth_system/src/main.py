@@ -137,7 +137,7 @@ def start_email_service():
                     key = splits[0].strip()
                     value = splits[1].strip()
                     if key == "verify":
-                        asyncio.run(my_auth_class.add_info_that_was_come_from_email_system_to_unverified_pool(from_, value))
+                        my_auth_class.add_info_that_was_come_from_email_system_to_unverified_pool(from_, value)
 
 
     while True:
