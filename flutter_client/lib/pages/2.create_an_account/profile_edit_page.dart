@@ -229,6 +229,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
       GetUserResponse getUserResponse = await account_storage_grpc_controllr
           .get_a_user(variable_controller.user_email);
 
+      variable_controller.username = getUserResponse.username;
+
       if (getUserResponse.userExists != null &&
           getUserResponse.userExists == true) {
         if (getUserResponse.userExists) {
