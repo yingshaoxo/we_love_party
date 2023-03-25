@@ -1,6 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+
+void show_toast({required String message, bool long_stay = false}) {
+  Fluttertoast.showToast(
+      msg: message,
+      toastLength: long_stay ? Toast.LENGTH_SHORT : Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.white,
+      textColor: Colors.black,
+      fontSize: 16.0);
+}
 
 Future<void> show_message({required String msg}) async {
   if (Get.context != null) {

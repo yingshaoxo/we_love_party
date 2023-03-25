@@ -136,6 +136,13 @@ class Tools():
 
         t.run(command)
     
+    def build_flutter_client_app_bundle(self):
+        flutter_client_folder = disk.join_paths(self.project_root_folder, "flutter_client")
+        t.run(f"""
+        cd {flutter_client_folder}
+        flutter build appbundle --release --obfuscate --split-debug-info=/tmp/flutter
+        """)
+    
     def logs(self):
         t.run(f"""
         cd {self.party_protocols_folder}

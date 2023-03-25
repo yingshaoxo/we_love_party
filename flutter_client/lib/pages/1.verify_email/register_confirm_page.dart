@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_client/common_user_interface/pop_up_window.dart';
 import 'package:flutter_client/store/config.dart';
 import 'package:flutter_client/store/controllers.dart';
@@ -9,7 +10,6 @@ import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:selectable/selectable.dart';
 
 import '../../common_user_interface/my_single_child_scroll_view.dart';
 import '../../tools/internet_tools.dart';
@@ -61,41 +61,53 @@ class _RegisterConfirmPageState extends State<RegisterConfirmPage> {
   }
 
   Widget buildTitle() {
-    return Selectable(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Please send an email from your account to',
-            style: TextStyle(
-              fontSize: 25,
-            ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Please send an email from your account to',
+          style: TextStyle(
+            fontSize: 25,
           ),
-          SizedBox(
-            height: 10,
-          ),
-          Text(
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        GestureDetector(
+          onTap: () async {
+            Clipboard.setData(ClipboardData(text: 'god@${our_email}'));
+            show_toast(message: "copied");
+          },
+          child: Text(
             'god@${our_email}',
             style: TextStyle(fontSize: 15, color: Colors.black87),
           ),
-          SizedBox(
-            height: 30,
+        ),
+        SizedBox(
+          height: 30,
+        ),
+        Text(
+          'with this code:',
+          style: TextStyle(
+            fontSize: 25,
           ),
-          Text(
-            'with this code:',
-            style: TextStyle(
-              fontSize: 25,
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Text(
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        GestureDetector(
+          onTap: () async {
+            Clipboard.setData(ClipboardData(
+                text:
+                    'verify: ${variable_controller.registerResponse!.theVerifyCodeTheUserNeedToSendBack}'));
+            show_toast(message: "copied");
+          },
+          child: Text(
               'verify: ${variable_controller.registerResponse!.theVerifyCodeTheUserNeedToSendBack}',
               style: TextStyle(fontSize: 15, color: Colors.black87)),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -143,15 +155,9 @@ class _RegisterConfirmPageState extends State<RegisterConfirmPage> {
                   try {
                     await FlutterEmailSender.send(email);
                   } catch (e) {
-                    Fluttertoast.showToast(
+                    await show_message(
                         msg:
-                            "Sorry, you don't have an email client, \nI can't send it for you for now. \n\nPlease do it yourself.",
-                        toastLength: Toast.LENGTH_LONG,
-                        gravity: ToastGravity.CENTER,
-                        timeInSecForIosWeb: 1,
-                        backgroundColor: Colors.white,
-                        textColor: Colors.black,
-                        fontSize: 16.0);
+                            "Sorry, you don't have an email client, \nI can't send it for you for now. \n\nPlease do it yourself.");
                   }
                 },
               ),

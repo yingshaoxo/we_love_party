@@ -26,6 +26,13 @@
             <data android:scheme="https" />
         </intent>
     </queries>
+
+    <queries>
+        <intent>
+        <action android:name="android.intent.action.SENDTO" />
+        <data android:scheme="mailto" />
+        </intent>
+    </queries>
    <application
         android:label="WeLoveParty"
         android:name="${applicationName}"
