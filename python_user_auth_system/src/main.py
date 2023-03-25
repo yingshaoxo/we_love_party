@@ -130,6 +130,7 @@ def start_email_service():
     def handle_email(from_ip: str, from_: str, to: list[str], message: str):
         if any([one.endswith(my_auth_class.our_email) for one in to]):
             title = SMTP_Service.get_title_from_email_string_data(message)
+            print(f"message: {message}", flush=True)
             print(f"Got email: {title}, from ip: {from_ip}", flush=True)
             if title != None:
                 splits = title.split(":")
@@ -137,6 +138,7 @@ def start_email_service():
                     key = splits[0].strip()
                     value = splits[1].strip()
                     if key == "verify":
+                        print(f"verifyed, from email: {from_}", flush=True)
                         my_auth_class.add_info_that_was_come_from_email_system_to_unverified_pool(from_, value)
 
 
