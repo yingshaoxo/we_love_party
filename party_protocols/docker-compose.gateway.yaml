@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  traefik:
+    image: "traefik:v3.0.0-beta2" #"traefik:v2.9.6"
+    container_name: "traefik"
+    command:
+      - "--accesslog=true"
+      # - "--accessLog.filePath=/tmp/traefik_log.txt"
+      - "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.file.directory=/traefik_dynamic_configs"
+      - "--providers.file.watch=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.smtp.address=:25"
+      # - "--entryPoints.smtp.proxyProtocol.insecure"
+    ports:
+      - "810:80"
+      - "25:25"
+      # - "443:443"
+      #- "8081:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./configs/traefik_dynamic_configs:/traefik_dynamic_configs" # <== Volume for dynamic conf file
+    restart: unless-stopped
