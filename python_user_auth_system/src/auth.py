@@ -20,14 +20,14 @@ class MyAuthClass:
         self.our_email = config.OUR_EMAIL
 
 
-    async def check_if_the_user_is_admin(self, email: str) -> bool:
+    def check_if_the_user_is_admin(self, email: str) -> bool:
         if email not in config.ADMIN_EMAIL_LIST:
             return False
         else:
             return True
 
 
-    async def check_if_the_user_is_tester(self, email: str) -> bool:
+    def check_if_the_user_is_tester(self, email: str) -> bool:
         if email not in config.TESTER_EMAIL_LIST:
             return False
         else:
@@ -91,7 +91,7 @@ class MyAuthClass:
         if (expire_time_left_in_seconds < 0):
             #The command returns -2 if the key does not exist.
             #The command returns -1 if the key exists but has no associated expire.
-            self.myRedis.set(key, value, expire_time_in_seconds=180)
+            self.myRedis.set(key, value, expire_time_in_seconds=300)
         else:
             # do nothing since for each 3 minutes, the user can only require login once
             pass
@@ -100,7 +100,7 @@ class MyAuthClass:
     def add_info_that_was_come_from_email_system_to_unverified_pool(self, email: str, random_string: str) -> None:
         key = f"{email}.{REDIS_EMAIL_WE_GOT_VERIFY_ACTION_KEY}"
         value = f"{random_string}"
-        self.myRedis.set(key, value, expire_time_in_seconds=180)
+        self.myRedis.set(key, value, expire_time_in_seconds=300)
 
     
     async def check_if_all_info_matchs_in_unverified_pool(self, email: str, random_string: str) -> bool:

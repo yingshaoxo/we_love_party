@@ -31,7 +31,7 @@ class AccountAuthenticationService(AccountAuthenticationServiceBase):
             )
         
         random_string = utils.generate_x_random_number_string(x=10)
-        if await self.my_authentication_class.check_if_the_user_is_tester(email=email):
+        if self.my_authentication_class.check_if_the_user_is_tester(email=email):
             random_string = "123456"
             await self.my_authentication_class.add_info_to_unverified_pool(email=email, random_string=random_string)
         else:
@@ -50,7 +50,7 @@ class AccountAuthenticationService(AccountAuthenticationServiceBase):
         email = register_confirm_request.email
         the_verify_code_the_user_need_to_send_back = register_confirm_request.the_verify_code_the_user_need_to_send_back
 
-        if await self.my_authentication_class.check_if_the_user_is_tester(email=email):
+        if self.my_authentication_class.check_if_the_user_is_tester(email=email):
             pass
         else:
             matched = await self.my_authentication_class.check_if_all_info_matchs_in_unverified_pool(email=email, random_string=the_verify_code_the_user_need_to_send_back)
@@ -64,7 +64,9 @@ class AccountAuthenticationService(AccountAuthenticationServiceBase):
         if self.my_authentication_class.check_if_the_user_is_admin(email=email):
             try:
                 # func_timeout(20, self.my_o365.send_email2, args=(email, "Thank you for running WeLoveParty service", "Here is your JWT code: <br><br>" + jwt_string))
-                self.telegram_bot.send_message(chat_id=config.Telegram_Owner_Chat_ID, text=f"Thank you for running WeLoveParty service.\n\nHere is your JWT code: `{jwt_string}`")
+                print("start to send greeting email to admin...", flush=True)
+                self.telegram_bot.send_message(chat_id=config.Telegram_Owner_Chat_ID, text=f"Thank you for running WeLoveParty service.\n\nHere is your JWT code: \n\n{jwt_string}")
+                print("message sent.", flush=True)
             except FunctionTimedOut:
                 pass
             except Exception as e:

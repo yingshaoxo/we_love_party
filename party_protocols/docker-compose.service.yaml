@@ -7,6 +7,33 @@ services:
       - "80"
     restart: unless-stopped
 
+  weloveparty_account_auth_service:
+    build: 
+      context: ../python_user_auth_system
+      dockerfile: ./Dockerfile
+    image: yingshaoxo/weloveparty_account_auth_service
+    expose:
+      - "40051"
+      - "40052"
+      - "25:25"
+    # ports:
+    #   - "40051:40051"
+    #   - "40052:40052"
+    volumes:
+      # - type: bind
+      #   source: ./configs/python_user_auth_system/o365_token.txt
+      #   target: /code/o365_token.txt
+      - type: bind
+        source: ./configs/python_user_auth_system/config.py
+        target: /code/src/config.py
+      # - type: bind
+      #   source: ./configs/python_user_auth_system/user_database
+      #   target: /code/data
+    environment: 
+      - redis_network_name=redis
+      - Telegram_Bot_Token=684605925:AAEXowAYAJqh_CImJnnYKKp5iDYUovjD9FQ
+    restart: unless-stopped
+
   weloveparty_internal_api_service:
     build: 
       context: ../rust_internal_api_system

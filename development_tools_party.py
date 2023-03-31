@@ -122,7 +122,7 @@ class Tools():
         self.build_management_system_golang_backend_service_protocols()
         self.build_management_system_flutter_web_client_protocols()
     
-    def rebuild_free_map_service(self):
+    def rebuild_free_map_service_docker_image(self):
         free_map_backend_docker_tag_name = "yingshaoxo/weloveparty_free_map_backend_service"
 
         command = f"""
@@ -131,7 +131,20 @@ class Tools():
         docker-compose -f docker-compose.service.yaml down
         docker rmi {free_map_backend_docker_tag_name}
         docker build --tag {free_map_backend_docker_tag_name} . --no-cache
-        docker-compose -f docker-compose.service.yaml up
+        docker-compose -f docker-compose.service.yaml up -d
+        """
+
+        t.run(command)
+
+    def rebuild_python_auth_service_docker_image(self):
+        docker_tag_name = "yingshaoxo/weloveparty_account_auth_service"
+
+        command = f"""
+        cd {self.party_protocols_folder}
+
+        docker-compose -f docker-compose.service.yaml down
+        docker rmi {docker_tag_name}
+        docker-compose -f docker-compose.service.yaml up -d
         """
 
         t.run(command)
