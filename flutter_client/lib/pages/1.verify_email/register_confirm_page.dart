@@ -25,6 +25,7 @@ class RegisterConfirmPage extends StatefulWidget {
 class _RegisterConfirmPageState extends State<RegisterConfirmPage> {
   final form_key = GlobalKey<FormState>();
   final code_inputbox_controller = TextEditingController();
+  int error_counting = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -208,17 +209,11 @@ class _RegisterConfirmPageState extends State<RegisterConfirmPage> {
                   if (response.error != null && response.error.isNotEmpty) {
                     await show_error(
                         msg:
-                            "Wrong! You need to make sure you properly send the email.\n\n${response.error}");
-                    // Fluttertoast.showToast(
-                    //     msg:
-                    //         "Wrong! You need to make sure you properly send the email.\n\n${response.error}",
-                    //     toastLength: Toast.LENGTH_LONG,
-                    //     gravity: ToastGravity.CENTER,
-                    //     timeInSecForIosWeb: 1,
-                    //     backgroundColor: Colors.white,
-                    //     textColor: Colors.black,
-                    //     fontSize: 16.0);
-                    Get.offNamed(RoutesMap.register);
+                            "Wrong! You should make sure you have properly send the email (and wait for few seconds)\n\n${response.error}");
+                    error_counting += 1;
+                    if (error_counting >= 2) {
+                      Get.offNamed(RoutesMap.register);
+                    }
                     return;
                   } else {
                     await variable_controller.save_jwt(response.jwt);
