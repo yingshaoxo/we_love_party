@@ -25,6 +25,7 @@ services:
       #   target: /code/data
     environment: 
       - redis_network_name=redis
+      - Telegram_Bot_Token=684605925:AAEXowAYAJqh_CImJnnYKKp5iDYUovjD9FQ
     restart: unless-stopped
     # music_town:
     #     image: yingshaoxo/music_town

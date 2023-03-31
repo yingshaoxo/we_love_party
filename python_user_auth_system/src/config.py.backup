@@ -8,6 +8,9 @@ O365_credentials = ('93f1-cee730a4044b', 'ZZ4mQw4tM6r')
 
 OUR_EMAIL = "mail.weloveparty.ai-tools-online.xyz"
 
+Telegram_Bot_Token = ""
+Telegram_Owner_Chat_ID = "131513300"
+
 ADMIN_EMAIL_LIST = ["yingshaoxo@gmail.com"]
 TESTER_EMAIL_LIST = ["fake@gmail.com"]
 

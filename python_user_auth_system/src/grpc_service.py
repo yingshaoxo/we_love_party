@@ -1,17 +1,20 @@
 from grpclib.server import Server
 
-from src import utils
+from src import utils, config
 from src.auth import MyAuthClass
 from src.utils import MyO365
 from src.generated_grpc.account_auth_service import *
+
+from auto_everything.my_email import Telegram_Bot
 
 from func_timeout import func_timeout, FunctionTimedOut #type: ignore
 
 
 class AccountAuthenticationService(AccountAuthenticationServiceBase):
-    def __init__(self, my_o365: MyO365, my_authentication_class: MyAuthClass):
+    def __init__(self, my_o365: MyO365, my_authentication_class: MyAuthClass, telegram_bot: Telegram_Bot):
         self.my_o365 = my_o365
         self.my_authentication_class = my_authentication_class
+        self.telegram_bot = telegram_bot
 
     async def say_hello(self, hello_request: HelloRequest) -> HelloReply:
         return HelloReply(message="hi: " + hello_request.name)
@@ -61,7 +64,7 @@ class AccountAuthenticationService(AccountAuthenticationServiceBase):
         if self.my_authentication_class.check_if_the_user_is_admin(email=email):
             try:
                 # func_timeout(20, self.my_o365.send_email2, args=(email, "Thank you for running WeLoveParty service", "Here is your JWT code: <br><br>" + jwt_string))
-                pass
+                self.telegram_bot.send_message(chat_id=config.Telegram_Owner_Chat_ID, text=f"Thank you for running WeLoveParty service.\n\nHere is your JWT code: `{jwt_string}`")
             except FunctionTimedOut:
                 pass
             except Exception as e:
@@ -102,11 +105,12 @@ class AccountAuthenticationService(AccountAuthenticationServiceBase):
                 return IsOnlineResponse(error=str(e), online=False)
         return IsOnlineResponse(error=None, online=True)
 
-async def run_service(host: str, port: int, my_o365: MyO365, my_authentication_class: MyAuthClass):
+async def run_service(host: str, port: int, my_o365: MyO365, my_authentication_class: MyAuthClass, telegram_bot: Telegram_Bot):
     server = Server([
         AccountAuthenticationService(
             my_o365=my_o365, 
-            my_authentication_class=my_authentication_class
+            my_authentication_class=my_authentication_class,
+            telegram_bot=telegram_bot
         )
     ])
     await server.start(host, port)

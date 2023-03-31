@@ -142,14 +142,14 @@ tests-no-zope = ["cloudpickle", "cloudpickle", "hypothesis", "hypothesis", "mypy
 
 [[package]]
 name = "auto-everything"
-version = "3.17"
+version = "3.20"
 description = "do automate things on Linux"
 category = "main"
 optional = false
 python-versions = ">=3.10,<4.0"
 files = [
-    {file = "auto_everything-3.17-py3-none-any.whl", hash = "sha256:a7fcdb8684ba3aaf00c41467715b3ae7c3574c205bcda68a40a15d176db38e19"},
-    {file = "auto_everything-3.17.tar.gz", hash = "sha256:e3f95e6a27f529d3cfa1b97f1128e13040ad947b54d2ff8ee971c076a789a2ff"},
+    {file = "auto_everything-3.20-py3-none-any.whl", hash = "sha256:6547697ab40c07bce0518b6c5d3c73c2d0854faa4cb8139bea09284f9195f005"},
+    {file = "auto_everything-3.20.tar.gz", hash = "sha256:9b2f2a8bf0e56c766355ecca5a6719b300323555b5fe8505c433f1c55d16c9b0"},
 ]
 
 [package.dependencies]
@@ -794,6 +794,52 @@ files = [
     {file = "hpack-4.0.0-py3-none-any.whl", hash = "sha256:84a076fad3dc9a9f8063ccb8041ef100867b1878b25ef0ee63847a5d53818a6c"},
     {file = "hpack-4.0.0.tar.gz", hash = "sha256:fc41de0c63e687ebffde81187a948221294896f6bdc0ae2312708df339430095"},
 ]
+
+[[package]]
+name = "httpcore"
+version = "0.16.3"
+description = "A minimal low-level HTTP client."
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "httpcore-0.16.3-py3-none-any.whl", hash = "sha256:da1fb708784a938aa084bde4feb8317056c55037247c787bd7e19eb2c2949dc0"},
+    {file = "httpcore-0.16.3.tar.gz", hash = "sha256:c5d6f04e2fc530f39e0c077e6a30caa53f1451096120f1f38b954afd0b17c0cb"},
+]
+
+[package.dependencies]
+anyio = ">=3.0,<5.0"
+certifi = "*"
+h11 = ">=0.13,<0.15"
+sniffio = ">=1.0.0,<2.0.0"
+
+[package.extras]
+http2 = ["h2 (>=3,<5)"]
+socks = ["socksio (>=1.0.0,<2.0.0)"]
+
+[[package]]
+name = "httpx"
+version = "0.23.3"
+description = "The next generation HTTP client."
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "httpx-0.23.3-py3-none-any.whl", hash = "sha256:a211fcce9b1254ea24f0cd6af9869b3d29aba40154e947d2a07bb499b3e310d6"},
+    {file = "httpx-0.23.3.tar.gz", hash = "sha256:9818458eb565bb54898ccb9b8b251a28785dd4a55afbc23d0eb410754fe7d0f9"},
+]
+
+[package.dependencies]
+certifi = "*"
+httpcore = ">=0.15.0,<0.17.0"
+rfc3986 = {version = ">=1.3,<2", extras = ["idna2008"]}
+sniffio = "*"
+
+[package.extras]
+brotli = ["brotli", "brotlicffi"]
+cli = ["click (>=8.0.0,<9.0.0)", "pygments (>=2.0.0,<3.0.0)", "rich (>=10,<13)"]
+http2 = ["h2 (>=3,<5)"]
+socks = ["socksio (>=1.0.0,<2.0.0)"]
 
 [[package]]
 name = "hyperframe"
@@ -1575,6 +1621,32 @@ files = [
 six = ">=1.5"
 
 [[package]]
+name = "python-telegram-bot"
+version = "20.2"
+description = "We have made you a wrapper you can't refuse"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "python-telegram-bot-20.2.tar.gz", hash = "sha256:d0aa53e1f06d7cb7919cc0e2d6c81a02d968fc29921aeaa962edd1efb816a9bd"},
+    {file = "python_telegram_bot-20.2-py3-none-any.whl", hash = "sha256:4d1d4b643ce158aa17a0987b84005eaf25fe0ce8b38fd234099594985611c198"},
+]
+
+[package.dependencies]
+httpx = ">=0.23.3,<0.24.0"
+
+[package.extras]
+all = ["APScheduler (>=3.10.1,<3.11.0)", "aiolimiter (>=1.0.0,<1.1.0)", "cachetools (>=5.3.0,<5.4.0)", "cryptography (>=39.0.1)", "httpx[http2]", "httpx[socks]", "pytz (>=2018.6)", "tornado (>=6.2,<7.0)"]
+callback-data = ["cachetools (>=5.3.0,<5.4.0)"]
+ext = ["APScheduler (>=3.10.1,<3.11.0)", "aiolimiter (>=1.0.0,<1.1.0)", "cachetools (>=5.3.0,<5.4.0)", "pytz (>=2018.6)", "tornado (>=6.2,<7.0)"]
+http2 = ["httpx[http2]"]
+job-queue = ["APScheduler (>=3.10.1,<3.11.0)", "pytz (>=2018.6)"]
+passport = ["cryptography (>=39.0.1)"]
+rate-limiter = ["aiolimiter (>=1.0.0,<1.1.0)"]
+socks = ["httpx[socks]"]
+webhooks = ["tornado (>=6.2,<7.0)"]
+
+[[package]]
 name = "pytz"
 version = "2022.7"
 description = "World timezone definitions, modern and historical"
@@ -1772,6 +1844,24 @@ requests = ">=2.0.0"
 
 [package.extras]
 rsa = ["oauthlib[signedtoken] (>=3.0.0)"]
+
+[[package]]
+name = "rfc3986"
+version = "1.5.0"
+description = "Validating URI References per RFC 3986"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "rfc3986-1.5.0-py2.py3-none-any.whl", hash = "sha256:a86d6e1f5b1dc238b218b012df0aa79409667bb209e58da56d0b94704e712a97"},
+    {file = "rfc3986-1.5.0.tar.gz", hash = "sha256:270aaf10d87d0d4e095063c65bf3ddbc6ee3d0b226328ce21e036f946e421835"},
+]
+
+[package.dependencies]
+idna = {version = "*", optional = true, markers = "extra == \"idna2008\""}
+
+[package.extras]
+idna2008 = ["idna"]
 
 [[package]]
 name = "setuptools"
@@ -2122,4 +2212,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "c3da9366390f314a0b800727e35115e70ed28906a1327f23b5ad9d8399bdef94"
+content-hash = "add9f31f338f9b28fdd4deed53ff6491bafd3c42b8b6fd1368361967eb6aec77"

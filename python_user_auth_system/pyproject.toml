@@ -22,6 +22,7 @@ func-timeout = "^4.3.5"
 betterproto = {version = "2.0.0b5", extras = ["compiler"]}
 auto-everything = "^3.15"
 aiosmtpd = "^1.4.4.post2"
+python-telegram-bot = "^20.2"
 
 [tool.poetry.group.dev.dependencies]
 grpcio-tools = "^1.51.1"

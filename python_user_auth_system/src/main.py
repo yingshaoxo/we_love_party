@@ -16,7 +16,7 @@ from fastapi import FastAPI
 from fastapi import Request, Response, status
 from fastapi.middleware.cors import CORSMiddleware
 
-from auto_everything.my_email import SMTP_Service
+from auto_everything.my_email import SMTP_Service, Telegram_Bot
 from auto_everything.terminal import Terminal
 
 from src import config
@@ -30,12 +30,17 @@ redis_network_name = os.getenv("redis_network_name")
 if redis_network_name:
     config.REDIS_HOST_URL = redis_network_name
 
+Telegram_Bot_Token = os.getenv("Telegram_Bot_Token")
+if Telegram_Bot_Token:
+    config.Telegram_Bot_Token = Telegram_Bot_Token
+
 
 # my_database = MyDatabase(DATABASE_URL=config.DATABASE_URL)
 my_redis_1 = MyRedis(redis_host_URL=config.REDIS_HOST_URL, db_number=config.REDIS_DB_NUMBER)
 my_auth_class = MyAuthClass(redis=my_redis_1)
 # my_o365 = MyO365(config.O365_credentials)
 my_o365: Any = Terminal()
+telegram_bot = Telegram_Bot(token=config.Telegram_Bot_Token)
 
 
 app = FastAPI()
@@ -109,7 +114,7 @@ def start_grpc_service():
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     asyncio.run(
-        run_service(host="0.0.0.0", port=40052, my_o365=my_o365, my_authentication_class=my_auth_class)
+        run_service(host="0.0.0.0", port=40052, my_o365=my_o365, my_authentication_class=my_auth_class, telegram_bot=telegram_bot)
     )
 
 
