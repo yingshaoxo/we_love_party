@@ -25,7 +25,7 @@ def itIsWindows():
 
 class Tools():
     def __init__(self) -> None:
-        self.project_root_folder = disk.get_directory_name(os.path.realpath(os.path.abspath(__file__))) 
+        self.project_root_folder = disk.get_directory_path(os.path.realpath(os.path.abspath(__file__))) 
         self.party_protocols_folder = disk.join_paths(self.project_root_folder, "party_protocols")
         self.protobuff_protocols_folder = disk.join_paths(self.party_protocols_folder, "protocols")
 
