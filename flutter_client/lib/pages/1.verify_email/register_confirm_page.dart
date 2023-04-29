@@ -77,11 +77,13 @@ class _RegisterConfirmPageState extends State<RegisterConfirmPage> {
         ),
         GestureDetector(
           onTap: () async {
-            Clipboard.setData(ClipboardData(text: 'god@${our_email}'));
+            Clipboard.setData(ClipboardData(
+                text:
+                    'god@${variable_controller.registerResponse?.theEmailTheUserNeedToSendVerifyCodeTo ?? our_email}'));
             show_toast(message: "copied");
           },
           child: Text(
-            'god@${our_email}',
+            'god@${variable_controller.registerResponse?.theEmailTheUserNeedToSendVerifyCodeTo ?? our_email}',
             style: TextStyle(fontSize: 15, color: Colors.black87),
           ),
         ),
@@ -142,10 +144,9 @@ class _RegisterConfirmPageState extends State<RegisterConfirmPage> {
                   final Email email = Email(
                     body: 'Hi, yingshaoxo.',
                     subject:
-                        'verify: ${variable_controller.registerResponse!.theVerifyCodeTheUserNeedToSendBack}',
+                        'verify: ${variable_controller.registerResponse?.theVerifyCodeTheUserNeedToSendBack}',
                     recipients: [
-                      variable_controller.registerResponse!
-                          .theEmailTheUserNeedToSendVerifyCodeTo
+                      'god@${variable_controller.registerResponse?.theEmailTheUserNeedToSendVerifyCodeTo ?? our_email}'
                     ],
                     cc: [],
                     bcc: [],
