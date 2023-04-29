@@ -59,3 +59,10 @@ git clone https://github.com/newbit1/rootAVD.git
 ./emulator -avd A_Pixel_5 -writable-system
 # emulator -avd A_Pixel_5 -writable-system -no-snapshot-load -no-snapshot-save -no-snapshot -no-snapstorage 
 ```
+
+## build
+```bash
+flutter build apk --release --obfuscate --split-debug-info=/tmp/weloveparty
+#or
+flutter build appbundle --release --obfuscate --split-debug-info=/tmp/weloveparty
+```
