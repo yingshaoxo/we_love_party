@@ -128,7 +128,7 @@ class _ControlsWidgetState extends State<ControlsWidget> {
     final result = await context.showReconnectDialog();
     if (result == true) {
       try {
-        await widget.room.reconnect();
+        // await widget.room.reconnect();
         await context.showReconnectSuccessDialog();
       } catch (error) {
         await context.showErrorDialog(error);

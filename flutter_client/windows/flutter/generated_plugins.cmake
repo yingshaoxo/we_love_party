@@ -6,6 +6,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   connectivity_plus
   flutter_webrtc
   flutter_window_close
+  geolocator_windows
   livekit_client
   permission_handler_windows
   platform_device_id_windows

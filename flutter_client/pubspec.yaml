@@ -50,7 +50,7 @@ dependencies:
         url: https://github.com/yingshaoxo/tflite_flutter_plugin.git
         ref: d31b0a78ca36f21636de9c72acdf2919e8f3a1e6
 
-  livekit_client: ^1.1.11
+  livekit_client: 1.2.1
   flutter_image_compress: ^1.1.3
   geolocator: ^9.0.2
   smooth_compass: ^2.0.4
