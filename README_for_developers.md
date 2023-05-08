@@ -9,6 +9,21 @@ docker-compose -f docker-compose.service.yaml up -d
 docker-compose -f docker-compose.service.yaml logs -f
 ```
 
+## firewall
+
+ufw status
+
+```
+22                         ALLOW       Anywhere                  
+1310                       ALLOW       Anywhere                  
+
+80                         ALLOW       Anywhere                  
+5349                       ALLOW       Anywhere                  
+7880                       ALLOW       Anywhere                  
+50000:60000/udp            ALLOW       Anywhere                  
+25                         ALLOW       Anywhere                  
+```
+
 ## rebuild docker image
 I made a script called `development_tools_party.py` under the root folder
 

@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+  weloveparty_room_control_service:
+    build: 
+      context: ../typescript_room_controller
+      dockerfile: ./Dockerfile
+    image: yingshaoxo/weloveparty_room_control_service
+    expose:
+      - "40054"
+    # ports:
+    #   - "40054"
+    environment: 
+      - redis_network_name=redis
+      - livekit_NETWORK_NAME=livekit
+      # - weloveparty_internal_api_service_NETWORK_NAME=weloveparty_internal_api_service
+      - livekit_key=APIDtk2LyAaZPWA
+      - livekit_value=LXo3sftMbII4YqV4bawJu1MrsfL1oOfjexZkqrGm1pkA
+    restart: unless-stopped
+
+  livekit:
+    image: livekit/livekit-server:v1.3
+    command: 
+      - "--config=/etc/livekit.yaml"
+      - "--node-ip=45.63.87.50"
+    # network_mode: "host"
+    # expose:
+    #   - "80"
+    #   - "443"
+    ports:
+      - '7880/tcp'
+      - '7881/tcp'
+      # - '5349:5349/tcp'
+      # - '5349:5349/udp'
+      # - "50000-60000:50000-60000/udp"
+      - "50000-50100:50000-50100/udp"
+    volumes:
+      - ./configs/livekit.yaml:/etc/livekit.yaml
+    restart: unless-stopped
