@@ -15,7 +15,7 @@ services:
     expose:
       - "40051"
       - "40052"
-      - "25:25"
+      - "25"
     # ports:
     #   - "40051:40051"
     #   - "40052:40052"
@@ -40,7 +40,7 @@ services:
       dockerfile: ./Dockerfile
     image: yingshaoxo/weloveparty_internal_api_service
     expose:
-      - "40050:40050"
+      - "40050"
     # ports:
     #   - "40050:40050"
     environment: 
